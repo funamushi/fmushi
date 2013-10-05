@@ -37,14 +37,17 @@ module.exports = (grunt) ->
           }
         ]
 
-    bower:
-      install:
-        options:
-          targetDir: './public/js/vendor'
-          install: true
-          verbose: true
-          cleanTargetDir: false
-          cleanBowerDir: false
+    concat:
+      options:
+        separator: ";"
+      vendor:
+        src: [
+          "bower_components/easeljs/lib/easeljs-0.7.0.min.js"
+        ]
+        dest: "<%= meta.build.client %>/vendor.min.js"
+      app:
+        src: ["<%= meta.build.client %>/**/*.js"]
+        dest: "<%= meta.build.client %>/app.js"
           
     uglify:
       options:
@@ -52,32 +55,20 @@ module.exports = (grunt) ->
       app:
         files:
           '<%= meta.build.client %>/app.min.js': ['<%= concat.app.dest %>']
-      vendor:
-        files:
-          '<%= meta.build.client %>/vendor.min.js': ['<%= meta.build.client %>']
-
-    concat:
-      options:
-        separator: ";"
-      app:
-        src: ["<%= meta.src.client %>/**/*.js"]
-        dest: "<%= meta.build.client %>/app.js"
 
     watch:
-      src:
-        server:
-          files: ['app.coffee', '<%= meta.src.server%>/**/*.coffee']
-          tasks: ['coffee:server']
-        client:
-          files: ['<%= meta.src.client %>/**/*.coffee']
-          tasks: ['coffee:client']
+      server:
+        files: ['app.coffee', '<%= meta.src.server%>/**/*.coffee']
+        tasks: ['coffee:server']
+      client:
+        files: ['<%= meta.src.client %>/**/*.coffee']
+        tasks: ['coffee:client']
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-bower-task'
 
-  grunt.registerTask 'development', ['coffee']
+  grunt.registerTask 'development', ['coffee', 'concat:vendor']
   grunt.registerTask 'production',  ['coffee', 'concat', 'uglify']
   
