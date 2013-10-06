@@ -44,7 +44,7 @@ module.exports = (grunt) ->
         src: [
           "bower_components/easeljs/lib/easeljs-0.7.0.min.js"
         ]
-        dest: "<%= meta.build.client %>/vendor.min.js"
+        dest: "<%= meta.build.client %>/vendor.js"
       app:
         src: ["<%= meta.build.client %>/**/*.js"]
         dest: "<%= meta.build.client %>/app.js"
