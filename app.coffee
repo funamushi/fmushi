@@ -10,7 +10,6 @@ app.configure ->
   app.set "view engine", "html"
   app.set 'layout', 'layout'
   app.use express.favicon()
-  app.use express.logger("dev")
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use app.router
@@ -24,6 +23,7 @@ app.configure 'production', ->
 
 app.configure 'development', ->
   app.use express.errorHandler()
+  app.use express.logger("dev")
   app.locals
     js: [
       { src: 'funamushi.js' }

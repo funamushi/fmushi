@@ -42,7 +42,10 @@ module.exports = (grunt) ->
         separator: ";"
       vendor:
         src: [
-          "bower_components/easeljs/lib/easeljs-0.7.0.min.js"
+          "bower_components/lodash/dist/lodash.min.js"
+          "bower_components/EaselJS/lib/easeljs-0.7.0.min.js"
+          "bower_components/PreloadJS/lib/preloadjs-0.4.0.min.js"
+          "bower_components/TweenJS/lib/tweenjs-0.5.0.min.js"
         ]
         dest: "<%= meta.build.client %>/vendor.js"
       app:
