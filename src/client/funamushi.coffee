@@ -1,29 +1,42 @@
-stage = null
+createCircle = (x, y, r) ->
+  shape = new createjs.Shape()
+  shape.x = x
+  shape.y = y
+
+  color = createjs.Graphics.getRGB(Math.random() * 0xffffff)
+  shape.graphics
+    .beginStroke('blue')
+    .beginFill(color)
+    .drawCircle(0, 0, r)
+
+  shape
+  
 
 init = ->
   canvas = document.getElementById('main')
   stage = new createjs.Stage(canvas)
 
-  star = new createjs.Shape
-  stage.addChild star
+  for i in [0...2]
+    circle = createCircle(50 * (i + 1), 50, 20)
+    circle.addEventListener 'mousedown', (e) ->
+      shape = e.target
+      shape.dragging = true
 
-  color = createjs.Graphics.getRGB(Math.random() * 0xFFFFFF)
-  radius = 40
-  star.x = 50
-  star.y = 50
-  star.graphics
-    .beginStroke('#0000ff')
-    .beginFill(color)
-    .drawPolyStar(0, 0, radius, 5, 0.6, -90)
+    circle.addEventListener 'pressmove', (e) ->
+      shape = e.target
+      shape.x = e.stageX + shape.regX
+      shape.y = e.stageY + shape.regY
+      stage.update()
 
-  createjs.Tween.get(star, loop: true)
-    .to({rotation: 360, y: canvas.height - radius}, 5000, createjs.Ease.bounceOut)
-    .wait(1000)
-    .to({alpha: 0}, 2500, createjs.Ease.circIn)
+    circle.addEventListener 'pressup', (e) ->
+      e.target.dragging = false
 
-  createjs.Ticker.setFPS(30)
-  createjs.Ticker.addEventListener 'tick', ->
-    stage.update()
+    stage.addChild(circle)
+
+  # createjs.Ticker.setFPS(30)
+  # createjs.Ticker.addEventListener 'tick', ->
+  #   stage.update()
+  stage.update()
 
 if  window.addEventListener 
   window.addEventListener 'load', init, false
