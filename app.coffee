@@ -5,7 +5,6 @@ app = express()
 app.engine 'html', require('hogan-express')
 
 app.configure ->
-  app.set "port", process.env.PORT or 3000
   app.set "views", path.join(__dirname, "/views")
   app.set "view engine", "html"
   app.set 'layout', 'layout'
@@ -32,5 +31,4 @@ app.configure 'development', ->
 app.get '/', (req, res) ->
   res.render 'index'
 
-app.listen(3000)  
-
+module.exports = app

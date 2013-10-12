@@ -1,3 +1,5 @@
+path = require('path')
+
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
@@ -59,6 +61,19 @@ module.exports = (grunt) ->
         files:
           '<%= meta.build.client %>/app.min.js': ['<%= concat.app.dest %>']
 
+    express:
+      development:
+        options: 
+          port: 3000
+          hostname: '0.0.0.0'
+          server: path.resolve('./app.js')
+          bases: [path.resolve('./public')]
+          serverreload: true
+          # livereload: true
+    open:
+      all:
+        path: 'http://localhost:<%= express.development.options.port %>'
+    
     watch:
       server:
         files: ['app.coffee', '<%= meta.src.server%>/**/*.coffee']
@@ -71,7 +86,16 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-express'
+  grunt.loadNpmTasks 'grunt-open'
 
-  grunt.registerTask 'development', ['coffee', 'concat:vendor']
+  grunt.registerTask 'default', [
+    'coffee'
+    'concat:vendor'
+    'express:development'
+    'open'
+    'watch'
+    ]
+
   grunt.registerTask 'production',  ['coffee', 'concat', 'uglify']
   
