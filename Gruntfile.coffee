@@ -62,17 +62,17 @@ module.exports = (grunt) ->
           '<%= meta.build.client %>/app.min.js': ['<%= concat.app.dest %>']
 
     express:
-      development:
+      dev:
         options: 
           port: 3000
           hostname: '0.0.0.0'
           server: path.resolve('./app.js')
           bases: [path.resolve('./public')]
-          serverreload: true
+          # serverreload: true
           # livereload: true
     open:
-      all:
-        path: 'http://localhost:<%= express.development.options.port %>'
+      dev:
+        path: 'http://localhost:<%= express.dev.options.port %>'
     
     watch:
       server:
@@ -89,13 +89,9 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-express'
   grunt.loadNpmTasks 'grunt-open'
 
-  grunt.registerTask 'default', [
-    'coffee'
-    'concat:vendor'
-    'express:development'
-    'open'
-    'watch'
-    ]
+  grunt.registerTask 'build:dev', ['coffee', 'concat:vendor']
+  grunt.registerTask 'build:production',  ['coffee', 'concat', 'uglify']
 
-  grunt.registerTask 'production',  ['coffee', 'concat', 'uglify']
+  grunt.registerTask 'default', ['build:dev', 'express:dev', 'open:dev', 'watch']
+
   
