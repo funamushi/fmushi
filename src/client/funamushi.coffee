@@ -11,10 +11,28 @@ createCircle = (x, y, r) ->
 
   shape
   
-
 init = ->
   canvas = document.getElementById('main')
   stage = new createjs.Stage(canvas)
+
+  loader = new LoadQueue
+
+  file = '/img/funamushi.png'
+  bitmap = new Bitmap
+
+  bitmap.addEventListener 'click', (e) ->
+    console.log 'rotate'
+  bitmap.x = canvas.width  / 2
+  bitmap.y = canvas.height / 2
+  stage.addChild bitmap
+
+  loader.loadFile {src: file, data: bitmap}
+  loader.addEventListener 'fileload', (e) ->
+    bitmap = e.item.data
+    image  = e.result
+    bitmap.x -= image.width / 2
+    bitmap.y -= image.height / 2
+    stage.update()
 
   for i in [0...2]
     circle = createCircle(50 * (i + 1), 50, 20)
