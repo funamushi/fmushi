@@ -64,21 +64,24 @@ module.exports = (grunt) ->
     express:
       dev:
         options: 
+          script: 'app.js'
           port: 3000
-          hostname: '0.0.0.0'
-          server: path.resolve('./app.js')
-          bases: [path.resolve('./public')]
-          # serverreload: true
-          # livereload: true
+          # debug: true
+
     open:
       dev:
         path: 'http://localhost:<%= express.dev.options.port %>'
     
     watch:
-      server:
+      express:
+        files: ['app.js', 'lib/**/*.js']
+        tasks: ['express:dev']
+        options:
+          nospawn: true
+      coffeeServer:
         files: ['app.coffee', '<%= meta.src.server%>/**/*.coffee']
         tasks: ['coffee:server']
-      client:
+      clientClient:
         files: ['<%= meta.src.client %>/**/*.coffee']
         tasks: ['coffee:client']
 
@@ -86,7 +89,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-express'
+  grunt.loadNpmTasks 'grunt-express-server'
   grunt.loadNpmTasks 'grunt-open'
 
   grunt.registerTask 'build:dev', ['coffee', 'concat:vendor']

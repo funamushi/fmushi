@@ -20,8 +20,6 @@ init = ->
   file = '/img/funamushi.png'
   bitmap = new Bitmap(file)
 
-  bitmap.addEventListener 'click', (e) ->
-    console.log 'rotate'
   bitmap.x = canvas.width  / 2
   bitmap.y = canvas.height / 2
 
@@ -31,8 +29,14 @@ init = ->
     image  = e.result
     bitmap.x -= image.width / 2
     bitmap.y -= image.height / 2
+
+    bitmap.regX = image.width / 2
+    bitmap.regY = image.width / 2
+
     stage.addChild bitmap
-    stage.update()
+
+    Tween.get(bitmap, loop: true)
+      .to({rotation: 360}, 5000)
 
   for i in [0...2]
     circle = createCircle(50 * (i + 1), 50, 20)
@@ -51,12 +55,11 @@ init = ->
 
     stage.addChild(circle)
 
-  # Ticker.setFPS(30)
-  # Ticker.addEventListener 'tick', ->
-  #   stage.update()
-  stage.update()
+  Ticker.setFPS(30)
+  Ticker.addEventListener 'tick', ->
+    stage.update()
 
-if  window.addEventListener 
+if window.addEventListener 
   window.addEventListener 'load', init, false
 else if window.attachEvent 
   window.attachEvent 'onload', init

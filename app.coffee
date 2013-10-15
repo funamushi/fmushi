@@ -31,8 +31,5 @@ app.configure 'development', ->
 app.get '/', (req, res) ->
   res.render 'index'
 
-module.exports = app
-
-if require.main == module
-  app.listen 3000, ->
-    console.log 'Express server listening on port:3000'
+app.listen 3000, ->
+  console.log 'Express server listening on port:3000'
