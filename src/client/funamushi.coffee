@@ -1,9 +1,9 @@
 createCircle = (x, y, r) ->
-  shape = new createjs.Shape()
+  shape = new Shape()
   shape.x = x
   shape.y = y
 
-  color = createjs.Graphics.getRGB(Math.random() * 0xffffff)
+  color = Graphics.getRGB(Math.random() * 0xffffff)
   shape.graphics
     .beginStroke('blue')
     .beginFill(color)
@@ -13,18 +13,17 @@ createCircle = (x, y, r) ->
   
 init = ->
   canvas = document.getElementById('main')
-  stage = new createjs.Stage(canvas)
+  stage = new Stage(canvas)
 
   loader = new LoadQueue
 
   file = '/img/funamushi.png'
-  bitmap = new Bitmap
+  bitmap = new Bitmap(file)
 
   bitmap.addEventListener 'click', (e) ->
     console.log 'rotate'
   bitmap.x = canvas.width  / 2
   bitmap.y = canvas.height / 2
-  stage.addChild bitmap
 
   loader.loadFile {src: file, data: bitmap}
   loader.addEventListener 'fileload', (e) ->
@@ -32,6 +31,7 @@ init = ->
     image  = e.result
     bitmap.x -= image.width / 2
     bitmap.y -= image.height / 2
+    stage.addChild bitmap
     stage.update()
 
   for i in [0...2]
@@ -51,8 +51,8 @@ init = ->
 
     stage.addChild(circle)
 
-  # createjs.Ticker.setFPS(30)
-  # createjs.Ticker.addEventListener 'tick', ->
+  # Ticker.setFPS(30)
+  # Ticker.addEventListener 'tick', ->
   #   stage.update()
   stage.update()
 
