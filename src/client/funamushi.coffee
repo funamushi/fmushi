@@ -9,6 +9,10 @@ createCircle = (x, y, r) ->
     .beginFill(color)
     .drawCircle(0, 0, r)
 
+  filter = new BlurFilter(5, 5, 3)
+  shape.filters = [filter]
+  bounds = filter.getBounds()
+  shape.cache -r + bounds.x, -r + bounds.y, r * 2 + bounds.width, r * 2 + bounds.height
   shape
   
 init = ->
@@ -16,30 +20,63 @@ init = ->
   stage = new Stage(canvas)
 
   loader = new LoadQueue
-
   file = '/img/funamushi.png'
-  bitmap = new Bitmap(file)
+  funamushi = new Bitmap(file)
 
-  bitmap.x = canvas.width  / 2
-  bitmap.y = canvas.height / 2
+  funamushi.x = canvas.width  / 2
+  funamushi.y = canvas.height / 2
 
-  loader.loadFile {src: file, data: bitmap}
+  wipingShape = new Shape
+
+  loader.loadFile {src: file, data: funamushi}
   loader.addEventListener 'fileload', (e) ->
-    bitmap = e.item.data
+    funamushi = e.item.data
     image  = e.result
-    bitmap.x -= image.width / 2
-    bitmap.y -= image.height / 2
+    funamushi.x -= image.width / 2
+    funamushi.y -= image.height / 2
 
-    bitmap.regX = image.width / 2
-    bitmap.regY = image.width / 2
+    funamushi.regX = image.width / 2
+    funamushi.regY = image.width / 2
 
-    stage.addChild bitmap
+    blurFunamushi = new Bitmap(image)
+    blurFunamushi.x = funamushi.x
+    blurFunamushi.y = funamushi.y
+    blurFunamushi.regX = funamushi.regX
+    blurFunamushi.regY = funamushi.regY
+    blurFunamushi.filters = [new BlurFilter(15, 15, 2)]
+    blurFunamushi.cache 0, 0, image.width, image.height
 
-    Tween.get(bitmap, loop: true)
-      .to({rotation: 360}, 5000)
+    stage.addChild blurFunamushi
+    stage.addChild funamushi
+    stage.update()
+
+  stage.addEventListener 'stagemousedown', (e) ->
+    point = funamushi.globalToLocal(stage.mouseX, stage.mouseY)
+
+    wipingShape.graphics
+      .beginFill(Graphics.getRGB(0xff0000, 0.5))
+      .beginFill(Graphics.getRGB(255, 0, 0))
+      .drawCircle(point.x, point.y, 40)
+
+    image = funamushi.image
+    
+    if wipingShape.cacheCanvas?
+      wipingShape.updateCache()
+    else
+      wipingShape.cache 0, 0, image.width, image.height
+
+    alphaMask = new AlphaMaskFilter(wipingShape.cacheCanvas)
+    funamushi.filters = [alphaMask]
+    if funamushi.cacheCanvas?
+      funamushi.updateCache()
+    else
+      funamushi.cache 0, 0, image.width, image.height
+
+    stage.update()
 
   for i in [0...2]
-    circle = createCircle(50 * (i + 1), 50, 20)
+    r = 20
+    circle = createCircle(50 * (i + 1), 50, r)
     circle.addEventListener 'mousedown', (e) ->
       shape = e.target
       shape.dragging = true
@@ -55,9 +92,10 @@ init = ->
 
     stage.addChild(circle)
 
-  Ticker.setFPS(30)
-  Ticker.addEventListener 'tick', ->
-    stage.update()
+  # Ticker.setFPS(30)
+  # Ticker.addEventListener 'tick', ->
+  #   stage.update()
+  stage.update()
 
 if window.addEventListener 
   window.addEventListener 'load', init, false
