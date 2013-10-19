@@ -18,6 +18,8 @@ createCircle = (x, y, r) ->
 init = ->
   canvas = document.getElementById('main')
   stage = new Stage(canvas)
+  stage.isDrawing = false
+  stage.prevPoint = new Point
 
   loader = new LoadQueue
   file = '/img/funamushi.png'
@@ -51,15 +53,24 @@ init = ->
     stage.update()
 
   stage.addEventListener 'stagemousedown', (e) ->
-    point = funamushi.globalToLocal(stage.mouseX, stage.mouseY)
+    stage.prevPoint = funamushi.globalToLocal(e.stageX, e.stageY)
 
-    wipingShape.graphics
-      .beginFill(Graphics.getRGB(0xff0000, 0.5))
-      .beginFill(Graphics.getRGB(255, 0, 0))
-      .drawCircle(point.x, point.y, 40)
+    # wipingShape.graphics
+    #   .setStrokeStyle(4 * 2, 'round', 'round')
+    stage.isDrawing = true
+
+  stage.addEventListener 'stagemousemove', (e) ->
+    return unless stage.isDrawing?
 
     image = funamushi.image
     
+    point = funamushi.globalToLocal(stage.mouseX, stage.mouseY)
+    wipingShape.graphics
+      .drawCircle(point.x, point.y, 4)
+    #   .beginStroke(Graphics.getRGB(0x0, 0.4))
+    #   .moveTo(target.prevPoint.x, target.prevPoint.y)
+    #   .lineTo(point.x, point.y);
+
     if wipingShape.cacheCanvas?
       wipingShape.updateCache()
     else
@@ -71,8 +82,11 @@ init = ->
       funamushi.updateCache()
     else
       funamushi.cache 0, 0, image.width, image.height
-
+    
     stage.update()
+
+  stage.addEventListener 'stagemouseup', (e) ->
+    stage.isDrawing = false
 
   for i in [0...2]
     r = 20
