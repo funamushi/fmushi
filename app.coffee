@@ -28,7 +28,6 @@ app.configure 'development', ->
       { src: 'fmushi.js' }
       { src: 'models.js' }
       { src: 'views.js' }
-      { src: 'app.js' }
     ]
 
 app.get '/', (req, res) ->

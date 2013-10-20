@@ -33,23 +33,26 @@ module.exports = (grunt) ->
           {
             expand: true,
             cwd: '<%= meta.src.client %>'
-            src: ['**/*.coffee']
+            src: ['{,*/}*.coffee'],
             dest: '<%= meta.build.client %>'
-            ext: '.js'
-          }
+            rename: (dest, src) -> 
+              dest + '/' + src.replace(/\.coffee$/, '.js');
+          }              
         ]
 
     concat:
       options:
         separator: ";"
+        stripBanners: true,
+        banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today('yyyy-mm-dd') %> */\n"
       vendor:
         src: [
-          "bower_components/lodash/dist/lodash.min.js"
           "bower_components/jquery/jquery.min.js"
+          "bower_components/lodash/dist/lodash.min.js"
+          "bower_components/backbone/backbone-min.js"
           "bower_components/tweenjs/build/tween.min.js"
           "bower_components/pixi/bin/pixi.js"
           "bower_components/two/build/two.min.js"
-          "bower_components/backbone/backbone.min.js"
         ]
         dest: "<%= meta.build.client %>/vendor.js"
       app:
@@ -57,7 +60,6 @@ module.exports = (grunt) ->
           "<%= meta.build.client %>/fmushi.js"
           "<%= meta.build.client %>/models.js"
           "<%= meta.build.client %>/views.js"
-          "<%= meta.build.client %>/app.js"
           ]
         dest: "<%= meta.build.client %>/app.js"
           
@@ -99,7 +101,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-express-server'
   grunt.loadNpmTasks 'grunt-open'
 
-  grunt.registerTask 'build:dev', ['coffee', 'concat']
+  grunt.registerTask 'build:dev', ['coffee', 'concat:vendor']
   grunt.registerTask 'build:production',  ['coffee', 'uglify']
 
   grunt.registerTask 'default', ['build:dev', 'express:dev', 'open:dev', 'watch']
