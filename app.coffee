@@ -27,8 +27,8 @@ app.configure 'development', ->
     js: [
       { src: 'fmushi.js' }
       { src: 'models.js' }
-      { src: 'shapes.js' }
-      { src: 'sprits.js' }
+      { src: 'views.js' }
+      { src: 'app.js' }
     ]
 
 app.get '/', (req, res) ->

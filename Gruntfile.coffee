@@ -45,6 +45,7 @@ module.exports = (grunt) ->
       vendor:
         src: [
           "bower_components/lodash/dist/lodash.min.js"
+          "bower_components/jquery/jquery.min.js"
           "bower_components/tweenjs/build/tween.min.js"
           "bower_components/pixi/bin/pixi.js"
           "bower_components/two/build/two.min.js"
@@ -52,7 +53,12 @@ module.exports = (grunt) ->
         ]
         dest: "<%= meta.build.client %>/vendor.js"
       app:
-        src: ["<%= meta.build.client %>/**/*.js"]
+        src: [
+          "<%= meta.build.client %>/fmushi.js"
+          "<%= meta.build.client %>/models.js"
+          "<%= meta.build.client %>/views.js"
+          "<%= meta.build.client %>/app.js"
+          ]
         dest: "<%= meta.build.client %>/app.js"
           
     uglify:
@@ -80,9 +86,9 @@ module.exports = (grunt) ->
         options:
           nospawn: true
       coffeeServer:
-        files: ['app.coffee', '<%= meta.src.server%>/**/*.coffee']
+        files: ['app.coffee', '<%= meta.src.server%>/{,*/}*.coffee']
         tasks: ['coffee:server']
-      clientClient:
+      coffeeClient:
         files: ['<%= meta.src.client %>/{,*/}*.coffee']
         tasks: ['coffee:client']
 
@@ -93,8 +99,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-express-server'
   grunt.loadNpmTasks 'grunt-open'
 
-  grunt.registerTask 'build:dev', ['coffee', 'concat:vendor']
-  grunt.registerTask 'build:production',  ['coffee', 'concat', 'uglify']
+  grunt.registerTask 'build:dev', ['coffee', 'concat']
+  grunt.registerTask 'build:production',  ['coffee', 'uglify']
 
   grunt.registerTask 'default', ['build:dev', 'express:dev', 'open:dev', 'watch']
 
