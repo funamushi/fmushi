@@ -1,6 +1,10 @@
 stage = new PIXI.Stage(0xffffff, true)
 renderer = PIXI.autoDetectRenderer(1000, 1000)
 
+renderer.view.style.position = "absolute"
+renderer.view.style.top = "100px"
+renderer.view.style.left = "0"
+
 texture = PIXI.Texture.fromImage("/img/funamushi.png")
 funamushi = new PIXI.Sprite(texture)
 funamushi.anchor.x = 0.5
@@ -31,17 +35,6 @@ funamushi.mousemove = funamushi.touchmove = (e) ->
 
 stage.addChild funamushi
 
-graphics = new PIXI.Graphics
- 
-graphics.beginFill(0x00FF00)
- 
-graphics.moveTo(0,0)
-graphics.lineTo(-50, 100)
-graphics.lineTo(50, 100)
-graphics.endFill();
- 
-stage.addChild(graphics);
-
 animate = -> 
   requestAnimFrame animate
 
@@ -49,4 +42,3 @@ animate = ->
 
 document.body.appendChild renderer.view
 requestAnimFrame animate
-

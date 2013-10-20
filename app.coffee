@@ -25,7 +25,10 @@ app.configure 'development', ->
   app.use express.logger("dev")
   app.locals
     js: [
-      { src: 'funamushi.js' }
+      { src: 'fmushi.js' }
+      { src: 'models.js' }
+      { src: 'shapes.js' }
+      { src: 'sprits.js' }
     ]
 
 app.get '/', (req, res) ->

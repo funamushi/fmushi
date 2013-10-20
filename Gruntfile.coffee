@@ -45,7 +45,10 @@ module.exports = (grunt) ->
       vendor:
         src: [
           "bower_components/lodash/dist/lodash.min.js"
+          "bower_components/tweenjs/build/tween.min.js"
           "bower_components/pixi/bin/pixi.js"
+          "bower_components/two/build/two.min.js"
+          "bower_components/backbone/backbone.min.js"
         ]
         dest: "<%= meta.build.client %>/vendor.js"
       app:
@@ -80,7 +83,7 @@ module.exports = (grunt) ->
         files: ['app.coffee', '<%= meta.src.server%>/**/*.coffee']
         tasks: ['coffee:server']
       clientClient:
-        files: ['<%= meta.src.client %>/**/*.coffee']
+        files: ['<%= meta.src.client %>/{,*/}*.coffee']
         tasks: ['coffee:client']
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
