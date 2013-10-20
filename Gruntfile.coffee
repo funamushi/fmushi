@@ -45,9 +45,7 @@ module.exports = (grunt) ->
       vendor:
         src: [
           "bower_components/lodash/dist/lodash.min.js"
-          "bower_components/EaselJS/lib/easeljs-0.7.0.min.js"
-          "bower_components/PreloadJS/lib/preloadjs-0.4.0.min.js"
-          "bower_components/TweenJS/lib/tweenjs-0.5.0.min.js"
+          "bower_components/pixi/bin/pixi.js"
         ]
         dest: "<%= meta.build.client %>/vendor.js"
       app:
