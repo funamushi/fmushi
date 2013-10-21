@@ -58,8 +58,9 @@ module.exports = (grunt) ->
       app:
         src: [
           "<%= meta.build.client %>/fmushi.js"
-          "<%= meta.build.client %>/models.js"
-          "<%= meta.build.client %>/views.js"
+          "<%= meta.build.client %>/models/*.js"
+          "<%= meta.build.client %>/collections/*.js"
+          "<%= meta.build.client %>/views/*.js"
           ]
         dest: "<%= meta.build.client %>/app.js"
           

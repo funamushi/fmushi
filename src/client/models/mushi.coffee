@@ -1,0 +1,1 @@
+class Mushi extends Backbone.Model

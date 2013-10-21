@@ -32,5 +32,5 @@ $(->
 
   requestAnimFrame animate
 
-  window.Fmushi.Views.AppView = new Fmushi.Views.AppView
+  window.Fmushi.Views.World = new Fmushi.Views.World
   )

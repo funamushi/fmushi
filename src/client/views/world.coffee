@@ -1,4 +1,4 @@
-class Fmushi.Views.AppView extends Backbone.View
+class Fmushi.Views.World extends Backbone.View
   initialize: ->
     texture = PIXI.Texture.fromImage("/img/funamushi.png")
     funamushi = new PIXI.Sprite(texture)
@@ -37,5 +37,4 @@ class Fmushi.Views.AppView extends Backbone.View
       )
 
     circle.linewidth = 1
-    circle.stroke = '#DE7699'
     circle.noFill()

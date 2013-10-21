@@ -17,7 +17,7 @@ app.configure ->
 app.configure 'production', ->
   app.locals
     js: [
-      { src: 'app.min.js' }
+      'app.min'
     ]
 
 app.configure 'development', ->
@@ -25,9 +25,10 @@ app.configure 'development', ->
   app.use express.logger("dev")
   app.locals
     js: [
-      { src: 'fmushi.js' }
-      { src: 'models.js' }
-      { src: 'views.js' }
+      'fmushi'
+      'models/mushi'
+      'views/circle'
+      'views/world'
     ]
 
 app.get '/', (req, res) ->
