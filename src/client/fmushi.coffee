@@ -5,14 +5,21 @@ window.Fmushi =
   Events: _.extend {}, Backbone.Events
 
 $(->
-  twoCanvas = document.getElementById('two-stage').children[0]
-  Fmushi.two = new Two(width: 1000, height: 1000).appendTo(twoCanvas)
+  Two.Resolution = 12;
 
-  Fmushi.stage = new PIXI.Stage 0xffffff, true
+  Fmushi.two = new Two(
+    width: 1000
+    height: 1000
+    fullscreen: true
+    ).appendTo(document.body)
 
-  renderer = PIXI.autoDetectRenderer(1000, 1000)
+  Fmushi.stage = new PIXI.Stage 0x000000, true
+  Fmushi.stage.worldAlpha = 0
+  Fmushi.stage.alpha = 0
+
+  renderer = PIXI.autoDetectRenderer(1000, 1000, null, true)
   renderer.view.style.position = "absolute"
-  renderer.view.style.top = "100px"
+  renderer.view.style.top  = "0"
   renderer.view.style.left = "0"
   document.body.appendChild renderer.view
   Fmushi.renderer = renderer
@@ -20,6 +27,7 @@ $(->
   animate = ->
     requestAnimFrame animate
     Fmushi.Events.trigger 'update'
+    Fmushi.two.update()
     renderer.render Fmushi.stage
 
   requestAnimFrame animate
