@@ -27,6 +27,8 @@ app.configure 'development', ->
     js: [
       'fmushi'
       'models/mushi'
+      'collections/mushies'
+      'views/walker'
       'views/circle'
       'views/world'
     ]
