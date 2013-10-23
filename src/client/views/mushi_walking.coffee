@@ -13,6 +13,12 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.scale.x = sprite.scale.y = 0.5
     
     model = @model
+    @listenTo model, 'change', (model) ->
+      if x = model.changed.x
+        sprite.position.x = x
+      if y = model.changed.y
+        sprite.position.y = y
+
     sprite.mousedown = sprite.touchstart = (e) ->
       e.originalEvent.preventDefault()
       @event = e
@@ -27,8 +33,6 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.mousemove = sprite.touchmove = (e) ->
       if @dragging
         point = @event.getLocalPosition(@parent)
-        @position.x = point.x
-        @position.y = point.y
         model.set x: point.x, y: point.y
     
     Fmushi.stage.addChild sprite
