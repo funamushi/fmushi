@@ -1,5 +1,6 @@
 class Fmushi.Models.Mushi extends Backbone.Model
-  defaults:
+  defaults: ->
+    src: "/img/funamushi.png"
     x: 0
     y: 0
 
