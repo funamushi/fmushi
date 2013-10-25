@@ -4,6 +4,12 @@ window.Fmushi =
   Views: {}
   Events: _.extend {}, Backbone.Events
 
+class Fmushi.Vector extends Two.Vector
+  toJSON: ->
+    { x: @x, y: @y }
+
+Fmushi.vec2 = (x, y) -> new Fmushi.Vector(x, y)
+
 $(->
   Two.Resolution = 12;
 

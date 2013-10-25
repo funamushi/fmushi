@@ -4,17 +4,26 @@ class Fmushi.Models.Circle extends Backbone.Model
     y: 0
     r: 400
 
-  collisionEntity: (entity) ->
-    # TODO: とりあえず円だけサポート
-    radius      = @get('r')
-    entityRadis = entity.get('r')
+  initialize: ->
 
-    center = new Two.Vector(@get('x'), @get('y'))
-    entityCenter = new Two.Vector(entity.get('x'), entity.get('y'))
+  pos: -> 
+    new Fmushi.Vector @get('x'), @get('y')
+  
+  collisionEntity: (other) ->
+    pos  = @pos()
+    otherPos = { x: other.get('x'), y: other.get('y') }
 
-    if center.distanceToSquared(entityCenter) <= radius * radius + entityRadis * entityRadis
-      console.log 'unko'
-      @trigger 'cllide', entity
+    r  = @get('r')
+    otherR = other.get('r')
+
+    return if pos.distanceToSquared(otherPos) > ((r * r) + (otherR * otherR))
+
+    diff = pos.subSelf otherPos
+    length = diff.length()
+
+    collisionPoint = diff.normalize().multiplyScalar(length)
+
+    @trigger 'cllide', other, collisionPoint
 
 class Fmushi.Collections.Circles extends Backbone.Collection
   model: Fmushi.Models.Circle

@@ -92,7 +92,9 @@ module.exports = (grunt) ->
         tasks: ['coffee:server']
       coffeeClient:
         files: ['<%= meta.src.client %>/{,*/}*.coffee']
-        tasks: ['coffee:client']
+        tasks: ['coffee:client', 'open:dev']
+        # options:
+        #   livereload: 35729
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
