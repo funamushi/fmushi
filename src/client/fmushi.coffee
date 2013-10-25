@@ -27,6 +27,7 @@ $(->
   animate = ->
     requestAnimFrame animate
     Fmushi.Events.trigger 'update'
+    TWEEN.update()
     Fmushi.two.update()
     renderer.render Fmushi.stage
 

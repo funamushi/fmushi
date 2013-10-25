@@ -1,10 +1,14 @@
 class Fmushi.Views.Circle extends Backbone.View
   initialize: ->
-    circle = Fmushi.two.makeCircle(
+    @listenTo @model, 'collide', (other) ->
+      console.log other
+
+    shape = Fmushi.two.makeCircle(
       Fmushi.two.width / 2,
       Fmushi.two.height / 2,
       Fmushi.two.height / 3
       )
 
-    circle.linewidth = 1
-    circle.noFill()
+    shape.linewidth = 1
+    shape.noFill()
+    
