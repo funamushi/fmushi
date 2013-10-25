@@ -4,8 +4,6 @@ class Fmushi.Models.Circle extends Backbone.Model
     y: 0
     r: 400
 
-  initialize: ->
-
   pos: -> 
     new Fmushi.Vector @get('x'), @get('y')
   
@@ -23,7 +21,7 @@ class Fmushi.Models.Circle extends Backbone.Model
 
     collisionPoint = diff.normalize().multiplyScalar(length)
 
-    @trigger 'cllide', other, collisionPoint
+    @trigger 'collide', other, collisionPoint
 
 class Fmushi.Collections.Circles extends Backbone.Collection
   model: Fmushi.Models.Circle
