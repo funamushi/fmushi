@@ -18,7 +18,7 @@ class Fmushi.Views.Circle extends Backbone.View
 
     r  = @model.get('r')
     r2 = r * r
-    holdDistanceToSquared = r2 * 0.3
+    holdDistanceToSquared = Math.pow(r * 0.2, 2)
 
     collisionPointLocal = @localPositionAt(collisionPointWorld)
     vertices = @shape.vertices

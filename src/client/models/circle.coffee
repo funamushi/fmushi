@@ -14,7 +14,13 @@ class Fmushi.Models.Circle extends Backbone.Model
     r  = @get('r')
     otherR = other.get('r')
 
-    return if Math.abs(pos.distanceToSquared(otherPos)) >= ((r + otherR) * (r + otherR))
+    distance2 = pos.distanceToSquared(otherPos)
+
+    # 衝突判定
+    return if Math.abs(distance2) >= Math.pow(r + otherR, 2)
+
+    # 中心にある程度近ければ無視
+    return if distance2 < Math.pow(r * 0.2, 2)
 
     diff = new Fmushi.Vector(pos.x - otherPos.x, pos.y - otherPos.y)
     collisionPoint = diff.normalize().multiplyScalar(otherR).addSelf(otherPos)
