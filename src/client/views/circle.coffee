@@ -9,7 +9,9 @@ class Fmushi.Views.Circle extends Backbone.View
     for v in @shape.vertices
       v.was = v.clone()
 
-    @listenTo @model, 'collide', @onCollision
+    @listenTo @model, 'circle:collide', @onCollision
+    @listenTo @model, 'circle:add',     @onAdded
+    @listenTo @model, 'circle:remove',  @onRemoved
 
     @canCollide = true
 
@@ -25,16 +27,24 @@ class Fmushi.Views.Circle extends Backbone.View
     stretchVertex = _.min(vertices, (v) -> v.distanceToSquared(collisionPointLocal))
     stretchVertex.copy collisionPointLocal
 
-    if (@stretchVertex? and @stretchVertex != stretchVertex) or
-       (Math.abs(stretchVertex.distanceToSquared(stretchVertex.was)) > holdDistanceToSquared)
-      @stretchVertex = null
-      @reset()
-    else
-      @stretchVertex = stretchVertex
-      v.copy(v.was) for v in vertices when not v.equals(stretchVertex)
-      if stretchVertex.tween
-        stretchVertex.tween.stop()
-        stretchVertex.tween = null
+    # if (@stretchVertex? and @stretchVertex != stretchVertex) or
+    #    (Math.abs(stretchVertex.distanceToSquared(stretchVertex.was)) > holdDistanceToSquared)
+    #   @stretchVertex = null
+    #   @reset()
+    # else
+    #   @stretchVertex = stretchVertex
+    #   v.copy(v.was) for v in vertices when not v.equals(stretchVertex)
+    #   if stretchVertex.tween
+    #     stretchVertex.tween.stop()
+    #     stretchVertex.tween = null
+   
+  onAdded: (entity) ->
+    console.log 'added'
+    @reset()
+
+  onRemoved: (entity) ->
+    console.log 'removed'
+    @reset()
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
