@@ -34,8 +34,8 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     
     sprite.mousemove = @sprite.touchmove = (e) ->
       if @dragging
-        point = @event.getLocalPosition(@parent)
-        model.set x: point.x, y: point.y
+        worldPos = @event.getLocalPosition(Fmushi.stage)
+        model.set x: worldPos.x, y: worldPos.y
     
     Fmushi.stage.addChild sprite
 

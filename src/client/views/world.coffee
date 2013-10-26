@@ -19,7 +19,6 @@ class Fmushi.Views.World extends Backbone.View
     @mushies.add [{ x: 100, y: 100, r: 70 }]
     @circles.add [{ x: 500, y: 500, r: 300 }]
 
-
   collisionDetection: ->
     mushies = @mushies
 

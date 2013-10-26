@@ -16,10 +16,8 @@ class Fmushi.Models.Circle extends Backbone.Model
 
     return if pos.distanceToSquared(otherPos) > ((r * r) + (otherR * otherR))
 
-    diff = pos.subSelf otherPos
-    length = diff.length()
-
-    collisionPoint = diff.normalize().multiplyScalar(length)
+    diff = new Fmushi.Vector(pos.x - otherPos.x, pos.y - otherPos.y)
+    collisionPoint = diff.normalize().multiplyScalar(otherR).addSelf(otherPos)
 
     @trigger 'collide', other, collisionPoint
 
