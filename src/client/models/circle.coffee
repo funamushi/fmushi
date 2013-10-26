@@ -19,8 +19,6 @@ class Fmushi.Models.Circle extends Backbone.Model
     diff = new Fmushi.Vector(pos.x - otherPos.x, pos.y - otherPos.y)
     collisionPoint = diff.normalize().multiplyScalar(otherR).addSelf(otherPos)
 
-    console.log 'collide!!!!!!!!!', collisionPoint.toJSON()
-
     @trigger 'collide', other, collisionPoint
 
 class Fmushi.Collections.Circles extends Backbone.Collection
