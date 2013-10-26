@@ -2,10 +2,6 @@ class Fmushi.Views.MushiWalking extends Backbone.View
   initialize: -> 
     attrs = @model.attributes
 
-    @debugShape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
-    @debugShape.stroke = 'orangered'
-    @debugShape.noFill()
-
     texture = PIXI.Texture.fromImage attrs.src
 
     @sprite = sprite = new PIXI.Sprite(texture)
@@ -42,8 +38,6 @@ class Fmushi.Views.MushiWalking extends Backbone.View
   onMove: ->
     if x = @model.changed.x
       @sprite.position.x = x
-      @debugShape.translation.x = x
 
     if y = @model.changed.y
       @sprite.position.y = y
-      @debugShape.translation.y = y

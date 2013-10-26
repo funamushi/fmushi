@@ -26,17 +26,6 @@ class Fmushi.Views.Circle extends Backbone.View
     vertices = @shape.vertices
     stretchVertex = _.min(vertices, (v) -> v.distanceToSquared(collisionPointLocal))
     stretchVertex.copy collisionPointLocal
-
-    # if (@stretchVertex? and @stretchVertex != stretchVertex) or
-    #    (Math.abs(stretchVertex.distanceToSquared(stretchVertex.was)) > holdDistanceToSquared)
-    #   @stretchVertex = null
-    #   @reset()
-    # else
-    #   @stretchVertex = stretchVertex
-    #   v.copy(v.was) for v in vertices when not v.equals(stretchVertex)
-    #   if stretchVertex.tween
-    #     stretchVertex.tween.stop()
-    #     stretchVertex.tween = null
    
   onAdded: (entity) ->
     console.log 'added'
