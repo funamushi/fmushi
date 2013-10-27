@@ -1,6 +1,6 @@
 class Fmushi.Views.MushiWalking extends Backbone.View
   initialize: -> 
-    @listenTo @model, 'change', @onMove
+    @listenTo @model, 'change', @onChanged
 
     if Fmushi.debug
       @debugShape = Fmushi.two.makeCircle @model.get('x'), @model.get('y'), @model.get('r')
@@ -21,9 +21,15 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.interactive = true
     sprite.buttonMode = true
   
-    # TODO: モデルの半径を元に計算したい
-    sprite.scale.x = @sprite.scale.y = 0.5
-    
+    texture = PIXI.Texture.fromFrame('default.png')
+    text = new PIXI.Sprite texture
+    text.anchor.x = 0.5
+    text.anchor.y = 0.5
+    text.position.x = 0
+    text.position.y = -20
+
+    sprite.addChild text
+
     model = @model
 
     sprite.mousedown = @sprite.touchstart = (e) ->
@@ -39,21 +45,23 @@ class Fmushi.Views.MushiWalking extends Backbone.View
       if @dragging
         worldPos = @event.getLocalPosition(Fmushi.stage)
         model.set x: worldPos.x, y: worldPos.y
-    
-    
 
-    texture = PIXI.Texture.fromFrame('default.png')
-    text = new PIXI.Sprite texture
-    text.anchor.x = 0.5
-    text.anchor.y = 0.5
-    text.position.x = 0
-    text.position.y = -20
-
-    sprite.addChild text
+    @listenTo Fmushi.Events, 'update', ->
+      x = @model.get('x')
+      if @model.get('direction') == 'left'
+        if x < -10
+          @model.set direction: 'right'
+        else
+          @model.set x: x - 1
+      else
+        if x > 1000
+          @model.set direction: 'left'
+        else
+          @model.set x: x + 1
 
     Fmushi.stage.addChild sprite
 
-  onMove: ->
+  onChanged: ->
     if x = @model.changed.x
       @sprite.position.x = x
       @debugShape.translation.x = x if @debugShape
@@ -61,5 +69,11 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     if y = @model.changed.y
       @sprite.position.y = y
       @debugShape.translation.y = y if @debugShape
+
+    if d = @model.changed.direction
+      if d == 'left'
+        @sprite.scale.x = 1
+      else
+        @sprite.scale.x = -1
 
 

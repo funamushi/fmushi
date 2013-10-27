@@ -4,6 +4,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
     x: 0
     y: 0
     r: 60
+    direction: 'left'
 
   initialize: ->
 

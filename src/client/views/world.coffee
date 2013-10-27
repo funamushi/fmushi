@@ -6,7 +6,7 @@ class Fmushi.Views.World extends Backbone.View
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
-    loader = new PIXI.AssetLoader ['/app.json']
+    loader = new PIXI.AssetLoader ['./app.json']
     loader.onComplete = _.bind @onAssetLoaded, @, loader
     loader.load()
 
@@ -21,11 +21,11 @@ class Fmushi.Views.World extends Backbone.View
 
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
-    @mushies.add [{ x: 100, y: 100 }]
-    @mushies.add [{ x: 200, y: 200 }]
-    @mushies.add [{ x: 300, y: 300 }]
+    @mushies.add [{ x: 700, y: 300 }]
+    @mushies.add [{ x: 850, y: 400 }]
+    @mushies.add [{ x: 1000, y: 500 }]
 
-    @circles.add [{ x: 500, y: 500, r: 300 }]
+    @circles.add [{ x: 400, y: 350, r: 300 }]
 
   collisionDetection: ->
     mushies = @mushies
