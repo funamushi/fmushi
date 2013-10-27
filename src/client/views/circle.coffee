@@ -50,21 +50,28 @@ class Fmushi.Views.Circle extends Backbone.View
   updateLine: ->
     size = @model.entityCount()
 
-    colors = [
+    strokeColors = [
       '#F7D663'
       '#72C575'
       '#4CBAEB'
       '#DE7699'
-
-      # '#CCE9F9'
-      # '#D6E9C9'
-      # '#72C575'
-      # '#F9F4D6'
-      # '#F7D663'
     ]
 
-    @shape.linewidth = (if size == 0 then 1 else size + 1)
-    @shape.stroke = (if size == 0 then 'black' else colors[size % colors.length])
+    fillColors = [
+      '#F9F4D6'
+      '#D6E9C9'
+      '#CCE9F9'
+      '#F4D6E0'
+    ]
+
+    if size == 0
+      @shape.linewidth = 1
+      @shape.stroke = 'black'
+      @shape.noFill()
+    else
+      @shape.linewidth = size + 1
+      @shape.stroke = strokeColors[size % strokeColors.length]
+      @shape.fill = fillColors[size % fillColors.length]
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
