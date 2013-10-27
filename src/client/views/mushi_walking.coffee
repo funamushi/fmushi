@@ -15,7 +15,7 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
 
     @sprite = sprite = new PIXI.MovieClip(textures)
-    sprite.animationSpeed = 0.03
+    sprite.animationSpeed = 0.075
     sprite.gotoAndPlay 0
 
     attrs = @model.attributes
@@ -46,6 +46,16 @@ class Fmushi.Views.MushiWalking extends Backbone.View
         worldPos = @event.getLocalPosition(Fmushi.stage)
         model.set x: worldPos.x, y: worldPos.y
     
+    text = new PIXI.Text "スポンサー広告ぼ集中",
+      font: 'bold 16pt Arial'
+      fill: 'white'
+    text.anchor.x = 0.5
+    text.anchor.y = 0.5
+    text.position.x = 0
+    text.position.y = -20
+
+    sprite.addChild text
+
     Fmushi.stage.addChild sprite
 
   onMove: ->

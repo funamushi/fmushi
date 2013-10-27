@@ -3,7 +3,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
     src: "/img/funamushi.png"
     x: 0
     y: 0
-    r: 70
+    r: 60
 
   initialize: ->
 
