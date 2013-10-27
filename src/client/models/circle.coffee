@@ -10,6 +10,9 @@ class Fmushi.Models.Circle extends Backbone.Model
   pos: -> 
     new Fmushi.Vector @get('x'), @get('y')
   
+  entityCount: ->
+    _.size @entityCids
+
   collisionEntity: (entity) ->
     collisionPoint = null
     pos  = @pos()

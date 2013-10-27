@@ -40,11 +40,31 @@ class Fmushi.Views.Circle extends Backbone.View
     stretchVertex.copy collisionPointLocal
    
   onAdded: (entity) ->
+    @updateLine()
     @reset()
 
   onRemoved: (entity) ->
-    console.log 'removed'
+    @updateLine()
     @reset()
+
+  updateLine: ->
+    size = @model.entityCount()
+
+    colors = [
+      '#F7D663'
+      '#72C575'
+      '#4CBAEB'
+      '#DE7699'
+
+      # '#CCE9F9'
+      # '#D6E9C9'
+      # '#72C575'
+      # '#F9F4D6'
+      # '#F7D663'
+    ]
+
+    @shape.linewidth = (if size == 0 then 1 else size + 1)
+    @shape.stroke = (if size == 0 then 'black' else colors[size % colors.length])
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
