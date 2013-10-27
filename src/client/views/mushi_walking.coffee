@@ -2,6 +2,11 @@ class Fmushi.Views.MushiWalking extends Backbone.View
   initialize: -> 
     @listenTo @model, 'change', @onMove
 
+    if Fmushi.debug
+      @debugShape = Fmushi.two.makeCircle @model.get('x'), @model.get('y'), @model.get('r')
+      @debugShape.stroke = 'orangered'
+      @debugShape.noFill()
+
     loader = new PIXI.AssetLoader ['/app.json']
     loader.onComplete = _.bind @onAssetLoaded, @, loader
     loader.load()
@@ -10,17 +15,19 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
 
     @sprite = sprite = new PIXI.MovieClip(textures)
-    sprite.animationSpeed = 0.05
+    sprite.animationSpeed = 0.03
     sprite.gotoAndPlay 0
 
     attrs = @model.attributes
-    sprite.anchor.x = 0.5
+    sprite.anchor.x = 0.4
     sprite.anchor.y = 0.5
     sprite.position.x = attrs.x
     sprite.position.y = attrs.y
 
     sprite.interactive = true
     sprite.buttonMode = true
+  
+    # TODO: モデルの半径を元に計算したい
     sprite.scale.x = @sprite.scale.y = 0.5
     
     model = @model
@@ -44,6 +51,8 @@ class Fmushi.Views.MushiWalking extends Backbone.View
   onMove: ->
     if x = @model.changed.x
       @sprite.position.x = x
+      @debugShape.translation.x = x if @debugShape
 
     if y = @model.changed.y
       @sprite.position.y = y
+      @debugShape.translation.y = y if @debugShape

@@ -16,7 +16,7 @@ class Fmushi.Views.World extends Backbone.View
 
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
-    @mushies.add [{ x: 100, y: 100, r: 70 }]
+    @mushies.add [{ x: 100, y: 100, r: 60 }]
     @circles.add [{ x: 500, y: 500, r: 300 }]
 
   collisionDetection: ->

@@ -3,6 +3,7 @@ window.Fmushi =
   Collections: {}
   Views: {}
   Events: _.extend {}, Backbone.Events
+  debug: false
 
 class Fmushi.Vector extends Two.Vector
   toJSON: ->
