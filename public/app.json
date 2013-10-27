@@ -1,0 +1,36 @@
+{"frames": {
+
+"mushi_walk-1.png":
+{
+	"frame": {"x":326,"y":2,"w":328,"h":176},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":18,"w":328,"h":176},
+	"sourceSize": {"w":356,"h":216}
+},
+"mushi_walk-2.png":
+{
+	"frame": {"x":2,"y":2,"w":322,"h":180},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":12,"w":322,"h":180},
+	"sourceSize": {"w":356,"h":216}
+},
+"mushi_walk-3.png":
+{
+	"frame": {"x":656,"y":2,"w":322,"h":156},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":32,"w":322,"h":156},
+	"sourceSize": {"w":356,"h":216}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "app.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2aa481d45d196694e04e170a9fa2a2bd:1/1$"
+}
+}

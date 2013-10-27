@@ -1,10 +1,19 @@
 class Fmushi.Views.MushiWalking extends Backbone.View
   initialize: -> 
+    @listenTo @model, 'change', @onMove
+
+    loader = new PIXI.AssetLoader ['/app.json']
+    loader.onComplete = _.bind @onAssetLoaded, @, loader
+    loader.load()
+
+  onAssetLoaded: (loader) ->
+    textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
+
+    @sprite = sprite = new PIXI.MovieClip(textures)
+    sprite.animationSpeed = 0.05
+    sprite.gotoAndPlay 0
+
     attrs = @model.attributes
-
-    texture = PIXI.Texture.fromImage attrs.src
-
-    @sprite = sprite = new PIXI.Sprite(texture)
     sprite.anchor.x = 0.5
     sprite.anchor.y = 0.5
     sprite.position.x = attrs.x
@@ -15,17 +24,14 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.scale.x = @sprite.scale.y = 0.5
     
     model = @model
-    @listenTo model, 'change', @onMove
 
     sprite.mousedown = @sprite.touchstart = (e) ->
       e.originalEvent.preventDefault()
       @event = e
-      @alpha = 0.5
       @dragging = true
     
     sprite.mouseup = @sprite.mouseupoutside = (e) ->
       @event = null
-      @alpha = 1
       @dragging = false
     
     sprite.mousemove = @sprite.touchmove = (e) ->
