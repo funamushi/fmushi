@@ -151,6 +151,7 @@
             <filename>mushi_walk-1.png</filename>
             <filename>mushi_walk-2.png</filename>
             <filename>mushi_walk-3.png</filename>
+            <filename>default.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

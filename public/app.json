@@ -1,5 +1,13 @@
 {"frames": {
 
+"default.png":
+{
+	"frame": {"x":2,"y":184,"w":226,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":2,"w":226,"h":29},
+	"sourceSize": {"w":236,"h":33}
+},
 "mushi_walk-1.png":
 {
 	"frame": {"x":326,"y":2,"w":328,"h":176},
@@ -31,6 +39,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:03cd6741a11bb4a7b7981b9bbc2ac5a3:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d5691399bdd8f928244deca3ce9f2911:1/1$"
 }
 }

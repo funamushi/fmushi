@@ -40,9 +40,10 @@ class Fmushi.Views.MushiWalking extends Backbone.View
         worldPos = @event.getLocalPosition(Fmushi.stage)
         model.set x: worldPos.x, y: worldPos.y
     
-    text = new PIXI.Text "スポンサー広告ぼ集中",
-      font: 'bold 16pt Arial'
-      fill: 'white'
+    
+
+    texture = PIXI.Texture.fromFrame('default.png')
+    text = new PIXI.Sprite texture
     text.anchor.x = 0.5
     text.anchor.y = 0.5
     text.position.x = 0
@@ -60,3 +61,5 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     if y = @model.changed.y
       @sprite.position.y = y
       @debugShape.translation.y = y if @debugShape
+
+
