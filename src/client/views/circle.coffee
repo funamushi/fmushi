@@ -1,7 +1,6 @@
 class Fmushi.Views.Circle extends Backbone.View
   initialize: ->
     attrs = @model.attributes
-    console.log attrs
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
     shape.linewidth = 1
     shape.noFill()
@@ -14,6 +13,19 @@ class Fmushi.Views.Circle extends Backbone.View
     @listenTo @model, 'circle:remove',  @onRemoved
 
     @canCollide = true
+
+  setRandomColor: ->
+    colors = [
+      #F4D6E0'
+      '#DE7699'
+      '#CCE9F9'
+      '#4CBAEB'
+      '#D6E9C9'
+      '#72C575'
+      '#F9F4D6'
+      '#F7D663'
+    ]
+    @shape.stroke = colors[_.random(colors.length - 1)]
 
   onCollision: (other, collisionPointWorld) ->
     return unless @canCollide
@@ -28,7 +40,6 @@ class Fmushi.Views.Circle extends Backbone.View
     stretchVertex.copy collisionPointLocal
    
   onAdded: (entity) ->
-    console.log 'added'
     @reset()
 
   onRemoved: (entity) ->
@@ -39,6 +50,21 @@ class Fmushi.Views.Circle extends Backbone.View
   localPositionAt: (worldPos) ->
     t = @shape.translation
     new Fmushi.Vector(worldPos.x - t.x, worldPos.y - t.y)
+
+  resetAt: (index) ->
+    v = @shape.vertices[index]
+    return unless v?
+
+    v.tween.stop() if v.tween
+    v.tween = new TWEEN.Tween(x: v.x, y: v.y)
+      .to({ x: v.was.x, y: v.was.y}, 500)
+      .easing(TWEEN.Easing.Bounce.Out)
+      .onUpdate ->
+        v.set @x, @y
+      .onComplete -> 
+        v.copy v.was
+        v.tween = null
+      .start()
 
   reset: ->
     that = this
