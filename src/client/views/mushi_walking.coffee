@@ -7,13 +7,7 @@ class Fmushi.Views.MushiWalking extends Backbone.View
       @debugShape.stroke = 'orangered'
       @debugShape.noFill()
 
-    loader = new PIXI.AssetLoader ['/app.json']
-    loader.onComplete = _.bind @onAssetLoaded, @, loader
-    loader.load()
-
-  onAssetLoaded: (loader) ->
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
-
     @sprite = sprite = new PIXI.MovieClip(textures)
     sprite.animationSpeed = 0.075
     sprite.gotoAndPlay 0

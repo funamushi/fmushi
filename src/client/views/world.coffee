@@ -6,6 +6,11 @@ class Fmushi.Views.World extends Backbone.View
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
+    loader = new PIXI.AssetLoader ['/app.json']
+    loader.onComplete = _.bind @onAssetLoaded, @, loader
+    loader.load()
+
+  onAssetLoaded: (loader) ->
     @listenTo @mushies, 'add', (model) ->
       view = new Fmushi.Views.MushiWalking(model: model)
       @views[model.cid] = view
