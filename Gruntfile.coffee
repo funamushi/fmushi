@@ -104,7 +104,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-open'
 
   grunt.registerTask 'build:dev', ['coffee', 'concat:vendor']
-  grunt.registerTask 'build:production',  ['coffee', 'uglify']
+  grunt.registerTask 'build:production',  ['coffee', 'concat', 'uglify']
 
   grunt.registerTask 'default', ['build:dev', 'express:dev', 'open:dev', 'watch']
 
