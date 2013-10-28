@@ -34,34 +34,34 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
     model = @model
 
-    sprite.mousedown = @sprite.touchstart = (e) ->
-      e.originalEvent.preventDefault()
-      @event = e
-      @dragging = true
+    # sprite.mousedown = @sprite.touchstart = (e) ->
+    #   e.originalEvent.preventDefault()
+    #   @event = e
+    #   @dragging = true
     
-    sprite.mouseup = @sprite.mouseupoutside = (e) ->
-      @event = null
-      @dragging = false
+    # sprite.mouseup = @sprite.mouseupoutside = @sprite.touchend = (e) ->
+    #   @event = null
+    #   @dragging = false
     
-    sprite.mousemove = @sprite.touchmove = (e) ->
-      if @dragging
-        worldPos = @event.getLocalPosition(Fmushi.stage)
-        model.set x: worldPos.x, y: worldPos.y
+    # sprite.mousemove = @sprite.touchmove = (e) ->
+    #   if @dragging
+    #     worldPos = @event.getLocalPosition(Fmushi.stage)
+    #     model.set x: worldPos.x, y: worldPos.y
 
-    @listenTo Fmushi.Events, 'update', ->
-      x = @model.get('x')
-      if @model.get('direction') == 'left'
-        if x < -10
-          @model.set direction: 'right'
-        else
-          @model.set x: x - 1
-      else
-        if x > 1000
-          @model.set direction: 'left'
-        else
-          @model.set x: x + 1
+    # @listenTo Fmushi.Events, 'update', ->
+    #   x = @model.get('x')
+    #   if @model.get('direction') == 'left'
+    #     if x < -10
+    #       @model.set direction: 'right'
+    #     else
+    #       @model.set x: x - 1
+    #   else
+    #     if x > 1000
+    #       @model.set direction: 'left'
+    #     else
+    #       @model.set x: x + 1
 
-    Fmushi.stage.addChild sprite
+    Fmushi.app.world.addChild sprite
 
   onChanged: ->
     if x = @model.changed.x

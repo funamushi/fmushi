@@ -21,8 +21,6 @@ $(->
     ).appendTo(document.body)
 
   Fmushi.stage = new PIXI.Stage 0x000000, true
-  Fmushi.stage.worldAlpha = 0
-  Fmushi.stage.alpha = 0
 
   renderer = PIXI.autoDetectRenderer(1000, 1000, null, true)
   renderer.view.style.position = "absolute"
@@ -40,5 +38,5 @@ $(->
 
   requestAnimFrame animate
 
-  window.Fmushi.Views.World = new Fmushi.Views.World
+  window.Fmushi.app = new Fmushi.Views.App
   )

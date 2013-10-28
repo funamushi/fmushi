@@ -30,7 +30,7 @@ app.configure 'development', ->
       'models/circle'
       'views/mushi_walking'
       'views/circle'
-      'views/world'
+      'views/app'
     ]
 
 app.get '/', (req, res) ->
