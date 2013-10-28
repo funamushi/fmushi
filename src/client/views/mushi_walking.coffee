@@ -17,6 +17,8 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.anchor.y = 0.5
     sprite.position.x = attrs.x
     sprite.position.y = attrs.y
+    sprite.scale.x = 0.5
+    sprite.scale.y = 0.5
 
     sprite.interactive = true
     sprite.buttonMode = true
@@ -26,7 +28,7 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     text.anchor.x = 0.5
     text.anchor.y = 0.5
     text.position.x = 0
-    text.position.y = -20
+    text.position.y = -40
 
     sprite.addChild text
 
@@ -72,8 +74,8 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
     if d = @model.changed.direction
       if d == 'left'
-        @sprite.scale.x = 1
+        @sprite.scale.x = 0.5
       else
-        @sprite.scale.x = -1
+        @sprite.scale.x = -0.5
 
 

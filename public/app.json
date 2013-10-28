@@ -2,43 +2,43 @@
 
 "default.png":
 {
-	"frame": {"x":2,"y":96,"w":114,"h":15},
+	"frame": {"x":2,"y":184,"w":226,"h":29},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":114,"h":15},
-	"sourceSize": {"w":118,"h":17}
+	"spriteSourceSize": {"x":4,"y":2,"w":226,"h":29},
+	"sourceSize": {"w":236,"h":33}
 },
 "mushi_walk-1.png":
 {
-	"frame": {"x":166,"y":2,"w":166,"h":90},
+	"frame": {"x":326,"y":2,"w":328,"h":176},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":8,"y":8,"w":166,"h":90},
-	"sourceSize": {"w":178,"h":108}
+	"spriteSourceSize": {"x":18,"y":18,"w":328,"h":176},
+	"sourceSize": {"w":356,"h":216}
 },
 "mushi_walk-2.png":
 {
-	"frame": {"x":2,"y":2,"w":162,"h":92},
+	"frame": {"x":2,"y":2,"w":322,"h":180},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":9,"y":5,"w":162,"h":92},
-	"sourceSize": {"w":178,"h":108}
+	"spriteSourceSize": {"x":18,"y":12,"w":322,"h":180},
+	"sourceSize": {"w":356,"h":216}
 },
 "mushi_walk-3.png":
 {
-	"frame": {"x":334,"y":2,"w":162,"h":78},
+	"frame": {"x":656,"y":2,"w":322,"h":156},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":8,"y":16,"w":162,"h":78},
-	"sourceSize": {"w":178,"h":108}
+	"spriteSourceSize": {"x":17,"y":32,"w":322,"h":156},
+	"sourceSize": {"w":356,"h":216}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "app.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":128},
+	"size": {"w":1024,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:73d692b7f40b4d7492c9f772315c5db3:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d5691399bdd8f928244deca3ce9f2911:1/1$"
 }
 }
