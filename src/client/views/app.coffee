@@ -30,13 +30,15 @@ class Fmushi.Views.App extends Backbone.View
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
   initMiniScreen: ->
+    size = { x: 200, y: 200 }
+
     graphics = new PIXI.Graphics
     graphics.beginFill(0xFFFF00);
     graphics.lineStyle(5, 0xFF0000);
-    graphics.drawRect(0, 0, 200, 200);
+    graphics.drawRect(0, 0, size.x, size.y);
     graphics.endFill()
 
-    console.log graphics.hitArea = new PIXI.Rectangle(0, 0, 200, 200)
+    console.log graphics.hitArea = new PIXI.Rectangle(0, 0, size.x, size.y)
     graphics.interactive = true
     graphics.setInteractive true
 
@@ -52,13 +54,13 @@ class Fmushi.Views.App extends Backbone.View
     camera = @camera
     graphics.click = graphics.tap = (e) ->
       pos = e.getLocalPosition(miniScreen)
-      camera.x = (pos.x - 100) * (Fmushi.screenSize.x / 200)
-      camera.y = (pos.y - 100) * (Fmushi.screenSize.y / 200)
+      camera.x = (pos.x - (size.x / 2)) * (Fmushi.screenSize.x / size.y)
+      camera.y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
       app.trigger 'camera:change', camera
 
   onCameraChanged: (camera)->
-    @world.position.x = camera.x
-    @world.position.y = camera.y
+    @world.position.x = -camera.x
+    @world.position.y = -camera.y
 
   onAssetLoaded: (loader) ->
     @mushies.add [{ x: 700, y: 300 }]
