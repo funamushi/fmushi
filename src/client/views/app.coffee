@@ -32,22 +32,30 @@ class Fmushi.Views.App extends Backbone.View
   initMiniScreen: ->
     size = { x: 200, y: 200 }
 
+    @miniScreen = miniScreen = new PIXI.DisplayObjectContainer
+    miniScreen.interactive = true
+    miniScreen.position.x = 800
+    miniScreen.position.y = 30
+
     graphics = new PIXI.Graphics
     graphics.beginFill(0xFFFF00);
     graphics.lineStyle(5, 0xFF0000);
     graphics.drawRect(0, 0, size.x, size.y);
     graphics.endFill()
 
-    console.log graphics.hitArea = new PIXI.Rectangle(0, 0, size.x, size.y)
+    graphics.hitArea = new PIXI.Rectangle(0, 0, size.x, size.y)
     graphics.interactive = true
-    graphics.setInteractive true
-
-    @miniScreen = miniScreen = new PIXI.DisplayObjectContainer
-    miniScreen.interactive = true
-    miniScreen.position.x = 800
-    miniScreen.position.y = 10
-
     miniScreen.addChild graphics
+
+    text = new PIXI.Text '地図',
+      font: 'bold 16pt Arial'
+      fill: 'white'
+    text.anchor.x = 0.5
+    text.anchor.y = 0.5
+    text.position.x = size.x / 2
+    text.position.y = -15
+    miniScreen.addChild text
+
     Fmushi.stage.addChild miniScreen
 
     app = @
@@ -58,7 +66,7 @@ class Fmushi.Views.App extends Backbone.View
       camera.y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
       app.trigger 'camera:change', camera
 
-  onCameraChanged: (camera)->
+  onCameraChanged: (camera, zoom)->
     @world.position.x = -camera.x
     @world.position.y = -camera.y
 
