@@ -3,6 +3,9 @@ window.Fmushi =
   Collections: {}
   Views: {}
   Events: _.extend {}, Backbone.Events
+  screenSize:
+    x: 1000
+    y: 1000
   debug: false
 
 class Fmushi.Vector extends Two.Vector
@@ -15,14 +18,14 @@ $(->
   Two.Resolution = 12;
 
   Fmushi.two = new Two(
-    width: 1000
-    height: 1000
+    width:  Fmushi.screenSize.x
+    height: Fmushi.screenSize.y
     fullscreen: true
     ).appendTo(document.body)
 
   Fmushi.stage = new PIXI.Stage 0x000000, true
 
-  renderer = PIXI.autoDetectRenderer(1000, 1000, null, true)
+  renderer = PIXI.autoDetectRenderer Fmushi.screenSize.x, Fmushi.screenSize.y#, null, true
   renderer.view.style.position = "absolute"
   renderer.view.style.top  = "0"
   renderer.view.style.left = "0"

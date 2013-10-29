@@ -1,18 +1,13 @@
 class Fmushi.Views.App extends Backbone.View
-  debug: true
-
   initialize: ->
+    app = @
+
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
 
-    @camera = camera = new PIXI.DisplayObjectContainer
-    Fmushi.stage.addChild camera
-
-    camera.interactive = true
-    camera.hitArea = Fmushi.stage.hitArea.clone()
-    camera.click = (e) ->
-      pos = e.getLocalPosition(camera)
-      Fmushi.Events.trigger 'zoom', pos
+    @camera = camera = new PIXI.Point(0, 0)
+    
+    @initMiniScreen()
 
     loader = new PIXI.AssetLoader ['./app.json']
     loader.onComplete = _.bind @onAssetLoaded, @, loader
@@ -22,7 +17,7 @@ class Fmushi.Views.App extends Backbone.View
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
-    @listenTo Fmushi.Events, 'zoom', @onZoomed
+    @on 'camera:change', @onCameraChanged
 
     @listenTo @mushies, 'add', (model) ->
       view = new Fmushi.Views.MushiWalking(model: model)
@@ -34,27 +29,43 @@ class Fmushi.Views.App extends Backbone.View
 
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
+  initMiniScreen: ->
+    graphics = new PIXI.Graphics
+    graphics.beginFill(0xFFFF00);
+    graphics.lineStyle(5, 0xFF0000);
+    graphics.drawRect(0, 0, 200, 200);
+    graphics.endFill()
+
+    console.log graphics.hitArea = new PIXI.Rectangle(0, 0, 200, 200)
+    graphics.interactive = true
+    graphics.setInteractive true
+
+    @miniScreen = miniScreen = new PIXI.DisplayObjectContainer
+    miniScreen.interactive = true
+    miniScreen.position.x = 800
+    miniScreen.position.y = 10
+
+    miniScreen.addChild graphics
+    Fmushi.stage.addChild miniScreen
+
+    app = @
+    camera = @camera
+    graphics.click = graphics.tap = (e) ->
+      pos = e.getLocalPosition(miniScreen)
+      camera.x = (pos.x - 100) * (Fmushi.screenSize.x / 200)
+      camera.y = (pos.y - 100) * (Fmushi.screenSize.y / 200)
+      app.trigger 'camera:change', camera
+
+  onCameraChanged: (camera)->
+    @world.position.x = camera.x
+    @world.position.y = camera.y
+
   onAssetLoaded: (loader) ->
     @mushies.add [{ x: 700, y: 300 }]
     @mushies.add [{ x: 850, y: 400 }]
     @mushies.add [{ x: 1000, y: 500 }]
 
     @circles.add [{ x: 400, y: 350, r: 300 }]
-
-  onZoomed: (pos) ->
-    @camera.pivot.x = pos.x / (@camera.hitArea.width / 100)
-    @camera.pivot.y = pos.y / (@camera.hitArea.height / 100)
-
-    @camera.pos = pos
-
-    @camera.scale.x *= 1.1
-    @camera.scale.y *= 1.1
-
-    console.log @camera.pivot
-
-  # no implemented yet
-  locationFromPosition: (worldPos) ->
-    worldPos
 
   collisionDetection: ->
     mushies = @mushies
