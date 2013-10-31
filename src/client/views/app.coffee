@@ -5,7 +5,7 @@ class Fmushi.Views.App extends Backbone.View
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
 
-    @camera = camera = new PIXI.Point(0, 0)
+    @camera = new Fmushi.Models.Camera
     
     @initMiniScreen()
 
@@ -19,8 +19,6 @@ class Fmushi.Views.App extends Backbone.View
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
-    @on 'camera:change', @onCameraChanged
-
     @listenTo @mushies, 'add', (model) ->
       view = new Fmushi.Views.MushiWalking(model: model)
       @views[model.cid] = view
@@ -29,6 +27,7 @@ class Fmushi.Views.App extends Backbone.View
       view = new Fmushi.Views.Circle(model: model)
       @views[model.cid] = view
 
+    @listenTo @camera, 'change', @onCameraChanged
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
   initMiniScreen: ->
@@ -64,14 +63,21 @@ class Fmushi.Views.App extends Backbone.View
     camera = @camera
     graphics.click = graphics.tap = (e) ->
       pos = e.getLocalPosition(miniScreen)
-      camera.x = (pos.x - (size.x / 2)) * (Fmushi.screenSize.x / size.y)
-      camera.y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
-      app.trigger 'camera:change', camera
+      x = (pos.x - (size.x / 2)) * (Fmushi.screenSize.x / size.y)
+      y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
+      camera.set x: x, y: y
 
-  onCameraChanged: (camera, zoom)->
-    @world.position.x = -camera.x
-    @world.position.y = -camera.y
-    @shapeWorld.translation.set -camera.x, -camera.y
+  onCameraChanged: (camera) ->
+    zoom = camera.get 'zoom'
+    distanceX = camera.get('x') * zoom
+    distanceY = camera.get('y') * zoom
+
+    @world.position.x = -distanceX
+    @world.position.y = -distanceY
+    @world.scale.x = @world.scale.y = zoom
+
+    @shapeWorld.translation.set -distanceX, -distanceY
+    @shapeWorld.scale = zoom
 
   onAssetLoaded: (loader) ->
     @mushies.add [{ x: 700, y: 300 }]

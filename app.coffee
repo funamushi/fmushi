@@ -28,6 +28,7 @@ app.configure 'development', ->
       'fmushi'
       'models/mushi'
       'models/circle'
+      'models/camera'
       'views/mushi_walking'
       'views/circle'
       'views/app'
