@@ -25,7 +25,7 @@ $(->
 
   Fmushi.stage = new PIXI.Stage 0x000000, true
 
-  renderer = PIXI.autoDetectRenderer Fmushi.screenSize.x, Fmushi.screenSize.y#, null, true
+  renderer = PIXI.autoDetectRenderer Fmushi.screenSize.x, Fmushi.screenSize.y, null, true
   renderer.view.style.position = "absolute"
   renderer.view.style.top  = "0"
   renderer.view.style.left = "0"

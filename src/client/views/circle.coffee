@@ -4,7 +4,8 @@ class Fmushi.Views.Circle extends Backbone.View
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
     shape.linewidth = 1
     shape.noFill()
-    
+    Fmushi.app.shapeWorld.add shape
+
     for v in @shape.vertices
       v.was = v.clone()
 

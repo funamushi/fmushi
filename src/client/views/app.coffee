@@ -13,6 +13,8 @@ class Fmushi.Views.App extends Backbone.View
     loader.onComplete = _.bind @onAssetLoaded, @, loader
     loader.load()
 
+    @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
+
     @views = {}
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
@@ -69,6 +71,7 @@ class Fmushi.Views.App extends Backbone.View
   onCameraChanged: (camera, zoom)->
     @world.position.x = -camera.x
     @world.position.y = -camera.y
+    @shapeWorld.translation.set -camera.x, -camera.y
 
   onAssetLoaded: (loader) ->
     @mushies.add [{ x: 700, y: 300 }]
