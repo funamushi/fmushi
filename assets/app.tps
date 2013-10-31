@@ -152,6 +152,8 @@
             <filename>mushi_walk-2.png</filename>
             <filename>mushi_walk-3.png</filename>
             <filename>default.png</filename>
+            <filename>zoom_in.png</filename>
+            <filename>zoom_out.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

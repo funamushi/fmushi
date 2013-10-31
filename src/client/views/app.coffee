@@ -80,6 +80,24 @@ class Fmushi.Views.App extends Backbone.View
     @shapeWorld.scale = zoom
 
   onAssetLoaded: (loader) ->
+    camera = @camera
+
+    zoomInTexture  = PIXI.Texture.fromFrame('zoom_in.png')
+    zoomIn  = new PIXI.Sprite(zoomInTexture)
+    zoomIn.position.x = -750
+    zoomIn.interactive = true
+    zoomIn.click = zoomIn.tap = (e) ->
+      camera.set 'zoom', (camera.get('zoom') + 0.1)
+    @miniScreen.addChild zoomIn
+
+    zoomOutTexture = PIXI.Texture.fromFrame('zoom_out.png')
+    zoomOut = new PIXI.Sprite(zoomOutTexture)
+    zoomOut.position.x = -700
+    zoomOut.interactive = true
+    zoomOut.click = zoomOut.tap = (e) ->
+      camera.set 'zoom', (camera.get('zoom') - 0.1)
+    @miniScreen.addChild zoomOut
+
     @mushies.add [{ x: 700, y: 300 }]
     @mushies.add [{ x: 850, y: 400 }]
     @mushies.add [{ x: 1000, y: 500 }]

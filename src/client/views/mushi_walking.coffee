@@ -48,18 +48,18 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     #     worldPos = @event.getLocalPosition(Fmushi.stage)
     #     model.set x: worldPos.x, y: worldPos.y
 
-    # @listenTo Fmushi.Events, 'update', ->
-    #   x = @model.get('x')
-    #   if @model.get('direction') == 'left'
-    #     if x < -10
-    #       @model.set direction: 'right'
-    #     else
-    #       @model.set x: x - 1
-    #   else
-    #     if x > 1000
-    #       @model.set direction: 'left'
-    #     else
-    #       @model.set x: x + 1
+    @listenTo Fmushi.Events, 'update', ->
+      x = @model.get('x')
+      if @model.get('direction') == 'left'
+        if x < -10
+          @model.set direction: 'right'
+        else
+          @model.set x: x - 1
+      else
+        if x > 1000
+          @model.set direction: 'left'
+        else
+          @model.set x: x + 1
 
     Fmushi.app.world.addChild sprite
 
