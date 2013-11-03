@@ -24,16 +24,7 @@ app.configure 'production', ->
 app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
-  app.locals
-    js: [
-      'fmushi'
-      'models/mushi'
-      'models/circle'
-      'models/camera'
-      'views/mushi_walking'
-      'views/circle'
-      'views/app'
-    ]
+  app.locals require('manifest.json')
 
 app.get '/', (req, res) ->
   res.render 'index'

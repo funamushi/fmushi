@@ -3,6 +3,7 @@ path = require('path')
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
+    manifest: grunt.file.readJSON('manifest.json')
     meta:
       src:
         server: 'src/server'
@@ -56,11 +57,7 @@ module.exports = (grunt) ->
         ]
         dest: "<%= meta.build.client %>/vendor.js"
       app:
-        src: [
-          "<%= meta.build.client %>/fmushi.js"
-          "<%= meta.build.client %>/models/*.js"
-          "<%= meta.build.client %>/views/*.js"
-          ]
+        src: "<%= manifest.js %>"
         dest: "<%= meta.build.client %>/app.js"
           
     uglify:
