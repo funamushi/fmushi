@@ -6,6 +6,7 @@ class Fmushi.Views.App extends Backbone.View
     Fmushi.stage.addChild world
 
     @camera = new Fmushi.Models.Camera
+    @locked = false
     
     @initMiniScreen()
 
@@ -62,6 +63,7 @@ class Fmushi.Views.App extends Backbone.View
     app = @
     camera = @camera
     graphics.click = graphics.tap = (e) ->
+      return if app.locked
       pos = e.getLocalPosition(miniScreen)
       x = (pos.x - (size.x / 2)) * (Fmushi.screenSize.x / size.y)
       y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
@@ -69,15 +71,34 @@ class Fmushi.Views.App extends Backbone.View
 
   onCameraChanged: (camera) ->
     zoom = camera.get 'zoom'
+    zoomWas = camera.changed.zoom || zoom
     distanceX = camera.get('x') * zoom
     distanceY = camera.get('y') * zoom
 
-    @world.position.x = -distanceX
-    @world.position.y = -distanceY
-    @world.scale.x = @world.scale.y = zoom
+    app = @
+    world = @world
+    shapeWorld = @shapeWorld
+    destX = world.position.x - distanceX
+    destY = world.position.y - distanceY
 
-    @shapeWorld.translation.set -distanceX, -distanceY
-    @shapeWorld.scale = zoom
+    @locked = true
+    new TWEEN.Tween(x: world.position.x, y: world.position.y, zoom: zoomWas)
+      .to({ x: destX, y: destY, zoom: zoom }, 500)
+      .easing(TWEEN.Easing.Cubic.InOut)
+      .onUpdate ->
+        world.position.x = @x
+        world.position.y = @y
+        world.scale.x = world.scale.y = @zoom
+        shapeWorld.translation.set @x, @y
+        shapeWorld.scale = @zoom  
+      .onComplete ->
+        world.position.x = destX
+        world.position.y = destY
+        world.scale.x = world.scale.y = zoom
+        shapeWorld.translation.set destX, destY
+        shapeWorld.scale = zoom
+        app.locked = false
+      .start()
 
   onAssetLoaded: (loader) ->
     camera = @camera
