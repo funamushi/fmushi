@@ -1,12 +1,13 @@
-path = require('path')
+path    = require('path')
 express = require('express')
+hbs     = require('hbs')
+
 app = express()
 
 app.engine 'html', require('hogan-express')
 
 app.configure ->
-  app.set "views", path.join(__dirname, "/views")
-  app.set "view engine", "html"
+  app.set "view engine", "hbs"
   app.set 'layout', 'layout'
   app.use express.favicon()
   app.use express.bodyParser()
