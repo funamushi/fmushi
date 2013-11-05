@@ -8,13 +8,13 @@ class Fmushi.Views.App extends Backbone.View
     @camera = new Fmushi.Models.Camera
     @locked = false
     
-    @initMiniScreen()
-
     loader = new PIXI.AssetLoader ['./app.json']
     loader.onComplete = _.bind @onAssetLoaded, @, loader
     loader.load()
 
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
+
+    @initMiniScreen()
 
     @views = {}
     @mushies = new Fmushi.Collections.Mushies
@@ -60,10 +60,18 @@ class Fmushi.Views.App extends Backbone.View
 
     Fmushi.stage.addChild miniScreen
 
+    pointer = Fmushi.two.makeCircle miniScreen.position.x, miniScreen.position.y, 5
+    pointer.stroke = 'orangered'
+    pointer.fill = '#ff8000'
+    @shapeWorld.add pointer
+
     app = @
     camera = @camera
     graphics.click = graphics.tap = (e) ->
       return if app.locked
+
+      pointer.translation.set e.global
+
       pos = e.getLocalPosition(miniScreen)
       x = (pos.x - (size.x / 2)) * (Fmushi.screenSize.x / size.y)
       y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
