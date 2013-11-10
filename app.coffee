@@ -27,5 +27,17 @@ app.configure 'development', ->
 app.get '/', (req, res) ->
   res.render 'index'
 
+app.get '/mushies', (req, res) ->
+  res.send [
+    { x: 700,  y: 300 }
+    { x: 850,  y: 400 }
+    { x: 1000, y: 500 }
+  ]
+
+app.get '/circles', (req, res) ->
+  res.send [
+    { x: 400, y: 350, r: 300 }
+  ]
+
 app.listen 3000, ->
   console.log 'Express server listening on port:3000'

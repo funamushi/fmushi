@@ -127,11 +127,8 @@ class Fmushi.Views.App extends Backbone.View
       camera.set 'zoom', (camera.get('zoom') - 0.1)
     @miniScreen.addChild zoomOut
 
-    @mushies.add [{ x: 700, y: 300 }]
-    @mushies.add [{ x: 850, y: 400 }]
-    @mushies.add [{ x: 1000, y: 500 }]
-
-    @circles.add [{ x: 400, y: 350, r: 300 }]
+    @mushies.fetch()
+    @circles.fetch()
 
   collisionDetection: ->
     mushies = @mushies

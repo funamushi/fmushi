@@ -13,3 +13,4 @@ class Fmushi.Models.Mushi extends Backbone.Model
 
 class Fmushi.Collections.Mushies extends Backbone.Collection
   model: Fmushi.Models.Mushi
+  url: '/mushies'
