@@ -23,8 +23,8 @@ class Fmushi.Views.App extends Backbone.View
     @listenTo @mushies, 'add', (model) ->
       view = new Fmushi.Views.MushiWalking(model: model)
       @views[model.cid] = view
-
-    @listenTo @circles, 'add', (model) ->
+      
+    @listenTo @circles, 'add', (model) -> 
       view = new Fmushi.Views.Circle(model: model)
       @views[model.cid] = view
 
@@ -127,8 +127,14 @@ class Fmushi.Views.App extends Backbone.View
       camera.set 'zoom', (camera.get('zoom') - 0.1)
     @miniScreen.addChild zoomOut
 
-    @mushies.fetch()
-    @circles.fetch()
+    circles = @circles
+    mushies = @mushies
+    $.when(
+      circles.fetch(reset: true),
+      mushies.fetch(reset: true)
+      ).done (circlesArgs, mushiesArgs)->
+        circles.add circlesArgs[0]
+        mushies.add mushiesArgs[0]
 
   collisionDetection: ->
     mushies = @mushies
