@@ -4,8 +4,6 @@ hbs     = require('hbs')
 
 app = express()
 
-app.engine 'html', require('hogan-express')
-
 app.configure ->
   app.set "view engine", "hbs"
   app.set 'layout', 'layout'

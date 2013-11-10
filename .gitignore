@@ -1,8 +1,8 @@
 .DS_Store
 node_modules
 bower_components
-public/js
-lib
+public/js/**/*.js
+lib/**/*.js
 app.js
 .bundle
 vendor
