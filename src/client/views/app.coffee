@@ -8,10 +8,6 @@ class Fmushi.Views.App extends Backbone.View
     @camera = new Fmushi.Models.Camera
     @locked = false
     
-    loader = new PIXI.AssetLoader ['./app.json']
-    loader.onComplete = _.bind @onAssetLoaded, @, loader
-    loader.load()
-
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
     @initMiniScreen()
@@ -30,6 +26,19 @@ class Fmushi.Views.App extends Backbone.View
 
     @listenTo @camera, 'change', @onCameraChanged
     @listenTo Fmushi.Events, 'update', @collisionDetection
+
+    loaderDefer = new $.Deferred
+    loader = new PIXI.AssetLoader ['./app.json']
+    loader.onComplete = ->
+      loaderDefer.resolve()
+      loaderDefer.promise()
+    loader.load()
+
+    $.when(
+      loaderDefer,
+      @circles.fetch(reset: true),
+      @mushies.fetch(reset: true)
+      ).done _.bind(@onAssetLoaded, @)
 
   initMiniScreen: ->
     size = { x: 200, y: 200 }
@@ -108,7 +117,7 @@ class Fmushi.Views.App extends Backbone.View
         app.locked = false
       .start()
 
-  onAssetLoaded: (loader) ->
+  onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
     camera = @camera
 
     zoomInTexture  = PIXI.Texture.fromFrame('zoom_in.png')
@@ -127,14 +136,8 @@ class Fmushi.Views.App extends Backbone.View
       camera.set 'zoom', (camera.get('zoom') - 0.1)
     @miniScreen.addChild zoomOut
 
-    circles = @circles
-    mushies = @mushies
-    $.when(
-      circles.fetch(reset: true),
-      mushies.fetch(reset: true)
-      ).done (circlesArgs, mushiesArgs) ->
-        circles.add circlesArgs[0]
-        mushies.add mushiesArgs[0]
+    @circles.add circlesArgs[0]
+    @mushies.add mushiesArgs[0]
 
   collisionDetection: ->
     mushies = @mushies
