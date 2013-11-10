@@ -132,7 +132,7 @@ class Fmushi.Views.App extends Backbone.View
     $.when(
       circles.fetch(reset: true),
       mushies.fetch(reset: true)
-      ).done (circlesArgs, mushiesArgs)->
+      ).done (circlesArgs, mushiesArgs) ->
         circles.add circlesArgs[0]
         mushies.add mushiesArgs[0]
 
