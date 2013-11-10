@@ -29,13 +29,11 @@ class Fmushi.Views.App extends Backbone.View
 
     loaderDefer = new $.Deferred
     loader = new PIXI.AssetLoader ['./app.json']
-    loader.onComplete = ->
-      loaderDefer.resolve()
-      loaderDefer.promise()
+    loader.onComplete = -> loaderDefer.resolve()
     loader.load()
 
     $.when(
-      loaderDefer,
+      loaderDefer.promise(),
       @circles.fetch(reset: true),
       @mushies.fetch(reset: true)
       ).done _.bind(@onAssetLoaded, @)
