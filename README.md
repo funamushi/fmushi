@@ -4,13 +4,14 @@ F虫
 ## Setup
 
 ```bash
-$ npm install -g grunt-cli
+$ npm install -g brunch
 $ npm install -g bower
 ```
 
 ```bash
-$ cd funamushi
+$ git clone git@bitbucket.org:funamushi/fmushi.git
+$ cd fmushi
 $ npm install
 $ bower install
-$ grunt
+$ brunch w -s
 ```
