@@ -4,14 +4,18 @@ hbs     = require('hbs')
 
 app = express()
 
+console.log __dirname
+console.log path.resolve('.')
+
 app.configure ->
   app.set "view engine", "hbs"
+  app.set 'views', path.resolve('./views')
   app.set 'layout', 'layout'
   app.use express.favicon()
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use app.router
-  app.use express.static(path.join(__dirname, "public"))
+  app.use express.static(path.resolve("./public"))
 
 app.configure 'production', ->
 

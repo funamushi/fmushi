@@ -10,6 +10,8 @@ exports.config =
       joinTo:
         'js/app.js': /^src\/client/
         'js/vendor.js': /^bower_components/
+      order:
+        before: ['src/client/fmushi.coffee']
     templates:
       defaultExtension: 'hbs'
       joinTo: 'js/app.js'
