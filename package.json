@@ -7,16 +7,19 @@
   "dependencies": {
     "express": "~3.4.0",
     "lodash": "~2.2.0",
-    "hbs": "~2.4.0"
+    "hbs": "~2.4.0",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-open": "~0.2.2",
-    "grunt-parallel": "~0.3.1",
-    "grunt-express-server": "~0.4.4"
+    "handlebars-brunch": "~1.7.2",
+    "uglify-js-brunch": "~1.7.3",
+    "coffee-script-brunch": "~1.7.3",
+    "javascript-brunch": "~1.7.0",
+    "cordell": "~0.1.5",
+    "ansi-color": "~0.2.1",
+    "growl": "~1.7.0",
+    "async": "~0.2.9",
+    "debug": "~0.7.4",
+    "date-utils": "~1.2.14"
   }
 }

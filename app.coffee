@@ -14,15 +14,10 @@ app.configure ->
   app.use express.static(path.join(__dirname, "public"))
 
 app.configure 'production', ->
-  app.locals
-    js: [
-      'app.min'
-    ]
 
 app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
-  app.locals require('manifest.json')
 
 app.get '/', (req, res) ->
   res.render 'index'
@@ -39,5 +34,9 @@ app.get '/circles', (req, res) ->
     { x: 400, y: 350, r: 300 }
   ]
 
-app.listen 3000, ->
-  console.log 'Express server listening on port:3000'
+module.exports = exports = app
+
+if module.parent == undefined
+  app.listen 3000, ->
+    console.log 'Express server listening on port:3000'
+        
