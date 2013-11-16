@@ -18,10 +18,10 @@ exports.config =
     path: 'brunch_server'
     port: 3000
     base: '/'
-    app: 'app'
+    app: 'src/server/app'
     persistent: true
     interval: 100
-    watched: ['app.coffee', 'lib']
+    watched: ['src/server']
     ignore: /(^[.#]|(?:~)$)/
     source: /.*\.coffee$/
     tester:
