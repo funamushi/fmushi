@@ -3,6 +3,9 @@ exports.config =
     public: 'public'
     watched: ['src']
 
+  modules:
+    wrapper: false
+
   # See docs at http://brunch.readthedocs.org/en/latest/config.html.
   files:
     javascripts:
