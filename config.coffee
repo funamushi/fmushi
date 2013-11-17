@@ -4,7 +4,7 @@ exports.config =
     watched: ['src']
 
   modules:
-    wrapper: false
+    wrapper: 'amd'
 
   # See docs at http://brunch.readthedocs.org/en/latest/config.html.
   files:
@@ -29,5 +29,11 @@ exports.config =
     source: /.*\.coffee$/
     tester:
       enabled: false
-    
 
+  plugins:
+    autoReload:
+      enabled:
+        css: on
+        js: on
+        assets: off
+      port: [1234, 2345, 3456]

@@ -20,6 +20,7 @@
     "growl": "~1.7.0",
     "async": "~0.2.9",
     "debug": "~0.7.4",
-    "date-utils": "~1.2.14"
+    "date-utils": "~1.2.14",
+    "auto-reload-brunch": "~1.7.1"
   }
 }
