@@ -9,7 +9,7 @@ console.log path.resolve('.')
 
 app.configure ->
   app.set "view engine", "hbs"
-  app.set 'views', path.resolve('./views')
+  app.set 'views', path.join(__dirname, 'views')
   app.set 'layout', 'layout'
   app.use express.favicon()
   app.use express.bodyParser()
