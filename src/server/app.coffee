@@ -29,8 +29,8 @@ app.get '/', (req, res) ->
 app.get '/mushies', (req, res) ->
   res.send [
     { x: 700,  y: 300 }
-    { x: 850,  y: 400 }
-    { x: 1000, y: 500 }
+    # { x: 850,  y: 400 }
+    # { x: 1000, y: 500 }
   ]
 
 app.get '/circles', (req, res) ->
@@ -40,7 +40,9 @@ app.get '/circles', (req, res) ->
 
 module.exports = exports = app
 
-if module.parent == undefined
+exports.startServer = startServer = ->
   app.listen 3000, ->
     console.log 'Express server listening on port:3000'
+
+startServer() if module.parent == undefined
         
