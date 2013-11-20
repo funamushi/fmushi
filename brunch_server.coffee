@@ -7,6 +7,10 @@ cordell = require('cordell')
 
 {config} = require('./config')
 
+process.on 'uncaughtException', (e) ->
+  console.log e.stack
+  console.log e
+
 class BrunchServer extends EventEmitter
   constructor: (config) ->
     @config = {}

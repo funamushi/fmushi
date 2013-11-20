@@ -21,6 +21,8 @@
     "async": "~0.2.9",
     "debug": "~0.7.4",
     "date-utils": "~1.2.14",
-    "auto-reload-brunch": "~1.7.1"
+    "auto-reload-brunch": "~1.7.1",
+    "css-brunch": "~1.7.0",
+    "sass-brunch": "~1.7.2"
   }
 }

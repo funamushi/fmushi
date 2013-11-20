@@ -35,7 +35,7 @@ app.get '/mushies', (req, res) ->
 
 app.get '/circles', (req, res) ->
   res.send [
-    { x: 400, y: 350, r: 300 }
+    { x: 100, y: 350, r: 300 }
   ]
 
 module.exports = exports = app

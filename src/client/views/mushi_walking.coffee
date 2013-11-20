@@ -34,19 +34,9 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
     model = @model
 
-    # sprite.mousedown = @sprite.touchstart = (e) ->
-    #   e.originalEvent.preventDefault()
-    #   @event = e
-    #   @dragging = true
-    
-    # sprite.mouseup = @sprite.mouseupoutside = @sprite.touchend = (e) ->
-    #   @event = null
-    #   @dragging = false
-    
-    # sprite.mousemove = @sprite.touchmove = (e) ->
-    #   if @dragging
-    #     worldPos = @event.getLocalPosition(Fmushi.stage)
-    #     model.set x: worldPos.x, y: worldPos.y
+    sprite.mousedown = @sprite.touchstart = (e) ->
+      e.originalEvent.preventDefault()
+          
 
     @listenTo Fmushi.Events, 'update', ->
       x = @model.get('x')

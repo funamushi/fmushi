@@ -2,8 +2,10 @@
 node_modules
 bower_components
 public/js/**/*.js
+public/css/**/*.css
 lib/**/*.js
 **/*.js.map
+**/*.css.map
 app.js
 config.js
 .bundle

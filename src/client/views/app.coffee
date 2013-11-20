@@ -10,7 +10,7 @@ class Fmushi.Views.App extends Backbone.View
     
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    @initMiniScreen()
+    # @initMiniScreen()
 
     @views = {}
     @mushies = new Fmushi.Collections.Mushies
@@ -84,6 +84,10 @@ class Fmushi.Views.App extends Backbone.View
       y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
       camera.set x: x, y: y
 
+  focus: (entity) ->
+    @focusEntity
+    @trigger 'focus', entity
+
   onCameraChanged: (camera) ->
     zoom = camera.get 'zoom'
     zoomWas = camera.changed.zoom || zoom
@@ -124,7 +128,6 @@ class Fmushi.Views.App extends Backbone.View
     zoomIn.interactive = true
     zoomIn.click = zoomIn.tap = (e) ->
       camera.set 'zoom', (camera.get('zoom') + 0.1)
-    @miniScreen.addChild zoomIn
 
     zoomOutTexture = PIXI.Texture.fromFrame('zoom_out.png')
     zoomOut = new PIXI.Sprite(zoomOutTexture)
@@ -132,7 +135,10 @@ class Fmushi.Views.App extends Backbone.View
     zoomOut.interactive = true
     zoomOut.click = zoomOut.tap = (e) ->
       camera.set 'zoom', (camera.get('zoom') - 0.1)
-    @miniScreen.addChild zoomOut
+
+    if @miniScreen
+      @miniScreen.addChild zoomIn
+      @miniScreen.addChild zoomOut
 
     @circles.add circlesArgs[0]
     @mushies.add mushiesArgs[0]

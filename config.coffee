@@ -16,6 +16,10 @@ exports.config =
     templates:
       defaultExtension: 'hbs'
       joinTo: 'js/app.js'
+    stylesheets:
+      defaultExtension: 'scss'
+      joinTo:
+        'css/app.css': /^src\/css/
 
   server:
     path: 'brunch_server'
@@ -35,5 +39,7 @@ exports.config =
       enabled:
         css: on
         js: on
-        assets: off
+        assets: on
       port: [1234, 2345, 3456]
+    sass:
+      useBundler: true
