@@ -4,9 +4,6 @@ hbs     = require('hbs')
 
 app = express()
 
-console.log __dirname
-console.log path.resolve('.')
-
 app.configure ->
   app.set "view engine", "hbs"
   app.set 'views', path.join(__dirname, 'views')
