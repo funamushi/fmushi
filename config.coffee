@@ -11,15 +11,15 @@ exports.config =
     javascripts:
       defaultExtension: 'coffee'
       joinTo:
-        'js/app.js': /^src\/client/
         'js/vendor.js': /^bower_components/
+        'js/app.js': /^src\/client/
     templates:
       defaultExtension: 'hbs'
       joinTo: 'js/app.js'
     stylesheets:
       defaultExtension: 'scss'
       joinTo:
-        'css/app.css': /^src\/css/
+        'css/app.css': /^(bower_components|src\/css)/
 
   server:
     path: 'brunch_server'
@@ -30,7 +30,11 @@ exports.config =
     interval: 100
     watched: ['src/server']
     ignore: /(^[.#]|(?:~)$)/
+    ignorePath: /(^[.#]|(?:~)$)/
     source: /.*\.coffee$/
+    match: /.*\.coffee$/
+    matchPath: /.*\.coffee$/
+    module: 'watch'
     tester:
       enabled: false
 
