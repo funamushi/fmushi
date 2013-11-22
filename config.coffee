@@ -1,7 +1,7 @@
 exports.config =
   paths:
     public: 'public'
-    watched: ['src']
+    watched: ['src/client', 'src/css']
 
   modules:
     wrapper: 'amd'
@@ -30,10 +30,7 @@ exports.config =
     interval: 100
     watched: ['src/server']
     ignore: /(^[.#]|(?:~)$)/
-    ignorePath: /(^[.#]|(?:~)$)/
-    source: /.*\.coffee$/
-    match: /.*\.coffee$/
-    matchPath: /.*\.coffee$/
+    source: /\.coffee$/
     module: 'watch'
     tester:
       enabled: false

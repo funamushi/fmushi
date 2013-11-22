@@ -1,6 +1,6 @@
 {exists} = require('fs')
 {EventEmitter} = require('events')
-{resolve, join} = require('path')
+{basename, resolve, join} = require('path')
 {filter} = require('async')
 http = require('http')
 cordell = require('cordell')
@@ -30,6 +30,11 @@ class BrunchServer extends EventEmitter
             @ranger.on 'change', =>
               @reload()
           , 1000
+        @ranger.on 'error', (path, err) => 
+          @config.ingore
+          if !@config.ignore or !@config.ignore.test(basename(path))
+            @emit 'error', path, err
+
       @emit 'start', @
 
   stop: (fn) ->
