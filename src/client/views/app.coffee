@@ -38,6 +38,9 @@ class Fmushi.Views.App extends Backbone.View
       @mushies.fetch(reset: true)
     ).done _.bind(@onAssetLoaded, @)
 
+    Fmushi.stage.mousedown = (e) ->
+      app.focusOut()
+
   initMiniScreen: ->
     size = { x: 200, y: 200 }
 
@@ -111,6 +114,15 @@ class Fmushi.Views.App extends Backbone.View
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
     @trigger 'focus', entity
+
+  focusOut: ->
+    return unless @focusEntity
+
+    entity = @focusEntity
+    @focusEntity = null
+    @camera.set zoom: 1
+
+    @trigger 'focusOut', entity
 
   onCameraChanged: (camera) ->
     return if @locked

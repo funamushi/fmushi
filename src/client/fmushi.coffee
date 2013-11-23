@@ -16,6 +16,8 @@ window.Fmushi =
 
     Fmushi.two = new Two(fullscreen: true).appendTo(document.body)
     Fmushi.stage = new PIXI.Stage 0x000000, true
+    Fmushi.stage.interactive = true
+    Fmushi.stage.interactionManager.preventDefault = false
 
     renderer = PIXI.autoDetectRenderer w, h, null, true
     renderer.view.style.position = "absolute"

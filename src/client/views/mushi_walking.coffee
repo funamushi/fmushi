@@ -34,6 +34,7 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
     model = @model
     sprite.mousedown = @sprite.touchstart = (e) ->
+      console.log e
       Fmushi.app.focus model
 
     @listenTo Fmushi.Events, 'update', ->
