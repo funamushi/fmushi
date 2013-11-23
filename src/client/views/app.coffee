@@ -89,8 +89,18 @@ class Fmushi.Views.App extends Backbone.View
       Fmushi.screenSize.w / 2, Fmushi.screenSize.h / 2
     )
 
+  worldPosFromCamera: (camera) ->
+    x = camera.get('x')
+    y = camera.get('y')
+    zoom = camera.get('zoom')
+
+    center = @screenCenter()
+    worldPosX = -(x * zoom - center.x)
+    worldPosY = -(y * zoom - center.y)
+    { x: worldPosX, y: worldPosY }
+
   focus: (entity) ->
-    # return if @focusEntity
+    return if @focusEntity
 
     @cameraBeforeFocus = @camera.toJSON()
     @camera.set
@@ -103,26 +113,22 @@ class Fmushi.Views.App extends Backbone.View
     @trigger 'focus', entity
 
   onCameraChanged: (camera) ->
-    center = @screenCenter()
+    return if @locked
 
     zoom = camera.get 'zoom'
     x = camera.get('x')
     y = camera.get('y')
 
     zoomWas = camera.changed.zoom || zoom
-    xWas = camera.changed.x || x
-    yWas = camera.changed.y || y
     
-    worldPosX = -(x * zoom - center.x)
-    worldPosY = -(y * zoom - center.y)
-
     app = @
     world = @world
     shapeWorld = @shapeWorld
+    worldPos = @worldPosFromCamera(camera)
 
     @locked = true
     new TWEEN.Tween(x: world.position.x, y: world.position.y, zoom: zoomWas)
-      .to({ x: worldPosX, y: worldPosY, zoom: zoom }, 500)
+      .to({ x: worldPos.x, y: worldPos.y, zoom: zoom }, 500)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate ->
         world.position.x = @x
@@ -131,17 +137,22 @@ class Fmushi.Views.App extends Backbone.View
         shapeWorld.translation.set @x, @y
         shapeWorld.scale = @zoom  
       .onComplete ->
-        world.position.x = worldPosX
-        world.position.y = worldPosY
+        world.position.x = worldPos.x
+        world.position.y = worldPos.y
         world.scale.x = world.scale.y = zoom
-        shapeWorld.translation.set worldPosX, worldPosY
+        shapeWorld.translation.set worldPos.x, worldPos.y
         shapeWorld.scale = zoom
         app.locked = false
       .start()
 
   onFocusEntityChanged: (entity) ->
-    # if @focusEntity == entity
-    #   @camera.set x: entity.get('x'), y: entity.get('y')
+    return if @locked or @focusEntity != entity
+
+    @camera.set {x: entity.get('x'), y: entity.get('y')}, {silent: true}
+    worldPos = @worldPosFromCamera(@camera)
+    @world.position.x = worldPos.x
+    @world.position.y = worldPos.y
+    @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
     camera = @camera
