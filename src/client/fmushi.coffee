@@ -8,17 +8,16 @@ window.Fmushi =
     y: 1000
   debug: false
   initialize: ->
+    @onResize()
+
     Two.Resolution = 12;
 
-    Fmushi.two = new Two(
-      width:  Fmushi.screenSize.x
-      height: Fmushi.screenSize.y
-      fullscreen: true
-      ).appendTo(document.body)
-
+    Fmushi.two = new Two(fullscreen: true).appendTo(document.body)
     Fmushi.stage = new PIXI.Stage 0x000000, true
 
-    renderer = PIXI.autoDetectRenderer Fmushi.screenSize.x, Fmushi.screenSize.y, null, true
+    renderer = PIXI.autoDetectRenderer(
+      Fmushi.screenSize.x, Fmushi.screenSize.y, null, true
+    )
     renderer.view.style.position = "absolute"
     renderer.view.style.top  = "0"
     renderer.view.style.left = "0"
@@ -35,6 +34,12 @@ window.Fmushi =
     requestAnimFrame animate
 
     window.Fmushi.app = new Fmushi.Views.App
+
+  onResize: ->
+    $window = $(window)
+    @screenSize.x = $window.width()
+    @screenSize.y = $window.height()
+    Fmushi.Events.trigger 'resize', @screenSize
 
 class Fmushi.Vector extends Two.Vector
   toJSON: ->

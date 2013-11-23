@@ -84,6 +84,9 @@ class Fmushi.Views.App extends Backbone.View
       y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.y / size.y)
       camera.set x: x, y: y
 
+  center: ->
+    new Fmushi.Vector 0, 0
+
   focus: (entity) ->
     @camera.set x: entity.get('x'), y: entity.get('y')
 
