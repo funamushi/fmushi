@@ -96,7 +96,7 @@ class Fmushi.Views.App extends Backbone.View
     @camera.set
       x: entity.get('x')
       y: entity.get('y')
-      zoom: 1
+      zoom: 2
     
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
@@ -113,8 +113,8 @@ class Fmushi.Views.App extends Backbone.View
     xWas = camera.changed.x || x
     yWas = camera.changed.y || y
     
-    worldPosX = -(x - center.x) * zoom
-    worldPosY = -(y - center.y) * zoom
+    worldPosX = -(x * zoom - center.x)
+    worldPosY = -(y * zoom - center.y)
 
     app = @
     world = @world
