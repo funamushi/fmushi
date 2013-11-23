@@ -4,8 +4,8 @@ window.Fmushi =
   Views: {}
   Events: _.extend {}, Backbone.Events
   screenSize:
-    x: 1000
-    y: 1000
+    w: 1000
+    h: 1000
   debug: false
   initialize: ->
     $window = $(window)
@@ -45,8 +45,8 @@ window.Fmushi =
 
     @renderer.resize(w, h)
 
-    @screenSize.x = w
-    @screenSize.y = h
+    @screenSize.w = w
+    @screenSize.h = h
     Fmushi.Events.trigger 'resize', @screenSize
 
 class Fmushi.Vector extends Two.Vector
