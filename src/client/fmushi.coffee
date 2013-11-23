@@ -8,16 +8,16 @@ window.Fmushi =
     y: 1000
   debug: false
   initialize: ->
-    @onResize()
+    $window = $(window)
+    w = $window.width()
+    h = $window.height()
 
     Two.Resolution = 12;
 
     Fmushi.two = new Two(fullscreen: true).appendTo(document.body)
     Fmushi.stage = new PIXI.Stage 0x000000, true
 
-    renderer = PIXI.autoDetectRenderer(
-      Fmushi.screenSize.x, Fmushi.screenSize.y, null, true
-    )
+    renderer = PIXI.autoDetectRenderer w, h, null, true
     renderer.view.style.position = "absolute"
     renderer.view.style.top  = "0"
     renderer.view.style.left = "0"
@@ -35,10 +35,18 @@ window.Fmushi =
 
     window.Fmushi.app = new Fmushi.Views.App
 
+    @onResize()
+    $(window).resize _.bind(@onResize, @)
+
   onResize: ->
     $window = $(window)
-    @screenSize.x = $window.width()
-    @screenSize.y = $window.height()
+    w = $window.width()
+    h = $window.height()
+
+    @renderer.resize(w, h)
+
+    @screenSize.x = w
+    @screenSize.y = h
     Fmushi.Events.trigger 'resize', @screenSize
 
 class Fmushi.Vector extends Two.Vector
