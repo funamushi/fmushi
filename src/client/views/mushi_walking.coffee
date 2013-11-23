@@ -33,10 +33,8 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.addChild text
 
     model = @model
-
     sprite.mousedown = @sprite.touchstart = (e) ->
-      e.originalEvent.preventDefault()
-          
+      Fmushi.app.focus model
 
     @listenTo Fmushi.Events, 'update', ->
       x = @model.get('x')

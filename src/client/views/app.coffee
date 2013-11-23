@@ -85,7 +85,10 @@ class Fmushi.Views.App extends Backbone.View
       camera.set x: x, y: y
 
   focus: (entity) ->
-    @focusEntity
+    @camera.set x: entity.get('x'), y: entity.get('y')
+
+    @focusEntity = entity
+    @listenTo entity, 'change', @onFocusEntityChanged
     @trigger 'focus', entity
 
   onCameraChanged: (camera) ->
@@ -118,6 +121,9 @@ class Fmushi.Views.App extends Backbone.View
         shapeWorld.scale = zoom
         app.locked = false
       .start()
+
+  onFocusEntityChanged: (entity) ->
+    @camera
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
     camera = @camera

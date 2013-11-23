@@ -41,5 +41,5 @@ exports.startServer = startServer = ->
   app.listen 3000, ->
     console.log 'Express server listening on port:3000'
 
-startServer() if module.parent == undefined
+startServer() if module.parent == null
         
