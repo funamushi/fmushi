@@ -1,13 +1,13 @@
 set :application, 'fmushi'
-set :repo_url, 'git@bitbucket.org:funamushi/funamushi.git'
+set :repo_url, 'git@bitbucket.org:funamushi/fmushi.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/u/apps/fmushi'
 set :scm, :git
 
-# set :format, :pretty
-# set :log_level, :debug
+set :format, :pretty
+set :log_level, :debug
 # set :pty, true
 
 # set :linked_files, %w{config/database.yml}
@@ -20,9 +20,13 @@ namespace :npm do
   desc 'Run npm install'
   task :install do
     on roles(:app) do
-      run cd "#{latest_release} && npm --production --silent install"
+      within release_path do
+        execute :npm, 'install',  '--production --silent install'
+      end
     end
   end
+
+  before 'deploy:updated', 'npm:install'
 end
 
 namespace :deploy do
