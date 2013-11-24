@@ -4,7 +4,9 @@ exports.config =
     watched: ['src/client', 'src/css']
 
   modules:
-    wrapper: 'amd'
+    wrapper: false,
+    nameCleaner: (path) ->
+      path.replace(/^src\/client\//, '')
 
   # See docs at http://brunch.readthedocs.org/en/latest/config.html.
   files:
@@ -44,3 +46,7 @@ exports.config =
       port: [1234, 2345, 3456]
     sass:
       useBundler: true
+    handlebars:
+      namespace: 'JST'
+    
+    

@@ -113,7 +113,7 @@ class Fmushi.Views.App extends Backbone.View
     
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
-    @trigger 'focus', entity
+    entity.trigger 'focus', entity
 
   focusOut: ->
     return unless @focusEntity
@@ -122,7 +122,7 @@ class Fmushi.Views.App extends Backbone.View
     @focusEntity = null
     @camera.set zoom: 1
 
-    @trigger 'focusOut', entity
+    entity.trigger 'focusOut', entity
 
   onCameraChanged: (camera) ->
     return if @locked

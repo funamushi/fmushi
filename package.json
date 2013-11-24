@@ -11,7 +11,7 @@
     "socket.io": "~0.9.16"
   },
   "devDependencies": {
-    "handlebars-brunch": "~1.7.2",
+    "handlebars-brunch": "git://github.com/f-kubotar/handlebars-brunch.git#namespace",
     "uglify-js-brunch": "~1.7.3",
     "coffee-script-brunch": "~1.7.3",
     "javascript-brunch": "~1.7.0",

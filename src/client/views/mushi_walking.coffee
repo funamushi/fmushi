@@ -1,6 +1,7 @@
 class Fmushi.Views.MushiWalking extends Backbone.View
   initialize: -> 
     @listenTo @model, 'change', @onChanged
+    @listenTo @model, 'focus',  @onFocused
 
     if Fmushi.debug
       @debugShape = Fmushi.two.makeCircle @model.get('x'), @model.get('y'), @model.get('r')
@@ -33,8 +34,7 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     sprite.addChild text
 
     model = @model
-    sprite.mousedown = @sprite.touchstart = (e) ->
-      console.log e
+    sprite.click = sprite.tap = (e) ->
       Fmushi.app.focus model
 
     @listenTo Fmushi.Events, 'update', ->
@@ -67,4 +67,6 @@ class Fmushi.Views.MushiWalking extends Backbone.View
       else
         @sprite.scale.x = -0.5
 
-
+  onFocused: (model) ->
+    console.log model
+    console.log @dialogView
