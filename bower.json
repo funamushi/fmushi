@@ -7,7 +7,7 @@
     "tweenjs": "*",
     "backbone": "~1.1.0",
     "jquery": "~2.0.3",
-    "pixi": "git@github.com:GoodBoyDigital/pixi.js.git#master"
+    "pixi": "git@github.com:GoodBoyDigital/pixi.js.git#2f3cf52422b437a95721cd3d32c8aadfa7e05c8b"
   },
   "overrides": {
     "backbone": {
