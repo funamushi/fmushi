@@ -35,6 +35,7 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
     model = @model
     sprite.click = sprite.tap = (e) ->
+      Fmushi.app.hitSprite = @
       Fmushi.app.focus model
 
     @listenTo Fmushi.Events, 'update', ->
@@ -68,5 +69,3 @@ class Fmushi.Views.MushiWalking extends Backbone.View
         @sprite.scale.x = -0.5
 
   onFocused: (model) ->
-    console.log model
-    console.log @dialogView

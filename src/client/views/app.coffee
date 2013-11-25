@@ -38,8 +38,11 @@ class Fmushi.Views.App extends Backbone.View
       @mushies.fetch(reset: true)
     ).done _.bind(@onAssetLoaded, @)
 
-    Fmushi.stage.mousedown = (e) ->
-      app.focusOut()
+    $(Fmushi.renderer.view).click (e) ->
+      if app.hitSprite
+        app.hitSprite = null
+      else
+        app.focusOut()
 
   initMiniScreen: ->
     size = { x: 200, y: 200 }
@@ -103,9 +106,9 @@ class Fmushi.Views.App extends Backbone.View
     { x: worldPosX, y: worldPosY }
 
   focus: (entity) ->
-    return if @focusEntity
+    return if @focusEntity == entity
+    console.log 'focus'
 
-    @cameraBeforeFocus = @camera.toJSON()
     @camera.set
       x: entity.get('x')
       y: entity.get('y')
@@ -117,20 +120,19 @@ class Fmushi.Views.App extends Backbone.View
 
   focusOut: ->
     return unless @focusEntity
+    console.log 'focusOut'
 
     entity = @focusEntity
     @focusEntity = null
     @camera.set zoom: 1
 
+    @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focusOut', entity
 
   onCameraChanged: (camera) ->
     return if @locked
 
     zoom = camera.get 'zoom'
-    x = camera.get('x')
-    y = camera.get('y')
-
     zoomWas = camera.changed.zoom || zoom
     
     app = @
@@ -139,20 +141,27 @@ class Fmushi.Views.App extends Backbone.View
     worldPos = @worldPosFromCamera(camera)
 
     @locked = true
-    new TWEEN.Tween(x: world.position.x, y: world.position.y, zoom: zoomWas)
+    @cameraOffsetX = @cameraOffsetY = 0
+
+    @tween.stop() if @tween
+    @tween = new TWEEN.Tween(x: world.position.x, y: world.position.y, zoom: zoomWas)
       .to({ x: worldPos.x, y: worldPos.y, zoom: zoom }, 500)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate ->
-        world.position.x = @x
-        world.position.y = @y
+        x = @x + camera.offset.x
+        y = @y + camera.offset.y
+        world.position.x = x
+        world.position.y = y
         world.scale.x = world.scale.y = @zoom
-        shapeWorld.translation.set @x, @y
+        shapeWorld.translation.set x, y
         shapeWorld.scale = @zoom  
       .onComplete ->
-        world.position.x = worldPos.x
-        world.position.y = worldPos.y
+        x = worldPos.x + camera.offset.x
+        y = worldPos.y + camera.offset.y
+        world.position.x = x
+        world.position.y = y
         world.scale.x = world.scale.y = zoom
-        shapeWorld.translation.set worldPos.x, worldPos.y
+        shapeWorld.translation.set x, y
         shapeWorld.scale = zoom
         app.locked = false
       .start()
@@ -160,7 +169,15 @@ class Fmushi.Views.App extends Backbone.View
   onFocusEntityChanged: (entity) ->
     return if @locked or @focusEntity != entity
 
-    @camera.set {x: entity.get('x'), y: entity.get('y')}, {silent: true}
+    x = entity.get('x')
+    y = entity.get('y')
+
+    if entity.changed.x
+      @camera.offset.x += (x - (entity.changed.x))
+    if entity.changed.y
+      @camera.offset.y += (y - (entity.changed.y))
+    
+    @camera.set { x: x, y: y }, {silent: true}
     worldPos = @worldPosFromCamera(@camera)
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
