@@ -29,6 +29,19 @@ namespace :npm do
   after 'deploy:updated', 'npm:install'
 end
 
+namespace :bower do
+  desc 'Run bower install'
+  task :install do
+    on roles(:app) do
+      within release_path do
+        execute :bower, 'install --production'
+      end
+    end
+  end
+
+  after 'deploy:updated', 'bower:install'
+end
+
 namespace :brunch do
   desc "Build for brunch"
   task :build do
