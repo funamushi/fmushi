@@ -1,7 +1,7 @@
 F虫
 =========
 
-## Setup
+## 開発環境
 
 ```bash
 $ npm install -g brunch
@@ -14,4 +14,10 @@ $ cd fmushi
 $ npm install
 $ bower install
 $ brunch w -s
+```
+
+## デプロイ
+
+```bash
+$ bundle exec cap staging deploy
 ```
