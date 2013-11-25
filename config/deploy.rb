@@ -21,31 +21,50 @@ namespace :npm do
   task :install do
     on roles(:app) do
       within release_path do
-        execute :npm, 'install',  '--production --silent install'
+        execute :npm, 'install --production --silent install'
       end
     end
   end
 
-  before 'deploy:updated', 'npm:install'
+  after 'deploy:updated', 'npm:install'
+end
+
+namespace :brunch do
+  desc "Build for brunch"
+  task :build do
+    on roles(:app) do
+      within release_path do
+        execute :brunch, 'build --production'
+      end
+    end
+  end
+
+  after 'deploy:updated', 'brunch:build'
 end
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+  desc "Start application"
+  task :start do
+    on roles(:app) do
+      execute :pm2, 'start server.coffee -n fmushi -i max'
     end
   end
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :pm2, 'restart fmushi'
+      end
     end
   end
+
+  # after :restart, :clear_cache do
+  #   on roles(:web), in: :groups, limit: 3, wait: 10 do
+  #     execute :sudo, '/etc/init.d/nginx restart'
+  #   end
+  # end
 
   after :finishing, 'deploy:cleanup'
 end
