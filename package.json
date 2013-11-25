@@ -8,7 +8,8 @@
     "express": "~3.4.0",
     "lodash": "~2.2.0",
     "hbs": "~2.4.0",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "coffee-script": "~1.6.3"
   },
   "devDependencies": {
     "handlebars-brunch": "git://github.com/f-kubotar/handlebars-brunch.git#namespace",

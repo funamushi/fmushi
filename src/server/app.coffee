@@ -2,19 +2,24 @@ path    = require('path')
 express = require('express')
 hbs     = require('hbs')
 
+require('coffee-script')
+
 app = express()
 
 app.configure ->
+  app.set 'port', process.env.PORT || 3000
   app.set "view engine", "hbs"
   app.set 'views', path.join(__dirname, 'views')
   app.set 'layout', 'layout'
   app.use express.favicon()
-  app.use express.bodyParser()
+  app.use express.json()
+  app.use express.urlencoded()
   app.use express.methodOverride()
   app.use app.router
   app.use express.static(path.resolve("./public"))
 
 app.configure 'production', ->
+  app.use express.logger("dev")
 
 app.configure 'development', ->
   app.use express.errorHandler()
@@ -35,9 +40,8 @@ app.get '/circles', (req, res) ->
     { x: 100, y: 350, r: 300 }
   ]
 
-module.exports = exports = app
-
-exports.startServer = startServer = ->
-  app.listen 3000, ->
-    console.log 'Express server listening on port:3000'
+app.startServer = ->
+  app.listen app.get('port'), ->
+    console.log "Fmushi server listening on port:#{app.get('port')}"
         
+module.exports = exports = app
