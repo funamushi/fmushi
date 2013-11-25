@@ -107,7 +107,6 @@ class Fmushi.Views.App extends Backbone.View
 
   focus: (entity) ->
     return if @focusEntity == entity
-    console.log 'focus'
 
     @camera.set
       x: entity.get('x')
@@ -120,7 +119,6 @@ class Fmushi.Views.App extends Backbone.View
 
   focusOut: ->
     return unless @focusEntity
-    console.log 'focusOut'
 
     entity = @focusEntity
     @focusEntity = null
@@ -133,7 +131,8 @@ class Fmushi.Views.App extends Backbone.View
     return if @locked
 
     zoom = camera.get 'zoom'
-    zoomWas = camera.changed.zoom || zoom
+    zoomWas = camera.previous('zoom') or zoom
+    console.log zoomWas
     
     app = @
     world = @world
@@ -172,10 +171,10 @@ class Fmushi.Views.App extends Backbone.View
     x = entity.get('x')
     y = entity.get('y')
 
-    if entity.changed.x
-      @camera.offset.x += (x - (entity.changed.x))
-    if entity.changed.y
-      @camera.offset.y += (y - (entity.changed.y))
+    if prevX = entity.previous('x')
+      @camera.offset.x += (x - prevX)
+    if prevY = entity.previous('y')
+      @camera.offset.y += (y - prevY)
     
     @camera.set { x: x, y: y }, {silent: true}
     worldPos = @worldPosFromCamera(@camera)
