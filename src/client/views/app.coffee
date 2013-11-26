@@ -10,20 +10,13 @@ class Fmushi.Views.App extends Backbone.View
     
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    # @initMiniScreen()
-
     @views = {}
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
-    @listenTo @mushies, 'add', (model) ->
-      view = new Fmushi.Views.MushiWalking(model: model)
-      @views[model.cid] = view
-      
-    @listenTo @circles, 'add', (model) -> 
-      view = new Fmushi.Views.Circle(model: model)
-      @views[model.cid] = view
-
+    @listenTo @mushies, 'add', @addMushi
+    @listenTo @circles, 'add', @addCircle
+    
     @listenTo @camera, 'change', @onCameraChanged
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
@@ -34,8 +27,8 @@ class Fmushi.Views.App extends Backbone.View
 
     $.when(
       loaderDefer.promise(),
-      @circles.fetch(reset: true),
-      @mushies.fetch(reset: true)
+      @circles.fetch(),
+      @mushies.fetch()
     ).done _.bind(@onAssetLoaded, @)
 
     $(Fmushi.renderer.view).click (e) ->
@@ -43,52 +36,6 @@ class Fmushi.Views.App extends Backbone.View
         app.hitSprite = null
       else
         app.focusOut()
-
-  initMiniScreen: ->
-    size = { x: 200, y: 200 }
-
-    @miniScreen = miniScreen = new PIXI.DisplayObjectContainer
-    miniScreen.interactive = true
-    miniScreen.position.x = 800
-    miniScreen.position.y = 30
-
-    graphics = new PIXI.Graphics
-    graphics.beginFill(0xFFFF00);
-    graphics.lineStyle(5, 0xFF0000);
-    graphics.drawRect(0, 0, size.x, size.y);
-    graphics.endFill()
-
-    graphics.hitArea = new PIXI.Rectangle(0, 0, size.x, size.y)
-    graphics.interactive = true
-    miniScreen.addChild graphics
-
-    text = new PIXI.Text '地図',
-      font: 'bold 16pt Arial'
-      fill: 'white'
-    text.anchor.x = 0.5
-    text.anchor.y = 0.5
-    text.position.x = size.x / 2
-    text.position.y = -15
-    miniScreen.addChild text
-
-    Fmushi.stage.addChild miniScreen
-
-    pointer = Fmushi.two.makeCircle miniScreen.position.x, miniScreen.position.y, 5
-    pointer.stroke = 'orangered'
-    pointer.fill = '#ff8000'
-    @shapeWorld.add pointer
-
-    app = @
-    camera = @camera
-    graphics.click = graphics.tap = (e) ->
-      return if app.locked
-
-      pointer.translation.set e.global
-
-      pos = e.getLocalPosition(miniScreen)
-      x = (pos.x - (size.x / 2)) * (Fmushi.screenSize.w / size.y)
-      y = (pos.y - (size.y / 2)) * (Fmushi.screenSize.h / size.y)
-      camera.set x: x, y: y
 
   screenCenter: ->
     new Fmushi.Vector(
@@ -104,6 +51,14 @@ class Fmushi.Views.App extends Backbone.View
     worldPosX = -(x * zoom - center.x)
     worldPosY = -(y * zoom - center.y)
     { x: worldPosX, y: worldPosY }
+
+  addMushi: (mushi) ->
+    view = new Fmushi.Views.MushiWalking(model: mushi)
+    @views[mushi.cid] = view
+
+  addCircle: (circle) ->
+    view = new Fmushi.Views.Circle(model: circle)
+    @views[circle.cid] = view
 
   focus: (entity) ->
     return if @focusEntity == entity
@@ -183,28 +138,13 @@ class Fmushi.Views.App extends Backbone.View
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
-    camera = @camera
+    app = @
+    @circles.each (circle) -> app.addCircle circle
+    @mushies.each (mushi) -> app.addMushi mushi
 
-    zoomInTexture  = PIXI.Texture.fromFrame('zoom_in.png')
-    zoomIn  = new PIXI.Sprite(zoomInTexture)
-    zoomIn.position.x = -750
-    zoomIn.interactive = true
-    zoomIn.click = zoomIn.tap = (e) ->
-      camera.set 'zoom', (camera.get('zoom') + 0.1)
-
-    zoomOutTexture = PIXI.Texture.fromFrame('zoom_out.png')
-    zoomOut = new PIXI.Sprite(zoomOutTexture)
-    zoomOut.position.x = -700
-    zoomOut.interactive = true
-    zoomOut.click = zoomOut.tap = (e) ->
-      camera.set 'zoom', (camera.get('zoom') - 0.1)
-
-    if @miniScreen
-      @miniScreen.addChild zoomIn
-      @miniScreen.addChild zoomOut
-
-    @circles.add circlesArgs[0]
-    @mushies.add mushiesArgs[0]
+    @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
+    console.log @mushies
+    @mushiesPanel.render().$el.appendTo $('body')
 
   collisionDetection: ->
     mushies = @mushies

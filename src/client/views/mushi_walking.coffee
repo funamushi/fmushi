@@ -44,12 +44,12 @@ class Fmushi.Views.MushiWalking extends Backbone.View
         if x < -10
           @model.set direction: 'right'
         else
-          @model.set x: x - 1
+          @model.set x: x - 0.5
       else
         if x > 1000
           @model.set direction: 'left'
         else
-          @model.set x: x + 1
+          @model.set x: x + 0.5
 
     Fmushi.app.world.addChild sprite
 
