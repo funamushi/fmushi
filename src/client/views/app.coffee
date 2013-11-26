@@ -127,7 +127,6 @@ class Fmushi.Views.App extends Backbone.View
 
     if prevX = entity.previous('x')
       @camera.offset.x += (x - prevX)
-      console.log @camera.offset.x
     if prevY = entity.previous('y')
       @camera.offset.y += (y - prevY)
     

@@ -6,9 +6,12 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     @listenTo @model, 'focus:in',   @onFocusIn
     @listenTo @model, 'focus:out',  @onFocusOut
 
-    @pointShape = shape = Fmushi.two.makeCircle @model.get('x'), @model.get('y'), @model.get('r')
-    shape.stroke = 'black'
-    shape.linewidth = 5
+    @pointShape = shape = Fmushi.two.makeRectangle(
+      @model.get('x'), @model.get('y'), @model.get('r') * 2.25, @model.get('r') * 1.25
+    )
+    shape.stroke = '#cccccc'
+    shape.linewidth = 4
+    shape.curved = true
     shape.noFill()
     shape.visible = false
     Fmushi.app.shapeWorld.add shape
