@@ -148,7 +148,6 @@ class Fmushi.Views.App extends Backbone.View
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
-    app = @
     @mushiesPanel.render().$el.appendTo $('body')
 
   collisionDetection: ->
