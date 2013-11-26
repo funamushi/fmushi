@@ -1,9 +1,14 @@
 class Fmushi.Views.MushiesPanel extends Backbone.View
+  events:
+    'mouseover a': @onPointIn
+    'mouseout a': @onPointOut
+    'click a': @onClick
+
   initialize: ->
 
   render: ->
     html = JST['mushies/panel'](mushies: @collection.toJSON())
-    @$el.html(html)
+    @setElement @$el.html(html)
     @delegateEvents
       'mouseover a': @onPointIn
       'mouseout a':  @onPointOut
@@ -26,9 +31,3 @@ class Fmushi.Views.MushiesPanel extends Backbone.View
   mushiFromEvent: (e) ->
     mushiId = $(e.target).parents('li').data('mushi-id')
     @collection.findWhere(id: mushiId)
-
-
-
-
-
-
