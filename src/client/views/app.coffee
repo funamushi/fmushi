@@ -27,8 +27,8 @@ class Fmushi.Views.App extends Backbone.View
 
     $.when(
       loaderDefer.promise(),
-      @circles.fetch(),
-      @mushies.fetch()
+      @circles.fetch(add: true),
+      @mushies.fetch(add: true)
     ).done _.bind(@onAssetLoaded, @)
 
     $(Fmushi.renderer.view).click (e) ->
@@ -149,9 +149,6 @@ class Fmushi.Views.App extends Backbone.View
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
     app = @
-    @circles.each (circle) -> app.addCircle circle
-    @mushies.each (mushi) -> app.addMushi mushi
-
     @mushiesPanel.render().$el.appendTo $('body')
 
   collisionDetection: ->
