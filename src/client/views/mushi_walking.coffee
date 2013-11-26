@@ -1,12 +1,17 @@
 class Fmushi.Views.MushiWalking extends Backbone.View
   initialize: -> 
-    @listenTo @model, 'change', @onChanged
-    @listenTo @model, 'focus',  @onFocused
+    @listenTo @model, 'change',     @onChanged
+    @listenTo @model, 'point:in',   @onPointIn
+    @listenTo @model, 'point:out',  @onPointOut
+    @listenTo @model, 'focus:in',   @onFocusIn
+    @listenTo @model, 'focus:out',  @onFocusOut
 
-    if Fmushi.debug
-      @debugShape = Fmushi.two.makeCircle @model.get('x'), @model.get('y'), @model.get('r')
-      @debugShape.stroke = 'orangered'
-      @debugShape.noFill()
+    @pointShape = shape = Fmushi.two.makeCircle @model.get('x'), @model.get('y'), @model.get('r')
+    shape.stroke = 'black'
+    shape.linewidth = 5
+    shape.noFill()
+    shape.visible = false
+    Fmushi.app.shapeWorld.add shape
 
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @sprite = sprite = new PIXI.MovieClip(textures)
@@ -56,11 +61,11 @@ class Fmushi.Views.MushiWalking extends Backbone.View
   onChanged: ->
     if x = @model.changed.x
       @sprite.position.x = x
-      @debugShape.translation.x = x if @debugShape
+      @pointShape.translation.x = x if @pointShape
 
     if y = @model.changed.y
       @sprite.position.y = y
-      @debugShape.translation.y = y if @debugShape
+      @pointShape.translation.y = y if @pointShape
 
     if d = @model.changed.direction
       if d == 'left'
@@ -68,4 +73,10 @@ class Fmushi.Views.MushiWalking extends Backbone.View
       else
         @sprite.scale.x = -0.5
 
-  onFocused: (model) ->
+  onPointIn: (model) ->
+    @pointShape.visible = true
+
+  onPointOut: (model) ->
+    @pointShape.visible = false
+    
+  onFocusIn: (model) ->

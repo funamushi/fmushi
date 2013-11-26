@@ -30,9 +30,9 @@ app.get '/', (req, res) ->
 
 app.get '/mushies', (req, res) ->
   res.send [
-    { name: 'プヤプヤプンヤ', rank: '一等兵', x: 700,  y: 300 }
-    { name: 'ヘイプー', rank: '大佐', x: 850,  y: 400 }
-    { name: 'プンヤープヤプヤ', rank: '二等兵', x: 1000, y: 500 }
+    { id: 1, name: 'プヤプヤプンヤ', rank: '一等兵', x: 700,  y: 300 }
+    { id: 2, name: 'ヘイプー', rank: '大佐', x: 850,  y: 400 }
+    { id: 3, name: 'プンヤープヤプヤ', rank: '隊長', x: 1000, y: 500 }
   ]
 
 app.get '/circles', (req, res) ->

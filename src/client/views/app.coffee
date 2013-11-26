@@ -70,7 +70,7 @@ class Fmushi.Views.App extends Backbone.View
     
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
-    entity.trigger 'focus', entity
+    entity.trigger 'focus:in', entity
 
   focusOut: ->
     return unless @focusEntity
@@ -80,14 +80,13 @@ class Fmushi.Views.App extends Backbone.View
     @camera.set zoom: 1
 
     @stopListening entity, 'change', @onFocusEntityChanged
-    entity.trigger 'focusOut', entity
+    entity.trigger 'focus:out', entity
 
   onCameraChanged: (camera) ->
     return if @locked
 
     zoom = camera.get 'zoom'
     zoomWas = camera.previous('zoom') or zoom
-    console.log zoomWas
     
     app = @
     world = @world
@@ -143,7 +142,6 @@ class Fmushi.Views.App extends Backbone.View
     @mushies.each (mushi) -> app.addMushi mushi
 
     @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
-    console.log @mushies
     @mushiesPanel.render().$el.appendTo $('body')
 
   collisionDetection: ->
