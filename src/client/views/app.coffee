@@ -37,6 +37,12 @@ class Fmushi.Views.App extends Backbone.View
       else
         app.focusOut()
 
+    # subviews
+    @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
+    @mushiDialog  = new Fmushi.Views.MushiDialog
+    @mushiDialog.render().$el.appendTo $('body')
+    @mushiDialog.hide()
+
   screenCenter: ->
     new Fmushi.Vector(
       Fmushi.screenSize.w / 2, Fmushi.screenSize.h / 2
@@ -68,6 +74,9 @@ class Fmushi.Views.App extends Backbone.View
       y: entity.get('y')
       zoom: 2
     
+    @mushiDialog.model = entity
+    @mushiDialog.render().show()
+
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:in', entity
@@ -78,6 +87,8 @@ class Fmushi.Views.App extends Backbone.View
     entity = @focusEntity
     @focusEntity = null
     @camera.set zoom: 1
+
+    @mushiDialog.hide()
 
     @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:out', entity
@@ -141,7 +152,6 @@ class Fmushi.Views.App extends Backbone.View
     @circles.each (circle) -> app.addCircle circle
     @mushies.each (mushi) -> app.addMushi mushi
 
-    @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
     @mushiesPanel.render().$el.appendTo $('body')
 
   collisionDetection: ->

@@ -81,8 +81,3 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
   onPointOut: (model) ->
     @pointShape.visible = false
-    
-  onFocusIn: (model) ->
-
-  onFocusOut: (model) ->
-    
