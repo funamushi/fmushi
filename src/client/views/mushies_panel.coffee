@@ -21,7 +21,6 @@ class Fmushi.Views.MushiesPanel extends Backbone.View
 
   focus: (e) ->
     if mushi = @mushiFromEvent(e)
-      mushi.trigger 'point:out'
       Fmushi.app.focus mushi
 
   mushiFromEvent: (e) ->
