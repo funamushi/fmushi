@@ -7,12 +7,11 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     @listenTo @model, 'focus:out',  @onFocusOut
 
     @pointShape = shape = Fmushi.two.makeRectangle(
-      @model.get('x'), @model.get('y'), @model.get('r') * 2.25, @model.get('r') * 1.25
+      @model.get('x'), @model.get('y'), @model.get('r') * 2.5, @model.get('r') * 1.5
     )
-    shape.stroke = '#cccccc'
-    shape.linewidth = 4
-    shape.curved = true
-    shape.noFill()
+    shape.stroke = '#4CBAEB'
+    shape.fill = '#CCE9F9'
+    shape.opacity = 0.5
     shape.visible = false
     Fmushi.app.shapeWorld.add shape
 
