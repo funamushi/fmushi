@@ -1,29 +1,25 @@
 class Fmushi.Views.MushiesPanel extends Backbone.View
   events:
-    'mouseover a': @onPointIn
-    'mouseout a': @onPointOut
-    'click a': @onClick
+    'mouseover a': 'pointIn'
+    'mouseout a':  'pointOut'
+    'click a': 'focus'
+    'tap a':   'focus'
 
   initialize: ->
 
   render: ->
-    html = JST['mushies/panel'](mushies: @collection.toJSON())
-    @setElement @$el.html(html)
-    @delegateEvents
-      'mouseover a': @onPointIn
-      'mouseout a':  @onPointOut
-      'click a': @onClick
+    @$el.html JST['mushies/panel'](mushies: @collection.toJSON())
     @
 
-  onPointIn: (e) ->
+  pointIn: (e) ->
     if mushi = @mushiFromEvent(e)
       mushi.trigger 'point:in'
 
-  onPointOut: (e) ->
+  pointOut: (e) ->
     if mushi = @mushiFromEvent(e)
       mushi.trigger 'point:out'
 
-  onClick: (e) ->
+  focus: (e) ->
     if mushi = @mushiFromEvent(e)
       mushi.trigger 'point:out'
       Fmushi.app.focus mushi

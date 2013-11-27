@@ -1,7 +1,5 @@
 class Fmushi.Views.App extends Backbone.View
   initialize: ->
-    app = @
-
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
 
@@ -31,11 +29,11 @@ class Fmushi.Views.App extends Backbone.View
       @mushies.fetch(add: true)
     ).done _.bind(@onAssetLoaded, @)
 
-    $(Fmushi.renderer.view).click (e) ->
-      if app.hitSprite
-        app.hitSprite = null
+    $(Fmushi.renderer.view).click (e) => 
+      if @hitSprite
+        @hitSprite = null
       else
-        app.focusOut()
+        @focusOut()
 
     # subviews
     @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies

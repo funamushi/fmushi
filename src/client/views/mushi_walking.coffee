@@ -40,10 +40,9 @@ class Fmushi.Views.MushiWalking extends Backbone.View
 
     sprite.addChild text
 
-    model = @model
-    sprite.click = sprite.tap = (e) ->
-      Fmushi.app.hitSprite = @
-      Fmushi.app.focus model
+    sprite.click = sprite.tap = (e) => 
+      Fmushi.app.hitSprite = sprite
+      Fmushi.app.focus @model
 
     @listenTo Fmushi.Events, 'update', ->
       x = @model.get('x')
