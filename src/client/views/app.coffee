@@ -66,9 +66,9 @@ class Fmushi.Views.App extends Fmushi.Views.Base
       # pixi.jsスプライトのクリックイベントが先に発生してたら、今回は無視
       if @hitSprite
         @hitSprite = null
-      else if @focusEntity
-        @focusOut()
-      else if @lastDragPoint
+      else
+        if @focusEntity
+          @focusOut()
         @lastDragPoint = null
     
 
