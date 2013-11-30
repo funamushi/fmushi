@@ -18,6 +18,19 @@ class Fmushi.Views.App extends Backbone.View
     @listenTo @camera, 'change', @onCameraChanged
     @listenTo Fmushi.Events, 'update', @collisionDetection
 
+    @initDrag()
+
+    # subviews
+    @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
+    @mushiDialog  = new Fmushi.Views.MushiDialog
+    @mushiDialog.render().$el.appendTo $('body')
+    @mushiDialog.hide()
+
+    # @listenTo Fmushi.Events, 'update', ->
+    #   Fmushi.renderer.view.style.cursor = 'all-scroll'
+    @fetch()
+
+  fetch: -> 
     loaderDefer = new $.Deferred
     loader = new PIXI.AssetLoader ['./app.json']
     loader.onComplete = -> loaderDefer.resolve()
@@ -29,27 +42,51 @@ class Fmushi.Views.App extends Backbone.View
       @mushies.fetch(add: true)
     ).done _.bind(@onAssetLoaded, @)
 
-    $(Fmushi.renderer.view).click (e) => 
+  initDrag: ->
+    $canvas = $(Fmushi.renderer.view)
+    $canvas.on 'mousedown touchstart', (e) => 
+      if !@hitSprite and !@focusEntity
+        @lastDragPoint = { x: e.pageX, y: e.pageY }
+
+    $canvas.on 'mousemove touchmove', (e) =>
+      if @lastDragPoint
+        x = e.pageX
+        y = e.pageY
+        diffX = @lastDragPoint.x - x
+        diffY = @lastDragPoint.y - y
+        @camera.set { x: @camera.get('x') + diffX, y: @camera.get('y') + diffY}, {tween: false }
+        @lastDragPoint = { x: x, y: y }
+      
+    $canvas.on 'mouseout mouseleave touchcancel', (e) =>
+      @lastDragPoint = null
+
+    $canvas.on 'mouseup touchend', (e) =>
+      # pixi.jsスプライトのクリックイベントが先に発生してたら、今回は無視
       if @hitSprite
         @hitSprite = null
-      else
+      else if @focusEntity
         @focusOut()
-
-    # subviews
-    @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
-    @mushiDialog  = new Fmushi.Views.MushiDialog
-    @mushiDialog.render().$el.appendTo $('body')
-    @mushiDialog.hide()
+      else if @lastDragPoint
+        @lastDragPoint = null
+    
 
   screenCenter: ->
     new Fmushi.Vector(
       Fmushi.screenSize.w / 2, Fmushi.screenSize.h / 2
     )
 
-  worldPosFromCamera: (camera) ->
-    x = camera.get('x')
-    y = camera.get('y')
-    zoom = camera.get('zoom')
+  collisionDetection: ->
+    mushies = @mushies
+
+    @circles.each (circle) ->
+      mushies.each (mushi) ->
+        circle.collisionEntity mushi
+
+  worldPosFromCameraPos: (x, y, zoom) ->
+    camera = @camera
+    x ?= camera.get('x')
+    y ?= camera.get('y')
+    zoom ?= camera.get('zoom')
 
     center = @screenCenter()
     worldPosX = -(x * zoom - center.x)
@@ -91,40 +128,53 @@ class Fmushi.Views.App extends Backbone.View
     @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:out', entity
 
-  onCameraChanged: (camera) ->
+  cameraFixed: (x, y, zoom) ->
+    camera     = @camera
+    world      = @world
+    shapeWorld = @shapeWorld
+
+    x ?= camera.get('x')
+    y ?= camera.get('y')
+    zoom ?= camera.get('zoom')
+    worldPos = @worldPosFromCameraPos x, y, zoom
+
+    x = worldPos.x
+    y = worldPos.y
+    world.position.x = x
+    world.position.y = y
+    world.scale.x = world.scale.y = zoom
+    shapeWorld.translation.set x, y
+    shapeWorld.scale = zoom
+
+  onCameraChanged: (camera, options) ->
     return if @locked
 
+    x    = camera.get 'x'
+    y    = camera.get 'y'
     zoom = camera.get 'zoom'
+    xWas    = camera.previous('x') or x
+    yWas    = camera.previous('y') or y
     zoomWas = camera.previous('zoom') or zoom
     
     app = @
-    world = @world
-    shapeWorld = @shapeWorld
-    worldPos = @worldPosFromCamera(camera)
+    worldPosFrom = @worldPosFromCameraPos xWas, yWas, zoomWas
+    worldPosTo   = @worldPosFromCameraPos x, y, zoom
 
     @locked = true
     @camera.offset.x = @camera.offset.y = 0
 
     @tween.stop() if @tween
-    @tween = new TWEEN.Tween(x: world.position.x, y: world.position.y, zoom: zoomWas)
-      .to({ x: worldPos.x, y: worldPos.y, zoom: zoom }, 500)
+    if options.tween == false
+      @cameraFixed()
+      app.locked = false
+      return
+
+    @tween = new TWEEN.Tween(x: xWas, y: yWas, zoom: zoomWas)
+      .to({ x: x, y: y, zoom: zoom }, 500)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate ->
-        x = @x + camera.offset.x
-        y = @y + camera.offset.y
-        world.position.x = x
-        world.position.y = y
-        world.scale.x = world.scale.y = @zoom
-        shapeWorld.translation.set x, y
-        shapeWorld.scale = @zoom  
+        app.cameraFixed @x, @y, @zoom
       .onComplete ->
-        x = worldPos.x + camera.offset.x
-        y = worldPos.y + camera.offset.y
-        world.position.x = x
-        world.position.y = y
-        world.scale.x = world.scale.y = zoom
-        shapeWorld.translation.set x, y
-        shapeWorld.scale = zoom
         app.locked = false
       .start()
 
@@ -140,7 +190,7 @@ class Fmushi.Views.App extends Backbone.View
       @camera.offset.y += (y - prevY)
     
     @camera.set { x: x, y: y }, {silent: true}
-    worldPos = @worldPosFromCamera(@camera)
+    worldPos = @worldPosFromCameraPos()
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
@@ -148,10 +198,8 @@ class Fmushi.Views.App extends Backbone.View
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
     @mushiesPanel.render().$el.appendTo $('body')
 
-  collisionDetection: ->
-    mushies = @mushies
+  onTouchBegan: (e) ->
 
-    @circles.each (circle) ->
-      mushies.each (mushi) ->
-        circle.collisionEntity mushi
-      
+  onTouchMoved: (e) ->
+
+  onTouchEnded: (e) -> 
