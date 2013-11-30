@@ -1,9 +1,9 @@
-class Fmushi.Views.MushiDialog extends Backbone.View
+class Fmushi.Views.MushiDialog extends Fmushi.Views.Base
   initialize: ->
 
   render: ->
     html = JST['mushies/dialog'](mushi: @model?.toJSON())
-    @setElement @$el.html(html)
+    @$el.html(html)
     @
 
   hide: ->

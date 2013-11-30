@@ -9,8 +9,3 @@ class Fmushi.Models.Camera extends Backbone.Model
 
   clear: ->
     @offset.x = @offset.y = 0
-    
-  add: (diffX, diffY) ->
-    x = @get('x')
-    y = @get('y')
-    @set {x: x + diffX, y: y + diffY}, {tween: false}

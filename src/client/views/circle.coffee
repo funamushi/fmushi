@@ -1,4 +1,4 @@
-class Fmushi.Views.Circle extends Backbone.View
+class Fmushi.Views.Circle extends Fmushi.Views.Base
   initialize: ->
     attrs = @model.attributes
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r

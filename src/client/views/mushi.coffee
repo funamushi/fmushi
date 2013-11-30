@@ -1,4 +1,4 @@
-class Fmushi.Views.MushiWalking extends Backbone.View
+class Fmushi.Views.Mushi extends Fmushi.Views.Base
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
