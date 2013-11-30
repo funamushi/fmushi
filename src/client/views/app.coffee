@@ -21,10 +21,13 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @initDrag()
 
     # subviews
-    @mushiesPanel = new Fmushi.Views.MushiesPanel collection: @mushies
-    @mushiDialog  = new Fmushi.Views.MushiDialog
-    @mushiDialog.render().$el.appendTo $('body')
-    @mushiDialog.hide()
+    panelView = new Fmushi.Views.MushiesPanel collection: @mushies
+    @subview 'panel', panelView
+
+    dialogView  = new Fmushi.Views.MushiDialog
+    dialogView.render().$el.appendTo($('body'))
+    dialogView.show()
+    @subview 'dialog', dialogView
 
     # @listenTo Fmushi.Events, 'update', ->
     #   Fmushi.renderer.view.style.cursor = 'all-scroll'
@@ -109,8 +112,9 @@ class Fmushi.Views.App extends Fmushi.Views.Base
       y: entity.get('y')
       zoom: 2
     
-    @mushiDialog.model = entity
-    @mushiDialog.render().show()
+    dialog = @subview('dialog')
+    dialog.model = entity
+    dialog.show()
 
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
@@ -123,7 +127,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @focusEntity = null
     @camera.set zoom: 1
 
-    @mushiDialog.hide()
+    @subview('dialog').hide()
 
     @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:out', entity
@@ -196,7 +200,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
-    @mushiesPanel.render().$el.appendTo $('body')
+    @subview('panel').render().$el.appendTo $('body')
 
   onTouchBegan: (e) ->
 
