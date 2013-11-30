@@ -20,6 +20,7 @@ window.Fmushi =
     Fmushi.stage.interactionManager.preventDefault = false
 
     renderer = PIXI.autoDetectRenderer w, h, null, true
+    renderer.view.id = 'stage'
     renderer.view.style.position = "absolute"
     renderer.view.style.top  = "0"
     renderer.view.style.left = "0"
@@ -28,10 +29,10 @@ window.Fmushi =
 
     animate = ->
       requestAnimFrame animate
-      Fmushi.Events.trigger 'update'
       TWEEN.update()
       Fmushi.two.update()
       renderer.render Fmushi.stage
+      Fmushi.Events.trigger 'update'
 
     requestAnimFrame animate
 
