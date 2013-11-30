@@ -10,3 +10,4 @@ app.js
 config.js
 .bundle
 vendor
+npm-debug.log

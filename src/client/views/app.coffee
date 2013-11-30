@@ -95,11 +95,11 @@ class Fmushi.Views.App extends Fmushi.Views.Base
 
   addMushi: (mushi) ->
     view = new Fmushi.Views.Mushi(model: mushi)
-    @views[mushi.cid] = view
+    @subview mushi.cid, view
 
   addCircle: (circle) ->
     view = new Fmushi.Views.Circle(model: circle)
-    @views[circle.cid] = view
+    @subview circle.cid, view
 
   focus: (entity) ->
     return if @focusEntity == entity
