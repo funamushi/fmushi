@@ -26,7 +26,7 @@ exports.config =
     stylesheets:
       defaultExtension: 'scss'
       joinTo:
-        'css/app.css': /^(bower_components|src\/scss)/
+        'css/app.css': /^(bower_components|src\/css)/
 
   server:
     path: 'brunch_server'
