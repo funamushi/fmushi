@@ -5,6 +5,9 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     @listenTo @model, 'point:out',  @onPointOut
     @listenTo @model, 'focus:in',   @onFocusIn
     @listenTo @model, 'focus:out',  @onFocusOut
+    @listenTo Fmushi.Events, 'update', @update
+
+    @speed = 50 # px/sec
 
     @pointShape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'), @model.get('r') * 2.5, @model.get('r') * 1.5
@@ -44,20 +47,21 @@ class Fmushi.Views.MushiWalking extends Backbone.View
       Fmushi.app.hitSprite = sprite
       Fmushi.app.focus @model
 
-    @listenTo Fmushi.Events, 'update', ->
-      x = @model.get('x')
-      if @model.get('direction') == 'left'
-        if x < -10
-          @model.set direction: 'right'
-        else
-          @model.set x: x - 0.5
-      else
-        if x > 1000
-          @model.set direction: 'left'
-        else
-          @model.set x: x + 0.5
-
     Fmushi.app.world.addChild sprite
+
+  update: (delta) ->
+    console.log delta
+    x = @model.get('x')
+    if @model.get('direction') == 'left'
+      if x < -10
+        @model.set direction: 'right'
+      else
+        @model.set x: x - @speed * delta
+    else
+      if x > 1000
+        @model.set direction: 'left'
+      else
+        @model.set x: x + @speed * delta
 
   onChanged: ->
     if x = @model.changed.x

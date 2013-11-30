@@ -27,19 +27,46 @@ window.Fmushi =
     document.body.appendChild renderer.view
     Fmushi.renderer = renderer
 
-    animate = ->
-      requestAnimFrame animate
-      TWEEN.update()
-      Fmushi.two.update()
-      renderer.render Fmushi.stage
-      Fmushi.Events.trigger 'update'
-
-    requestAnimFrame animate
+    @onResize()
+    $(window).resize _.bind(@onResize, @)
 
     window.Fmushi.app = new Fmushi.Views.App
 
-    @onResize()
-    $(window).resize _.bind(@onResize, @)
+    @start()
+
+  start: ->
+    getTime = @getTime
+    @startTime = lastTime = getTime()
+    @frames = 0
+
+    two = @two
+    stage = @stage
+    renderer = @renderer
+    Events = Fmushi.Events
+    mainLoop = => 
+      currentTime = getTime()
+      delta = currentTime - lastTime
+
+      requestAnimFrame mainLoop
+      TWEEN.update()
+      two.update()
+      renderer.render Fmushi.stage
+      Events.trigger 'update', delta
+
+      lastTime = getTime()
+
+    requestAnimFrame mainLoop
+
+  getTime: -> 
+    now = window.performance && (
+      performance.now || 
+      performance.mozNow || 
+      performance.msNow || 
+      performance.oNow || 
+      performance.webkitNow );
+
+    msec = (now && now.call(performance)) || (new Date().getTime())
+    msec * 0.001
 
   onResize: ->
     $window = $(window)
