@@ -50,7 +50,6 @@ class Fmushi.Views.MushiWalking extends Backbone.View
     Fmushi.app.world.addChild sprite
 
   update: (delta) ->
-    console.log delta
     x = @model.get('x')
     if @model.get('direction') == 'left'
       if x < -10
