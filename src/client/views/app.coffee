@@ -24,13 +24,12 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     panelView = new Fmushi.Views.MushiesPanel collection: @mushies
     @subview 'panel', panelView
 
-    dialogView  = new Fmushi.Views.MushiDialog
-    dialogView.render().$el.appendTo($('body'))
-    dialogView.show()
+    dialogView = new Fmushi.Views.MushiDialog
+    dialogView.hide()
     @subview 'dialog', dialogView
 
-    # @listenTo Fmushi.Events, 'update', ->
-    #   Fmushi.renderer.view.style.cursor = 'all-scroll'
+    # @listenTo Fmushi.Events, 'update', (delta) ->
+    #   Fmushi.renderer.view.style.cursor = ''
     @fetch()
 
   fetch: -> 
@@ -52,7 +51,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
         @lastDragPoint = { x: e.pageX, y: e.pageY }
 
     $canvas.on 'mousemove touchmove', (e) =>
-      if @lastDragPoint
+      if @lastDragPoint and !@focusEntity
         x = e.pageX
         y = e.pageY
         diffX = @lastDragPoint.x - x
@@ -114,6 +113,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     
     dialog = @subview('dialog')
     dialog.model = entity
+    dialog.render().$el.appendTo($('body'))
     dialog.show()
 
     @focusEntity = entity
