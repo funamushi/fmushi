@@ -1,4 +1,4 @@
-class Fmushi.Views.App extends Backbone.View
+class Fmushi.Views.App extends Fmushi.Views.Base
   initialize: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
@@ -94,7 +94,7 @@ class Fmushi.Views.App extends Backbone.View
     { x: worldPosX, y: worldPosY }
 
   addMushi: (mushi) ->
-    view = new Fmushi.Views.MushiWalking(model: mushi)
+    view = new Fmushi.Views.Mushi(model: mushi)
     @views[mushi.cid] = view
 
   addCircle: (circle) ->

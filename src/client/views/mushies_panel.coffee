@@ -1,4 +1,4 @@
-class Fmushi.Views.MushiesPanel extends Backbone.View
+class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
   events:
     'mouseover a': 'pointIn'
     'mouseout a':  'pointOut'

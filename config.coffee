@@ -18,10 +18,15 @@ exports.config =
     templates:
       defaultExtension: 'hbs'
       joinTo: 'js/app.js'
+      order:
+        before: [
+          'src/client/fmushi.coffee'
+          'src/client/views/base.coffee'
+        ]
     stylesheets:
       defaultExtension: 'scss'
       joinTo:
-        'css/app.css': /^(bower_components|src\/css)/
+        'css/app.css': /^(bower_components|src\/scss)/
 
   server:
     path: 'brunch_server'
@@ -44,9 +49,5 @@ exports.config =
         js: on
         assets: on
       port: [1234, 2345, 3456]
-    sass:
-      useBundler: true
     handlebars:
       namespace: 'JST'
-    
-    
