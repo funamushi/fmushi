@@ -7,6 +7,7 @@ window.Fmushi =
     w: 1000
     h: 1000
   debug: false
+  fps: 30
   initialize: ->
     $window = $(window)
     w = $window.width()
@@ -35,6 +36,8 @@ window.Fmushi =
     @start()
 
   start: ->
+    interval = 1 / @fps
+
     getTime = @getTime
     @startTime = lastTime = getTime()
     @frames = 0
@@ -43,15 +46,19 @@ window.Fmushi =
     stage = @stage
     renderer = @renderer
     Events = Fmushi.Events
+    elapsed = 0
     mainLoop = => 
       currentTime = getTime()
       delta = currentTime - lastTime
+      elapsed += delta
 
       requestAnimFrame mainLoop
-      TWEEN.update()
-      two.update()
-      renderer.render Fmushi.stage
-      Events.trigger 'update', delta
+      renderer.render stage
+      if elapsed >= interval
+        TWEEN.update()
+        two.update()
+        Events.trigger 'update', elapsed
+        elapsed = 0
 
       lastTime = getTime()
 
