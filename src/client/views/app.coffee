@@ -201,9 +201,3 @@ class Fmushi.Views.App extends Fmushi.Views.Base
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
     @subview('panel').render().$el.appendTo $('body')
-
-  onTouchBegan: (e) ->
-
-  onTouchMoved: (e) ->
-
-  onTouchEnded: (e) -> 
