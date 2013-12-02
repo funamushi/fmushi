@@ -8,7 +8,6 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    @views = {}
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
@@ -41,7 +40,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     $.when(
       loaderDefer.promise(),
       @circles.fetch(add: true),
-      @mushies.fetch(add: true)
+      @mushies.fetch(add: true, update: true)
     ).done _.bind(@onAssetLoaded, @)
 
   initDrag: ->

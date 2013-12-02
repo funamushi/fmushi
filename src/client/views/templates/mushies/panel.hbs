@@ -1,9 +1,9 @@
 <div id="mushies-panel" class="control">
 <ul>
-  {{#each mushies}}
+  {{#mushies}}
   <li data-mushi-id="{{id}}">
-    <a href="#">{{name}} {{rank}}</a>
+    <a href="#">{{name}} {{rank.name}}</a>
   </li>
-  {{/each}}
+  {{/mushies}}
 </ul>
 </div>

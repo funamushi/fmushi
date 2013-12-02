@@ -3,10 +3,20 @@ class Fmushi.Models.Mushi extends Backbone.Model
     src: "/img/funamushi.png"
     x: 0
     y: 0
-    r: 60
+    groth: 1
+    rankId: 1
     direction: 'left'
 
   initialize: ->
+    @r = 60 * @get('groth') # body
+
+    @on 'add', @updateRank
+    @on 'change:rankId', @updateRank
+
+  parse: (res, options) ->
+    @equipments = new Fmushi.Collections.Equipments res.equipments
+    delete res.equipments
+    res
 
   pos: ->
     new Fmushi.Vector @get('x'), @get('y')
@@ -20,7 +30,8 @@ class Fmushi.Models.Mushi extends Backbone.Model
       '酸素うまい'
     ]
 
-    
+  updateRank: ->
+    @rank = Fmushi.ranks.findById(@get('rankId'))
 
 class Fmushi.Collections.Mushies extends Backbone.Collection
   model: Fmushi.Models.Mushi

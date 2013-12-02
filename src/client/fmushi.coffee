@@ -30,11 +30,18 @@ window.Fmushi =
     @onResize()
     $(window).resize _.bind(@onResize, @)
 
-    window.Fmushi.app = new Fmushi.Views.App
-
     @start()
 
   start: ->
+    Fmushi.items = items = new Fmushi.Collections.Items
+    Fmushi.ranks = ranks = new Fmushi.Collections.Ranks
+
+    $.when(
+      items.fetch(),
+      ranks.fetch()
+    ).done =>
+      @app = new Fmushi.Views.App
+
     getTime = @getTime
     @startTime = lastTime = getTime()
     @frames = 0

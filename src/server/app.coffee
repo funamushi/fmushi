@@ -28,11 +28,42 @@ app.configure 'development', ->
 app.get '/', (req, res) ->
   res.render 'index'
 
+app.get '/ranks', (req, res) ->
+  res.send [
+    { id: 1, level: 1, name: '一等兵' }
+    { id: 2, level: 2, name: '大佐' }
+    { id: 3, level: 3, name: 'ピストル原理主義者' }
+  ]
+
+app.get '/items', (req, res) ->
+  res.send [
+    { id: 1, name: 'フナ4カスタム' }
+    { id: 2, name: 'フナ92F' }
+  ]
+
 app.get '/mushies', (req, res) ->
   res.send [
-    { id: 1, name: 'プヤプヤプンヤ', rank: '一等兵', x: 700,  y: 300 }
-    { id: 2, name: 'ヘイプー', rank: '大佐', x: 850,  y: 400 }
-    { id: 3, name: 'プンヤープヤプヤ', rank: '隊長', x: 1000, y: 500 }
+    {
+      id: 1
+      name: 'プヤプヤプンヤ'
+      rankId: 1
+      x: 700
+      y: 300
+    }
+    {
+      id: 2,
+      name: 'ヘイプー'
+      rankId: 2
+      x: 850
+      y: 400
+    }
+    {
+      id: 3
+      name: 'がちゅん'
+      rankId: 3
+      x: 1000
+      y: 500
+    }
   ]
 
 app.get '/circles', (req, res) ->

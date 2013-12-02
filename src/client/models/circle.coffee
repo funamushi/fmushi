@@ -19,7 +19,8 @@ class Fmushi.Models.Circle extends Backbone.Model
     entityPos = { x: entity.get('x'), y: entity.get('y') }
 
     r  = @get('r')
-    entityR = entity.get('r')
+    # TODO: 複数ボディに対応する
+    entityR = entity.r
 
     distance2 = Math.abs pos.distanceToSquared(entityPos)
 
