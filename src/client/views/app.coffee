@@ -69,6 +69,11 @@ class Fmushi.Views.App extends Fmushi.Views.Base
         if @focusEntity
           @focusOut()
         @lastDragPoint = null
+
+    $canvas.on 'mousewheel', (e) =>
+      x = @camera.get('x')
+      y = @camera.get('y')
+      @camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
     
 
   screenCenter: ->

@@ -6,6 +6,10 @@ require('coffee-script')
 
 app = express()
 
+E = {
+  WEAPON1: 1  
+}
+
 app.configure ->
   app.set 'port', process.env.PORT || 3000
   app.set "view engine", "hbs"
@@ -37,8 +41,8 @@ app.get '/ranks', (req, res) ->
 
 app.get '/items', (req, res) ->
   res.send [
-    { id: 1, name: 'フナ4カスタム' }
-    { id: 2, name: 'フナ92F' }
+    { id: 1, name: '豆4カスタム' }
+    { id: 2, name: '豆92F' }
   ]
 
 app.get '/mushies', (req, res) ->
@@ -49,6 +53,9 @@ app.get '/mushies', (req, res) ->
       rankId: 1
       x: 700
       y: 300
+      equipments: [
+        { type: E.WEAPON1 }
+      ]
     }
     {
       id: 2,
@@ -69,6 +76,7 @@ app.get '/mushies', (req, res) ->
 app.get '/circles', (req, res) ->
   res.send [
     { x: 100, y: 350, r: 300 }
+    { x: 600, y: 350, r: 200 }
   ]
 
 app.startServer = ->
