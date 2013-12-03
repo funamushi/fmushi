@@ -41,8 +41,8 @@ app.get '/ranks', (req, res) ->
 
 app.get '/items', (req, res) ->
   res.send [
-    { id: 1, name: '豆4カスタム' }
-    { id: 2, name: '豆92F' }
+    { id: 1, name: '豆4カスタム', desc: 'めちゃ強な銃を強めた品' }
+    { id: 2, name: '豆92F', desc: 'まじ強い銃' }
   ]
 
 app.get '/mushies', (req, res) ->
@@ -54,7 +54,7 @@ app.get '/mushies', (req, res) ->
       x: 700
       y: 300
       equipments: [
-        { type: E.WEAPON1 }
+        { type: E.WEAPON, itemId: 1 }
       ]
     }
     {
@@ -69,7 +69,10 @@ app.get '/mushies', (req, res) ->
       name: 'がちゅん'
       rankId: 3
       x: 1000
-      y: 500
+      y: 500,
+      equipments: [
+        { type: E.WEAPON, itemId: 2 }
+      ]
     }
   ]
 

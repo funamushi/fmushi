@@ -9,11 +9,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
 
   initialize: ->
     @r = 60 * @get('groth') # body
-
-  parse: (res, options) ->
-    @equipments = new Fmushi.Collections.Equipments res.equipments
-    delete res.equipments
-    res
+    # @equipments = new Fmushi.Collections.Equipments
 
   set: (key, val, options) ->
     if typeof key == 'object'
@@ -24,6 +20,12 @@ class Fmushi.Models.Mushi extends Backbone.Model
 
     if rankId = attrs.rankId
       @rank = Fmushi.ranks.get(rankId)
+
+    if equipments = attrs.equipments
+      @equipments ?= new Fmushi.Collections.Equipments
+      @equipments.reset equipments
+      delete attrs.equipments
+
     super attrs, options
 
   pos: ->
@@ -41,3 +43,4 @@ class Fmushi.Models.Mushi extends Backbone.Model
 class Fmushi.Collections.Mushies extends Backbone.Collection
   model: Fmushi.Models.Mushi
   url: '/mushies'
+  
