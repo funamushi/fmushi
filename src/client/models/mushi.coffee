@@ -10,13 +10,21 @@ class Fmushi.Models.Mushi extends Backbone.Model
   initialize: ->
     @r = 60 * @get('groth') # body
 
-    @on 'add', @updateRank
-    @on 'change:rankId', @updateRank
-
   parse: (res, options) ->
     @equipments = new Fmushi.Collections.Equipments res.equipments
     delete res.equipments
     res
+
+  set: (key, val, options) ->
+    if typeof key == 'object'
+      attrs = key
+      options = val
+    else
+      (attrs = {})[key] = val
+
+    if rankId = attrs.rankId
+      @rank = Fmushi.ranks.get(rankId)
+    super attrs, options
 
   pos: ->
     new Fmushi.Vector @get('x'), @get('y')
@@ -29,9 +37,6 @@ class Fmushi.Models.Mushi extends Backbone.Model
       '風来てる、風来てる'
       '酸素うまい'
     ]
-
-  updateRank: ->
-    @rank = Fmushi.ranks.findById(@get('rankId'))
 
 class Fmushi.Collections.Mushies extends Backbone.Collection
   model: Fmushi.Models.Mushi
