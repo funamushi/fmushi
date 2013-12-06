@@ -1,8 +1,11 @@
 .DS_Store
 node_modules
 bower_components
-public/js/**/*.js
-public/css/**/*.css
+public/js/*.js
+public/css/*.css
+public/js/*.map
+public/css/*.map
+public/js/*.js
 lib/**/*.js
 **/*.js.map
 **/*.css.map
