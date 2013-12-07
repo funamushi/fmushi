@@ -44,14 +44,8 @@ class Fmushi.Views.Base extends Backbone.View
   dispose: ->
     return if @disposed
 
-    # Unregister all regions.
-    @unregisterAllRegions()
-
     # Dispose subviews.
     subview.dispose() for subview, name in @subviewsByName
-
-    # Unbind handlers of global events.
-    @unsubscribeAllEvents()
 
     # Remove all event handlers on this module.
     @off()

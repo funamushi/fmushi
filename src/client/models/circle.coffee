@@ -41,7 +41,7 @@ class Fmushi.Models.Circle extends Backbone.Model
 
       # 中に移動してたらadd
       if distance2 < Math.pow(r - (entityR * 0.7), 2)
-        @addEntity(entity)
+        @addEntity entity
       else
         diff = new Fmushi.Vector(pos.x - entityPos.x, pos.y - entityPos.y)
         collisionPoint = diff.normalize().multiplyScalar(entityR).addSelf(entityPos)
@@ -52,11 +52,13 @@ class Fmushi.Models.Circle extends Backbone.Model
   addEntity: (entity) ->
     return if @haveEntity(entity)
     @entityCids[entity.cid] = true
+    entity.set 'circleId', @get('id')
     @trigger 'circle:add'
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
     delete @entityCids[entity.cid]
+    entity.set 'circleId', null
     @trigger 'circle:remove'
 
   haveEntity: (entity) ->

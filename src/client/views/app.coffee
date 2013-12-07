@@ -39,8 +39,8 @@ class Fmushi.Views.App extends Fmushi.Views.Base
 
     $.when(
       loaderDefer.promise(),
-      @circles.fetch(add: true),
-      @mushies.fetch(add: true, update: true)
+      @circles.fetch(silent: true),
+      @mushies.fetch(silent: true)
     ).done _.bind(@onAssetLoaded, @)
 
   initDrag: ->
@@ -101,11 +101,11 @@ class Fmushi.Views.App extends Fmushi.Views.Base
 
   addMushi: (mushi) ->
     view = new Fmushi.Views.Mushi(model: mushi)
-    @subview mushi.cid, view
+    @subview "mushi-#{mushi.cid}", view
 
   addCircle: (circle) ->
     view = new Fmushi.Views.Circle(model: circle)
-    @subview circle.cid, view
+    @subview "circle-#{circle.cid}", view
 
   focus: (entity) ->
     return if @focusEntity == entity
@@ -204,4 +204,6 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
+    @circles.each _.bind(@addCircle, @)
+    @mushies.each _.bind(@addMushi, @)
     @subview('panel').render().$el.appendTo $('body')

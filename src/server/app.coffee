@@ -78,7 +78,7 @@ app.get '/mushies', (req, res) ->
 
 app.get '/circles', (req, res) ->
   res.send [
-    { x: 100, y: 350, r: 300 }
+    { id: 1, x: 100, y: 350, r: 300 }
   ]
 
 app.startServer = ->

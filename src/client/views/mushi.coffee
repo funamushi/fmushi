@@ -3,6 +3,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
+    # @listenTo @model, 'change:circleId',  ->
+    #   console.log @model.changedAttributes()
     @listenTo @model, 'point:in',   @onPointIn
     @listenTo @model, 'point:out',  @onPointOut
     @listenTo @model, 'focus:in',   @onFocusIn
@@ -63,19 +65,23 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
         @model.set x: x + @speed * delta
 
   onChanged: ->
-    if x = @model.changed.x
+    changed = @model.changedAttributes()
+    if x = changed.x
       @sprite.position.x = x
       @pointShape.translation.x = x if @pointShape
 
-    if y = @model.changed.y
+    if y = changed.y
       @sprite.position.y = y
       @pointShape.translation.y = y if @pointShape
 
-    if d = @model.changed.direction
+    if d = changed.direction
       if d == 'left'
         @sprite.scale.x = 0.5
       else
         @sprite.scale.x = -0.5
+  
+    if 'circleId' in changed
+      console.log '!!!!!!'
 
   onPointIn: (model) ->
     @pointShape.visible = true
