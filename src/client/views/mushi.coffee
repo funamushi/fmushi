@@ -1,6 +1,9 @@
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
   speed: 30
 
+  animationSpeed: 0.25
+  animationSpeedMax: 0.1
+
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
@@ -20,7 +23,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @sprite = sprite = new PIXI.MovieClip(textures)
-    sprite.animationSpeed = 0.25
+    sprite.animationSpeed = @animationSpeed
     sprite.gotoAndPlay 0
 
     attrs = @model.attributes
@@ -81,9 +84,9 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     circleId = changed.circleId
     unless _.isUndefined circleId
       if circleId
-        @sprite.animationSpeed = 0.4
+        @sprite.animationSpeed = @animationSpeed
       else
-        @sprite.animationSpeed = 0.1
+        @sprite.animationSpeed = @animationSpeedMax
 
   onPointIn: (model) ->
     @pointShape.visible = true
