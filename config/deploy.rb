@@ -56,22 +56,25 @@ namespace :brunch do
 end
 
 namespace :deploy do
-  desc "Start application"
-  task :start do
+  desc 'Setup script'
+  task :setup do
     on roles(:app) do
-      within release_path do
-        execute :pm2, 'start server.coffee -n fmushi -i max'
+      within current_path do
+        execute :sudo, 'env PATH=$PATH pm2 startup centos -u funamushi'
       end
     end
+  end
+
+  desc "Start application"
+  task :start do
+    execute :pm2, "start #{current_path}/server.coffee -n fmushi -i max"
   end
 
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute :pm2, 'restart fmushi'
-      end
+      execute :pm2, 'restart fmushi'
     end
   end
 
