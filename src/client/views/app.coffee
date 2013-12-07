@@ -46,15 +46,15 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     ).done _.bind(@onAssetLoaded, @)
 
   initDrag: ->
-    $canvas = $(Fmushi.renderer.view)
-    $canvas.on 'mousedown touchstart', (e) => 
+    stage = Fmushi.stage
+    stage.mousedown = stage.touchstart = (e) =>
       if !@focusEntity
-        @lastDragPoint = { x: e.pageX, y: e.pageY }
+        @lastDragPoint = e.global
 
-    $canvas.on 'mousemove touchmove', (e) =>
+    stage.mousemove = stage.touchmove = (e) =>
       if @lastDragPoint and !@focusEntity
-        x = e.pageX
-        y = e.pageY
+        x = e.global.x
+        y = e.global.y
         diffX = @lastDragPoint.x - x
         diffY = @lastDragPoint.y - y
         @camera.set(
@@ -62,14 +62,12 @@ class Fmushi.Views.App extends Fmushi.Views.Base
           { tween: false }
         )
         @lastDragPoint = { x: x, y: y }
-      
-    $canvas.on 'mouseout mouseleave touchcancel', (e) =>
-      @lastDragPoint = null
 
-    $canvas.on 'mouseup touchend', (e) =>
+    stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
       @focusOut() if @focusEntity
       @lastDragPoint = null
 
+    $canvas = $(Fmushi.renderer.view)
     $canvas.on 'mousewheel', (e) =>
       x = @camera.get('x')
       y = @camera.get('y')

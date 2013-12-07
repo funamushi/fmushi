@@ -61,7 +61,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
       @dragging = false
 
-    sprite.mousemove = @sprite.touchmove = (e) =>
+    sprite.mousemove = sprite.touchmove = (e) =>
       if @dragging
         screenPos = e.global
         worldPos  = Fmushi.app.worldPosFromScreenPos screenPos
