@@ -2,7 +2,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
   speed: 30
 
   animationSpeed: 0.25
-  animationSpeedMax: 0.1
+  animationSpeedMax: 0.4
 
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
@@ -43,8 +43,16 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     text.anchor.y = 0.5
     text.position.x = 0
     text.position.y = -40
-
     sprite.addChild text
+
+    texture = PIXI.Texture.fromFrame('m4.png')
+    @weaponSprite = weaponSprite = new PIXI.Sprite texture
+    weaponSprite.anchor.x = 0.5
+    weaponSprite.anchor.y = 0
+    weaponSprite.position.x = 0
+    weaponSprite.position.y = -180
+    weaponSprite.visible = false
+    sprite.addChild weaponSprite
 
     sprite.click = sprite.tap = (e) => 
       Fmushi.app.hitSprite = sprite
@@ -84,12 +92,18 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     circleId = changed.circleId
     unless _.isUndefined circleId
       if circleId
-        @sprite.animationSpeed = @animationSpeed
-      else
         @sprite.animationSpeed = @animationSpeedMax
+        @weaponSprite.visible = true
+      else
+        @sprite.animationSpeed = @animationSpeed
+        @weaponSprite.visible = false
 
   onPointIn: (model) ->
     @pointShape.visible = true
 
   onPointOut: (model) ->
     @pointShape.visible = false
+
+
+
+

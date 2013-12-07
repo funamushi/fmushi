@@ -2,15 +2,23 @@
 
 "default.png":
 {
-	"frame": {"x":36,"y":184,"w":226,"h":29},
+	"frame": {"x":242,"y":520,"w":226,"h":29},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":2,"w":226,"h":29},
 	"sourceSize": {"w":236,"h":33}
 },
+"m4.png":
+{
+	"frame": {"x":2,"y":520,"w":238,"h":138},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":0,"w":238,"h":138},
+	"sourceSize": {"w":250,"h":154}
+},
 "mushi_walk-1.png":
 {
-	"frame": {"x":326,"y":2,"w":328,"h":176},
+	"frame": {"x":2,"y":2,"w":328,"h":176},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":18,"y":18,"w":328,"h":176},
@@ -18,7 +26,7 @@
 },
 "mushi_walk-2.png":
 {
-	"frame": {"x":2,"y":2,"w":322,"h":180},
+	"frame": {"x":2,"y":180,"w":322,"h":180},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":18,"y":12,"w":322,"h":180},
@@ -26,7 +34,7 @@
 },
 "mushi_walk-3.png":
 {
-	"frame": {"x":656,"y":2,"w":322,"h":156},
+	"frame": {"x":2,"y":362,"w":322,"h":156},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":17,"y":32,"w":322,"h":156},
@@ -34,7 +42,7 @@
 },
 "zoom_in.png":
 {
-	"frame": {"x":2,"y":216,"w":32,"h":30},
+	"frame": {"x":366,"y":2,"w":32,"h":30},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":30},
@@ -42,7 +50,7 @@
 },
 "zoom_out.png":
 {
-	"frame": {"x":2,"y":184,"w":32,"h":30},
+	"frame": {"x":332,"y":2,"w":32,"h":30},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":30},
@@ -53,8 +61,8 @@
 	"version": "1.0",
 	"image": "app.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":256},
+	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4b5eb6f244eb5ad90706285f8571a2a6:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1819eeba74b24dff632acbf73eb60554:6047f0bbb0d39bd717568084f4bf6ddc:23f715f2c0cf00dbda21668e8325e638$"
 }
 }
