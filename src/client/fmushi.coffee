@@ -7,7 +7,7 @@ window.Fmushi =
     w: 1000
     h: 1000
   debug: false
-  fps: 30
+  fps: 24
   initialize: ->
     $window = $(window)
     w = $window.width()
