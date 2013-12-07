@@ -77,9 +77,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     
 
   screenCenter: ->
-    new Fmushi.Vector(
-      Fmushi.screenSize.w / 2, Fmushi.screenSize.h / 2
-    )
+    { x: Fmushi.screenSize.w / 2, y: Fmushi.screenSize.h / 2 }
 
   collisionDetection: ->
     mushies = @mushies
@@ -103,8 +101,11 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     if !y? and typeof x is 'object'
       y = x.y
       x = x.x
-    zoom = @camera.get('zoom')
-    { x: x * zoom, y: y * zoom}
+    center  = @screenCenter()
+    zoom    = @camera.get('zoom')
+    offsetX = @camera.get('x') - (center.x / zoom)
+    offsetY = @camera.get('y') - (center.y / zoom)
+    { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
   addMushi: (mushi) ->
     view = new Fmushi.Views.Mushi(model: mushi)
