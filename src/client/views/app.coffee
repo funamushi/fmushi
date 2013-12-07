@@ -47,7 +47,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
   initDrag: ->
     $canvas = $(Fmushi.renderer.view)
     $canvas.on 'mousedown touchstart', (e) => 
-      if !@hitten and !@focusEntity
+      if !@focusEntity
         @lastDragPoint = { x: e.pageX, y: e.pageY }
 
     $canvas.on 'mousemove touchmove', (e) =>
@@ -66,13 +66,8 @@ class Fmushi.Views.App extends Fmushi.Views.Base
       @lastDragPoint = null
 
     $canvas.on 'mouseup touchend', (e) =>
-      # pixi.jsスプライトのクリックイベントが先に発生してたら、今回は無視
-      if @hitten
-        # @hitten = null
-      else
-        if @focusEntity
-          @focusOut()
-        @lastDragPoint = null
+      @focusOut() if @focusEntity
+      @lastDragPoint = null
 
     $canvas.on 'mousewheel', (e) =>
       x = @camera.get('x')
