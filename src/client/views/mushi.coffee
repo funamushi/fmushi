@@ -1,6 +1,5 @@
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
   speed: 30
-
   animationSpeed: 0.25
   animationSpeedMax: 0.4
 
@@ -18,7 +17,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     )
     shape.stroke = '#4CBAEB'
     shape.fill = '#CCE9F9'
-    shape.opacity = 0.5
+    shape.opacity = 1
     shape.visible = false
     Fmushi.app.shapeWorld.add shape
 
@@ -55,9 +54,21 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     weaponSprite.visible = false
     sprite.addChild weaponSprite
 
-    sprite.click = sprite.tap = (e) => 
-      Fmushi.app.hitSprite = sprite
-      Fmushi.app.focus @model
+    sprite.mousedown = @sprite.touchstart = (e) =>
+      Fmushi.app.hitten = this
+      e.originalEvent.preventDefault()
+      @event = e
+      @dragging = true
+
+    sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
+      Fmushi.app.hitten = null
+      @event = null
+      @dragging = false
+
+    sprite.mousemove = @sprite.touchmove = (e) =>
+      if @dragging
+        worldPos = @event.getLocalPosition(Fmushi.stage)
+        @model.set x: worldPos.x, y: worldPos.y
 
     Fmushi.app.world.addChild sprite
 

@@ -1,4 +1,6 @@
 class Fmushi.Views.App extends Fmushi.Views.Base
+  defaultZoom: 0.5
+
   initialize: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
@@ -27,8 +29,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     dialogView.hide()
     @subview 'dialog', dialogView
 
-    # @listenTo Fmushi.Events, 'update', (delta) ->
-    #   Fmushi.renderer.view.style.cursor = ''
+    @camera.set 'zoom', @defaultZoom
     @fetch()
 
   fetch: -> 
@@ -46,7 +47,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
   initDrag: ->
     $canvas = $(Fmushi.renderer.view)
     $canvas.on 'mousedown touchstart', (e) => 
-      if !@hitSprite and !@focusEntity
+      if !@hitten and !@focusEntity
         @lastDragPoint = { x: e.pageX, y: e.pageY }
 
     $canvas.on 'mousemove touchmove', (e) =>
@@ -55,7 +56,10 @@ class Fmushi.Views.App extends Fmushi.Views.Base
         y = e.pageY
         diffX = @lastDragPoint.x - x
         diffY = @lastDragPoint.y - y
-        @camera.set { x: @camera.get('x') + diffX, y: @camera.get('y') + diffY}, {tween: false }
+        @camera.set(
+          { x: @camera.get('x') + diffX, y: @camera.get('y') + diffY },
+          { tween: false }
+        )
         @lastDragPoint = { x: x, y: y }
       
     $canvas.on 'mouseout mouseleave touchcancel', (e) =>
@@ -63,8 +67,8 @@ class Fmushi.Views.App extends Fmushi.Views.Base
 
     $canvas.on 'mouseup touchend', (e) =>
       # pixi.jsスプライトのクリックイベントが先に発生してたら、今回は無視
-      if @hitSprite
-        @hitSprite = null
+      if @hitten
+        # @hitten = null
       else
         if @focusEntity
           @focusOut()
@@ -129,7 +133,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
 
     entity = @focusEntity
     @focusEntity = null
-    @camera.set zoom: 1
+    @camera.set zoom: @defaultZoom
 
     @subview('dialog').hide()
 
