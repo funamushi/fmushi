@@ -59,7 +59,9 @@ namespace :deploy do
   desc "Start application"
   task :start do
     on roles(:app) do
-      execute :pm2, 'start server.coffee -n fmushi -i max'
+      within release_path do
+        execute :pm2, 'start server.coffee -n fmushi -i max'
+      end
     end
   end
 
