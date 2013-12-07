@@ -1,4 +1,6 @@
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
+  speed: 30
+
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
@@ -6,8 +8,6 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @listenTo @model, 'focus:in',   @onFocusIn
     @listenTo @model, 'focus:out',  @onFocusOut
     @listenTo Fmushi.Events, 'update', @update
-
-    @speed = 50 # px/sec
 
     @pointShape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'), @model.get('r') * 2.5, @model.get('r') * 1.5
@@ -20,7 +20,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @sprite = sprite = new PIXI.MovieClip(textures)
-    sprite.animationSpeed = 0.075
+    sprite.animationSpeed = 0.4
     sprite.gotoAndPlay 0
 
     attrs = @model.attributes
