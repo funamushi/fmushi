@@ -13,7 +13,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @listenTo Fmushi.Events, 'update', @update
 
     @pointShape = shape = Fmushi.two.makeRectangle(
-      @model.get('x'), @model.get('y'), @model.get('r') * 2.5, @model.get('r') * 1.5
+      @model.get('x'), @model.get('y'),
+      @model.r * 2.5, @model.r * 1.5
     )
     shape.stroke = '#4CBAEB'
     shape.fill = '#CCE9F9'
@@ -103,7 +104,3 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
   onPointOut: (model) ->
     @pointShape.visible = false
-
-
-
-
