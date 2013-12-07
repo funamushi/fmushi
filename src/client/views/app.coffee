@@ -5,7 +5,8 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
 
-    @camera = new Fmushi.Models.Camera x: 0, y: 0, zoom: 1
+    center = @screenCenter()
+    @camera = new Fmushi.Models.Camera x: center.x, y: center.y, zoom: @defaultZoom
     @locked = false
     
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
@@ -29,7 +30,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     dialogView.hide()
     @subview 'dialog', dialogView
 
-    @camera.set 'zoom', @defaultZoom
+    @onCameraChanged()
     @fetch()
 
   fetch: -> 
@@ -98,6 +99,13 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     worldPosY = -(y * zoom - center.y)
     { x: worldPosX, y: worldPosY }
 
+  worldPosFromScreenPos: (x, y) ->
+    if !y? and typeof x is 'object'
+      y = x.y
+      x = x.x
+    zoom = @camera.get('zoom')
+    { x: x * zoom, y: y * zoom}
+
   addMushi: (mushi) ->
     view = new Fmushi.Views.Mushi(model: mushi)
     @subview "mushi-#{mushi.cid}", view
@@ -153,7 +161,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     shapeWorld.translation.set x, y
     shapeWorld.scale = zoom
 
-  onCameraChanged: (camera, options) ->
+  onCameraChanged: (camera = @camera, options = {}) ->
     return if @locked
 
     x    = camera.get 'x'

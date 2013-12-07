@@ -56,23 +56,22 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
     sprite.mousedown = @sprite.touchstart = (e) =>
       Fmushi.app.lastDragPoint = null
-      e.originalEvent.preventDefault()
-      @event = e
       @dragging = true
 
     sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
-      Fmushi.app.hitten = null
-      @event = null
       @dragging = false
 
     sprite.mousemove = @sprite.touchmove = (e) =>
       if @dragging
-        worldPos = @event.getLocalPosition(Fmushi.stage)
-        @model.set x: worldPos.x, y: worldPos.y
+        screenPos = e.getLocalPosition(Fmushi.stage)
+        worldPos  = Fmushi.app.worldPosFromScreenPos screenPos
+        @model.set worldPos
 
     Fmushi.app.world.addChild sprite
 
   update: (delta) ->
+    return if @dragging
+
     x = @model.get('x')
     if @model.get('direction') == 'left'
       if x < -10
