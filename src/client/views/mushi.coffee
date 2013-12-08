@@ -55,7 +55,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.addChild weaponSprite
 
     sprite.mousedown = @sprite.touchstart = (e) =>
-      Fmushi.app.lastDragPoint = null
+      Fmushi.app.dragCancel()
       @dragging = true
 
     sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>

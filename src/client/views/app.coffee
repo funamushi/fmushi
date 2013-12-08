@@ -14,8 +14,8 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
-    @listenTo @mushies, 'add', @addMushi
-    @listenTo @circles, 'add', @addCircle
+    @listenTo @mushies, 'add', @addEntity
+    @listenTo @circles, 'add', @addEntity
     
     @listenTo @camera, 'change', @onCameraChanged
     @listenTo Fmushi.Events, 'update', @collisionDetection
@@ -48,7 +48,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
   initDrag: ->
     stage = Fmushi.stage
     stage.mousedown = stage.touchstart = (e) =>
-      if !@focusEntity
+      if !@focusEntity or !@hitTestFromEntity(@focusEntity, e)
         @lastDragPoint = e.global
 
     stage.mousemove = stage.touchmove = (e) =>
@@ -64,15 +64,18 @@ class Fmushi.Views.App extends Fmushi.Views.Base
         @lastDragPoint = { x: x, y: y }
 
     stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
-      @focusOut() if @focusEntity
-      @lastDragPoint = null
+      if @lastDragPoint
+        @focusOut() if @focusEntity
+        @lastDragPoint = null
 
     $canvas = $(Fmushi.renderer.view)
     $canvas.on 'mousewheel', (e) =>
       x = @camera.get('x')
       y = @camera.get('y')
       @camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
-    
+
+  dragCancel: ->
+    @lastDragPoint = null    
 
   screenCenter: ->
     { x: Fmushi.screenSize.w / 2, y: Fmushi.screenSize.h / 2 }
@@ -105,16 +108,19 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     offsetY = @camera.get('y') - (center.y / zoom)
     { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
-  addMushi: (mushi) ->
-    view = new Fmushi.Views.Mushi(model: mushi)
-    @subview "mushi-#{mushi.cid}", view
+  addEntity: (model) ->
+    if klass = Fmushi.Views[model.constructor.name]
+      @subview model.cid, (new klass(model: model))
 
-  addCircle: (circle) ->
-    view = new Fmushi.Views.Circle(model: circle)
-    @subview "circle-#{circle.cid}", view
+  entity: (model) ->
+    @subview model.cid
+
+  hitTestFromEntity: (model, e) ->
+    view = @subview model.cid
+    view? and Fmushi.stage.interactionManager.hitTest(view.sprite, e)
 
   focus: (entity) ->
-    return if @focusEntity == entity
+    return if @focusEntity is entity
 
     @camera.set
       x: entity.get('x')
@@ -210,6 +216,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
-    @circles.each _.bind(@addCircle, @)
-    @mushies.each _.bind(@addMushi, @)
+    add = _.bind @addEntity, @
+    @circles.each add
+    @mushies.each add
     @subview('panel').render().$el.appendTo $('body')

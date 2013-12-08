@@ -43,6 +43,7 @@ app.get '/items', (req, res) ->
   res.send [
     { id: 1, name: '豆4カスタム', desc: 'めちゃ強な銃を強めた品' }
     { id: 2, name: '豆92F', desc: 'まじ強い銃' }
+    { id: 3, name: '豆マグナム', desc: 'まじはんぱなく強い銃' }
   ]
 
 app.get '/mushies', (req, res) ->
@@ -52,7 +53,7 @@ app.get '/mushies', (req, res) ->
       name: 'プヤプヤプンヤ'
       rankId: 1
       x: 700
-      y: 300
+      y: 50
       equipments: [
         { type: E.WEAPON, itemId: 1 }
       ]
@@ -62,14 +63,14 @@ app.get '/mushies', (req, res) ->
       name: 'ヘイプー'
       rankId: 2
       x: 850
-      y: 400
+      y: 200
     }
     {
       id: 3
       name: 'がちゅん'
       rankId: 3
       x: 1000
-      y: 500,
+      y: 350,
       equipments: [
         { type: E.WEAPON, itemId: 2 }
       ]
@@ -78,7 +79,8 @@ app.get '/mushies', (req, res) ->
 
 app.get '/circles', (req, res) ->
   res.send [
-    { id: 1, x: 500, y: 350, r: 200 }
+    { id: 2, x: 0, y: 50, r: 400 }
+    { id: 1, x: 600, y: 550, r: 200 }
   ]
 
 app.startServer = ->

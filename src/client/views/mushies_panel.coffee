@@ -26,6 +26,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
       mushi.trigger 'point:out'
 
   focus: (e) ->
+    e.preventDefault()
     if mushi = @mushiFromEvent(e)
       Fmushi.app.focus mushi
 
