@@ -109,8 +109,13 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
   addEntity: (model) ->
-    if klass = Fmushi.Views[model.constructor.name]
-      @subview model.cid, (new klass(model: model))
+    view = 
+      if model instanceof Fmushi.Models.Mushi
+        new Fmushi.Views.Mushi model: model
+      else if model instanceof Fmushi.Models.Circle
+        new Fmushi.Views.Circle model: model
+
+    @subview model.cid, view if view?
 
   entity: (model) ->
     @subview model.cid
