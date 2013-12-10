@@ -1,3 +1,56 @@
+class State
+  constructor: (@sprite, @model) ->
+
+  update: (delta) ->
+
+  onEnter: ->
+
+  onExit: ->
+
+class WalkingState extends State
+  animationSpeed: 0.25
+
+  speed: 30
+
+  update: (delta) ->
+    model = @model
+    x = model.get('x')
+    if model.get('direction') == 'left'
+      if x < -10
+        model.set direction: 'right'
+      else
+        model.set x: x - @speed * delta
+    else
+      if x > 1000
+        model.set direction: 'left'
+      else
+        model.set x: x + @speed * delta
+
+class BattleState extends State
+  animationSpeed: 0.4
+
+  speed: 30
+
+  onEnter: ->
+    @sprite.weapon.visible = true
+
+  onExit: ->
+    @sprite.weapon.visible = false
+
+  update: (delta) ->
+    model = @model
+    x = model.get('x')
+    if model.get('direction') == 'left'
+      if x < -10
+        model.set direction: 'right'
+      else
+        model.set x: x - @speed * delta
+    else
+      if x > 1000
+        model.set direction: 'left'
+      else
+        model.set x: x + @speed * delta
+
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
   speed: 30
   animationSpeed: 0.25
@@ -9,7 +62,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @listenTo @model, 'point:out',  @onPointOut
     @listenTo @model, 'focus:in',   @onFocusIn
     @listenTo @model, 'focus:out',  @onFocusOut
-    @listenTo Fmushi.Events, 'update', @update
+    @listenTo Fmushi.Events, 'update', (delta) =>
+      @currentState.update delta
 
     @pointShape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'),
@@ -21,6 +75,11 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     shape.visible = false
     Fmushi.app.shapeWorld.add shape
 
+    @initSprite()
+    @initWeapon()
+    @initState()
+
+  initSprite: ->
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @sprite = sprite = new PIXI.MovieClip(textures)
     sprite.animationSpeed = @animationSpeed
@@ -45,6 +104,22 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     text.position.y = -40
     sprite.addChild text
 
+    sprite.mousedown = @sprite.touchstart = (e) =>
+      Fmushi.app.dragCancel()
+      @gripped = true
+
+    sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
+      @gripped = false
+
+    sprite.mousemove = sprite.touchmove = (e) =>
+      if @gripped
+        screenPos = e.global
+        worldPos  = Fmushi.app.worldPosFromScreenPos screenPos
+        @model.set worldPos
+
+    Fmushi.app.world.addChild sprite
+
+  initWeapon: ->
     texture = PIXI.Texture.fromFrame('m4.png')
     @weaponSprite = weaponSprite = new PIXI.Sprite texture
     weaponSprite.anchor.x = 0.5
@@ -52,37 +127,24 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     weaponSprite.position.x = 0
     weaponSprite.position.y = -180
     weaponSprite.visible = false
-    sprite.addChild weaponSprite
+    @sprite.weapon = weaponSprite
+    @sprite.addChild weaponSprite
 
-    sprite.mousedown = @sprite.touchstart = (e) =>
-      Fmushi.app.dragCancel()
-      @dragging = true
+  initState: ->
+    @states =
+      walking: new WalkingState(@sprite, @model)
+      battle:  new BattleState(@sprite, @model)
+    @updateState()
 
-    sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
-      @dragging = false
+  updateState: (name) ->
+    unless name
+      name = (if @model.get('circleId') then 'battle' else 'walking')
 
-    sprite.mousemove = sprite.touchmove = (e) =>
-      if @dragging
-        screenPos = e.global
-        worldPos  = Fmushi.app.worldPosFromScreenPos screenPos
-        @model.set worldPos
-
-    Fmushi.app.world.addChild sprite
-
-  update: (delta) ->
-    return if @dragging
-
-    x = @model.get('x')
-    if @model.get('direction') == 'left'
-      if x < -10
-        @model.set direction: 'right'
-      else
-        @model.set x: x - @speed * delta
-    else
-      if x > 1000
-        @model.set direction: 'left'
-      else
-        @model.set x: x + @speed * delta
+    if state = @states[name]
+      @currentState?.onExit()
+      state.onEnter()
+      @currentState = state
+      @currentStateName = name
 
   onChanged: ->
     changed = @model.changedAttributes()
@@ -100,14 +162,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
       else
         @sprite.scale.x = -0.5
   
-    circleId = changed.circleId
-    unless _.isUndefined circleId
-      if circleId
-        @sprite.animationSpeed = @animationSpeedMax
-        @weaponSprite.visible = true
-      else
-        @sprite.animationSpeed = @animationSpeed
-        @weaponSprite.visible = false
+    unless _.isUndefined(changed.circleId)
+      @updateState() unless @currentStateName is 'gripped'
 
   onPointIn: (model) ->
     @pointShape.visible = true
