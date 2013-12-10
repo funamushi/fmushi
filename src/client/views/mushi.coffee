@@ -12,6 +12,9 @@ class WalkingState extends State
 
   speed: 30
 
+  onEnter: -> 
+    @sprite.animationSpeed = @animationSpeed
+
   update: (delta) ->
     model = @model
     x = model.get('x')
@@ -27,11 +30,12 @@ class WalkingState extends State
         model.set x: x + @speed * delta
 
 class BattleState extends State
-  animationSpeed: 0.4
+  animationSpeed: 0.5
 
   speed: 30
 
   onEnter: ->
+    @sprite.animationSpeed = @animationSpeed
     @sprite.weapon.visible = true
 
   onExit: ->
@@ -78,7 +82,6 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
   initSprite: ->
     textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @sprite = sprite = new PIXI.MovieClip(textures)
-    sprite.animationSpeed = @animationSpeed
     sprite.gotoAndPlay 0
 
     attrs = @model.attributes
