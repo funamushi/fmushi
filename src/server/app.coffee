@@ -1,14 +1,12 @@
+require('coffee-script')
+
 path    = require('path')
 express = require('express')
 hbs     = require('hbs')
 
-require('coffee-script')
+api = require('./api')
 
-app = express()
-
-E = {
-  WEAPON1: 1  
-}
+module.exports = exports = app = express()
 
 app.configure ->
   app.set 'port', process.env.PORT || 3000
@@ -29,62 +27,20 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
+app.get '/ranks', api.ranks.index
+app.get '/items', api.items.index
+app.get '/mushies', api.mushies.index
+app.get '/circles', api.circles.index
+
+app.get '/signup', (req, res) ->
+  res.render 'siginup'
+
+app.get '/signin', (req, res) ->
+  res.render 'siginup'
+
 app.get '/', (req, res) ->
   res.render 'index'
-
-app.get '/ranks', (req, res) ->
-  res.send [
-    { id: 1, level: 1, name: '一等兵' }
-    { id: 2, level: 2, name: '大佐' }
-    { id: 3, level: 3, name: 'ピストル原理主義者' }
-  ]
-
-app.get '/items', (req, res) ->
-  res.send [
-    { id: 1, name: '豆4カスタム', desc: 'めちゃ強な銃を強めた品' }
-    { id: 2, name: '豆92F', desc: 'まじ強い銃' }
-    { id: 3, name: '豆マグナム', desc: 'まじはんぱなく強い銃' }
-  ]
-
-app.get '/mushies', (req, res) ->
-  res.send [
-    {
-      id: 1
-      name: 'プヤプヤプンヤ'
-      rankId: 1
-      x: 700
-      y: 50
-      equipments: [
-        { type: E.WEAPON, itemId: 1 }
-      ]
-    }
-    {
-      id: 2,
-      name: 'ヘイプー'
-      rankId: 2
-      x: 850
-      y: 200
-    }
-    {
-      id: 3
-      name: 'がちゅん'
-      rankId: 3
-      x: 1000
-      y: 350,
-      equipments: [
-        { type: E.WEAPON, itemId: 2 }
-      ]
-    }
-  ]
-
-app.get '/circles', (req, res) ->
-  res.send [
-    { id: 2, x: 0, y: 50, r: 400 }
-    { id: 1, x: 600, y: 550, r: 200 }
-  ]
 
 app.startServer = ->
   app.listen app.get('port'), ->
     console.log "Fmushi server listening on port:#{app.get('port')}"
-        
-module.exports = exports = app
