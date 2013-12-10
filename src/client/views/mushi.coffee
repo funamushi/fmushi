@@ -52,10 +52,6 @@ class BattleState extends State
         model.set x: x + @speed * delta
 
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
-  speed: 30
-  animationSpeed: 0.25
-  animationSpeedMax: 0.4
-
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
