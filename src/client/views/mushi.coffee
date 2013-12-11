@@ -1,22 +1,21 @@
-class State
-  constructor: (@sprite, @model) ->
+walking =
+  name: 'walking'
 
-  update: (delta) ->
-
-  onEnter: ->
-
-  onExit: ->
-
-class WalkingState extends State
   animationSpeed: 0.25
 
   speed: 30
 
-  onEnter: -> 
-    @sprite.animationSpeed = @animationSpeed
+  onEnter: (view) ->
+    view.sprite.animationSpeed = @animationSpeed
 
-  update: (delta) ->
-    model = @model
+  update: (view, delta) ->
+    if view.model.get('circleId')?
+      view.stateMachene.to battle
+      return
+
+    return if view.gripped
+
+    model = view.model
     x = model.get('x')
     if model.get('direction') == 'left'
       if x < -10
@@ -29,21 +28,30 @@ class WalkingState extends State
       else
         model.set x: x + @speed * delta
 
-class BattleState extends State
+battle = 
+  name: 'battle'
+
   animationSpeed: 0.5
 
-  speed: 30
+  speed: 40
 
-  onEnter: ->
-    @sprite.animationSpeed = @animationSpeed
-    @sprite.weapon.visible = true
+  onEnter: (view) ->
+    view.sprite.animationSpeed = @animationSpeed
+    view.weaponSprite.visible = true
 
-  onExit: ->
-    @sprite.weapon.visible = false
+  onExit: (view) ->
+    view.weaponSprite.visible = false
 
-  update: (delta) ->
-    model = @model
+  update: (view, delta) ->
+    unless view.model.get('circleId')?
+      view.stateMachene.to walking
+      return
+
+    return if view.gripped
+
+    model = view.model
     x = model.get('x')
+    console.log x
     if model.get('direction') == 'left'
       if x < -10
         model.set direction: 'right'
@@ -54,6 +62,19 @@ class BattleState extends State
         model.set direction: 'left'
       else
         model.set x: x + @speed * delta
+
+class Fmushi.StateMachene
+  constructor: (@view) ->
+
+  to: (state) ->
+    return if  state is @currentState
+
+    @currentState?.onExit? @view
+    @currentState = state
+    @currentState.onEnter? @view
+    
+  update: (delta) ->
+    @currentState?.update @view, delta
 
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
   initialize: -> 
@@ -62,8 +83,6 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @listenTo @model, 'point:out',  @onPointOut
     @listenTo @model, 'focus:in',   @onFocusIn
     @listenTo @model, 'focus:out',  @onFocusOut
-    @listenTo Fmushi.Events, 'update', (delta) =>
-      @currentState.update delta
 
     @pointShape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'),
@@ -130,20 +149,11 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @sprite.addChild weaponSprite
 
   initState: ->
-    @states =
-      walking: new WalkingState(@sprite, @model)
-      battle:  new BattleState(@sprite, @model)
-    @updateState()
+    @stateMachene = new Fmushi.StateMachene(@)
+    @stateMachene.to walking  
 
-  updateState: (name) ->
-    unless name
-      name = (if @model.get('circleId') then 'battle' else 'walking')
-
-    if state = @states[name]
-      @currentState?.onExit()
-      state.onEnter()
-      @currentState = state
-      @currentStateName = name
+    @listenTo Fmushi.Events, 'update', (delta) =>
+      @stateMachene.update delta
 
   onChanged: ->
     changed = @model.changedAttributes()
@@ -160,9 +170,6 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
         @sprite.scale.x = 0.5
       else
         @sprite.scale.x = -0.5
-  
-    unless _.isUndefined(changed.circleId)
-      @updateState() unless @currentStateName is 'gripped'
 
   onPointIn: (model) ->
     @pointShape.visible = true
