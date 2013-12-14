@@ -27,8 +27,8 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/ranks', api.ranks.index
-app.get '/items', api.items.index
+app.get '/ranks',   api.ranks.index
+app.get '/items',   api.items.index
 app.get '/mushies', api.mushies.index
 app.get '/circles', api.circles.index
 

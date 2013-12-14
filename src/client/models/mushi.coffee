@@ -40,6 +40,12 @@ class Fmushi.Models.Mushi extends Backbone.Model
       '酸素うまい'
     ]
 
+  point: ->
+    @trigger 'point:in'
+
+  pointOut: ->
+    @trigger 'point:out'
+
 class Fmushi.Collections.Mushies extends Backbone.Collection
   model: Fmushi.Models.Mushi
   url: '/mushies'

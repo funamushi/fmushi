@@ -19,11 +19,11 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
 
   pointIn: (e) ->
     if mushi = @mushiFromEvent(e)
-      mushi.trigger 'point:in'
+      mushi.point()
 
   pointOut: (e) ->
     if mushi = @mushiFromEvent(e)
-      mushi.trigger 'point:out'
+      mushi.pointOut()
 
   focus: (e) ->
     e.preventDefault()
