@@ -4,7 +4,7 @@ path    = require('path')
 express = require('express')
 hbs     = require('hbs')
 
-api = require('./api')
+routes = require('./routes')
 
 module.exports = exports = app = express()
 
@@ -27,19 +27,15 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/ranks',   api.ranks.index
-app.get '/items',   api.items.index
-app.get '/mushies', api.mushies.index
-app.get '/circles', api.circles.index
+app.get '/ranks',   routes.api.ranks.index
+app.get '/items',   routes.api.items.index
+app.get '/mushies', routes.api.mushies.index
+app.get '/circles', routes.api.circles.index
 
-app.get '/signup', (req, res) ->
-  res.render 'siginup'
+app.get '/signup', routes.siginup
+app.get '/signin', routes.signin
 
-app.get '/signin', (req, res) ->
-  res.render 'siginup'
-
-app.get '/', (req, res) ->
-  res.render 'index'
+app.get '/', routes.home
 
 app.startServer = ->
   app.listen app.get('port'), ->

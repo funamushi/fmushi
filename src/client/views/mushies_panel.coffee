@@ -1,6 +1,6 @@
 class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
   events:
-    'mouseover a': 'pointIn'
+    'mouseover a': 'point'
     'mouseout a':  'pointOut'
     'click a': 'focus'
     'tap a':   'focus'
@@ -17,13 +17,11 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
       mushies: mushies
     @
 
-  pointIn: (e) ->
-    if mushi = @mushiFromEvent(e)
-      mushi.point()
+  point: (e) ->
+    mushi = @mushiFromEvent(e)?.point()
 
   pointOut: (e) ->
-    if mushi = @mushiFromEvent(e)
-      mushi.pointOut()
+    @mushiFromEvent(e)?.pointOut()
 
   focus: (e) ->
     e.preventDefault()
