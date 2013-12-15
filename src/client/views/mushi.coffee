@@ -51,7 +51,6 @@ battle =
 
     model = view.model
     x = model.get('x')
-    console.log x
     if model.get('direction') == 'left'
       if x < -10
         model.set direction: 'right'

@@ -5,13 +5,13 @@ class Fmushi.Models.Circle extends Backbone.Model
     r: 400
 
   initialize: ->
-    @entityCids = {}
+    @entities = {}
 
   pos: -> 
     new Fmushi.Vector @get('x'), @get('y')
   
   entityCount: ->
-    _.size @entityCids
+    _.size @entities
 
   collisionEntity: (entity) ->
     collisionPoint = null
@@ -51,18 +51,18 @@ class Fmushi.Models.Circle extends Backbone.Model
 
   addEntity: (entity) ->
     return if @haveEntity(entity)
-    @entityCids[entity.cid] = true
+    @entities[entity.cid] = entity
     entity.set 'circleId', @get('id')
-    @trigger 'circle:add'
+    @trigger 'circle:add', entity, _.size(@entities)
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
-    delete @entityCids[entity.cid]
+    delete @entities[entity.cid]
     entity.set 'circleId', null
-    @trigger 'circle:remove'
+    @trigger 'circle:remove', entity, _.size(@entities)
 
   haveEntity: (entity) ->
-    !!@entityCids[entity.cid]
+    !!@entities[entity.cid]
 
 class Fmushi.Collections.Circles extends Backbone.Collection
   model: Fmushi.Models.Circle
