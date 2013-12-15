@@ -67,3 +67,4 @@ class Fmushi.Models.Circle extends Backbone.Model
 class Fmushi.Collections.Circles extends Backbone.Collection
   model: Fmushi.Models.Circle
   url: '/circles'
+  

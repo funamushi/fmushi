@@ -18,10 +18,18 @@ class Fmushi.Models.Mushi extends Backbone.Model
     else
       (attrs = {})[key] = val
 
-    if rankId = attrs.rankId
+    rankId = attrs.rankId
+    unless _.isUndefined(rankId)
       @rank = Fmushi.ranks.get(rankId)
+      delete attrs.rankId
 
-    if equipments = attrs.equipments
+    circleId = attrs.circleId
+    unless _.isUndefined(circleId)
+      @circle = Fmushi.circles.get(circleId)
+      delete attrs.circleId
+
+    equipments = attrs.equipments
+    unless _.isUndefined(equipments)
       @equipments ?= new Fmushi.Collections.Equipments
       @equipments.reset equipments
       delete attrs.equipments

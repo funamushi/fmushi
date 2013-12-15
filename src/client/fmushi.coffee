@@ -34,12 +34,14 @@ window.Fmushi =
     @start()
 
   start: ->
-    Fmushi.items = items = new Fmushi.Collections.Items
-    Fmushi.ranks = ranks = new Fmushi.Collections.Ranks
+    Fmushi.items   = items   = new Fmushi.Collections.Items
+    Fmushi.ranks   = ranks   = new Fmushi.Collections.Ranks
+    Fmushi.circles = circles = new Fmushi.Collections.Circles
 
     $.when(
       items.fetch(),
-      ranks.fetch()
+      ranks.fetch(),
+      circles.fetch()
     ).done =>
       @app = new Fmushi.Views.App
     interval = 1 / @fps
