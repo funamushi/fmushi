@@ -1,4 +1,13 @@
 mushiStates =
+  rest:
+    animationSpeed: 0.1
+
+    onEnter: (view) ->
+      view.sprite.animationSpeed = @animationSpeed
+
+    update: (view, delta) ->
+      
+
   walking:
     animationSpeed: 0.25
   
