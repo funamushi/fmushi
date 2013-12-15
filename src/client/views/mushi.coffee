@@ -1,72 +1,63 @@
-walking =
-  name: 'walking'
-
-  animationSpeed: 0.25
-
-  speed: 30
-
-  onEnter: (view) ->
-    view.sprite.animationSpeed = @animationSpeed
-
-  update: (view, delta) ->
-    if view.model.get('circleId')?
-      view.stateMachene.to battle
-      return
-
-    return if view.gripped
-
-    model = view.model
-    x = model.get('x')
-    if model.get('direction') == 'left'
-      if x < -10
-        model.set direction: 'right'
+mushiStates =
+  walking:
+    animationSpeed: 0.25
+  
+    speed: 30
+  
+    onEnter: (view) ->
+      view.sprite.animationSpeed = @animationSpeed
+  
+    update: (view, delta) ->
+      return if view.gripped
+  
+      model = view.model
+      x = model.get('x')
+      if model.get('direction') == 'left'
+        if x < -10
+          model.set direction: 'right'
+        else
+          model.set x: x - @speed * delta
       else
-        model.set x: x - @speed * delta
-    else
-      if x > 1000
-        model.set direction: 'left'
+        if x > 1000
+          model.set direction: 'left'
+        else
+          model.set x: x + @speed * delta
+  
+  hustle:
+    animationSpeed: 0.5
+  
+    speed: 40
+  
+    onEnter: (view) ->
+      view.sprite.animationSpeed = @animationSpeed
+      view.weaponSprite.visible = true
+  
+    onExit: (view) ->
+      view.weaponSprite.visible = false
+  
+    update: (view, delta) ->
+      return if view.gripped
+  
+      model = view.model
+      x = model.get('x')
+      if model.get('direction') == 'left'
+        if x < -10
+          model.set direction: 'right'
+        else
+          model.set x: x - @speed * delta
       else
-        model.set x: x + @speed * delta
-
-battle = 
-  name: 'battle'
-
-  animationSpeed: 0.5
-
-  speed: 40
-
-  onEnter: (view) ->
-    view.sprite.animationSpeed = @animationSpeed
-    view.weaponSprite.visible = true
-
-  onExit: (view) ->
-    view.weaponSprite.visible = false
-
-  update: (view, delta) ->
-    unless view.model.get('circleId')?
-      view.stateMachene.to walking
-      return
-
-    return if view.gripped
-
-    model = view.model
-    x = model.get('x')
-    if model.get('direction') == 'left'
-      if x < -10
-        model.set direction: 'right'
-      else
-        model.set x: x - @speed * delta
-    else
-      if x > 1000
-        model.set direction: 'left'
-      else
-        model.set x: x + @speed * delta
+        if x > 1000
+          model.set direction: 'left'
+        else
+          model.set x: x + @speed * delta
 
 class Fmushi.StateMachene
   constructor: (@view) ->
 
-  to: (state) ->
-    return if  state is @currentState
+  to: (name) ->
+    return if name is @currentState
+    state = mushiStates[name]
+    return unless state?
 
     @currentState?.onExit? @view
     @currentState = state
@@ -148,11 +139,11 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @sprite.addChild weaponSprite
 
   initState: ->
-    @stateMachene = new Fmushi.StateMachene(@)
-    @stateMachene.to walking  
+    @stateMachine = new Fmushi.StateMachene(@)
+    @stateMachine.to 'walking'  
 
     @listenTo Fmushi.Events, 'update', (delta) =>
-      @stateMachene.update delta
+      @stateMachine.update delta
 
   onChanged: ->
     changed = @model.changedAttributes()
@@ -169,6 +160,14 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
         @sprite.scale.x = 0.5
       else
         @sprite.scale.x = -0.5
+
+    circleId = changed.circleId
+    unless _.isUndefined(circleId)
+      if circleId?
+        circle = Fmushi.circles.get(circleId)
+        @stateMachine.to circle?.get('state')
+      # else
+      #   @stateMachine.to 'walking'
 
   onPointIn: (model) ->
     @pointShape.visible = true

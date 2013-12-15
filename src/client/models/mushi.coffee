@@ -23,11 +23,6 @@ class Fmushi.Models.Mushi extends Backbone.Model
       @rank = Fmushi.ranks.get(rankId)
       delete attrs.rankId
 
-    circleId = attrs.circleId
-    unless _.isUndefined(circleId)
-      @circle = Fmushi.circles.get(circleId)
-      delete attrs.circleId
-
     equipments = attrs.equipments
     unless _.isUndefined(equipments)
       @equipments ?= new Fmushi.Collections.Equipments

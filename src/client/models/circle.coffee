@@ -62,7 +62,7 @@ class Fmushi.Models.Circle extends Backbone.Model
     @trigger 'circle:remove', entity, _.size(@entities)
 
   haveEntity: (entity) ->
-    !!@entities[entity.cid]
+    @entities[entity.cid]?
 
 class Fmushi.Collections.Circles extends Backbone.Collection
   model: Fmushi.Models.Circle
