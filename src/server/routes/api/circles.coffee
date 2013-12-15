@@ -4,7 +4,7 @@ exports.index = (req, res) ->
       id: 1
       x: 0
       y: 50
-      r: 400
+      r: 300
       state: 'hustle'
       lineColor: '#F4D6E0'
       fillColor: '#DE7699'
@@ -18,8 +18,17 @@ exports.index = (req, res) ->
       lineColor: '#D6E9C9'
       fillColor: '#72C575'
     }
+    {
+      id: 3
+      x: 1400
+      y: 700
+      r: 150
+      state: 'walking'
+      lineColor: '#CCE9F9'
+      fillColor: '#4CBAEB'
+    }
     # {
-    #   id: 3
+    #   id: 4
     #   x: 0
     #   y: 50
     #   r: 400
