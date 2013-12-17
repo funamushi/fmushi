@@ -25,9 +25,12 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
 
   focus: (e) ->
     e.preventDefault()
+    @$('.list-group-item').removeClass('active')
+    $(e.target).addClass('active')
+
     if mushi = @mushiFromEvent(e)
       Fmushi.app.focus mushi
 
   mushiFromEvent: (e) ->
-    mushiId = $(e.target).parents('li').data('mushi-id')
+    mushiId = $(e.target).data('mushi-id')
     @collection.findWhere(id: mushiId)

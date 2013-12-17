@@ -1,9 +1,5 @@
-<div id="mushies-panel" class="control">
-<ul>
-  {{#mushies}}
-  <li data-mushi-id="{{id}}">
-    <a href="#">{{name}} {{rank.name}}</a>
-  </li>
-  {{/mushies}}
-</ul>
+<div id="mushies-panel" class="control list-group">
+{{#mushies}}
+<a href="#" class="list-group-item" data-mushi-id={{id}}>{{name}} {{rank.name}}</a>
+{{/mushies}}
 </div>
