@@ -2,6 +2,7 @@ class Fmushi.Views.MushiDialog extends Fmushi.Views.Base
   el: '#mushi-dialog-origin'
 
   open: (mushi) ->
+    @close()
     weapon = mushi.equipments.findWhere(type: 'weapon')
 
     @$el.popover
