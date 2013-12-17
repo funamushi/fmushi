@@ -1,18 +1,22 @@
 class Fmushi.Views.MushiDialog extends Fmushi.Views.Base
-  render: ->
-    html = JST['mushies/dialog']
-      mushi: @model?.toJSON()
-      rank: @model?.rank?.toJSON()
-      comment: @model.comment()
-      equipments: @model.equipments?.map (equipment) ->
-        equipmentAttr = equipment.toJSON()
-        equipmentAttr.item = equipment.item.toJSON()
-        equipmentAttr
-    @$el.html(html)
-    @
+  el: '#mushi-dialog-origin'
 
-  hide: ->
-    @$el.hide()
+  open: (mushi) ->
+    weapon = mushi.equipments.findWhere(type: 'weapon')
 
-  show: ->
-    @$el.show()
+    @$el.popover
+      html: true
+      placement: 'top'
+      title: "#{mushi.get('name')} #{mushi.rank.get('name')}"
+      trigger: 'manual'
+      container: 'body'
+      content: JST['mushies/dialog']
+        mushi: mushi.toJSON()
+        comment: mushi.comment()
+        weapon: weapon?.toJSON()
+        weaponItem: weapon?.item.toJSON()
+
+    @$el.popover 'show'
+
+  close: ->
+    @$el.popover 'destroy'

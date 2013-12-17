@@ -9,7 +9,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
 
   initialize: ->
     @r = 60 * @get('groth') # body
-    # @equipments = new Fmushi.Collections.Equipments
+    @equipments ?= new Fmushi.Collections.Equipments
 
   set: (key, val, options) ->
     if typeof key == 'object'

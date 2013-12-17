@@ -1,16 +1,4 @@
-<div id="mushi-dialog" class="control">
-  <h2>{{mushi.name}} {{rank.name}}</h2>
-  <p>「{{comment}}」</p>
-  <h3>そうび</h3>
-  <ul>
-  {{#equipments}}
-    <li>
-      {{item.name}}
-    </li>
-  {{/equipments}}
-  </ul>
-  {{^equipments}}
-    なし
-  {{/equipments}}
-</div>
-
+<p>「{{comment}}」</p>
+{{#weaponItem}}
+  <span class="label label-danger">{{name}}</span>
+{{/weaponItem}}

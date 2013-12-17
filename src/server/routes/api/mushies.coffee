@@ -11,7 +11,7 @@ exports.index = (req, res) ->
       x: 700
       y: 50
       equipments: [
-        { type: E.WEAPON, itemId: 1 }
+        { type: 'weapon', itemId: 1 }
       ]
     }
     {
@@ -28,7 +28,7 @@ exports.index = (req, res) ->
       x: 1000
       y: 350,
       equipments: [
-        { type: E.WEAPON, itemId: 2 }
+        { type: 'weapon', itemId: 2 }
       ]
     }
   ]

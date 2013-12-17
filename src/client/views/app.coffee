@@ -27,7 +27,6 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @subview 'panel', panelView
 
     dialogView = new Fmushi.Views.MushiDialog
-    dialogView.hide()
     @subview 'dialog', dialogView
 
     @onCameraChanged()
@@ -133,9 +132,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
       zoom: 2
     
     dialog = @subview('dialog')
-    dialog.model = entity
-    dialog.render().$el.appendTo($('body'))
-    dialog.show()
+    dialog.open entity
 
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
@@ -148,7 +145,7 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @focusEntity = null
     @camera.set zoom: @defaultZoom
 
-    @subview('dialog').hide()
+    @subview('dialog').close()
 
     @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:out', entity
