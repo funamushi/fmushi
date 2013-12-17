@@ -49,15 +49,15 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
       unless v.equals(v.was)
         v.tween?.stop()
         backPoint =
-          x: v.was.x - (v.x - v.was.x) * 0.75
-          y: v.was.y - (v.y - v.was.y) * 0.75
+          x: v.was.x - (v.x - v.was.x) * 1.0
+          y: v.was.y - (v.y - v.was.y) * 1.0
 
         d = $.Deferred()
         backTween = new TWEEN.Tween(x: v.x, y: v.y)
-          .to({ x: backPoint.x, y: backPoint.y}, 250)
+          .to({ x: backPoint.x, y: backPoint.y}, 125)
           .onUpdate ->
             v.set @x, @y
-          .easing(TWEEN.Easing.Back.In)
+          # .easing(TWEEN.Easing.Back.In)
 
         boundTween = new TWEEN.Tween(x: backPoint.x, y: backPoint.y)
           .to({ x: v.was.x, y: v.was.y }, 250)
