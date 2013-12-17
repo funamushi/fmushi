@@ -6,6 +6,16 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     'tap a':   'focus'
 
   initialize: ->
+    @listenTo @collection, 'focus:in', (mushi) ->
+      @$('.list-group-item').each ->
+        $this = $(@)
+        if $this.data('mushi-id') is mushi.get('id')
+          $this.addClass 'active'
+        else
+          $this.removeClass 'active'
+
+    @listenTo @collection, 'focus:out', ->
+      @$('.list-group-item').removeClass('active')
 
   render: ->
     mushies = @collection.map (mushi) ->
@@ -24,10 +34,6 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     @mushiFromEvent(e)?.pointOut()
 
   focus: (e) ->
-    e.preventDefault()
-    @$('.list-group-item').removeClass('active')
-    $(e.target).addClass('active')
-
     if mushi = @mushiFromEvent(e)
       Fmushi.app.focus mushi
 
