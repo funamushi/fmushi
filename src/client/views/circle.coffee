@@ -47,18 +47,27 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     promises = []
     _.each @shape.vertices, (v) -> 
       unless v.equals(v.was)
-        v.tween.stop() if v.tween
+        v.tween?.stop()
+        backPoint =
+          x: v.was.x - (v.x - v.was.x) * 0.75
+          y: v.was.y - (v.y - v.was.y) * 0.75
 
         d = $.Deferred()
-        v.tween = new TWEEN.Tween(x: v.x, y: v.y)
-          .to({ x: v.was.x, y: v.was.y}, 500)
+        backTween = new TWEEN.Tween(x: v.x, y: v.y)
+          .to({ x: backPoint.x, y: backPoint.y}, 250)
+          .onUpdate ->
+            v.set @x, @y
+          .easing(TWEEN.Easing.Back.In)
+
+        boundTween = new TWEEN.Tween(x: backPoint.x, y: backPoint.y)
+          .to({ x: v.was.x, y: v.was.y }, 250)
+          .easing(TWEEN.Easing.Bounce.Out)
           .onUpdate ->
             v.set @x, @y
           .onComplete ->
-            v.copy v.was
             d.resolve()
-          .easing(TWEEN.Easing.Bounce.Out)
-          .start()
+
+        v.tween = backTween.chain(boundTween).start()
         promises.push d.promise()
 
     $.when.apply($, promises).done ->
