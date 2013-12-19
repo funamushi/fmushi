@@ -4,7 +4,7 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
     shape.stroke = attrs.lineColor
     shape.fill   = attrs.fillColor
-    shape.linewidth = 1
+    shape.linewidth = 3
     Fmushi.app.shapeWorld.add shape
 
     for v in @shape.vertices
@@ -35,10 +35,10 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     @_reset()
    
   onAdded: (entity, count) ->
-    @shape.linewidth = count + 1
+    @shape.linewidth = count * 2 + 3
 
   onRemoved: (entity, count) ->
-    @shape.linewidth = count + 1
+    @shape.linewidth = count * 2 + 3
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
