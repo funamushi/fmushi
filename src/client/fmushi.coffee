@@ -34,9 +34,10 @@ window.Fmushi =
     @start()
 
   start: ->
-    Fmushi.items   = items   = new Fmushi.Collections.Items
-    Fmushi.ranks   = ranks   = new Fmushi.Collections.Ranks
-    Fmushi.circles = circles = new Fmushi.Collections.Circles
+    Fmushi.currentUser = user    = new Fmushi.Models.User
+    Fmushi.items       = items   = new Fmushi.Collections.Items
+    Fmushi.ranks       = ranks   = new Fmushi.Collections.Ranks
+    Fmushi.circles     = circles = new Fmushi.Collections.Circles
 
     $.when(
       items.fetch(),

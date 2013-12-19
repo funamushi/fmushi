@@ -9,6 +9,8 @@ mushiStates =
       
 
   walking:
+    elapsed: 0
+
     animationSpeed: 0.25
   
     speed: 30
@@ -18,6 +20,11 @@ mushiStates =
   
     update: (view, delta) ->
       return if view.gripped
+
+      @elapsed += delta
+      if @elapsed > 1
+        Fmushi.currentUser.addFp 1
+        @elapsed = 0
   
       model = view.model
       x = model.get('x')
@@ -33,6 +40,8 @@ mushiStates =
           model.set x: x + @speed * delta
   
   hustle:
+    elapsed: 0
+
     animationSpeed: 0.5
   
     speed: 40
@@ -47,9 +56,14 @@ mushiStates =
     update: (view, delta) ->
       return if view.gripped
   
+      @elapsed += delta
+      if @elapsed > 1
+        Fmushi.currentUser.addFp 10
+        @elapsed = 0
+
       model = view.model
       x = model.get('x')
-      if model.get('direction') == 'left'
+      if model.get('direction') is 'left'
         if x < -10
           model.set direction: 'right'
         else
@@ -121,7 +135,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     text.position.y = -40
     sprite.addChild text
 
-    sprite.mousedown = @sprite.touchstart = (e) =>
+    sprite.mousedown = sprite.touchstart = (e) =>
       Fmushi.app.dragCancel()
       @gripped = true
 

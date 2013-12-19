@@ -221,4 +221,4 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     add = _.bind @addEntity, @
     @circles.each add
     @mushies.each add
-    @subview('panel').render().$el.appendTo $('body')
+    @subview('panel').render()

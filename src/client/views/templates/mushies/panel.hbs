@@ -1,7 +1,13 @@
-<div id="main-panel" class="control">
-  <div id="mushies-panel" class="list-group">
-  {{#mushies}}
-  <a href="#" class="list-group-item" data-mushi-id={{id}}>{{name}} {{rank.name}}</a>
-  {{/mushies}}
-  </div>
-</div>  
+<div class="list-group">
+{{#mushies}}
+<a href="#" class="list-group-item" data-mushi-id={{id}}>{{name}} {{rank.name}}</a>
+{{/mushies}}
+</div>
+
+<table id="status" class="table">
+  <tr>
+    <th>思い出<th>
+    <td><span id="fp">0</span></td>
+  </tr>
+</table>
+
