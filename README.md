@@ -21,3 +21,6 @@ $ brunch w -s
 ```bash
 $ bundle exec cap staging deploy
 ```
+
+### issueとか
+https://bitbucket.org/funamushi/fmushi
