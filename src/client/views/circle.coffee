@@ -16,6 +16,10 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
 
     @canCollide = true
 
+    @_reset = _.debounce ( =>
+      @reset()
+    ), 100
+
   onCollision: (other, collisionPointWorld) ->
     return unless @canCollide
 
@@ -27,14 +31,14 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     vertices = @shape.vertices
     stretchVertex = _.min(vertices, (v) -> v.distanceToSquared(collisionPointLocal))
     stretchVertex.copy collisionPointLocal
+
+    @_reset()
    
   onAdded: (entity, count) ->
     @shape.linewidth = count + 1
-    @reset()
 
   onRemoved: (entity, count) ->
     @shape.linewidth = count + 1
-    @reset()
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
