@@ -9,7 +9,7 @@ $ npm install -g bower
 ```
 
 ```bash
-$ git clone git@bitbucket.org:funamushi/fmushi.git
+$ git clone git@github.com:funamushi/fmushi.git
 $ cd fmushi
 $ npm install
 $ bower install
