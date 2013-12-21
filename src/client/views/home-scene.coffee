@@ -217,6 +217,8 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
+    $('#indicator').hide()
+
     add = _.bind @addEntity, @
     @circles.each add
     @mushies.each add
