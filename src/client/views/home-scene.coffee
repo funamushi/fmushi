@@ -17,7 +17,8 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
     @listenTo @circles, 'add', @addEntity
     
     @listenTo @camera, 'change', @onCameraChanged
-    @listenTo Fmushi.Events, 'update', @collisionDetection
+
+    @listenTo @mushies, 'change', @collisionDetection
 
     @initDrag()
 
@@ -80,12 +81,9 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
   screenCenter: ->
     { x: Fmushi.screenSize.w / 2, y: Fmushi.screenSize.h / 2 }
 
-  collisionDetection: ->
-    mushies = @mushies
-
+  collisionDetection: (mushi) ->
     @circles.each (circle) ->
-      mushies.each (mushi) ->
-        circle.collisionEntity mushi
+      circle.collisionEntity mushi
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @camera
