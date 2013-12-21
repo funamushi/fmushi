@@ -6,8 +6,6 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    @effects = new Fmushi.EffectsManager
-
     center = @screenCenter()
     @camera = new Fmushi.Models.Camera x: center.x, y: center.y, zoom: @defaultZoom
     @locked = false
@@ -39,11 +37,13 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
     loader.onComplete = -> loaderDefer.resolve()
     loader.load()
 
-    $.when(
-      loaderDefer.promise(),
-      @circles.fetch(silent: true),
-      @mushies.fetch(silent: true)
-    ).done _.bind(@onAssetLoaded, @)
+    loaderDefer.then =>
+      @effects = new Fmushi.EffectsManager
+
+      $.when(
+        @circles.fetch(silent: true),
+        @mushies.fetch(silent: true)
+      ).done _.bind(@onAssetLoaded, @)
 
   initDrag: ->
     stage = Fmushi.stage
