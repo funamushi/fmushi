@@ -12,7 +12,6 @@ $ npm install -g bower
 $ git clone git@github.com:funamushi/fmushi.git
 $ cd fmushi
 $ npm install
-$ bower install
 $ brunch w -s
 ```
 

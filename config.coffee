@@ -51,3 +51,5 @@ exports.config =
       port: [1234, 2345, 3456]
     handlebars:
       namespace: 'JST'
+    sass:
+      outputStyle: 'compressed'
