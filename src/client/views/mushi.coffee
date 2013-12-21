@@ -28,7 +28,7 @@ mushiStates =
   
       model = view.model
       x = model.get('x')
-      if model.get('direction') == 'left'
+      if model.get('direction') is 'left'
         if x < -10
           model.set direction: 'right'
         else

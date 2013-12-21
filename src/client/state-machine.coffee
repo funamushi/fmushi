@@ -8,7 +8,7 @@ class Fmushi.StateMachene
 
     @currentState?.onExit? @view
     @currentState = state
-    @currentState.onEnter? @view
+    state.onEnter? @view
     
   update: (delta) ->
     @currentState?.update @view, delta
