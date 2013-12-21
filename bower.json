@@ -6,7 +6,7 @@
     "tweenjs": "*",
     "backbone": "~1.1.0",
     "jquery": "~2.0.3",
-    "pixi": "git@github.com:GoodBoyDigital/pixi.js.git#2f3cf52422b437a95721cd3d32c8aadfa7e05c8b",
+    "pixi": "git@github.com:GoodBoyDigital/pixi.js.git#master",
     "two": "~0.3.0",
     "jquery-mousewheel": "~3.1.6",
     "bootstrap": "~3.0.3"
