@@ -4,13 +4,14 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
   initialize: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
+    @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
+
+    @effects = new Fmushi.EffectsManager
 
     center = @screenCenter()
     @camera = new Fmushi.Models.Camera x: center.x, y: center.y, zoom: @defaultZoom
     @locked = false
     
-    @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
-
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
@@ -222,3 +223,8 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
     @circles.each add
     @mushies.each add
     @subview('panel').render()
+
+  dispose: ->
+    super
+    Fmushi.stage.removeChild @world
+    Fmushi.two.remove @shapeWorld
