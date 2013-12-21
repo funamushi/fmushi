@@ -46,7 +46,7 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
     t = @shape.translation
-    { worldPos.x - t.x, worldPos.y - t.y }
+    { x: worldPos.x - t.x, y: worldPos.y - t.y }
 
   reset: ->
     that = this
