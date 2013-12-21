@@ -1,6 +1,8 @@
 F虫
 =========
 
+[![Build Status](https://travis-ci.org/funamushi/fmushi.png?branch=master)](https://travis-ci.org/funamushi/fmushi)
+
 ## 開発環境
 
 ```bash
@@ -13,6 +15,12 @@ $ git clone git@github.com:funamushi/fmushi.git
 $ cd fmushi
 $ npm install
 $ brunch w -s
+```
+
+## とすて
+
+```bash
+$ npm test
 ```
 
 ## デプロイ
