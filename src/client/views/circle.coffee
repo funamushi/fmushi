@@ -36,9 +36,11 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
    
   onAdded: (entity, count) ->
     @shape.linewidth = count * 2 + 3
+    @reset()
 
   onRemoved: (entity, count) ->
     @shape.linewidth = count * 2 + 3
+    @reset()
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->

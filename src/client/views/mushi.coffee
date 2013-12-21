@@ -74,21 +74,6 @@ mushiStates =
         else
           model.set x: x + @speed * delta
 
-class Fmushi.StateMachene
-  constructor: (@view) ->
-
-  to: (name) ->
-    return if name is @currentState
-    state = mushiStates[name]
-    return unless state?
-
-    @currentState?.onExit? @view
-    @currentState = state
-    @currentState.onEnter? @view
-    
-  update: (delta) ->
-    @currentState?.update @view, delta
-
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
   initialize: -> 
     @listenTo @model, 'change',     @onChanged
