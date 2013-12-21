@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "description": "F mushi",
   "main": "server.coffee",
+  "engines": {
+    "node": "0.10.23"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install && brunch build --production"
   },
   "repository": {
     "type": "git",
@@ -15,24 +19,23 @@
     "lodash": "~2.2.0",
     "hbs": "~2.4.0",
     "socket.io": "~0.9.16",
-    "coffee-script": "~1.6.3"
-  },
-  "engines": {
-    "node": "0.10.23"
-  },
-  "devDependencies": {
+    "coffee-script": "~1.6.3",
+    "bower": "~1.2.8",
     "handlebars-brunch": "git://github.com/f-kubotar/handlebars-brunch.git#namespace",
     "uglify-js-brunch": "~1.7.3",
     "coffee-script-brunch": "~1.7.3",
     "javascript-brunch": "~1.7.0",
+    "css-brunch": "~1.7.0",
+    "sass-brunch": "~1.7.2",
+    "brunch": "~1.7.13"
+  },
+  "devDependencies": {
     "cordell": "~0.1.5",
     "ansi-color": "~0.2.1",
     "growl": "~1.7.0",
     "async": "~0.2.9",
     "debug": "~0.7.4",
     "date-utils": "~1.2.14",
-    "auto-reload-brunch": "~1.7.1",
-    "css-brunch": "~1.7.0",
-    "sass-brunch": "~1.7.2"
+    "auto-reload-brunch": "~1.7.1"
   }
 }
