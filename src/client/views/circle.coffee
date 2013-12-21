@@ -5,7 +5,7 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     shape.stroke = attrs.lineColor
     shape.fill   = attrs.fillColor
     shape.linewidth = 3
-    Fmushi.app.shapeWorld.add shape
+    Fmushi.scene.shapeWorld.add shape
 
     for v in @shape.vertices
       v.was = v.clone()

@@ -44,7 +44,7 @@ window.Fmushi =
       ranks.fetch(),
       circles.fetch()
     ).done =>
-      @app = new Fmushi.Views.App
+      @scene = new Fmushi.Views.HomeScene
     interval = 1 / @fps
 
     getTime = @getTime

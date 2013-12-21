@@ -41,7 +41,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
 
   focus: (e) ->
     if mushi = @mushiFromEvent(e)
-      Fmushi.app.focus mushi
+      Fmushi.scene.focus mushi
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')

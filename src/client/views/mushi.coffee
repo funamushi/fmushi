@@ -90,7 +90,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     shape.fill = '#CCE9F9'
     shape.opacity = 1
     shape.visible = false
-    Fmushi.app.shapeWorld.add shape
+    Fmushi.scene.shapeWorld.add shape
 
     @initSprite()
     @initWeapon()
@@ -121,7 +121,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.addChild text
 
     sprite.mousedown = sprite.touchstart = (e) =>
-      Fmushi.app.dragCancel()
+      Fmushi.scene.dragCancel()
       @gripped = true
 
     sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
@@ -130,10 +130,10 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.mousemove = sprite.touchmove = (e) =>
       if @gripped
         screenPos = e.global
-        worldPos  = Fmushi.app.worldPosFromScreenPos screenPos
+        worldPos  = Fmushi.scene.worldPosFromScreenPos screenPos
         @model.set worldPos
 
-    Fmushi.app.world.addChild sprite
+    Fmushi.scene.world.addChild sprite
 
   initWeapon: ->
     texture = PIXI.Texture.fromFrame('m4.png')

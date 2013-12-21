@@ -1,4 +1,4 @@
-class Fmushi.Views.App extends Fmushi.Views.Base
+class Fmushi.Views.HomeScene extends Fmushi.Views.Base
   defaultZoom: 0.5
 
   initialize: ->
@@ -178,7 +178,6 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     yWas    = camera.previous('y') or y
     zoomWas = camera.previous('zoom') or zoom
     
-    app = @
     worldPosFrom = @worldPosFromCameraPos xWas, yWas, zoomWas
     worldPosTo   = @worldPosFromCameraPos x, y, zoom
 
@@ -188,16 +187,17 @@ class Fmushi.Views.App extends Fmushi.Views.Base
     @tween.stop() if @tween
     if options.tween == false
       @cameraFixed()
-      app.locked = false
+      @locked = false
       return
 
+    scene = @
     @tween = new TWEEN.Tween(x: xWas, y: yWas, zoom: zoomWas)
       .to({ x: x, y: y, zoom: zoom }, 500)
       .easing(TWEEN.Easing.Cubic.InOut)
       .onUpdate ->
-        app.cameraFixed @x, @y, @zoom
+        scene.cameraFixed @x, @y, @zoom
       .onComplete ->
-        app.locked = false
+        scene.locked = false
       .start()
 
   onFocusEntityChanged: (entity) ->
