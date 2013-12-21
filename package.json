@@ -1,8 +1,14 @@
 {
   "name": "fmushi",
   "version": "0.0.0",
+  "description": "F mushi",
+  "main": "server.coffee",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:funamushi/fmushi.git"
   },
   "dependencies": {
     "express": "~3.4.0",
