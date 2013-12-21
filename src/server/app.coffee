@@ -9,7 +9,7 @@ routes = require('./routes')
 module.exports = exports = app = express()
 
 app.configure ->
-  app.set 'port', process.env.PORT || 3000
+  app.set 'port', process.env.PORT or 5000
   app.set "view engine", "hbs"
   app.set 'views', path.join(__dirname, 'views')
   app.set 'layout', 'layout'
