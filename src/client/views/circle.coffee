@@ -16,9 +16,9 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
 
     @canCollide = true
 
-    @layyReset = _.debounce ( =>
+    @lazyReset = _.debounce ( =>
       @reset()
-    ), 100
+    ), 500
 
   onCollision: (other, collisionPointWorld) ->
     return unless @canCollide
