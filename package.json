@@ -28,7 +28,9 @@
     "css-brunch": "~1.7.0",
     "node-sass-brunch": "*",
     "brunch": "~1.7.13",
-    "node-sass": "~0.7.0"
+    "node-sass": "~0.7.0",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6"
   },
   "devDependencies": {
     "cordell": "~0.1.5",

@@ -32,8 +32,10 @@ app.get '/items',   routes.api.items.index
 app.get '/mushies', routes.api.mushies.index
 app.get '/circles', routes.api.circles.index
 
-app.get '/signup', routes.siginup
-app.get '/signin', routes.signin
+app.get '/signup',   routes.siginupForm
+app.get '/signin',   routes.signinForm
+app.post '/siginup', routes.signup
+app.post '/siginin', routes.siginin
 
 app.get '/', routes.home
 
