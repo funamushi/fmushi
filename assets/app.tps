@@ -178,6 +178,9 @@
             <filename>zoom_in.png</filename>
             <filename>zoom_out.png</filename>
             <filename>m4.png</filename>
+            <filename>f.png</filename>
+            <filename>funa.png</filename>
+            <filename>puya.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
