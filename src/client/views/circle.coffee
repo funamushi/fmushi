@@ -61,10 +61,10 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
           .to({ x: backPoint.x, y: backPoint.y}, 125)
           .onUpdate ->
             v.set @x, @y
-          # .easing(TWEEN.Easing.Back.In)
+          .easing(TWEEN.Easing.Bounce.InOut)
 
         boundTween = new TWEEN.Tween(x: backPoint.x, y: backPoint.y)
-          .to({ x: v.was.x, y: v.was.y }, 250)
+          .to({ x: v.was.x, y: v.was.y }, 550)
           .easing(TWEEN.Easing.Bounce.Out)
           .onUpdate ->
             v.set @x, @y
