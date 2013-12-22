@@ -56,12 +56,12 @@ mushiStates =
     update: (view, delta) ->
       return if view.gripped
   
+      model = view.model
       @elapsed += delta
       if @elapsed > 1
-        Fmushi.currentUser.addFp 10
+        model.user.addFp 10
         @elapsed = 0
 
-      model = view.model
       x = model.get('x')
       if model.get('direction') is 'left'
         if x < -10
