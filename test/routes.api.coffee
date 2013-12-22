@@ -5,25 +5,29 @@ request = require 'supertest'
 app = require '../src/server/app'
 
 describe 'GET /circles', ->
-  it 'should be success', (done) ->
+  it 'respond with json', (done) ->
     request(app)
     .get('/circles')
+    .expect('Content-Type', /json/)
     .expect(200, done)
 
 describe 'GET /items', ->
-  it 'should be success', (done) ->
+  it 'respond with json', (done) ->
     request(app)
     .get('/items')
+    .expect('Content-Type', /json/)
     .expect(200, done)
 
 describe 'GET /mushies', ->
-  it 'should be success', (done) ->
+  it 'respond with json', (done) ->
     request(app)
     .get('/mushies')
+    .expect('Content-Type', /json/)
     .expect(200, done)
 
 describe 'GET /ranks', ->
-  it 'should be success', (done) ->
+  it 'respond with json', (done) ->
     request(app)
     .get('/ranks')
+    .expect('Content-Type', /json/)
     .expect(200, done)
