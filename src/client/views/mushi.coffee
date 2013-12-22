@@ -101,7 +101,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @sprite = sprite = new PIXI.MovieClip(textures)
     sprite.gotoAndPlay 0
 
-    attrs = @model.attributes
+    attrs = @model.toJSON()
     sprite.anchor.x = 0.4
     sprite.anchor.y = 0.5
     sprite.position.x = attrs.x

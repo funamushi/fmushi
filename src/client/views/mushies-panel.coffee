@@ -40,8 +40,10 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     @mushiFromEvent(e)?.pointOut()
 
   focus: (e) ->
-    if mushi = @mushiFromEvent(e)
-      Fmushi.scene.focus mushi
+    e.preventDefault()
+    userName = Fmushi.currentUser.get('name')
+    mushiId  = $(e.target).data('mushi-id')
+    Backbone.history.navigate "#{userName}/mushies/#{mushiId}", trigger: true
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')

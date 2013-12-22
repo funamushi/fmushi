@@ -4,6 +4,13 @@ request = require 'supertest'
 
 app = require '../src/server/app'
 
+describe 'GET /user', ->
+  it 'respond with json', (done) ->
+    request(app)
+    .get('/user')
+    .expect('Content-Type', /json/)
+    .expect(200, done)
+
 describe 'GET /circles', ->
   it 'respond with json', (done) ->
     request(app)
