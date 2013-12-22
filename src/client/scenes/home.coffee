@@ -1,7 +1,7 @@
 class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   defaultZoom: 0.5
 
-  initialize: ->
+  initialize: (options) ->
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
 
@@ -9,8 +9,15 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @listenTo @mushies, 'add', @addEntity
     @listenTo @mushies, 'change', @collisionDetection
 
+    @listenTo Fmushi.router, 'route:home', (userName) ->
+      @focusOut()
+
     @listenTo Fmushi.router, 'route:mushi', (userName, mushiId) ->
       @focus mushiId
+
+    if mushiId = options.focusMushiId
+      @on 'load:complete', =>
+        @focus mushiId
 
   onStarted: (options) ->
     @world = world = new PIXI.DisplayObjectContainer
@@ -69,7 +76,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
       if @lastDragPoint
-        Backbone.history.navigate("#{Fmushi.currentUser.get('name')}", trigger: true) if @focusEntity
+        Backbone.history.navigate("#{Fmushi.currentUser.get('name')}", trigger: true) if @focusEntity?
         @lastDragPoint = null
 
     $canvas = $(Fmushi.renderer.view)
