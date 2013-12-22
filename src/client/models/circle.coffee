@@ -63,14 +63,4 @@ class Fmushi.Models.Circle extends Backbone.Model
 
   haveEntity: (entity) ->
     @entities[entity.cid]?
-
-class Fmushi.Collections.Circles extends Backbone.Collection
-  model: Fmushi.Models.Circle
-
-  initialize: (models, options) ->
-    @user = options.user
-
-  url: ->
-    @user.url() + '/circles'
-  
   
