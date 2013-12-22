@@ -14,6 +14,7 @@ app.configure ->
   app.set 'views', path.join(__dirname, 'views')
   app.set 'layout', 'layout'
   app.use express.favicon()
+  app.use express.compress()
   app.use express.json()
   app.use express.urlencoded()
   app.use express.methodOverride()
@@ -32,10 +33,10 @@ app.get '/items',   routes.api.items.index
 app.get '/mushies', routes.api.mushies.index
 app.get '/circles', routes.api.circles.index
 
-app.get '/signup',   routes.siginupForm
-app.get '/signin',   routes.signinForm
-app.post '/siginup', routes.signup
-app.post '/siginin', routes.siginin
+app.get '/signup',  routes.siginupForm
+app.get '/signin',  routes.signinForm
+app.post '/signup', routes.signup
+app.post '/signin', routes.signin
 
 app.get '/', routes.home
 

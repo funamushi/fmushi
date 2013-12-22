@@ -1,7 +1,7 @@
-class Fmushi.Views.HomeScene extends Fmushi.Views.Base
+class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   defaultZoom: 0.5
 
-  initialize: ->
+  onLoaded: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
@@ -77,9 +77,6 @@ class Fmushi.Views.HomeScene extends Fmushi.Views.Base
 
   dragCancel: ->
     @lastDragPoint = null    
-
-  screenCenter: ->
-    { x: Fmushi.screenSize.w / 2, y: Fmushi.screenSize.h / 2 }
 
   collisionDetection: (mushi) ->
     @circles.each (circle) ->

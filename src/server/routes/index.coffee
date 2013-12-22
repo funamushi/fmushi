@@ -1,6 +1,6 @@
 passport = require 'passport'
 
-{LocalStrategy} = require 'passport-local'
+LocalStrategy = require('passport-local').Strategy
 
 passport.use new LocalStrategy (username, password, done) ->
   done null, { provider: 'fmushi', id: 1, name: 'hadashiA' }
@@ -14,11 +14,11 @@ module.exports =
   signinForm: (req, res) ->
     res.render 'signin'
 
-  siginup: (req, res) ->
-    res.send 'siginup'
+  signup: (req, res) ->
+    res.send 'signup'
 
-  siginin: (req, res) ->
-    res.send 'siginin'
+  signin: (req, res) ->
+    res.send 'signin'
 
   home: (req, res) ->
     res.render 'home'
