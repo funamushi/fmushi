@@ -83,7 +83,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
       if @lastDragPoint
-        Backbone.history.navigate("#{Fmushi.currentUser.get('name')}", trigger: true) if @focusEntity?
+        if @focusEntity?
+          Backbone.history.navigate @owner.url(), trigger: true
         @lastDragPoint = null
 
     $canvas = $(Fmushi.renderer.view)
