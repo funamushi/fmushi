@@ -4,6 +4,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   initialize: (options) ->
     @mushies = new Fmushi.Collections.Mushies
     @circles = new Fmushi.Collections.Circles
+    @camera  = new Fmushi.Models.Camera
 
     @listenTo @circles, 'add', @addEntity
     @listenTo @mushies, 'add', @addEntity
@@ -15,18 +16,22 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @listenTo Fmushi.router, 'route:mushi', (userName, mushiId) ->
       @focus mushiId
 
-    if mushiId = options.focusMushiId
-      @on 'load:complete', =>
-        @focus mushiId
+    @on 'load:complete', =>
+      if options.focusMushiId?
+        @focus options.focusMushiId
+      else
+        center = @screenCenter()
+        @camera.set
+          x: center.x
+          y: center.y
+          zoom: @defaultZoom
 
   onStarted: (options) ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    center = @screenCenter()
-    @camera = new Fmushi.Models.Camera x: center.x, y: center.y, zoom: @defaultZoom
-    @listenTo @camera,  'change', @onCameraChanged
+    @listenTo @camera, 'change', @onCameraChanged
     @locked = false
 
     @initDrag()
@@ -37,8 +42,6 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     dialogView = new Fmushi.Views.MushiDialog
     @subview 'dialog', dialogView
-
-    @onCameraChanged()
 
     @fetch()
 
