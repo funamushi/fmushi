@@ -172,7 +172,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     circleId = changed.circleId
     unless _.isUndefined(circleId)
       if circleId?
-        circle = Fmushi.circles.get(circleId)
+        circle = Fmushi.scene.circles.get(circleId)
         @stateMachine.to circle?.get('state')
       # else
       #   @stateMachine.to 'walking'
