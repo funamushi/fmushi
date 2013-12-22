@@ -15,14 +15,20 @@ exports.config =
       joinTo:
         'js/vendor.js': /^bower_components/
         'js/app.js': /^src\/client/
-    templates:
-      defaultExtension: 'hbs'
-      joinTo: 'js/app.js'
       order:
         before: [
           'src/client/fmushi.coffee'
           'src/client/views/base.coffee'
+          'src/client/scenes/base.coffee'
+          'src/client/models/user.coffee'
+          'src/client/models/mushi.coffee'
+          'src/client/models/circle.coffee'
+          'src/client/models/item.coffee'
+          'src/client/models/rank.coffee'
         ]
+    templates:
+      defaultExtension: 'hbs'
+      joinTo: 'js/app.js'
     stylesheets:
       defaultExtension: 'scss'
       joinTo:
