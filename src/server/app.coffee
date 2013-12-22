@@ -40,7 +40,7 @@ app.post '/signup', routes.signup
 app.post '/signin', routes.signin
 
 app.get '/', (req, res) ->
-  res.redirect '/signin'
+  res.redirect '/hadashiA'
 
 app.get '/*', routes.home
 
