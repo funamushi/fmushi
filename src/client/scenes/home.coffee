@@ -20,6 +20,15 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @listenTo Fmushi.router, 'route:mushi', (userName, mushiId) ->
       @focus mushiId
 
+    # subviews
+    panelView = new Fmushi.Views.MushiesPanel
+      user: @owner
+      collection: @mushies
+    @subview 'panel', panelView
+
+    dialogView = new Fmushi.Views.MushiDialog
+    @subview 'dialog', dialogView
+
     @on 'load:complete', =>
       if options.focusMushiId?
         @focus options.focusMushiId
@@ -36,16 +45,6 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
     @initDrag()
-
-    # subviews
-    panelView = new Fmushi.Views.MushiesPanel
-      user: @owner
-      collection: @mushies
-    @subview 'panel', panelView
-
-    dialogView = new Fmushi.Views.MushiDialog
-    @subview 'dialog', dialogView
-
     @fetch()
 
   fetch: -> 
