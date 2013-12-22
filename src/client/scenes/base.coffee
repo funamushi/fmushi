@@ -30,10 +30,11 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
     Fmushi.circles     = circles = new Fmushi.Collections.Circles
 
     $.when(
+      user.fetch(),
       items.fetch(),
       ranks.fetch(),
       circles.fetch()
-    ).done => @onLoaded()
+    ).done => @onStarted()
 
     interval = 1 / @fps
 

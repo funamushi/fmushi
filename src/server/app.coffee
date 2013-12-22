@@ -18,8 +18,8 @@ app.configure ->
   app.use express.json()
   app.use express.urlencoded()
   app.use express.methodOverride()
-  app.use app.router
   app.use express.static(path.resolve("./public"))
+  app.use app.router
 
 app.configure 'production', ->
   app.use express.logger("dev")
@@ -39,10 +39,10 @@ app.get '/signin',  routes.signinForm
 app.post '/signup', routes.signup
 app.post '/signin', routes.signin
 
-app.get '/hadashiA', routes.home
-
 app.get '/', (req, res) ->
-  res.redirect '/hadashiA'
+  res.redirect '/signin'
+
+app.get '/*', routes.home
 
 app.startServer = ->
   app.listen app.get('port'), ->

@@ -1,24 +1,26 @@
 class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   defaultZoom: 0.5
 
-  onLoaded: ->
+  initialize: ->
+    @mushies = new Fmushi.Collections.Mushies
+    @circles = new Fmushi.Collections.Circles
+
+    @listenTo @circles, 'add', @addEntity
+    @listenTo @mushies, 'add', @addEntity
+    @listenTo @mushies, 'change', @collisionDetection
+
+    @listenTo Fmushi.router, 'route:mushi', (userName, mushiId) ->
+      @focus mushiId
+
+  onStarted: (options) ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
     center = @screenCenter()
     @camera = new Fmushi.Models.Camera x: center.x, y: center.y, zoom: @defaultZoom
+    @listenTo @camera,  'change', @onCameraChanged
     @locked = false
-    
-    @mushies = new Fmushi.Collections.Mushies
-    @circles = new Fmushi.Collections.Circles
-
-    @listenTo @mushies, 'add', @addEntity
-    @listenTo @circles, 'add', @addEntity
-    
-    @listenTo @camera, 'change', @onCameraChanged
-
-    @listenTo @mushies, 'change', @collisionDetection
 
     @initDrag()
 
@@ -30,11 +32,12 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @subview 'dialog', dialogView
 
     @onCameraChanged()
+
     @fetch()
 
   fetch: -> 
     loaderDefer = new $.Deferred
-    loader = new PIXI.AssetLoader ['./app.json']
+    loader = new PIXI.AssetLoader ['/app.json']
     loader.onComplete = -> loaderDefer.resolve()
     loader.load()
 
@@ -66,7 +69,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
       if @lastDragPoint
-        @focusOut() if @focusEntity
+        Backbone.history.navigate("#{Fmushi.currentUser.get('name')}", trigger: true) if @focusEntity
         @lastDragPoint = null
 
     $canvas = $(Fmushi.renderer.view)
@@ -119,7 +122,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     view = @subview model.cid
     view? and Fmushi.stage.interactionManager.hitTest(view.sprite, e)
 
-  focus: (entity) ->
+  focus: (entityOrId) ->
+    entity = @mushies.get(entityOrId)
     return if @focusEntity is entity
 
     @camera.set
@@ -213,13 +217,15 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
-  onAssetLoaded: (loaderArgs, circlesArgs, mushiesArgs) ->
+  onAssetLoaded: () ->
     $('#indicator').hide()
 
     add = _.bind @addEntity, @
     @circles.each add
     @mushies.each add
     @subview('panel').render()
+
+    @trigger 'load:complete'
 
   dispose: ->
     super
