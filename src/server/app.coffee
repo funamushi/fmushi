@@ -28,6 +28,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
+app.get '/user',    routes.api.user.show
 app.get '/ranks',   routes.api.ranks.index
 app.get '/items',   routes.api.items.index
 app.get '/mushies', routes.api.mushies.index
@@ -38,7 +39,10 @@ app.get '/signin',  routes.signinForm
 app.post '/signup', routes.signup
 app.post '/signin', routes.signin
 
-app.get '/', routes.home
+app.get '/hadashiA', routes.home
+
+app.get '/', (req, res) ->
+  res.redirect '/hadashiA'
 
 app.startServer = ->
   app.listen app.get('port'), ->
