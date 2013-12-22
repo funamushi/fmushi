@@ -2,10 +2,14 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   defaultZoom: 0.5
 
   initialize: (options) ->
-    @mushies = new Fmushi.Collections.Mushies
-    @circles = new Fmushi.Collections.Circles
-    @camera  = new Fmushi.Models.Camera
+    @owner = owner = new Fmushi.Models.User name: options.userName
+    @mushies = new Fmushi.Collections.Mushies [], user: owner
+    @circles = new Fmushi.Collections.Circles [], user: owner
+    @camera  = new Fmushi.Models.Camera {}, user: owner
 
+    @locked = false
+
+    @listenTo @camera, 'change', @onCameraChanged
     @listenTo @circles, 'add', @addEntity
     @listenTo @mushies, 'add', @addEntity
     @listenTo @mushies, 'change', @collisionDetection
@@ -15,6 +19,15 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     @listenTo Fmushi.router, 'route:mushi', (userName, mushiId) ->
       @focus mushiId
+
+    # subviews
+    panelView = new Fmushi.Views.MushiesPanel
+      user: @owner
+      collection: @mushies
+    @subview 'panel', panelView
+
+    dialogView = new Fmushi.Views.MushiDialog
+    @subview 'dialog', dialogView
 
     @on 'load:complete', =>
       if options.focusMushiId?
@@ -31,18 +44,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    @listenTo @camera, 'change', @onCameraChanged
-    @locked = false
-
     @initDrag()
-
-    # subviews
-    panelView = new Fmushi.Views.MushiesPanel collection: @mushies
-    @subview 'panel', panelView
-
-    dialogView = new Fmushi.Views.MushiDialog
-    @subview 'dialog', dialogView
-
     @fetch()
 
   fetch: -> 
@@ -55,6 +57,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @effects = new Fmushi.EffectsManager
 
       $.when(
+        @owner.fetch(silent: true)
         @circles.fetch(silent: true),
         @mushies.fetch(silent: true)
       ).done _.bind(@onAssetLoaded, @)
@@ -79,7 +82,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
       if @lastDragPoint
-        Backbone.history.navigate("#{Fmushi.currentUser.get('name')}", trigger: true) if @focusEntity?
+        if @focusEntity?
+          Backbone.history.navigate @owner.url(), trigger: true
         @lastDragPoint = null
 
     $canvas = $(Fmushi.renderer.view)

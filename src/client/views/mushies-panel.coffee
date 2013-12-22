@@ -7,7 +7,9 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     'click a': 'focus'
     'tap a':   'focus'
 
-  initialize: ->
+  initialize: (options) ->
+    @user = options.user
+
     @listenTo @collection, 'focus:in', (mushi) ->
       @$('.list-group-item').each ->
         $this = $(@)
@@ -19,7 +21,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     @listenTo @collection, 'focus:out', ->
       @$('.list-group-item').removeClass('active')
 
-    @listenTo Fmushi.currentUser, 'change', (user) =>
+    @listenTo @user, 'change', (user) =>
       @$fp.text user.get('fp')
 
   render: ->
@@ -41,9 +43,8 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
 
   focus: (e) ->
     e.preventDefault()
-    userName = Fmushi.currentUser.get('name')
-    mushiId  = $(e.target).data('mushi-id')
-    Backbone.history.navigate "#{userName}/mushies/#{mushiId}", trigger: true
+    mushi = @mushiFromEvent(e)
+    Backbone.history.navigate mushi.url(), trigger: true
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')

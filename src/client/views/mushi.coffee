@@ -21,12 +21,12 @@ mushiStates =
     update: (view, delta) ->
       return if view.gripped
 
+      model = view.model
       @elapsed += delta
       if @elapsed > 1
-        Fmushi.currentUser.addFp 1
+        model.user.addFp 1
         @elapsed = 0
   
-      model = view.model
       x = model.get('x')
       if model.get('direction') is 'left'
         if x < -10
@@ -172,7 +172,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     circleId = changed.circleId
     unless _.isUndefined(circleId)
       if circleId?
-        circle = Fmushi.circles.get(circleId)
+        circle = Fmushi.scene.circles.get(circleId)
         @stateMachine.to circle?.get('state')
       # else
       #   @stateMachine.to 'walking'

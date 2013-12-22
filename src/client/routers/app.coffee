@@ -1,7 +1,7 @@
 class Fmushi.Routers.App extends Backbone.Router
   initialize: ->
-    @route /^(\w+)$/, 'home'
-    @route /^(\w+)\/mushies\/(\d+)$/, 'mushi'
+    @route ':userName', 'home'
+    @route ':userName/mushies/:mushiId', 'mushi'
     @route 'signin', 'signin'
 
   startScene: (name, options={}) ->
@@ -15,9 +15,9 @@ class Fmushi.Routers.App extends Backbone.Router
       @currentSceneName = name
 
   home: (userName) ->
-    @startScene 'home'
+    @startScene 'home', userName: userName
 
   mushi: (userName, mushiId) ->
-    @startScene 'home', focusMushiId: mushiId
+    @startScene 'home', userName: userName, focusMushiId: mushiId
     
   siginin: ->
