@@ -1,10 +1,10 @@
-require('coffee-script')
+require 'coffee-script'
 
-path    = require('path')
-express = require('express')
-hbs     = require('hbs')
+path    = require 'path'
+express = require 'express'
+hbs     = require 'hbs'
 
-routes = require('./routes')
+routes = require './routes'
 
 module.exports = exports = app = express()
 
@@ -28,21 +28,24 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/user',    routes.api.user.show
-app.get '/ranks',   routes.api.ranks.index
-app.get '/items',   routes.api.items.index
-app.get '/mushies', routes.api.mushies.index
-app.get '/circles', routes.api.circles.index
-
 app.get '/signup',  routes.siginupForm
 app.get '/signin',  routes.signinForm
 app.post '/signup', routes.signup
 app.post '/signin', routes.signin
 
+app.get '/ranks.:format?', routes.ranks.index
+app.get '/items.:format?', routes.items.index
+
+app.get '/:user.:format?',         routes.user.show
+app.get '/:user/mushies.:format?', routes.user.mushies.index
+app.get '/:user/circles.:format?', routes.user.circles.index
+app.get '/:user/*',                routes.user.show
+
 app.get '/', (req, res) ->
   res.redirect '/hadashiA'
 
-app.get '/*', routes.home
+app.param 'format', routes.acceptOverride
+app.param 'user',   routes.user.filter
 
 app.startServer = ->
   app.listen app.get('port'), ->
