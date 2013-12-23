@@ -1,4 +1,4 @@
-exports.filter = (req, res, next, user) ->
+exports.findOwner = (req, res, next, user) ->
   req.params.user =
     name: 'hadashiA', fp: 100
   next()
