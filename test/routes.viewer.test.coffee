@@ -12,7 +12,6 @@ describe 'POST /signin', ->
       .send(username: 'hadashiA', password: 'hoge')
       .expect(200)
       .end (err, res) ->
-        console.log res.text
         json = JSON.parse(res.text)
         expect(json.name).to.equal('hadashiA')
         done()
@@ -25,27 +24,53 @@ describe 'POST /signin', ->
       .expect(401, done)
 
 describe 'GET /viewer', ->
-  describe 'ログイン前', ->
-    it 'should be 401', (done) ->
-      request(app)
-      .get('/viewer')
-      .set('Accept', 'application/json')
-      .expect(401, done)
+  describe 'json', ->
+    describe 'ログイン前', ->
+      it 'should be 401', (done) ->
+        request(app)
+        .get('/viewer')
+        .set('Accept', 'application/json')
+        .expect(401, done)
 
-  describe 'ログイン後', ->
-    beforeEach (done) ->
-      request(app)
-      .post('/signin')
-      .send(username: 'hadashiA', password: 'hoge')
-      .expect(200)
-      .end (err, res) =>
-        @cookie = res.headers['set-cookie']
-        done()
+    describe 'ログイン後', ->
+      beforeEach (done) ->
+        request(app)
+        .post('/signin')
+        .send(username: 'hadashiA', password: 'hoge')
+        .expect(200)
+        .end (err, res) =>
+          @cookie = res.headers['set-cookie']
+          done()
 
-    it 'status 200', (done) ->
-      console.log @cookie
-      request(app)
-      .get('/viewer')
-      .set('Accept', 'application/json')
-      .set('Cookie', @cookie)
-      .expect(200, done)
+      it 'status 200', (done) ->
+        request(app)
+        .get('/viewer')
+        .set('Accept', 'application/json')
+        .set('Cookie', @cookie)
+        .expect(200, done)
+
+  describe 'html', ->
+    describe 'ログイン前', ->
+      it 'should be 401', (done) ->
+        request(app)
+        .get('/viewer')
+        .set('Accept', 'text/html')
+        .expect(401, done)
+
+    describe 'ログイン後', ->
+      beforeEach (done) ->
+        request(app)
+        .post('/signin')
+        .send(username: 'hadashiA', password: 'hoge')
+        .expect(200)
+        .end (err, res) =>
+          @cookie = res.headers['set-cookie']
+          done()
+
+      it 'ユーザのマイページへリダイレクト', (done) ->
+        request(app)
+        .get('/viewer')
+        .set('Accept', 'text/html')
+        .set('Cookie', @cookie)
+        .expect(302)
+        .expect(/\/hadashiA/, done)
