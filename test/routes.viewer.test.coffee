@@ -12,6 +12,7 @@ describe 'POST /signin', ->
       .send(username: 'hadashiA', password: 'hoge')
       .expect(200)
       .end (err, res) ->
+        console.log res.text
         json = JSON.parse(res.text)
         expect(json.name).to.equal('hadashiA')
         done()
@@ -37,11 +38,12 @@ describe 'GET /viewer', ->
       .post('/signin')
       .send(username: 'hadashiA', password: 'hoge')
       .expect(200)
-      .end (err, res) ->
+      .end (err, res) =>
         @cookie = res.headers['set-cookie']
         done()
 
     it 'status 200', (done) ->
+      console.log @cookie
       request(app)
       .get('/viewer')
       .set('Accept', 'application/json')
