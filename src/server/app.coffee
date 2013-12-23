@@ -28,10 +28,8 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/signup',  routes.siginupForm
-app.get '/signin',  routes.signinForm
-app.post '/signup', routes.signup
-app.post '/signin', routes.signin
+app.get '/', (req, res) ->
+  res.redirect '/hadashiA'
 
 app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
@@ -39,10 +37,8 @@ app.get '/items.:format?', routes.items.index
 app.get '/:user.:format?',         routes.user.show
 app.get '/:user/mushies.:format?', routes.user.mushies.index
 app.get '/:user/circles.:format?', routes.user.circles.index
-app.get '/:user/*',                routes.user.show
 
-app.get '/', (req, res) ->
-  res.redirect '/hadashiA'
+app.get '/*', routes.root
 
 app.param 'format', routes.acceptOverride
 app.param 'user',   routes.user.filter

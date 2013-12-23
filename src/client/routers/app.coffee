@@ -3,21 +3,25 @@ class Fmushi.Routers.App extends Backbone.Router
     @route ':userName', 'home'
     @route ':userName/mushies/:mushiId', 'mushi'
     @route 'signin', 'signin'
+    @route 'signup', 'signup'
 
-  startScene: (name, options={}) ->
+  replaceScene: (name, options={}) ->
     sceneClassName = name.replace /(?:^|[-_])(\w)/g, (_, c) ->
       if c? then c.toUpperCase() else ''
 
     if name isnt @currentSceneName
       Fmushi.scene?.dispose()
       Fmushi.scene = new Fmushi.Scenes[sceneClassName](options)
-      Fmushi.scene.start()
+      console.log Fmushi.scene
       @currentSceneName = name
 
   home: (userName) ->
-    @startScene 'home', userName: userName
+    @replaceScene 'home', userName: userName
 
   mushi: (userName, mushiId) ->
-    @startScene 'home', userName: userName, focusMushiId: mushiId
+    @replaceScene 'home', userName: userName, focusMushiId: mushiId
     
-  siginin: ->
+  signin: ->
+
+  signup: ->
+    
