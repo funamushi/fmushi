@@ -1,4 +1,4 @@
-exports.findOwner = (req, res, next, user) ->
+exports.findByName = (req, res, next, user) ->
   req.params.user =
     name: 'hadashiA', fp: 100
   next()

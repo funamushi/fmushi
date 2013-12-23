@@ -1,7 +1,8 @@
 module.exports =
-  user:  require './user'
-  items: require './items'
-  ranks: require './ranks'
+  viewer: require './viewer'
+  user:   require './user'
+  items:  require './items'
+  ranks:  require './ranks'
 
   acceptOverride: (req, res, next, format) ->
     if format is 'json'

@@ -7,6 +7,9 @@ passport = require 'passport'
 
 routes = require './routes'
 
+auth = require './lib/auth'
+auth.initStrategy()
+
 module.exports = exports = app = express()
 
 app.configure ->
@@ -39,14 +42,17 @@ app.get '/', (req, res) ->
 app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
 
-app.get '/:owner.:format?',         routes.user.show
-app.get '/:owner/mushies.:format?', routes.user.mushies.index
-app.get '/:owner/circles.:format?', routes.user.circles.index
+app.get  '/viewer.:format?', auth.viewerAuthoirze, routes.viewer.show
+app.post '/signin', passport.authenticate('local')
+
+app.get '/:user.:format?',         routes.user.show
+app.get '/:user/mushies.:format?', routes.user.mushies.index
+app.get '/:user/circles.:format?', routes.user.circles.index
 
 app.get '/*', routes.root
 
 app.param 'format', routes.acceptOverride
-app.param 'owner',  routes.user.findOwner
+app.param 'user',   routes.user.findByName
 
 app.startServer = ->
   app.listen app.get('port'), ->
