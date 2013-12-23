@@ -15,12 +15,3 @@ describe Fmushi.Models.Mushi, ->
       @user.set 'fp', 100
       @user.addFp -50
       expect(@user.get('fp')).to.equal 50
-
-
-
-
-
-
-
-
-
