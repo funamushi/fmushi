@@ -5,10 +5,9 @@ express  = require 'express'
 hbs      = require 'hbs'
 passport = require 'passport'
 
-routes = require './routes'
+require './lib/auth'
 
-auth = require './lib/auth'
-auth.initStrategy()
+routes = require './routes'
 
 module.exports = exports = app = express()
 
@@ -42,8 +41,12 @@ app.get '/', (req, res) ->
 app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
 
-app.get  '/viewer.:format?', auth.viewerAuthoirze, routes.viewer.show
-app.post '/signin', passport.authenticate('local')
+app.get  '/viewer.:format?', routes.viewer.authorize, routes.viewer.show
+app.post '/signin', (req, res, next) ->
+  passport.authenticate('local', (err, user, info) ->
+    console.log arguments
+    res.send 'success'
+  )(req, res, next)
 
 app.get '/:user.:format?',         routes.user.show
 app.get '/:user/mushies.:format?', routes.user.mushies.index
