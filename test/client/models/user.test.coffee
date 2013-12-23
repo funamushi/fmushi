@@ -1,6 +1,4 @@
 describe Fmushi.Models.Mushi, ->
-  before ->
-
   describe '#addFp', ->
     beforeEach ->
       @user = new Fmushi.Models.User
