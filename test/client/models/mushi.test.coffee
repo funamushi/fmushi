@@ -8,6 +8,14 @@ describe Fmushi.Models.Mushi, ->
     ]
 
   describe '#set', ->
-    it 'rankIdを渡すとRankモデルをプロパティにセットする', ->
-      mushi = new Fmushi.Models.Mushi rankId: 1
-      expect(mushi.rank).to.equal Fmushi.ranks.get(1)
+    beforeEach ->
+      @mushi = new Fmushi.Models.Mushi
+
+    it 'rankIdを元にRankモデルをプロパティにセットする', ->
+      @mushi.set 'rankId', 1
+      expect(@mushi.rank).to.equal Fmushi.ranks.get(1)
+
+    it 'equipmentsのattributeをプロパティにセットする', ->
+      @mushi.set 'equipments', [{id: 1}]
+      console.log @mushi.equipments.toJSON()
+      expect(@mushi.equipments.first().get('id')).to.equal 1
