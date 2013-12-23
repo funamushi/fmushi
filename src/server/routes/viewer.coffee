@@ -1,3 +1,5 @@
+passport = require 'passport'
+
 exports.authorize = (req, res, next) ->
   if req.isAuthenticated()
     next()

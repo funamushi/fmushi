@@ -42,11 +42,7 @@ app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
 
 app.get  '/viewer.:format?', routes.viewer.authorize, routes.viewer.show
-app.post '/signin', (req, res, next) ->
-  passport.authenticate('local', (err, user, info) ->
-    console.log arguments
-    res.send 'success'
-  )(req, res, next)
+app.post '/signin', passport.authenticate('local'), routes.viewer.show
 
 app.get '/:user.:format?',         routes.user.show
 app.get '/:user/mushies.:format?', routes.user.mushies.index

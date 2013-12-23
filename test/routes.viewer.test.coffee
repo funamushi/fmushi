@@ -9,10 +9,19 @@ describe 'POST /signin', ->
     it 'ログインユーザのJSONを返す', (done) ->
       request(app)
       .post('/signin')
-      # .send('user[name]': 'hadashiA', 'user[password]': 'hoge')
-      .send('user[name]': 'hadashiA', 'user[password]': 'hoge')
+      .send(username: 'hadashiA', password: 'hoge')
       .expect(200)
-      .expect('success', done)
+      .end (err, res) ->
+        json = JSON.parse(res.text)
+        expect(json.name).to.equal('hadashiA')
+        done()
+
+  describe 'ログイン失敗', ->
+    it 'status 401', (done) ->
+      request(app)
+      .post('/signin')
+      .send(username: 'hadashiA', password: 'fuga')
+      .expect(401, done)
 
 describe 'GET /viewer', ->
   describe 'ログイン前', ->
@@ -21,3 +30,20 @@ describe 'GET /viewer', ->
       .get('/viewer')
       .set('Accept', 'application/json')
       .expect(401, done)
+
+  describe 'ログイン後', ->
+    beforeEach (done) ->
+      request(app)
+      .post('/signin')
+      .send(username: 'hadashiA', password: 'hoge')
+      .expect(200)
+      .end (err, res) ->
+        @cookie = res.headers['set-cookie']
+        done()
+
+    it 'status 200', (done) ->
+      request(app)
+      .get('/viewer')
+      .set('Accept', 'application/json')
+      .set('Cookie', @cookie)
+      .expect(200, done)

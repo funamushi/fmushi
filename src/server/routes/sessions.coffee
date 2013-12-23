@@ -1,3 +1,0 @@
-exports.create = (req, res) ->
-  
-  
