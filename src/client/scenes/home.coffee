@@ -29,23 +29,18 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     dialogView = new Fmushi.Views.MushiDialog
     @subview 'dialog', dialogView
 
+    @initDrag()
+    @fetch()
+
     @on 'load:complete', =>
       if options.focusMushiId?
         @focus options.focusMushiId
       else
-        center = @screenCenter()
+        center = Fmushi.screenCenter()
         @camera.set
           x: center.x
           y: center.y
           zoom: @defaultZoom
-
-  onStarted: (options) ->
-    @world = world = new PIXI.DisplayObjectContainer
-    Fmushi.stage.addChild world
-    @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
-
-    @initDrag()
-    @fetch()
 
   fetch: -> 
     loaderDefer = new $.Deferred
@@ -58,7 +53,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
       $.when(
         @owner.fetch(silent: true)
-        @circles.fetch(silent: true),
+        @circles.fetch(silent: true)
         @mushies.fetch(silent: true)
       ).done _.bind(@onAssetLoaded, @)
 
@@ -105,7 +100,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     y ?= camera.get('y')
     zoom ?= camera.get('zoom')
 
-    center = @screenCenter()
+    center = Fmushi.screenCenter()
     worldPosX = -(x * zoom - center.x)
     worldPosY = -(y * zoom - center.y)
     { x: worldPosX, y: worldPosY }
@@ -114,7 +109,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     if !y? and typeof x is 'object'
       y = x.y
       x = x.x
-    center  = @screenCenter()
+    center  = Fmushi.screenCenter()
     zoom    = @camera.get('zoom')
     offsetX = @camera.get('x') - (center.x / zoom)
     offsetY = @camera.get('y') - (center.y / zoom)
@@ -240,8 +235,3 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @subview('panel').render()
 
     @trigger 'load:complete'
-
-  dispose: ->
-    super
-    Fmushi.stage.removeChild @world
-    Fmushi.two.remove @shapeWorld

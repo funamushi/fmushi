@@ -6,7 +6,7 @@ exports.filter = (req, res, next, user) ->
 exports.show = (req, res) ->
   res.format
     html: ->
-      res.render 'home'
+      res.render 'index'
 
     json: ->
       res.send req.params.user
