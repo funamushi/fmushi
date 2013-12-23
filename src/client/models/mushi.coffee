@@ -21,7 +21,6 @@ class Fmushi.Models.Mushi extends Backbone.Model
     rankId = attrs.rankId
     unless _.isUndefined(rankId)
       @rank = Fmushi.ranks.get(rankId)
-      delete attrs.rankId
 
     equipments = attrs.equipments
     unless _.isUndefined(equipments)

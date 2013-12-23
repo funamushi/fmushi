@@ -7,7 +7,7 @@
     "node": "0.10.23"
   },
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script test/",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers coffee:coffee-script test/ && ./node_modules/.bin/karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
     "postinstall": "bower install && brunch build --production"
   },
   "repository": {
@@ -43,6 +43,18 @@
     "mocha": "~1.16.1",
     "chai": "~1.8.1",
     "supertest": "~0.8.2",
-    "sinon": "~1.7.3"
+    "sinon": "~1.7.3",
+    "karma-script-launcher": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.1",
+    "karma-chrome-launcher": "~0.1.1",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.2",
+    "karma-jasmine": "~0.1.5",
+    "requirejs": "~2.1.9",
+    "karma-requirejs": "~0.2.0",
+    "karma-phantomjs-launcher": "~0.1.1",
+    "karma": "~0.10.8",
+    "karma-mocha": "~0.1.1",
+    "karma-chai": "0.0.2"
   }
 }
