@@ -17,5 +17,4 @@ describe Fmushi.Models.Mushi, ->
 
     it 'equipmentsのattributeをプロパティにセットする', ->
       @mushi.set 'equipments', [{id: 1}]
-      console.log @mushi.equipments.toJSON()
       expect(@mushi.equipments.first().get('id')).to.equal 1

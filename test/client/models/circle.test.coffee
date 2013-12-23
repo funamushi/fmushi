@@ -28,7 +28,9 @@ describe Fmushi.Models.Circle, ->
       expect(@mushi.get('circleId')).to.equal 1
 
     it 'circle:addイベントを発火する', (done) ->
-      @circle.on 'circle:add', done
+      @circle.on 'circle:add', ->
+        done()
+      @circle.addEntity @mushi
 
   describe '#removeEntity', ->
     beforeEach ->
@@ -36,10 +38,12 @@ describe Fmushi.Models.Circle, ->
       @mushi  = new Fmushi.Models.Mushi
       @circle.addEntity @mushi
 
-    it 'entityのcircleIdを更新する', ->
+    it 'entityのcircleIdをnullにする', ->
       expect(@mushi.get('circleId')).to.equal 1
       @circle.removeEntity @mushi
-      expect(@mushi.get('circleId')).to.be.undefined
+      expect(@mushi.get('circleId')).to.be.null
 
     it 'circle:removeイベントを発火する', (done) ->
-      @circle.on 'circle:remove', done
+      @circle.on 'circle:remove', ->
+        done()
+      @circle.removeEntity @mushi
