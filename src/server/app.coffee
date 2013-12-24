@@ -1,4 +1,5 @@
 require 'coffee-script'
+require './models'
 
 path     = require 'path'
 express  = require 'express'
