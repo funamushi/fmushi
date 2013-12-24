@@ -41,7 +41,18 @@
       float: right;
       margin-right: 0;
       display: inline;
-      text-align: right;        
+      text-align: right;
+
+      #account {
+        vertical-align: middle;
+        padding-right: 2.5em;
+      }
+
+      label {
+        vertical-align: middle;
+        padding-right: 1.5em;
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -57,9 +68,6 @@
 }
 
 #fp {
-  font-size: x-large;
-}
-
-#status th {
   vertical-align: middle;
+  font-size: x-large;
 }
