@@ -1,5 +1,6 @@
 require 'coffee-script'
 require './models'
+Sequelize = require 'sequelize'
 
 path     = require 'path'
 express  = require 'express'
@@ -57,3 +58,5 @@ app.param 'user',   routes.user.findByName
 app.startServer = ->
   app.listen app.get('port'), ->
     console.log "Fmushi server listening on port:#{app.get('port')}"
+  Sequelize.sync (err)
+#console.log "Fmushi db sync error:#{err}"
