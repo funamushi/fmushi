@@ -12,7 +12,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
     @equipments ?= new Fmushi.Collections.Equipments
 
   set: (key, val, options) ->
-    if typeof key == 'object'
+    if typeof key is 'object'
       attrs = key
       options = val
     else
