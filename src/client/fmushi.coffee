@@ -12,13 +12,16 @@ window.Fmushi =
     @fetch()
 
   fetch: ->
-    Fmushi.items = items = new Fmushi.Collections.Items
-    Fmushi.ranks = ranks = new Fmushi.Collections.Ranks
+    Fmushi.viewer = viewer = new Fmushi.Models.User name: 'hadashiA'
+    Fmushi.items  = items  = new Fmushi.Collections.Items
+    Fmushi.ranks  = ranks  = new Fmushi.Collections.Ranks
 
     $.when(
       items.fetch(),
       ranks.fetch()
     ).then =>
+      Fmushi.header = header = new Fmushi.Views.Header viewer: viewer
+      header.render()
       @router = new Fmushi.Routers.App
       Backbone.history.start pushState: true, root: '/'
 

@@ -21,9 +21,6 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     @listenTo @collection, 'focus:out', ->
       @$('.list-group-item').removeClass('active')
 
-    @listenTo @user, 'change', (user) =>
-      @$fp.text user.get('fp')
-
   render: ->
     mushies = @collection.map (mushi) ->
       attr = mushi.toJSON()
@@ -32,7 +29,6 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
 
     @$el.html JST['mushies/panel']
       mushies: mushies
-    @$fp = @$('#fp')
     @
 
   point: (e) ->
