@@ -25,6 +25,7 @@ exports.config =
           'src/client/models/circle.coffee'
           'src/client/models/item.coffee'
           'src/client/models/rank.coffee'
+          'src/client/models/equipment.coffee'
         ]
     templates:
       defaultExtension: 'hbs'

@@ -9,7 +9,3 @@ class Fmushi.Models.Equipment extends Backbone.Model
     if itemId = attrs.itemId
       @item = Fmushi.items.get(itemId)
     super attrs, options
-
-
-class Fmushi.Collections.Equipments extends Backbone.Collection
-  model: Fmushi.Models.Equipment

@@ -1,4 +1,18 @@
 describe Fmushi.Models.Mushi, ->
+  describe '#isValid', ->
+    beforeEach ->
+      @user = new Fmushi.Models.User name: 'hoge', fp: 100
+
+    it 'nameは空にできない', ->
+      @user.set 'name', ''
+      expect(@user.isValid()).to.not.be.ok
+      expect(@user.validationError[0].attr).to.equal('name')
+
+    it 'fpは0未満にできない', ->
+      @user.set 'fp', -1
+      expect(@user.isValid()).to.not.be.ok
+      expect(@user.validationError[0].attr).to.equal('fp')
+
   describe '#addFp', ->
     beforeEach ->
       @user = new Fmushi.Models.User

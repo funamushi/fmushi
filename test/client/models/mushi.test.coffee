@@ -1,13 +1,13 @@
 describe Fmushi.Models.Mushi, ->
-  before ->
-    Fmushi.ranks = new Fmushi.Collections.Ranks [
-      { id: 1, name: 'rank1' }
-    ]
-    Fmushi.items = new Fmushi.Collections.Items [
-      { id: 1, name: 'item1' }
-    ]
-
   describe '#set', ->
+    before ->
+      Fmushi.ranks = new Fmushi.Collections.Ranks [
+        { id: 1, name: 'rank1' }
+      ]
+      Fmushi.items = new Fmushi.Collections.Items [
+        { id: 1, name: 'item1' }
+      ]
+
     beforeEach ->
       @mushi = new Fmushi.Models.Mushi
 
