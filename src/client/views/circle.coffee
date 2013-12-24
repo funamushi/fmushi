@@ -14,15 +14,11 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     @listenTo @model, 'circle:add',     @onAdded
     @listenTo @model, 'circle:remove',  @onRemoved
 
-    @canCollide = true
-
     @lazyReset = _.debounce ( =>
       @reset()
     ), 500
 
   onCollision: (other, collisionPointWorld) ->
-    return unless @canCollide
-
     r  = @model.get('r')
     r2 = r * r
     holdDistanceToSquared = Math.pow(r * 0.2, 2)
@@ -30,52 +26,49 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     collisionPointLocal = @localPositionAt(collisionPointWorld)
     vertices = @shape.vertices
     stretchVertex = _.min vertices, (v) ->
-      v.distanceToSquared(collisionPointLocal)
-    stretchVertex.copy collisionPointLocal
+      v.was.distanceToSquared(collisionPointLocal)
 
-    @lazyReset()
+    stretchVertex.tween?.stop()
+    stretchVertex.copy collisionPointLocal
+    for v in vertices
+      if stretchVertex isnt v
+        @reset(v)
    
   onAdded: (entity, count) ->
     @shape.linewidth = count * 2 + 3
-    @reset()
+    # @reset()
 
   onRemoved: (entity, count) ->
     @shape.linewidth = count * 2 + 3
-    @reset()
+    # @reset()
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
     t = @shape.translation
     { x: worldPos.x - t.x, y: worldPos.y - t.y }
 
-  reset: ->
-    that = this
-    that.canCollide = false
-    promises = []
-    _.each @shape.vertices, (v) -> 
-      unless v.equals(v.was)
-        v.tween?.stop()
-        backPoint =
-          x: v.was.x - (v.x - v.was.x) * 1.0
-          y: v.was.y - (v.y - v.was.y) * 1.0
+  reset: (v) ->
+    return if v.equals(v.was)
 
-        d = $.Deferred()
-        backTween = new TWEEN.Tween(x: v.x, y: v.y)
-          .to({ x: backPoint.x, y: backPoint.y}, 125)
-          .onUpdate ->
-            v.set @x, @y
-          .easing(TWEEN.Easing.Bounce.InOut)
+    v.tween?.stop()
 
-        boundTween = new TWEEN.Tween(x: backPoint.x, y: backPoint.y)
-          .to({ x: v.was.x, y: v.was.y }, 550)
-          .easing(TWEEN.Easing.Bounce.Out)
-          .onUpdate ->
-            v.set @x, @y
-          .onComplete ->
-            d.resolve()
+    backPoint =
+      x: v.was.x - (v.x - v.was.x) * 1.0
+      y: v.was.y - (v.y - v.was.y) * 1.0
 
-        v.tween = backTween.chain(boundTween).start()
-        promises.push d.promise()
+    d = $.Deferred()
+    backTween = new TWEEN.Tween(x: v.x, y: v.y)
+      .to({ x: backPoint.x, y: backPoint.y}, 125)
+      .onUpdate ->
+        v.set @x, @y
+      .easing(TWEEN.Easing.Bounce.InOut)
 
-    $.when.apply($, promises).done ->
-      that.canCollide = true
+    boundTween = new TWEEN.Tween(x: backPoint.x, y: backPoint.y)
+      .to({ x: v.was.x, y: v.was.y }, 550)
+      .easing(TWEEN.Easing.Bounce.Out)
+      .onUpdate ->
+        v.set @x, @y
+      .onComplete ->
+        d.resolve()
+
+    v.tween = backTween.chain(boundTween).start()
