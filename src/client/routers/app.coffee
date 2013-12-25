@@ -1,7 +1,7 @@
 class Fmushi.Routers.App extends Backbone.Router
   initialize: ->
     @route ':userName', 'home'
-    @route ':userName/mushies/:mushiId', 'home'
+    @route ':userName/mushies/:mushiId', 'mushi'
     @route 'signin', 'signin'
     @route 'signup', 'signup'
 
@@ -14,9 +14,12 @@ class Fmushi.Routers.App extends Backbone.Router
       Fmushi.scene = new Fmushi.Scenes[sceneClassName](options)
       @currentSceneName = name
 
-  home: (userName, mushiId) ->
-    @replaceScene 'home', userName: userName, focusMushiId: mushiId
+  home: (userName) ->
+    @replaceScene 'home', userName: userName
     
+  mushi: (userName, mushiId) ->
+    @replaceScene 'home', userName: userName, focusMushiId: mushiId
+
   signin: ->
 
   signup: ->
