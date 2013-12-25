@@ -25,14 +25,18 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
 
     collisionPointLocal = @localPositionAt(collisionPointWorld)
     vertices = @shape.vertices
-    stretchVertex = _.min vertices, (v) ->
+    collideVertex = _.min vertices, (v) ->
       v.was.distanceToSquared(collisionPointLocal)
 
-    unless stretchVertex.tween?
-      stretchVertex.copy collisionPointLocal
+    unless collideVertex.tween?
+      collideVertex.copy collisionPointLocal
+
+    # collideVertex.tween?.stop()
+    # collideVertex.tween = null
+    # collideVertex.copy collisionPointLocal
 
     for v in vertices
-      if stretchVertex isnt v and (v.x isnt v.was.x or v.y isnt v.was.y)
+      if collideVertex isnt v and !v.tween?
         @reset(v)
    
   onAdded: (entity, count) ->
@@ -51,7 +55,6 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
   reset: (v) ->
     return if v.equals(v.was)
     v.tween?.stop()
-    v.tween = null
 
     backPoint =
       x: v.was.x - (v.x - v.was.x) * 1.0
