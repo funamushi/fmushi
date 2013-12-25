@@ -12,7 +12,6 @@ class Fmushi.Routers.App extends Backbone.Router
     if name isnt @currentSceneName
       Fmushi.scene?.dispose()
       Fmushi.scene = new Fmushi.Scenes[sceneClassName](options)
-      console.log Fmushi.scene
       @currentSceneName = name
 
   home: (userName) ->
