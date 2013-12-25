@@ -28,19 +28,20 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
     stretchVertex = _.min vertices, (v) ->
       v.was.distanceToSquared(collisionPointLocal)
 
-    stretchVertex.tween?.stop()
-    stretchVertex.copy collisionPointLocal
+    unless stretchVertex.tween?
+      stretchVertex.copy collisionPointLocal
+
     for v in vertices
-      if stretchVertex isnt v
+      if stretchVertex isnt v and (v.x isnt v.was.x or v.y isnt v.was.y)
         @reset(v)
    
   onAdded: (entity, count) ->
     @shape.linewidth = count * 2 + 3
-    # @reset()
+    @reset(v) for v in @shape.vertices
 
   onRemoved: (entity, count) ->
     @shape.linewidth = count * 2 + 3
-    # @reset()
+    @reset(v) for v in @shape.vertices
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
@@ -49,14 +50,13 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
 
   reset: (v) ->
     return if v.equals(v.was)
-
     v.tween?.stop()
+    v.tween = null
 
     backPoint =
       x: v.was.x - (v.x - v.was.x) * 1.0
       y: v.was.y - (v.y - v.was.y) * 1.0
 
-    d = $.Deferred()
     backTween = new TWEEN.Tween(x: v.x, y: v.y)
       .to({ x: backPoint.x, y: backPoint.y}, 125)
       .onUpdate ->
@@ -69,6 +69,6 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
       .onUpdate ->
         v.set @x, @y
       .onComplete ->
-        d.resolve()
+        v.tween = null
 
     v.tween = backTween.chain(boundTween).start()
