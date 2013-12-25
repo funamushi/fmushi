@@ -18,7 +18,7 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
       @reset()
     ), 500
 
-  onCollision: (other, collisionPointWorld) ->
+  onCollision: (entity, collisionPointWorld) ->
     r  = @model.get('r')
     r2 = r * r
     holdDistanceToSquared = Math.pow(r * 0.2, 2)
@@ -29,23 +29,24 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
       v.was.distanceToSquared(collisionPointLocal)
 
     unless collideVertex.tween?
+      collideVertex.cid = entity.cid
       collideVertex.copy collisionPointLocal
 
-    # collideVertex.tween?.stop()
-    # collideVertex.tween = null
-    # collideVertex.copy collisionPointLocal
-
     for v in vertices
-      if collideVertex isnt v and !v.tween?
+      if collideVertex isnt v and !v.tween? and v.cid is entity.cid
         @reset(v)
    
   onAdded: (entity, count) ->
     @shape.linewidth = count * 2 + 3
-    @reset(v) for v in @shape.vertices
+    for v in @shape.vertices
+      if v.cid is entity.cid
+        @reset(v)
 
   onRemoved: (entity, count) ->
     @shape.linewidth = count * 2 + 3
-    @reset(v) for v in @shape.vertices
+    for v in @shape.vertices
+      if v.cid is entity.cid
+        @reset(v)
 
   # TODO: 孫要素とかを考慮してない
   localPositionAt: (worldPos) ->
@@ -55,6 +56,7 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
   reset: (v) ->
     return if v.equals(v.was)
     v.tween?.stop()
+    v.cid = null
 
     backPoint =
       x: v.was.x - (v.x - v.was.x) * 1.0
