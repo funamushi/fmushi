@@ -15,6 +15,7 @@ window.Fmushi =
     Fmushi.viewer = viewer = new Fmushi.Models.User name: 'hadashiA'
     Fmushi.items  = items  = new Fmushi.Collections.Items
     Fmushi.ranks  = ranks  = new Fmushi.Collections.Ranks
+    viewer.isViewer = true
 
     $.when(
       items.fetch(),

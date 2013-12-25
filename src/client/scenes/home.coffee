@@ -2,7 +2,11 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   defaultZoom: 0.5
 
   initialize: (options) ->
-    @owner = owner = new Fmushi.Models.User name: options.userName
+    @owner = owner =
+      if options.userName is Fmushi.viewer.get('name')
+        Fmushi.viewer
+      else
+        new Fmushi.Models.User name: options.userName
     @mushies = new Fmushi.Collections.Mushies [], user: owner
     @circles = new Fmushi.Collections.Circles [], user: owner
     @camera  = new Fmushi.Models.Camera {}, user: owner
@@ -22,7 +26,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     # subviews
     panelView = new Fmushi.Views.MushiesPanel
-      user: @owner
+      user: owner
       collection: @mushies
     @subview 'panel', panelView
 
