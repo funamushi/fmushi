@@ -7,6 +7,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
         Fmushi.viewer
       else
         new Fmushi.Models.User name: options.userName
+
     @mushies = new Fmushi.Collections.Mushies [], user: owner
     @circles = new Fmushi.Collections.Circles [], user: owner
     @camera  = new Fmushi.Models.Camera {}, user: owner
@@ -55,11 +56,13 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     loaderDefer.then =>
       @effects = new Fmushi.EffectsManager
 
-      $.when(
-        @owner.fetch(silent: true)
+      promises = [
         @circles.fetch(silent: true)
         @mushies.fetch(silent: true)
-      ).done _.bind(@onAssetLoaded, @)
+      ]
+      promises.push @owner.fetch(silent: true) if @owner.isNew()
+
+      $.when.apply($, promises).done _.bind(@onAssetLoaded, @)
 
   initDrag: ->
     stage = Fmushi.stage
