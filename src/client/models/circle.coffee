@@ -46,7 +46,7 @@ class Fmushi.Models.Circle extends Backbone.Model
         diff = new Fmushi.Vector(pos.x - entityPos.x, pos.y - entityPos.y)
         collisionPoint = diff.normalize().multiplyScalar(entityR).addSelf(entityPos)
   
-    if collisionPoint
+    if collisionPoint?
       @trigger 'circle:collide', entity, collisionPoint
 
   addEntity: (entity) ->
