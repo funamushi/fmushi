@@ -1,7 +1,7 @@
 Sequelize = require "sequelize"
-config = require "config"
+config = require('config').db
 
-module.exports = exports = sequelize = new Sequelize config.db.database,config.db.username,config.db.password,config.db
+module.exports = exports = sequelize = new Sequelize config.url, config
 
 exports.User = require('./user')
 
