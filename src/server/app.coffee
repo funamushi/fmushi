@@ -55,6 +55,6 @@ app.param 'format', routes.acceptOverride
 app.param 'user',   routes.user.findByName
 
 app.startServer = ->
-  # sequelize.sync()
+  sequelize.sync()
   app.listen app.get('port'), ->
     console.log "Fmushi server listening on port:#{app.get('port')}"
