@@ -6,9 +6,9 @@ hbs      = require 'hbs'
 passport = require 'passport'
 
 require './lib/auth'
-# sequelize = require './models'
 
-routes = require './routes'
+sequelize = require './models'
+routes    = require './routes'
 
 module.exports = exports = app = express()
 
