@@ -17,6 +17,13 @@ $ npm install
 $ brunch w -s
 ```
 
+## でーたべーす
+```
+createdb DB名
+createuser ユーザ名
+alter database DB名 owner to ユーザ名
+```
+
 ## とすて
 
 ```bash
