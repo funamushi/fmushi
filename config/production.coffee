@@ -1,6 +1,6 @@
 module.exports =
   db:
-    url: 'postgres://fmushi@127.0.0.1:5432/fmushi_test'
+    url: process.env.HEROKU_POSTGRESQL_GRAY_URL
     define:
       freezeTableName: true
 

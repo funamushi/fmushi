@@ -1,10 +1,6 @@
 module.exports =
   db:
-    username: "fmushi"
-    database: "fmushi_development"
-    host: "127.0.0.1"
-    dialect: "postgres"
-    port: 5432
+    url: 'postgres://fmushi@127.0.0.1:5432/fmushi_development'
     define:
       freezeTableName: true
 
