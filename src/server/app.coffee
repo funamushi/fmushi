@@ -6,7 +6,7 @@ hbs      = require 'hbs'
 passport = require 'passport'
 
 require './lib/auth'
-sequelize = require './models'
+# sequelize = require './models'
 
 routes = require './routes'
 
@@ -55,10 +55,6 @@ app.param 'format', routes.acceptOverride
 app.param 'user',   routes.user.findByName
 
 app.startServer = ->
-  sequelize.sync (err) ->
-    if err?
-      console.log "Fmushi db sync error:#{err}"
-      throw err 
-
-    app.listen app.get('port'), ->
-      console.log "Fmushi server listening on port:#{app.get('port')}"
+  # sequelize.sync()
+  app.listen app.get('port'), ->
+    console.log "Fmushi server listening on port:#{app.get('port')}"
