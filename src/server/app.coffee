@@ -36,9 +36,6 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/', (req, res) ->
-  res.redirect '/hadashiA'
-
 app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
 

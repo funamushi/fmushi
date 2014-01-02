@@ -48,21 +48,14 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
           zoom: @defaultZoom
 
   fetch: -> 
-    loaderDefer = new $.Deferred
-    loader = new PIXI.AssetLoader ['/app.json']
-    loader.onComplete = -> loaderDefer.resolve()
-    loader.load()
+    # @effects = new Fmushi.EffectsManager
 
-    loaderDefer.then =>
-      @effects = new Fmushi.EffectsManager
-
-      promises = [
-        @circles.fetch(silent: true)
-        @mushies.fetch(silent: true)
-      ]
-      promises.push @owner.fetch(silent: true) if @owner.isNew()
-
-      $.when.apply($, promises).done _.bind(@onAssetLoaded, @)
+    promises = [
+      @circles.fetch(silent: true)
+      @mushies.fetch(silent: true)
+    ]
+    promises.push @owner.fetch(silent: true) if @owner.isNew()
+    $.when.apply($, promises).done _.bind(@onAssetLoaded, @)
 
   initDrag: ->
     stage = Fmushi.stage

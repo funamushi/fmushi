@@ -1,3 +1,9 @@
-<span id="account">{{viewer.name}}</span>
+<span id="account">
+  {{#if viewer.name}}
+    {{viewer.name}}
+  {{else}}
+      <a id="login" href="#">ログイン</a>
+  {{/if}}
+</span>
 <label for="fp">思い出</label>
 <span id="fp">0</span>

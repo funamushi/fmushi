@@ -4,6 +4,7 @@ class Fmushi.Routers.App extends Backbone.Router
     @route ':userName/mushies/:mushiId', 'mushi'
     @route 'signin', 'signin'
     @route 'signup', 'signup'
+    @route '', 'root'
 
   replaceScene: (name, options={}) ->
     sceneClassName = name.replace /(?:^|[-_])(\w)/g, (_, c) ->
@@ -22,5 +23,9 @@ class Fmushi.Routers.App extends Backbone.Router
 
   signin: ->
 
-  signup: ->
-    
+  root: ->
+    viewer = Fmushi.viewer
+    if viewer.authorized
+      Backbone.history.navigate viewer.url()
+    else
+      Backbone.history.navigate '/signup'

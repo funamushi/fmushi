@@ -12,19 +12,29 @@ window.Fmushi =
     @fetch()
 
   fetch: ->
-    Fmushi.viewer = viewer = new Fmushi.Models.User name: 'hadashiA'
+    Fmushi.viewer = viewer = new Fmushi.Models.Viewer
     Fmushi.items  = items  = new Fmushi.Collections.Items
     Fmushi.ranks  = ranks  = new Fmushi.Collections.Ranks
-    viewer.isViewer = true
 
     $.when(
-      items.fetch(),
+      @fetchAsset ['/app.json']
+      viewer.fetch()
+      items.fetch()
       ranks.fetch()
-    ).then =>
-      Fmushi.header = header = new Fmushi.Views.Header viewer: viewer
+    ).done =>
+      Fmushi.header = header = new Fmushi.Views.Header
       header.render()
       @router = new Fmushi.Routers.App
       Backbone.history.start pushState: true, root: '/'
+
+  fetchAsset: (args) ->
+    defer = $.Deferred()
+    loader = new PIXI.AssetLoader args
+    loader.onComplete = ->
+      defer.resolve()
+    loader.load()
+
+    defer.promise()
 
   startAnimation: -> 
     $window = $(window)
