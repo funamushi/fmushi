@@ -35,9 +35,14 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @subview 'dialog', dialogView
 
     @initDrag()
-    @fetch()
+    @fetch().then => 
+      @effects = new Fmushi.EffectsManager
 
-    @on 'load:complete', =>
+      add = _.bind @addEntity, @
+      @circles.each add
+      @mushies.each add
+      @subview('panel').render()
+
       if options.focusMushiId?
         @focus options.focusMushiId
       else
@@ -48,14 +53,13 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
           zoom: @defaultZoom
 
   fetch: -> 
-    # @effects = new Fmushi.EffectsManager
-
     promises = [
       @circles.fetch(silent: true)
       @mushies.fetch(silent: true)
     ]
     promises.push @owner.fetch(silent: true) if @owner.isNew()
-    $.when.apply($, promises).done _.bind(@onAssetLoaded, @)
+    $.when.apply($, promises).done =>
+      @trigger 'load:complete'
 
   initDrag: ->
     stage = Fmushi.stage
@@ -225,13 +229,3 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
-
-  onAssetLoaded: () ->
-    $('#indicator').hide()
-
-    add = _.bind @addEntity, @
-    @circles.each add
-    @mushies.each add
-    @subview('panel').render()
-
-    @trigger 'load:complete'
