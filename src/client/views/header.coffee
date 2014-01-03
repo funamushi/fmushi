@@ -7,6 +7,8 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
       @$('#fp').text viewer.get('fp')
 
   render: ->
-    @$el.html JST['header'](viewer: Fmushi.viewer.toJSON())
+    @$el.html JST['header']
+      viewer: Fmushi.viewer.toJSON()
+      authorized: Fmushi.viewer.authorized
     @
     

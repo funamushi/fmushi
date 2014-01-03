@@ -21,7 +21,8 @@ class Fmushi.Routers.App extends Backbone.Router
   mushi: (userName, mushiId) ->
     @replaceScene 'home', userName: userName, focusMushiId: mushiId
 
-  signin: ->
+  signup: ->
+    @replaceScene 'signup'
 
   root: ->
     viewer = Fmushi.viewer

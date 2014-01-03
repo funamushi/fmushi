@@ -1,4 +1,4 @@
-class Fmushi.Models.Viewer extends Backbone.Model
+class Fmushi.Models.Viewer extends Fmushi.Models.User
   url: ->
     '/viewer'
 
