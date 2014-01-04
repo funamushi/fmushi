@@ -8,14 +8,15 @@ window.Fmushi =
   fps: 24
   debug: false
   initialize: ->
-    @startAnimation()
-    @fetch()
-
-  fetch: ->
     Fmushi.viewer = viewer = new Fmushi.Models.Viewer
     Fmushi.items  = items  = new Fmushi.Collections.Items
     Fmushi.ranks  = ranks  = new Fmushi.Collections.Ranks
 
+    if _.contains $('title').text(), 'F虫'
+      @startAnimation()
+      @fetch()
+
+  fetch: ->
     $.when(
       @fetchAsset ['/app.json']
       viewer.fetch()
