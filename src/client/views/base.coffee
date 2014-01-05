@@ -40,31 +40,6 @@ class Fmushi.Views.Base extends Backbone.View
     # Remove the subview from the lists.
     delete byName[name]
 
-  # Remove all handlers registered with @delegate.
-  undelegate: (eventName, second, third) ->
-    return super if Backbone.View::undelegate
-    if eventName
-      if typeof eventName isnt 'string'
-        throw new TypeError 'View#undelegate: first argument must be a string'
-
-      if arguments.length is 2
-        if typeof second is 'string'
-          selector = second
-        else
-          handler = second
-      else if arguments.length is 3
-        selector = second
-        if typeof selector isnt 'string'
-          throw new TypeError 'View#undelegate: ' +
-            'second argument must be a string'
-        handler = third
-
-      list = ("#{event}.delegate#{@cid}" for event in eventName.split ' ')
-      events = list.join(' ')
-      @$el.off events, (selector or null)
-    else
-      @$el.off ".delegate#{@cid}"
-
   dispose: ->
     return if @disposed
 
@@ -78,7 +53,7 @@ class Fmushi.Views.Base extends Backbone.View
     if @keepElement
       # Unsubscribe from all DOM events.
       @undelegateEvents()
-      @undelegate()
+      @$el.off()
       # Unbind all referenced handlers.
       @stopListening()
     else
