@@ -1,6 +1,8 @@
 class Fmushi.Scenes.Base extends Fmushi.Views.Base
   el: 'body'
 
+  keepElement: true
+
   constructor: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
@@ -19,11 +21,11 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
         e.preventDefault()
         Backbone.history.navigate $(e.target).attr('href'), trigger: true
 
+    $('body').html ''
     super
 
   dispose: ->
     @$indicator.show()
-
     @$navigates.off 'click'
 
     super
