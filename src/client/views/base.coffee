@@ -1,6 +1,5 @@
 class Fmushi.Views.Base extends Backbone.View
   constructor: ->
-    # Initialize subviews collections.
     @subviewsByName = {}
     super
 

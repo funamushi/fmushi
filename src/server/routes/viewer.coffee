@@ -6,7 +6,7 @@ exports.authorize = (req, res, next) ->
   else
     res.status(401).end()
 
-exports.signin = (req, res) ->
+exports.login = (req, res) ->
   res.format
     json: ->
       res.send req.user

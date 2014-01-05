@@ -40,7 +40,7 @@ app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
 
 app.get  '/viewer.:format?', routes.viewer.authorize, routes.viewer.show
-app.post '/signin.:format?', passport.authenticate('local'), routes.viewer.signin
+app.post '/login.:format?', passport.authenticate('local'), routes.viewer.login
 
 app.get '/:user.:format?',         routes.user.show
 app.get '/:user/mushies.:format?', routes.user.mushies.index

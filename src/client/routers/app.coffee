@@ -2,8 +2,8 @@ class Fmushi.Routers.App extends Backbone.Router
   initialize: ->
     @route ':userName', 'home'
     @route ':userName/mushies/:mushiId', 'mushi'
-    @route 'signin', 'signin'
-    @route 'signup', 'signup'
+    @route 'login', 'login'
+    @route 'register', 'register'
     @route '', 'root'
 
   replaceScene: (name, options={}) ->
@@ -21,12 +21,15 @@ class Fmushi.Routers.App extends Backbone.Router
   mushi: (userName, mushiId) ->
     @replaceScene 'home', userName: userName, focusMushiId: mushiId
 
-  signup: ->
-    @replaceScene 'signup'
+  register: ->
+    @replaceScene 'register'
+
+  login: ->
+    @replaceScene 'login'
 
   root: ->
     viewer = Fmushi.viewer
     if viewer.authorized
       Backbone.history.navigate viewer.url()
     else
-      Backbone.history.navigate '/signup'
+      Backbone.history.navigate '/register'

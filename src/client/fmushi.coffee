@@ -8,9 +8,9 @@ window.Fmushi =
   fps: 24
   debug: false
   initialize: ->
-    Fmushi.viewer = viewer = new Fmushi.Models.Viewer
-    Fmushi.items  = items  = new Fmushi.Collections.Items
-    Fmushi.ranks  = ranks  = new Fmushi.Collections.Ranks
+    Fmushi.viewer = new Fmushi.Models.Viewer
+    Fmushi.items  = new Fmushi.Collections.Items
+    Fmushi.ranks  = new Fmushi.Collections.Ranks
 
     if _.contains $('title').text(), 'F虫'
       @startAnimation()
@@ -19,12 +19,10 @@ window.Fmushi =
   fetch: ->
     $.when(
       @fetchAsset ['/app.json']
-      viewer.fetch()
-      items.fetch()
-      ranks.fetch()
+      Fmushi.viewer.fetch()
+      Fmushi.items.fetch()
+      Fmushi.ranks.fetch()
     ).done =>
-      Fmushi.header = header = new Fmushi.Views.Header
-      header.render()
       @router = new Fmushi.Routers.App
       Backbone.history.start pushState: true, root: '/'
 

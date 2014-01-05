@@ -7,5 +7,7 @@
   <span id="fp">{{fp}}</span>
 {{/viewer}}  
 {{else}}
-<a id="login" href="#">ログイン</a>
+  {{^signinHidden}}
+    <a id="login" href="/login">ログイン</a>
+  {{/signinHidden}}
 {{/if}}
