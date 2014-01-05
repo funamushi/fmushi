@@ -4,11 +4,11 @@ request = require 'supertest'
 
 app = require '../src/server/app'
 
-describe 'POST /signin', ->
+describe 'POST /login', ->
   describe 'ログイン成功', ->
     it 'ログインユーザのJSONを返す', (done) ->
       request(app)
-      .post('/signin')
+      .post('/login')
       .send(username: 'hadashiA', password: 'hoge')
       .expect(200)
       .end (err, res) ->
@@ -19,7 +19,7 @@ describe 'POST /signin', ->
   describe 'ログイン失敗', ->
     it 'status 401', (done) ->
       request(app)
-      .post('/signin')
+      .post('/login')
       .send(username: 'hadashiA', password: 'fuga')
       .expect(401, done)
 
@@ -35,7 +35,7 @@ describe 'GET /viewer', ->
     describe 'ログイン後', ->
       beforeEach (done) ->
         request(app)
-        .post('/signin')
+        .post('/login')
         .send(username: 'hadashiA', password: 'hoge')
         .expect(200)
         .end (err, res) =>
@@ -60,7 +60,7 @@ describe 'GET /viewer', ->
     describe 'ログイン後', ->
       beforeEach (done) ->
         request(app)
-        .post('/signin')
+        .post('/login')
         .send(username: 'hadashiA', password: 'hoge')
         .expect(200)
         .end (err, res) =>
