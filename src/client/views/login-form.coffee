@@ -12,11 +12,13 @@ class Fmushi.Views.LoginForm extends Fmushi.Views.Base
   submit: (e) ->
     e.preventDefault()
 
+    url = (if @isRegister then '/register' else '/login')
+
     Backbone
     .ajax
       dataType: 'json'
       type: 'POST'
-      url: '/register'
+      url: url
     .done (data) ->
       viewer = Fmushi.viewer
       viewer.set data

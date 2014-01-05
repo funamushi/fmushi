@@ -35,13 +35,14 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @subview 'dialog', dialogView
 
     @initDrag()
-    @fetch().then => 
+    @fetch().done =>
       @effects = new Fmushi.EffectsManager
 
       add = _.bind @addEntity, @
       @circles.each add
       @mushies.each add
-      @subview('panel').render()
+      @$el.append @subview('panel').render().el
+      @$el.append @subview('dialog').render().el
 
       if options.focusMushiId?
         @focus options.focusMushiId

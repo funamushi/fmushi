@@ -1,5 +1,9 @@
 class Fmushi.Views.MushiDialog extends Fmushi.Views.Base
-  el: '#mushi-dialog-origin'
+  render: ->
+    @setElement $(document.createElement('div')).attr
+      id: 'mushi-dialog-origin'
+      class: 'control'
+    @
 
   open: (mushi) ->
     @close()

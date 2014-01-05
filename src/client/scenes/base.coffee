@@ -1,5 +1,5 @@
 class Fmushi.Scenes.Base extends Fmushi.Views.Base
-  el: 'body'
+  el: '#content'
 
   keepElement: true
 
@@ -8,9 +8,9 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    @on 'load:complete', =>
-      @$indicator = $indicator = @$('#indicator').show()
+    @$indicator = $indicator = $('#indicator').show()
 
+    @on 'load:complete', =>
       header = new Fmushi.Views.Header
       header.render()
       @subview 'header', header
@@ -21,8 +21,8 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
         e.preventDefault()
         Backbone.history.navigate $(e.target).attr('href'), trigger: true
 
-    $('body').html ''
     super
+    @$el.empty()
 
   dispose: ->
     @$indicator.show()
