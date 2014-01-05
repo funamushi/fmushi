@@ -5,8 +5,6 @@ express  = require 'express'
 hbs      = require 'hbs'
 passport = require 'passport'
 
-require './lib/auth'
-
 sequelize = require './models'
 routes    = require './routes'
 

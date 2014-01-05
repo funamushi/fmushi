@@ -8,7 +8,7 @@ window.Fmushi =
   fps: 24
   debug: false
   initialize: ->
-    Fmushi.viewer = new Fmushi.Models.Viewer
+    Fmushi.viewer = new Fmushi.Models.User
     Fmushi.items  = new Fmushi.Collections.Items
     Fmushi.ranks  = new Fmushi.Collections.Ranks
 
@@ -19,7 +19,7 @@ window.Fmushi =
   fetch: ->
     $.when(
       @fetchAsset ['/app.json']
-      Fmushi.viewer.fetch()
+      Fmushi.viewer.fetchViewer()
       Fmushi.items.fetch()
       Fmushi.ranks.fetch()
     ).done =>

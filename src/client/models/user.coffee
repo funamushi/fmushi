@@ -2,6 +2,9 @@ class Fmushi.Models.User extends Backbone.Model
   defaults:
     fp: 0
 
+  initialize: ->
+    @authorized = false
+
   url: ->
     "/#{@get('name')}"
 
@@ -15,6 +18,16 @@ class Fmushi.Models.User extends Backbone.Model
       errors.push attr: 'fp', message: '0以下にできません。'
 
     return errors if errors.length
+
+  fetchViewer: (options={}) ->
+    options.url = '/viewer'
+    @fetch(options)
+    .then =>
+      @authorized = true
+    , (res, result, data) =>
+      if res.status is 401
+        defer = $.Deferred()
+        defer.resolve this, 'unauthorized', defer
 
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp

@@ -23,14 +23,13 @@ exports.authorize = (req, res, next) ->
     res.status(401).end()
 
 exports.register = (req, res) ->
-  req.login dummyUser
+  req.login dummyUser, (err) ->
+    res.format
+      json: ->
+        res.send dummyUser
 
-  res.format
-    json: ->
-      res.send dummyUser
-
-    html: ->
-      res.render 'index'
+      html: ->
+        res.render 'index'
 
 exports.login = (req, res) ->
   res.format

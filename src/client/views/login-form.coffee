@@ -1,7 +1,6 @@
 class Fmushi.Views.LoginForm extends Fmushi.Views.Base
   events:
-    'submit #register': 'register'
-    'submit #login': 'login'
+    'submit': 'submit'
 
   initialize: (options={}) ->
     @isRegister = options.isRegister
@@ -10,9 +9,16 @@ class Fmushi.Views.LoginForm extends Fmushi.Views.Base
     @setElement JST['login-form'] isRegister: @isRegister
     @
 
-  register: (e) ->
+  submit: (e) ->
     e.preventDefault()
 
-  login: (e) ->
-    e.preventDefault()
+    Backbone
+    .ajax
+      dataType: 'json'
+      type: 'POST'
+      url: '/register'
+    .done (data) ->
+      viewer = Fmushi.viewer
+      viewer.set data
+      Backbone.history.navigate viewer.url(), trigger: true
   
