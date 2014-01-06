@@ -22,13 +22,14 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
         Backbone.history.navigate $(e.target).attr('href'), trigger: true
 
     super
-    @$el.empty()
 
   dispose: ->
     @$indicator.show()
     @$navigates.off 'click'
 
     super
+    @$el.empty()
+
     Fmushi.stage.removeChild @world
     Fmushi.two.remove @shapeWorld    
 
