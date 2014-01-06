@@ -60,7 +60,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     ]
     promises.push @owner.fetch(silent: true) if @owner.isNew()
     $.when.apply($, promises).done =>
-      @trigger 'load:complete'
+      @trigger 'ready'
 
   initDrag: ->
     stage = Fmushi.stage

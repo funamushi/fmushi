@@ -10,7 +10,7 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
 
     @$indicator = $indicator = $('#indicator').show()
 
-    @on 'load:complete', =>
+    @on 'ready', =>
       header = new Fmushi.Views.Header
       header.render()
       @subview 'header', header

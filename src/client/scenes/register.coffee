@@ -4,5 +4,5 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     @$el.append form.render().el
     @subview 'form', form
 
-    @trigger 'load:complete'
+    @trigger 'ready'
 
