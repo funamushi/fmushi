@@ -34,6 +34,10 @@
       margin-right: 1.40845%;
       display: inline;
       margin-top: 5px;
+      -moz-transform-origin: 0 100%;  
+      -webkit-transform-origin: 0 100%;
+      -webkit-transform: rotate(-17deg);  
+      -moz-transform: rotate(-17deg);  
     }
 
     nav {
