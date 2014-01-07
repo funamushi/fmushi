@@ -80,7 +80,6 @@
 
 .scene {
   position: absolute;
-  z-index: 1000;
   top: 0;
   right: 0;
   bottom: 0;
@@ -101,3 +100,6 @@
   transform: translate3d(0, 0, 0);
 }
 
+.scene.login, .scene.register {
+  z-index: 1000;
+}

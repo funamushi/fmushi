@@ -5,7 +5,7 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
     @setElement $(document.createElement('div'))
-    .appendTo('body')
+    .appendTo('#content')
     .addClass('scene')
 
     $('#indicator').show()
