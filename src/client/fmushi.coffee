@@ -8,30 +8,39 @@ window.Fmushi =
   fps: 24
   debug: false
   initialize: ->
-    @startAnimation()
-    @fetch()
+    Fmushi.viewer = new Fmushi.Models.User
+    Fmushi.items  = new Fmushi.Collections.Items
+    Fmushi.ranks  = new Fmushi.Collections.Ranks
+
+    if _.contains $('title').text(), 'F虫'
+      @startAnimation()
+      @fetch()
 
   fetch: ->
-    Fmushi.viewer = viewer = new Fmushi.Models.User name: 'hadashiA'
-    Fmushi.items  = items  = new Fmushi.Collections.Items
-    Fmushi.ranks  = ranks  = new Fmushi.Collections.Ranks
-    viewer.isViewer = true
-
     $.when(
-      items.fetch(),
-      ranks.fetch()
-    ).then =>
-      Fmushi.header = header = new Fmushi.Views.Header viewer: viewer
-      header.render()
+      @fetchAsset ['/app.json']
+      Fmushi.viewer.fetchViewer()
+      Fmushi.items.fetch()
+      Fmushi.ranks.fetch()
+    ).done =>
       @router = new Fmushi.Routers.App
       Backbone.history.start pushState: true, root: '/'
+
+  fetchAsset: (args) ->
+    defer = $.Deferred()
+    loader = new PIXI.AssetLoader args
+    loader.onComplete = ->
+      defer.resolve()
+    loader.load()
+
+    defer.promise()
 
   startAnimation: -> 
     $window = $(window)
     w = $window.width()
     h = $window.height()
 
-    Two.Resolution = 16;
+    Two.Resolution = 16
 
     Fmushi.two = two = new Two(fullscreen: true).appendTo(document.body)
     Fmushi.stage = stage = new PIXI.Stage 0x000000, true

@@ -5,8 +5,6 @@ express  = require 'express'
 hbs      = require 'hbs'
 passport = require 'passport'
 
-require './lib/auth'
-
 sequelize = require './models'
 routes    = require './routes'
 
@@ -36,14 +34,12 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/', (req, res) ->
-  res.redirect '/hadashiA'
-
 app.get '/ranks.:format?', routes.ranks.index
 app.get '/items.:format?', routes.items.index
 
 app.get  '/viewer.:format?', routes.viewer.authorize, routes.viewer.show
-app.post '/signin.:format?', passport.authenticate('local'), routes.viewer.signin
+app.post '/register.:format?', routes.viewer.register
+app.post '/login.:format?', passport.authenticate('local'), routes.viewer.login
 
 app.get '/:user.:format?',         routes.user.show
 app.get '/:user/mushies.:format?', routes.user.mushies.index

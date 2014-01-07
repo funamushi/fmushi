@@ -1,6 +1,4 @@
 class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
-  el: '#mushies-panel'
-
   events:
     'mouseover a': 'point'
     'mouseout a':  'pointOut'
@@ -27,7 +25,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
       attr.rank = mushi.rank.toJSON()
       attr
 
-    @$el.html JST['mushies/panel']
+    @setElement JST['mushies/panel']
       mushies: mushies
     @
 

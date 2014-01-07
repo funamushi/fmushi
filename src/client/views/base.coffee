@@ -1,6 +1,5 @@
 class Fmushi.Views.Base extends Backbone.View
   constructor: ->
-    # Initialize subviews collections.
     @subviewsByName = {}
     super
 
@@ -54,7 +53,7 @@ class Fmushi.Views.Base extends Backbone.View
     if @keepElement
       # Unsubscribe from all DOM events.
       @undelegateEvents()
-      @undelegate()
+      @$el.off()
       # Unbind all referenced handlers.
       @stopListening()
     else

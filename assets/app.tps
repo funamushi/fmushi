@@ -181,6 +181,8 @@
             <filename>f.png</filename>
             <filename>funa.png</filename>
             <filename>puya.png</filename>
+            <filename>iwa.png</filename>
+            <filename>iwa2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -1,3 +1,13 @@
-<span id="account">{{viewer.name}}</span>
-<label for="fp">思い出</label>
-<span id="fp">0</span>
+{{#if authorized}}
+{{#viewer}}  
+  <span id="account">
+    {{name}}
+  </span>  
+  <label for="fp">思い出</label>
+  <span id="fp">{{fp}}</span>
+{{/viewer}}  
+{{else}}
+  {{^signinHidden}}
+    <a id="login" href="/login">ログイン</a>
+  {{/signinHidden}}
+{{/if}}
