@@ -7,4 +7,4 @@ Item = sequelize.define 'Item',
   name:  Sequelize.STRING
   fp:    Sequelize.INTEGER
   effect: Sequelize.STRING
-  equipment_location: Sequelize.ENUM('head','foot','left_hand','right_hand','arm','ear','body','neck')
+  equipmentLocation: Sequelize.ENUM('head','foot','left_hand','right_hand','arm','ear','body','neck')

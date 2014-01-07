@@ -2,8 +2,8 @@ Sequelize = require 'sequelize'
 
 sequelize = module.parent.exports
 
-Fmushi = sequelize.define 'Fmushi',
-  tablename: 'fmushis'
+Mushi = sequelize.define 'Mushi',
+  tablename: 'mushies'
   name:  Sequelize.STRING
   userId: Sequelize.INTEGER
   rankId: Sequelize.INTEGER
