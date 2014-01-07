@@ -19,8 +19,10 @@ class Fmushi.Views.LoginForm extends Fmushi.Views.Base
       dataType: 'json'
       type: 'POST'
       url: url
+      data: @$('form').serialize()
     .done (data) ->
       viewer = Fmushi.viewer
       viewer.set data
+      console.log viewer.url()
       Backbone.history.navigate viewer.url(), trigger: true
   

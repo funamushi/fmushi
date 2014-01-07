@@ -5,6 +5,8 @@ LocalStrategy = require('passport-local').Strategy
 dummyUser = { id: 1, name: 'hadashiA' }
 
 passport.use new LocalStrategy (username, password, done) ->
+  console.log '!!!!!!!!!!!!!!!!!'
+  console.log arguments
   if password is 'hoge'
     done null, dummyUser
   else
