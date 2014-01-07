@@ -17,6 +17,9 @@ exports.config =
         'js/app.js': /^src\/client/
       order:
         before: [
+          'bower_components/jquery/jquery.js'
+          'bower_components/lodash/dist/lodash.js'
+          'bower_components/backbone/backbone.js'
           'src/client/fmushi.coffee'
           'src/client/views/base.coffee'
           'src/client/scenes/base.coffee'

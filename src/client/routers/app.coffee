@@ -11,9 +11,18 @@ class Fmushi.Routers.App extends Backbone.Router
       if c? then c.toUpperCase() else ''
 
     if name isnt @currentSceneName
-      Fmushi.scene?.dispose()
-      Fmushi.scene = new Fmushi.Scenes[sceneClassName](options)
+      prev = Fmushi.scene
+      if prev?
+        prev.transitionOut()
+        prev.$el.on 'transitionend', ->
+          prev.dispose()
+
+      Fmushi.scene = nextScene = new Fmushi.Scenes[sceneClassName](options)
+      @listenTo nextScene, 'ready', ->
+        nextScene.transitionIn()
+
       @currentSceneName = name
+
 
   home: (userName) ->
     @replaceScene 'home', userName: userName

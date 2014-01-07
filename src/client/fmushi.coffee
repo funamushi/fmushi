@@ -40,7 +40,7 @@ window.Fmushi =
     w = $window.width()
     h = $window.height()
 
-    Two.Resolution = 16;
+    Two.Resolution = 16
 
     Fmushi.two = two = new Two(fullscreen: true).appendTo(document.body)
     Fmushi.stage = stage = new PIXI.Stage 0x000000, true

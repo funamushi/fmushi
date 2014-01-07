@@ -4,5 +4,4 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     @$el.append form.render().el
     @subview 'form', form
 
-    @trigger 'ready'
-
+    setTimeout ( => @trigger 'ready'), 20

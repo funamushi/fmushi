@@ -1,20 +1,20 @@
 class Fmushi.Scenes.Base extends Fmushi.Views.Base
-  el: '#content'
-
-  keepElement: true
-
   constructor: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
     @shapeWorld = shapeWorld = Fmushi.two.makeGroup()
 
-    @$indicator = $indicator = $('#indicator').show()
+    @setElement $(document.createElement('div'))
+    .appendTo('body')
+    .addClass('scene')
+
+    $('#indicator').show()
 
     @on 'ready', =>
       header = new Fmushi.Views.Header
       header.render()
       @subview 'header', header
-      $indicator.hide()
+      $('#indicator').hide()
 
       @$navigates = $navigate = @$('a.navigate')
       $navigate.on 'click', (e) ->
@@ -23,12 +23,16 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
 
     super
 
+  transitionIn: ->
+    @$el.addClass('is-visible')
+
+  transitionOut: ->
+    @$el.removeClass('is-visible')
+
   dispose: ->
-    @$indicator.show()
     @$navigates.off 'click'
 
     super
-    @$el.empty()
 
     Fmushi.stage.removeChild @world
     Fmushi.two.remove @shapeWorld    
