@@ -76,7 +76,13 @@
   font-size: x-large;
 }
 
-#register, #login {
+#register {
+  top: 30%;
+  left: 50%;
+  margin-left: -180px;
+}
+
+#login {
   top: 30%;
   left: 50%;
   margin-left: -180px;

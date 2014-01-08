@@ -22,7 +22,8 @@ class Fmushi.Views.LoginForm extends Fmushi.Views.Base
       data: @$('form').serialize()
     .done (data) ->
       viewer = Fmushi.viewer
-      viewer.set data
+      viewer.set data, aurhorized: true
+      console.log viewer.aurhorized
       console.log viewer.url()
       Backbone.history.navigate viewer.url(), trigger: true
   

@@ -8,6 +8,17 @@ class Fmushi.Models.User extends Backbone.Model
   url: ->
     "/#{@get('name')}"
 
+  set: (key, val, options) ->
+    if typeof key is 'object'
+      attrs = key
+      options = val
+    else
+      (attrs = {})[key] = val
+
+    @aurhorized = true if options?.authorized
+
+    super attrs, options
+
   validate: (attrs) ->
     errors = []
 
