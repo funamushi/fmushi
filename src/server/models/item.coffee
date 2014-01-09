@@ -7,5 +7,4 @@ Item = sequelize.define 'Item',
   name:  Sequelize.STRING
   fp:    Sequelize.INTEGER
   effect: Sequelize.STRING
-  classification: Sequelize.ENUM('equipment','consumption')
-  equipmentLocation: Sequelize.ENUM('head','foot','leftHand','rightHand','arm','ear','body','neck'),allowNull: true,defaultValue: NULL
+  type: Sequelize.ENUM('consumption','head','foot','leftHand','rightHand','arm','ear','body','neck')
