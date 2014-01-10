@@ -43,13 +43,3 @@ class Fmushi.Routers.App extends Backbone.Router
       Backbone.history.navigate viewer.url()
     else
       Backbone.history.navigate '/register', trigger: true
-
-
-
-
-
-
-
-
-
-
