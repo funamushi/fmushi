@@ -1,6 +1,4 @@
-request = require 'supertest'
-
-{expect} = require 'chai'
+require './helper'
 
 app = require '../src/server/app'
 
