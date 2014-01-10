@@ -27,7 +27,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     # subviews
     panelView = new Fmushi.Views.MushiesPanel
-      user: owner
+      owner: owner
       collection: @mushies
     @subview 'panel', panelView
 
