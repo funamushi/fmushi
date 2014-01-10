@@ -11,8 +11,6 @@ User = sequelize.define 'User',
   email:
     type:Sequelize.STRING
     allowNull: true
-    defaultValue: null
-,
   tableName: 'users'
 
 module.exports = User

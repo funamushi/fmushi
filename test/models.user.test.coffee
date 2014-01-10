@@ -13,7 +13,7 @@ describe 'User Modle test', ->
       expect(User).to.be.ok
     
     it 'userのemailがnullである', ->
-      expect(@user.email).to.be.null
+      expect(@user.email).to.not.be.ok
 
     it 'fpが0だよね？', ->
       expect(@user.fp).to.be.eql(0)
