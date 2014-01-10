@@ -1,15 +1,20 @@
-Sequelize = require './models'
-User = new sequelize.User
-Sequelize.User.sync()
+models = require '../src/server/models'
+User = models.User
+
+chai = require 'chai'
+expect = chai.expect
 
 describe 'User Modle test', ->
-  describe 'データベース操作', ->
-    it '保存できる', (done) ->
-      newUser = new User
-        name: "うしわかまる"
-        fp: 1000
-        email: "ushiwaka@com.com"
-      newUser.save((err) ->
-        if err? throw err
-          done()
-      )
+  describe 'expect user', ->
+    before ->
+      @user = User.build({name: 'ちゃんぽん男'})
+
+    it 'userオブジェクトがある', ->
+      expect(User).to.be.ok
+    
+    it 'userのemailがnullである', ->
+      expect(@user.email).to.be.null
+
+    it 'fpが0だよね？', ->
+      expect(@user.fp).to.be.eql(0)
+
