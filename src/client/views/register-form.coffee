@@ -1,4 +1,4 @@
-class Fmushi.Views.LoginForm extends Fmushi.Views.Base
+class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
   events:
     'submit': 'submit'
 
