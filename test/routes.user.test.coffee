@@ -1,11 +1,9 @@
 require './helper'
 
-app = require '../src/server/app'
-
 describe 'GET /:user', ->
   describe 'json', ->
     it '指定した名前のユーザを返す', (done) ->
-      request(app)
+      request()
       .get('/hadashiA')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -17,7 +15,7 @@ describe 'GET /:user', ->
 
   describe 'html', ->
     it 'マイページを返す', (done) ->
-      request(app)
+      request()
       .get('/hadashiA')
       .set('Accept', 'text/html')
       .expect('Content-Type', /html/)
@@ -27,7 +25,7 @@ describe 'GET /:user', ->
 describe 'GET /:user/mushies', ->
   describe 'json', ->
     it 'ユーザが持っている虫のJSONを返す', (done) ->
-      request(app)
+      request()
       .get('/hadashiA/mushies')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -40,7 +38,7 @@ describe 'GET /:user/mushies', ->
 describe 'GET /:user/mushies/:id', ->
   describe 'html', ->
     it 'マイページを返す', (done) ->
-      request(app)
+      request()
       .get('/hadashiA/mushies/1')
       .set('Accept', 'text/html')
       .expect('Content-Type', /html/)
@@ -50,7 +48,7 @@ describe 'GET /:user/mushies/:id', ->
 describe 'GET /:user/circles', ->
   describe 'json', ->
     it 'ユーザが持っている円のJSONを返す', (done) ->
-      request(app)
+      request()
       .get('/hadashiA/circles')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)

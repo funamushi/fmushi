@@ -1,17 +1,15 @@
 require './helper'
 
-app = require '../src/server/app'
-
 describe 'GET /items', ->
   it 'should respond with json', (done) ->
-    request(app)
+    request()
     .get('/items')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect(200, done)
 
   it '配列を返す', (done) ->
-    request(app)
+    request()
     .get('/items')
     .set('Accept', 'application/json')
     .end (err, res) ->

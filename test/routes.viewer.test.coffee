@@ -1,11 +1,9 @@
 require './helper'
 
-app = require '../src/server/app'
-
 describe 'POST /login', ->
   describe 'ログイン成功', ->
     it 'ログインユーザのJSONを返す', (done) ->
-      request(app)
+      request()
       .post('/login')
       .send(username: 'hadashiA', password: 'hoge')
       .expect(200)
@@ -16,7 +14,7 @@ describe 'POST /login', ->
 
   describe 'ログイン失敗', ->
     it 'status 401', (done) ->
-      request(app)
+      request()
       .post('/login')
       .send(username: 'hadashiA', password: 'fuga')
       .expect(401, done)
@@ -25,14 +23,14 @@ describe 'GET /viewer', ->
   describe 'json', ->
     describe 'ログイン前', ->
       it 'should be 401', (done) ->
-        request(app)
+        request()
         .get('/viewer')
         .set('Accept', 'application/json')
         .expect(401, done)
 
     describe 'ログイン後', ->
       beforeEach (done) ->
-        request(app)
+        request()
         .post('/login')
         .send(username: 'hadashiA', password: 'hoge')
         .expect(200)
@@ -41,7 +39,7 @@ describe 'GET /viewer', ->
           done()
 
       it 'status 200', (done) ->
-        request(app)
+        request()
         .get('/viewer')
         .set('Accept', 'application/json')
         .set('Cookie', @cookie)
@@ -50,14 +48,14 @@ describe 'GET /viewer', ->
   describe 'html', ->
     describe 'ログイン前', ->
       it 'should be 401', (done) ->
-        request(app)
+        request()
         .get('/viewer')
         .set('Accept', 'text/html')
         .expect(401, done)
 
     describe 'ログイン後', ->
       beforeEach (done) ->
-        request(app)
+        request()
         .post('/login')
         .send(username: 'hadashiA', password: 'hoge')
         .expect(200)
@@ -66,7 +64,7 @@ describe 'GET /viewer', ->
           done()
 
       it 'ユーザのマイページへリダイレクト', (done) ->
-        request(app)
+        request()
         .get('/viewer')
         .set('Accept', 'text/html')
         .set('Cookie', @cookie)
