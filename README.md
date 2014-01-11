@@ -30,6 +30,12 @@ alter database DB名 owner to ユーザ名
 $ npm test
 ```
 
+or
+
+```bash
+$ mocha path/to/file
+```
+
 ## へろく
 
 ```bash
