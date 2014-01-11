@@ -1,7 +1,7 @@
 {{#if authorized}}
 {{#viewer}}  
   <a id="account" href="#">{{name}}</a>
-  <label for="fp">思い出</label><span id="fp">{{fp}}</span>
+  <label for="fp">思い出</label><span id="fp" class="badge">{{fp}}</span>
 {{/viewer}}  
 {{else}}
   {{^loginHidden}}
