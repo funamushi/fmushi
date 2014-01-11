@@ -17,18 +17,23 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
   render: ->
     loginHidden = !!Backbone.history.fragment.match(/register|login/)
 
+    console.log JST['header']
+      viewer: @model.toJSON()
+      authorized: @model.authorized
+      loginHidden: loginHidden
+
+
     @$el.html JST['header']
       viewer: @model.toJSON()
       authorized: @model.authorized
       loginHidden: loginHidden
     @
 
-  login: (e) ->
-    e.preventDefault()
-    Backbone.history.navigate '/login', trigger: true
+  login: ->
 
-  logout: (e) ->
-    e.preventDefault()
-    if confirm 'ログアウトする？'
-      console.log 'logout'
-    
+  logout: ->
+    if confirm 'ログアウトする?'
+      1
+      
+      
+      
