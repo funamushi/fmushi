@@ -3,7 +3,7 @@ F虫
 
 [![Build Status](https://travis-ci.org/funamushi/fmushi.png?branch=master)](https://travis-ci.org/funamushi/fmushi)
 
-## 開発環境
+## おまえの開発環境
 
 ```bash
 $ npm install -g brunch
