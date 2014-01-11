@@ -231,3 +231,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
+
+  transitionOut: ->
+    super()
+    @camera.set zoom: 0.01
