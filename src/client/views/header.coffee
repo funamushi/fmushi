@@ -11,16 +11,19 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
     @listenTo model, 'change:fp', =>
       @$('#fp').text model.get('fp')
 
-    @listenTo model, 'authorize', =>
-      @render()      
+    @listenTo model, 'login', =>
+      @render()
+
+    @listenTo model, 'logout', =>
+      @render()
 
   render: ->
-    loginHidden = !!Backbone.history.fragment.match(/register|login/)
+    loginShown = !Backbone.history.fragment.match(/register|login/)
 
     @$el.html JST['header']
       viewer: @model.toJSON()
-      authorized: @model.authorized
-      loginHidden: loginHidden
+      loggedIn: @model.loggedIn
+      loginShown: loginShown
     @
 
   login: ->
@@ -32,5 +35,7 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
         dataType: 'json'
         type: 'DELETE'
         url: '/logout'
-      .done ->
+      .done =>
         Backbone.history.navigate '/login', trigger: true
+        @model.logout()
+        

@@ -1,4 +1,4 @@
-{{#if authorized}}
+{{#if loggedIn}}
 {{#viewer}}  
   <a id="account" href="#">{{name}}</a>
   <a id="logout" href="#" title="ログアウト">
@@ -7,7 +7,7 @@
   <a id="omoide" href="#">思い出: <span id="fp" class="badge">{{fp}}</span></a>
 {{/viewer}}  
 {{else}}
-  {{^loginHidden}}
+  {{#loginShown}}
     <a id="login" href="/login">ログイン</a>
-  {{/loginHidden}}
+  {{/loginShown}}
 {{/if}}

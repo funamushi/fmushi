@@ -22,6 +22,6 @@ class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
       data: @$('form').serialize()
     .done (data) ->
       viewer = Fmushi.viewer
-      viewer.set data, aurhorized: true
+      viewer.login data
       Backbone.history.navigate viewer.url(), trigger: true
   

@@ -3,21 +3,21 @@ class Fmushi.Models.User extends Backbone.Model
     fp: 0
 
   initialize: ->
-    @authorized = false
+    @loggedIn = false
 
   url: ->
     "/#{@get('name')}"
 
-  set: (key, val, options) ->
-    if typeof key is 'object'
-      attrs = key
-      options = val
-    else
-      (attrs = {})[key] = val
+  login: (attributes, options) ->
+    @set attributes, options
+    @loggedIn = true
+    @trigger 'login', @ unless options?.silent?
 
-    @aurhorized = true if options?.authorized
-
-    super attrs, options
+  logout: (options) ->
+    @clear()
+    @set @defaults
+    @loggedIn = false
+    @trigger 'logout', @ unless options?.silent?
 
   validate: (attrs) ->
     errors = []
