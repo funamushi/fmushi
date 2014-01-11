@@ -17,7 +17,7 @@ $ npm install
 $ brunch w -s
 ```
 
-## でーたべーす
+## でーたべ
 ```
 createdb DB名
 createuser ユーザ名
@@ -30,10 +30,10 @@ alter database DB名 owner to ユーザ名
 $ npm test
 ```
 
-## デプロイ
+## へろく
 
 ```bash
-$ bundle exec cap staging deploy
+$ git push heroku master
 ```
 
 ### issueとか
