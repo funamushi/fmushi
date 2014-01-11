@@ -5,8 +5,12 @@
 }
 
 .control {
-  z-index: 12;
+  z-index: 1000;
   position: absolute;
+}
+
+.tooltip {
+  z-index: 1000;
 }
 
 #site-header {

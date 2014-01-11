@@ -27,7 +27,10 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
 
   logout: ->
     if confirm 'ログアウトする?'
-      1
-      
-      
-      
+      Backbone
+      .ajax
+        dataType: 'json'
+        type: 'DELETE'
+        url: '/logout'
+      .done ->
+        Backbone.history.navigate '/login', trigger: true

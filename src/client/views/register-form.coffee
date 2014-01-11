@@ -23,7 +23,5 @@ class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
     .done (data) ->
       viewer = Fmushi.viewer
       viewer.set data, aurhorized: true
-      console.log viewer.aurhorized
-      console.log viewer.url()
       Backbone.history.navigate viewer.url(), trigger: true
   
