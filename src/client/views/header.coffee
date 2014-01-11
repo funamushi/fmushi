@@ -6,16 +6,20 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
     'click #logout': 'logout'
 
   initialize: (options) ->
-    viewer = Fmushi.viewer
-    @listenTo viewer, 'change:fp', ->
-      @$('#fp').text viewer.get('fp')
+    model = @model
+
+    @listenTo model, 'change:fp', =>
+      @$('#fp').text model.get('fp')
+
+    @listenTo model, 'authorize', =>
+      @render()      
 
   render: ->
     loginHidden = !!Backbone.history.fragment.match(/register|login/)
 
     @$el.html JST['header']
-      viewer: Fmushi.viewer.toJSON()
-      authorized: Fmushi.viewer.authorized
+      viewer: @model.toJSON()
+      authorized: @model.authorized
       loginHidden: loginHidden
     @
 

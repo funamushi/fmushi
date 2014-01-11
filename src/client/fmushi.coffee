@@ -26,6 +26,9 @@ window.Fmushi =
       @router = new Fmushi.Routers.App
       Backbone.history.start pushState: true, root: '/'
 
+      @header = header = new Fmushi.Views.Header(model: Fmushi.viewer)
+      header.render()
+
   fetchAsset: (args) ->
     defer = $.Deferred()
     loader = new PIXI.AssetLoader args

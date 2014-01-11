@@ -11,9 +11,6 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
     $('#indicator').show()
 
     @on 'ready', =>
-      header = new Fmushi.Views.Header
-      header.render()
-      @subview 'header', header
       $('#indicator').hide()
 
       @$navigates = $navigate = @$('a.navigate')

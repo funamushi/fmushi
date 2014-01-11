@@ -35,6 +35,8 @@ class Fmushi.Models.User extends Backbone.Model
     @fetch(options)
     .then =>
       @authorized = true
+      @trigger 'aurhorize', @
+
     , (res, result, data) =>
       if res.status is 401
         defer = $.Deferred()
