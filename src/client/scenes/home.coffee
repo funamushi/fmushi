@@ -41,8 +41,9 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       add = _.bind @addEntity, @
       @circles.each add
       @mushies.each add
-      @$el.append @subview('panel').render().el
-      @$el.append @subview('dialog').render().el
+      $body = $('body')
+      $body.append @subview('panel').render().el
+      $body.append @subview('dialog').render().el
 
       if options.focusMushiId?
         @focus options.focusMushiId
