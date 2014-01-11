@@ -3,21 +3,39 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
 
   events:
     'click #login': 'login'
+    'click #logout': 'logout'
 
   initialize: (options) ->
-    viewer = Fmushi.viewer
-    @listenTo viewer, 'change:fp', ->
-      @$('#fp').text viewer.get('fp')
+    model = @model
+
+    @listenTo model, 'change:fp', =>
+      @$('#fp').text model.get('fp')
+
+    @listenTo model, 'login', =>
+      @render()
+
+    @listenTo model, 'logout', =>
+      @render()
 
   render: ->
-    signinHidden = !!Backbone.history.fragment.match(/register|login/)
+    loginShown = !Backbone.history.fragment.match(/register|login/)
 
     @$el.html JST['header']
-      viewer: Fmushi.viewer.toJSON()
-      authorized: Fmushi.viewer.authorized
-      signinHidden: signinHidden
+      viewer: @model.toJSON()
+      loggedIn: @model.loggedIn
+      loginShown: loginShown
     @
 
-  login: (e) ->
-    e.preventDefault()
-    Backbone.history.navigate '/signin'
+  login: ->
+
+  logout: ->
+    if confirm 'ログアウトする?'
+      Backbone
+      .ajax
+        dataType: 'json'
+        type: 'DELETE'
+        url: '/logout'
+      .done =>
+        Backbone.history.navigate '/login', trigger: true
+        @model.logout()
+        

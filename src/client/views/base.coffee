@@ -44,7 +44,8 @@ class Fmushi.Views.Base extends Backbone.View
     return if @disposed
 
     # Dispose subviews.
-    subview.dispose() for subview, name in @subviewsByName
+    _.forEach @subviewsByName, (subview, name) ->
+      subview.dispose() 
 
     # Remove all event handlers on this module.
     @off()

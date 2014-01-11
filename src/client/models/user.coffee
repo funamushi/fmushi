@@ -3,10 +3,21 @@ class Fmushi.Models.User extends Backbone.Model
     fp: 0
 
   initialize: ->
-    @authorized = false
+    @loggedIn = false
 
   url: ->
     "/#{@get('name')}"
+
+  login: (attributes, options) ->
+    @set attributes, options
+    @loggedIn = true
+    @trigger 'login', @ unless options?.silent?
+
+  logout: (options) ->
+    @clear()
+    @set @defaults
+    @loggedIn = false
+    @trigger 'logout', @ unless options?.silent?
 
   validate: (attrs) ->
     errors = []
@@ -24,6 +35,8 @@ class Fmushi.Models.User extends Backbone.Model
     @fetch(options)
     .then =>
       @authorized = true
+      @trigger 'aurhorize', @
+
     , (res, result, data) =>
       if res.status is 401
         defer = $.Deferred()

@@ -6,7 +6,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     'tap a':   'focus'
 
   initialize: (options) ->
-    @user = options.user
+    @owner = options.owner
 
     @listenTo @collection, 'focus:in', (mushi) ->
       @$('.list-group-item').each ->
@@ -26,6 +26,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
       attr
 
     @setElement JST['mushies/panel']
+      owner: @owner.toJSON()
       mushies: mushies
     @
 

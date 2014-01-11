@@ -1,6 +1,6 @@
 class Fmushi.Scenes.Login extends Fmushi.Scenes.Base
   initialize: ->
-    form = new Fmushi.Views.LoginForm
+    form = new Fmushi.Views.RegisterForm
     @$el.append form.render().el
     @subview 'form', form
 

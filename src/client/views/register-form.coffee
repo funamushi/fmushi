@@ -1,4 +1,4 @@
-class Fmushi.Views.LoginForm extends Fmushi.Views.Base
+class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
   events:
     'submit': 'submit'
 
@@ -22,7 +22,6 @@ class Fmushi.Views.LoginForm extends Fmushi.Views.Base
       data: @$('form').serialize()
     .done (data) ->
       viewer = Fmushi.viewer
-      viewer.set data
-      console.log viewer.url()
+      viewer.login data
       Backbone.history.navigate viewer.url(), trigger: true
   

@@ -24,7 +24,6 @@ class Fmushi.Routers.App extends Backbone.Router
 
       @currentSceneName = name
 
-
   home: (userName) ->
     @replaceScene 'home', userName: userName
     
@@ -40,6 +39,6 @@ class Fmushi.Routers.App extends Backbone.Router
   root: ->
     viewer = Fmushi.viewer
     if viewer.authorized
-      Backbone.history.navigate viewer.url()
+      Backbone.history.navigate viewer.url(), trigger: true
     else
-      Backbone.history.navigate '/register', trigger: true
+      Backbone.history.navigate '/login', trigger: true
