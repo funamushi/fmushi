@@ -38,7 +38,17 @@ window.Fmushi =
 
     defer.promise()
 
-  startAnimation: -> 
+  startAnimation: ->
+    $(document)
+    .on 'touchstart', (e) ->
+      e.preventDefault()
+    .on('touchmove', (e) ->
+      e.preventDefault())
+    .on 'touchend', (e) ->
+      e.preventDefault()
+    .on 'touchcancel', (e) ->
+       e.preventDefault()
+
     $window = $(window)
     w = $window.width()
     h = $window.height()

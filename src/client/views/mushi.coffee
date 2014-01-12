@@ -121,13 +121,16 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.addChild text
 
     sprite.mousedown = sprite.touchstart = (e) =>
-      Fmushi.scene.dragCancel()
+      e.originalEvent.preventDefault()
       @gripped = true
 
     sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
+      e.originalEvent.preventDefault()
       @gripped = false
 
     sprite.mousemove = sprite.touchmove = (e) =>
+      console.log e
+      e.originalEvent.preventDefault()
       if @gripped
         screenPos = e.global
         worldPos  = Fmushi.scene.worldPosFromScreenPos screenPos

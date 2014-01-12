@@ -38,7 +38,7 @@ class Fmushi.Routers.App extends Backbone.Router
 
   root: ->
     viewer = Fmushi.viewer
-    if viewer.authorized
+    if viewer.loggedIn
       Backbone.history.navigate viewer.url(), trigger: true
     else
       Backbone.history.navigate '/login', trigger: true

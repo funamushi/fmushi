@@ -26,10 +26,11 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @focus mushiId
 
     # subviews
-    panelView = new Fmushi.Views.MushiesPanel
-      owner: owner
-      collection: @mushies
-    @subview 'panel', panelView
+    unless Modernizr.touch
+      panelView = new Fmushi.Views.MushiesPanel
+        owner: owner
+        collection: @mushies
+      @subview 'panel', panelView
 
     dialogView = new Fmushi.Views.MushiDialog
     @subview 'dialog', dialogView
@@ -42,7 +43,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @circles.each add
       @mushies.each add
       $body = $('body')
-      $body.append @subview('panel').render().el
+      if panel = @subview('panel')
+        $body.append panel.render().el
       $body.append @subview('dialog').render().el
 
       if options.focusMushiId?
@@ -64,39 +66,52 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @trigger 'ready'
 
   initDrag: ->
-    stage = Fmushi.stage
-    stage.mousedown = stage.touchstart = (e) =>
-      if !@focusEntity or !@hitTestFromEntity(@focusEntity, e)
-        @lastDragPoint = e.global
+    canvas = Fmushi.renderer.view
+    $canvas = $(canvas)
 
-    stage.mousemove = stage.touchmove = (e) =>
-      e.originalEvent.preventDefault()
+    lastDragPoint = null
+    Hammer(canvas)
+    .on 'dragstart', (e) =>
+      e.preventDefault()
+      lastDragPoint =
+        x: e.gesture.center.pageX
+        y: e.gesture.center.pageY
 
-      if @lastDragPoint and !@focusEntity
-        x = e.global.x
-        y = e.global.y
-        diffX = @lastDragPoint.x - x
-        diffY = @lastDragPoint.y - y
+    .on 'drag', (e) =>
+      e.preventDefault()
+      if _.any(@subviewsByName, (subview, name) -> subview.gripped)
+        return
+
+      if !@focusEntity and lastDragPoint
+        center = e.gesture.center
+        diffX = lastDragPoint.x - center.pageX
+        diffY = lastDragPoint.y - center.pageY
         @camera.set(
           { x: @camera.get('x') + diffX, y: @camera.get('y') + diffY },
           { tween: false }
         )
-        @lastDragPoint = { x: x, y: y }
+        lastDragPoint.x = center.pageX
+        lastDragPoint.y = center.pageY
 
-    stage.mouseup = stage.mouseupoutside = stage.touchend = stage.touchendoutside = (e) =>
-      if @lastDragPoint
-        if @focusEntity?
-          Backbone.history.navigate @owner.url(), trigger: true
-        @lastDragPoint = null
+    .on 'dragend', (e) =>
+      e.preventDefault()
+      lastDragPoint = null
 
-    $canvas = $(Fmushi.renderer.view)
+    .on 'pinchin', (e) =>
+      e.preventDefault()
+      zoom = @camera.get('zoom') - 0.01
+      return if zoom < 0
+      @camera.set { zoom: zoom }, { tween: false }
+
+    .on 'pinchout', (e) =>
+      e.preventDefault()
+      zoom = @camera.get('zoom') + 0.0075
+      @camera.set { zoom: zoom }, { tween: false }
+
     $canvas.on 'mousewheel', (e) =>
       x = @camera.get('x')
       y = @camera.get('y')
       @camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
-
-  dragCancel: ->
-    @lastDragPoint = null    
 
   collisionDetection: (mushi) ->
     @circles.each (circle) ->
@@ -134,10 +149,6 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
   entity: (model) ->
     @subview model.cid
-
-  hitTestFromEntity: (model, e) ->
-    view = @subview model.cid
-    view? and Fmushi.stage.interactionManager.hitTest(view.sprite, e)
 
   focus: (entityOrId) ->
     entity = @mushies.get(entityOrId)
