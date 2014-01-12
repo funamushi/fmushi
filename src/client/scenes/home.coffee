@@ -86,9 +86,14 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
+        zoom = @camera.get 'zoom'
         @camera.set(
-          { x: @camera.get('x') + diffX, y: @camera.get('y') + diffY },
-          { tween: false }
+          {
+            x: @camera.get('x') + diffX / zoom
+            y: @camera.get('y') + diffY / zoom
+          }, {
+            tween: false
+          }
         )
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
