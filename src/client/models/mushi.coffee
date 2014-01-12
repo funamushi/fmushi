@@ -8,7 +8,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
     direction: 'left'
 
   initialize: ->
-    @r = 60 * @get('groth') # body
+    @r = 30 * @get('groth') # body
     @equipments ?= new Fmushi.Collections.Equipments
 
   set: (key, val, options) ->
