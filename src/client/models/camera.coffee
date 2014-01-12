@@ -16,9 +16,6 @@ class Fmushi.Models.Camera extends Backbone.Model
       if _.isNumber value
         if value < 0
           errors.push attr: name, message: '0未満にできません。'
-        else if name is 'zoom'
-          errors.push attr: 'zoom', message: '小さすぎます。' if value < 0.01
-          errors.push attr: 'zoom', message: '大きすぎます。' if value > 3
       else
         errors.push attr: name, message: '数値ではありません。'
 

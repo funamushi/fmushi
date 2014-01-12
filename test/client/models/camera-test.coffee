@@ -17,13 +17,3 @@ describe Fmushi.Models.Camera, ->
       @camera.set 'zoom', -1
       expect(@camera.isValid()).to.not.be.ok
       expect(@camera.validationError[0].attr).to.equal('zoom')
-
-    it 'zoomは0.01未満にできない', ->
-      @camera.set 'zoom', 0.009
-      expect(@camera.isValid()).to.not.be.ok
-      expect(@camera.validationError[0].attr).to.equal('zoom')
-
-    it 'zoomは3以上にできない', ->
-      @camera.set 'zoom', 3.1
-      expect(@camera.isValid()).to.not.be.ok
-      expect(@camera.validationError[0].attr).to.equal('zoom')
