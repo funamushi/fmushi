@@ -120,15 +120,15 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     text.position.y = -40
     sprite.addChild text
 
-    sprite.mousedown = (e) =>
+    sprite.mousedown = sprite.touchstart = (e) =>
       e.originalEvent.preventDefault()
       @gripped = true
 
-    sprite.mouseup = sprite.mouseupoutside = (e) =>
+    sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
       e.originalEvent.preventDefault()
       @gripped = false
 
-    sprite.mousemove = (e) =>
+    sprite.mousemove = sprite.touchmove = (e) =>
       console.log e
       e.originalEvent.preventDefault()
       if @gripped
