@@ -31,7 +31,10 @@
       "main": "build/tween.min.js"
     },
     "two": {
-      "main": "build/two.clean.js"
+      "main": [
+        "third-party/requestAnimationFrame.js",
+        "build/two.clean.js"
+      ]
     },
     "jquery-mousewheel": {
       "main": "jquery.mousewheel.js"
