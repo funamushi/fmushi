@@ -73,15 +73,15 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     Hammer(canvas)
     .on 'dragstart', (e) =>
       e.preventDefault()
+      if _.any(@subviewsByName, (subview, name) -> subview.gripped)
+        return
+
       lastDragPoint =
         x: e.gesture.center.pageX
         y: e.gesture.center.pageY
 
     .on 'drag', (e) =>
       e.preventDefault()
-      if _.any(@subviewsByName, (subview, name) -> subview.gripped)
-        return
-
       if !@focusEntity and lastDragPoint
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
