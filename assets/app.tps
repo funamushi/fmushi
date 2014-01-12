@@ -171,10 +171,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>mushi_walk-1.png</filename>
-            <filename>mushi_walk-2.png</filename>
-            <filename>mushi_walk-3.png</filename>
-            <filename>default.png</filename>
             <filename>zoom_in.png</filename>
             <filename>zoom_out.png</filename>
             <filename>m4.png</filename>
@@ -183,6 +179,10 @@
             <filename>puya.png</filename>
             <filename>iwa.png</filename>
             <filename>iwa2.png</filename>
+            <filename>default.png</filename>
+            <filename>mushi_walk-1.png</filename>
+            <filename>mushi_walk-2.png</filename>
+            <filename>mushi_walk-3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
