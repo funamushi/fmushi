@@ -84,16 +84,12 @@
   left: 50%;
 }
 
-#register {
-  top: 30%;
-  left: 50%;
-  margin-left: -180px;
-}
-
-#login {
-  top: 30%;
-  left: 50%;
-  margin-left: -180px;
+#register, #login {
+  position: absolute;
+  top: 16%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 .scene {
