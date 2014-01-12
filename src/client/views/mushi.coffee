@@ -121,7 +121,6 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.addChild text
 
     sprite.mousedown = (e) =>
-      Fmushi.scene.dragCancel()
       @gripped = true
 
     sprite.mouseup = sprite.mouseupoutside = (e) =>
