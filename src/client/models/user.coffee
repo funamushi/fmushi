@@ -33,10 +33,8 @@ class Fmushi.Models.User extends Backbone.Model
   fetchViewer: (options={}) ->
     options.url = '/viewer'
     @fetch(options)
-    .then =>
-      @authorized = true
-      @trigger 'aurhorize', @
-
+    .then (attrs, result, xhr) =>
+      @login attrs
     , (res, result, data) =>
       if res.status is 401
         defer = $.Deferred()

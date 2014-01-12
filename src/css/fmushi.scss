@@ -33,7 +33,6 @@
     h1 {
       font-size: 129%;
       font-weight: bold;
-      width: 49.29577%;
       float: left;
       margin-right: 1.40845%;
       display: inline;
@@ -41,28 +40,23 @@
     }
 
     nav {
-      width: 49.29577%;
+      position: static;
       float: right;
       margin-right: 0;
       text-align: right;
       padding: 0;
 
-      #account {
+      a {
         vertical-align: middle;
       }
 
-      #logout {
-        padding-right: 1.5em;
+      #login {
+        margin-right: 1.5em;
       }
 
       #omoide {
-        width: 10%;
         text-align: center;
         position: relative;
-
-        #fp {
-          vertical-align: middle;
-        }
       }
 
       label {
