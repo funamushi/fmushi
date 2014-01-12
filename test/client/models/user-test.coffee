@@ -1,4 +1,59 @@
 describe Fmushi.Models.Mushi, ->
+  describe '.fetchViewer', ->
+    beforeEach ->
+      @user = new Fmushi.Models.User
+
+    describe 'ログインしている場合', ->
+      beforeEach ->
+        @server = sinon.fakeServer.create()
+        @server.respondWith 'GET', '/viewer', [
+          200,
+          { 'Content-Type': 'application/json' },
+          JSON.stringify { name: 'hadashiA', fp: 100 }
+        ]
+
+      afterEach ->
+        @server.restore()
+
+      it 'login()が呼ばれる', ->
+        sinon.spy @user, 'login'
+        @user.fetchViewer()
+        @server.respond()
+
+        expect(@user.login).to.been.calledOnce
+        @user.login.restore()
+
+      it 'attributesが更新される', ->
+        @user.fetchViewer()
+        @server.respond()
+        expect(@user.get 'name').to.eq('hadashiA')
+        expect(@user.get 'fp').to.eq(100)
+
+    describe 'ログインしてない場合', ->
+      beforeEach ->
+        @server = sinon.fakeServer.create()
+        @server.respondWith 'GET', '/viewer', [
+          401,
+          { 'Content-Type': 'application/json' }
+          '{}'
+        ]
+
+      afterEach ->
+        @server.restore()
+
+      it 'login()は呼ばれない', ->
+        sinon.spy @user, 'login'
+        @user.fetchViewer()
+        @server.respond()
+
+        expect(@user.login).to.not.been.colled
+        @user.login.restore()
+
+      it 'attributeは変更されない', ->
+        @user.fetchViewer()
+        @server.respond()
+        expect(@user.get 'name').to.be.empty
+
   describe '#isValid', ->
     beforeEach ->
       @user = new Fmushi.Models.User name: 'hoge', fp: 100
@@ -61,4 +116,3 @@ describe Fmushi.Models.Mushi, ->
       @user.on 'logout', ->
         done()
       @user.logout()
-    

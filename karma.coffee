@@ -8,7 +8,7 @@ module.exports = (config) ->
     basePath: ''
 
     # frameworks to use
-    frameworks: ['mocha', 'chai']
+    frameworks: ['mocha', 'sinon-chai']
 
     # list of files / patterns to load in the browser
     files: [

@@ -70,6 +70,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
         @lastDragPoint = e.global
 
     stage.mousemove = stage.touchmove = (e) =>
+      e.originalEvent.preventDefault()
+
       if @lastDragPoint and !@focusEntity
         x = e.global.x
         y = e.global.y

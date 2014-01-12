@@ -6,7 +6,7 @@ class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
     @isRegister = options.isRegister
 
   render: ->
-    @setElement JST['login-form'] isRegister: @isRegister
+    @setElement JST['register-form'] isRegister: @isRegister
     @
 
   submit: (e) ->
