@@ -67,11 +67,30 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
   initDrag: ->
     stage = Fmushi.stage
+    canvas = Fmushi.renderer.view
+    $canvas = $(canvas)
+
+    Hammer(canvas).on 'pinchin', (e) =>
+      console.log 'pinchin'
+      e.preventDefault()
+
+      zoom = @camera.get('zoom') + 0.01
+      @camera.set { zoom: zoom }, { tween: false }
+
+    Hammer(canvas).on 'pinchout', (e) =>
+      console.log 'pinchout'
+      e.preventDefault()
+
+      zoom = @camera.get('zoom') - 0.01
+      return if zoom < 0
+      @camera.set { zoom: zoom }, { tween: false }
+
     stage.mousedown = stage.touchstart = (e) =>
       if !@focusEntity or !@hitTestFromEntity(@focusEntity, e)
         @lastDragPoint = e.global
 
     stage.mousemove = stage.touchmove = (e) =>
+      console.log 'move'
       e.originalEvent.preventDefault()
 
       if @lastDragPoint and !@focusEntity
@@ -91,7 +110,6 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
           Backbone.history.navigate @owner.url(), trigger: true
         @lastDragPoint = null
 
-    $canvas = $(Fmushi.renderer.view)
     $canvas.on 'mousewheel', (e) =>
       x = @camera.get('x')
       y = @camera.get('y')
