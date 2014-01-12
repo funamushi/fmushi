@@ -40,10 +40,14 @@ window.Fmushi =
 
   startAnimation: ->
     $(document)
-    .on 'touchstart',  (e) -> e.preventDefault()
-    .on 'touchmove',   (e) -> e.preventDefault()
-    .on 'touchend',    (e) -> e.preventDefault()
-    .on 'touchcancel', (e) -> e.preventDefault()
+    .on 'touchstart', (e) ->
+      e.preventDefault()
+    .on('touchmove', (e) ->
+      e.preventDefault())
+    .on 'touchend', (e) ->
+      e.preventDefault()
+    .on 'touchcancel', (e) ->
+       e.preventDefault()
 
     $window = $(window)
     w = $window.width()
