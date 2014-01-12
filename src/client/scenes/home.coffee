@@ -26,10 +26,11 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @focus mushiId
 
     # subviews
-    panelView = new Fmushi.Views.MushiesPanel
-      owner: owner
-      collection: @mushies
-    @subview 'panel', panelView
+    unless Modernizr.touch
+      panelView = new Fmushi.Views.MushiesPanel
+        owner: owner
+        collection: @mushies
+      @subview 'panel', panelView
 
     dialogView = new Fmushi.Views.MushiDialog
     @subview 'dialog', dialogView
@@ -42,7 +43,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @circles.each add
       @mushies.each add
       $body = $('body')
-      $body.append @subview('panel').render().el
+      if panel = @subview('panel')
+        $body.append panel.render().el
       $body.append @subview('dialog').render().el
 
       if options.focusMushiId?
