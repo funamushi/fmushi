@@ -117,7 +117,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     text.anchor.x = 0.5
     text.anchor.y = 0.5
     text.position.x = 0
-    text.position.y = -40
+    text.position.y = -20
     sprite.addChild text
 
     sprite.mousedown = sprite.touchstart = (e) =>

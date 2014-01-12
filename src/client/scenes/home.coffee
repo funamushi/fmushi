@@ -1,5 +1,5 @@
 class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
-  defaultZoom: 0.5
+  defaultZoom: 1
 
   initialize: (options) ->
     @owner = owner =
