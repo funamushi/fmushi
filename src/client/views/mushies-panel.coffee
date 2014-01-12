@@ -3,7 +3,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
     'mouseover a': 'point'
     'mouseout a':  'pointOut'
     'click a': 'focus'
-    'tap a':   'focus'
+    'touchend a':   'focus'
 
   initialize: (options) ->
     @owner = options.owner
