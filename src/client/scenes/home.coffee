@@ -106,14 +106,14 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     .on 'pinchin', (e) =>
       e.preventDefault()
-      zoom = @camera.get('zoom') - 0.01
-      return if zoom < 0
-      @camera.set { zoom: zoom }, { tween: false }
+      
+      zoom = @camera.get('zoom') - e.gesture.scale * 0.075
+      @camera.set { zoom: zoom }, { tween: false, validate: true }
 
     .on 'pinchout', (e) =>
       e.preventDefault()
-      zoom = @camera.get('zoom') + 0.0075
-      @camera.set { zoom: zoom }, { tween: false }
+      zoom = @camera.get('zoom') + e.gesture.scale * 0.01
+      @camera.set { zoom: zoom }, { tween: false, validate: true }
 
     $(canvas).on 'mousewheel', (e) =>
       x = @camera.get('x')
