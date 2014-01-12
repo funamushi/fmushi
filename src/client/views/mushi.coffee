@@ -129,6 +129,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
       @gripped = false
 
     sprite.mousemove = (e) =>
+      console.log e
       e.originalEvent.preventDefault()
       if @gripped
         screenPos = e.global

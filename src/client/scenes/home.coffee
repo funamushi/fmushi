@@ -79,6 +79,9 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     .on 'drag', (e) =>
       e.preventDefault()
+      if _.any(@subviewsByName, (subview, name) -> subview.gripped)
+        return
+
       if !@focusEntity and lastDragPoint
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
