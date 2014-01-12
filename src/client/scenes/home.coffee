@@ -67,10 +67,12 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
   initDrag: ->
     canvas = Fmushi.renderer.view
-    $canvas = $(canvas)
 
     lastDragPoint = null
     Hammer(canvas)
+    .on 'tap', (e) =>
+      @focusOut() if @focusEntity
+
     .on 'dragstart', (e) =>
       e.preventDefault()
       if _.any(@subviewsByName, (subview, name) -> subview.gripped)
@@ -113,7 +115,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       zoom = @camera.get('zoom') + 0.0075
       @camera.set { zoom: zoom }, { tween: false }
 
-    $canvas.on 'mousewheel', (e) =>
+    $(canvas).on 'mousewheel', (e) =>
       x = @camera.get('x')
       y = @camera.get('y')
       @camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
