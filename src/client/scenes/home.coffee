@@ -72,11 +72,13 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     lastDragPoint = null
     Hammer(canvas)
     .on 'dragstart', (e) =>
+      e.preventDefault()
       lastDragPoint =
         x: e.gesture.center.pageX
         y: e.gesture.center.pageY
 
     .on 'drag', (e) =>
+      e.preventDefault()
       if !@focusEntity and lastDragPoint
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
@@ -89,13 +91,16 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
         lastDragPoint.y = center.pageY
 
     .on 'dragend', (e) =>
+      e.preventDefault()
       lastDragPoint = null
 
     .on 'pinchin', (e) =>
+      e.preventDefault()
       zoom = @camera.get('zoom') + 0.01
       @camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchout', (e) =>
+      e.preventDefault()
       zoom = @camera.get('zoom') - 0.01
       return if zoom < 0
       @camera.set { zoom: zoom }, { tween: false }
