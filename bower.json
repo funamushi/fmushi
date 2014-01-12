@@ -35,6 +35,9 @@
     },
     "jquery-mousewheel": {
       "main": "jquery.mousewheel.js"
+    },
+    "modernizr": {
+      "main": "modernizr.js"
     }
   }
 }
