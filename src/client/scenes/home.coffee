@@ -10,7 +10,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     @mushies = new Fmushi.Collections.Mushies [], user: owner
     @circles = new Fmushi.Collections.Circles [], user: owner
-    @camera  = new Fmushi.Models.Camera {}, user: owner
+    @camera  = new Fmushi.Models.Camera { zoom: 2 }, user: owner
 
     @locked = false
 
@@ -166,7 +166,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @camera.set
       x: entity.get('x')
       y: entity.get('y')
-      zoom: 2
+      zoom: 2.5
     
     dialog = @subview('dialog')
     dialog.open entity
