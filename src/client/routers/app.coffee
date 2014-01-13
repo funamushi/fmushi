@@ -13,8 +13,7 @@ class Fmushi.Routers.App extends Backbone.Router
     if name isnt @currentSceneName
       prev = Fmushi.scene
       if prev?
-        prev.transitionOut()
-        prev.$el.on 'transitionend', ->
+        prev.transitionOut().done ->
           prev.dispose()
 
       Fmushi.scene = nextScene = new Fmushi.Scenes[sceneClassName](options)

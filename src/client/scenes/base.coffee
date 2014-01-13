@@ -21,10 +21,16 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
     super
 
   transitionIn: ->
-    @$el.addClass('is-visible')
+    defer = $.Deferred()
+    @$el.addClass('is-visible').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+      defer.resolve()
+    defer.promise()
 
   transitionOut: ->
-    @$el.removeClass('is-visible')
+    defer = $.Deferred()
+    @$el.removeClass('is-visible').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+      defer.resolve()
+    defer.promise()
 
   dispose: ->
     @$navigates.off 'click'

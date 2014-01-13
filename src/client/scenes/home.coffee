@@ -109,13 +109,13 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       
       zoom = @camera.get('zoom') - (0.03 * e.gesture.scale)
       return if zoom < 0.01
-      @camera.set { zoom: zoom }, { tween: false, validate: true }
+      @camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchout', (e) =>
       e.preventDefault()
       zoom = @camera.get('zoom') + (0.01 * e.gesture.scale)
       return if zoom > 3
-      @camera.set { zoom: zoom }, { tween: false, validate: true }
+      @camera.set { zoom: zoom }, { tween: false }
 
     $(canvas).on 'mousewheel', (e) =>
       x = @camera.get('x')
@@ -256,4 +256,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
   transitionOut: ->
     super()
+    defer = $.Deferred()
     @camera.set zoom: 0.01
+    setTimeout ( -> console.log('hge'); defer.resolve() ), 1000
+    defer.promise()
