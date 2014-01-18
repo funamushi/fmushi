@@ -20,9 +20,30 @@ module.exports = {
               type: DataTypes.STRING,
               allowNUll: true
             }
+          },
+          "authentications",
+          {
+            id: {
+              type: DataTypes.INTEGER,
+              autoIncrement: true,
+              primartyKey: true
+            },
+            userId: {
+              type: DataTypes.INTEGER
+            },
+            uid: {
+              type: DataTypes.STRING
+            }
           }
-
       )
+    migration.addIndex(
+        "authentications",
+        ['userId'],
+        {
+          indexName: 'userIdIndex',  // default = _ らしい
+          indicesType: 'UNIQUE'
+        }
+    )
     done()
   },
   down: function(migration, DataTypes, done) {
