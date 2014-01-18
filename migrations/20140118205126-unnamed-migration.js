@@ -47,6 +47,7 @@ module.exports = {
     done()
   },
   down: function(migration, DataTypes, done) {
+    migration.dropAllTables()
     // add reverting commands here, calling 'done' when finished
     done()
   }
