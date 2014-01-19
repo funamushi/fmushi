@@ -6,7 +6,7 @@ class Fmushi.Routers.App extends Backbone.Router
     @route 'register', 'register'
     @route '', 'root'
 
-  replaceScene: (name, options={}) ->
+  scene: (name, options={}) ->
     sceneClassName = name.replace /(?:^|[-_])(\w)/g, (_, c) ->
       if c? then c.toUpperCase() else ''
 
@@ -24,16 +24,16 @@ class Fmushi.Routers.App extends Backbone.Router
       @currentSceneName = name
 
   home: (userName) ->
-    @replaceScene 'home', userName: userName
+    @scene 'home', userName: userName
     
   mushi: (userName, mushiId) ->
-    @replaceScene 'home', userName: userName, focusMushiId: mushiId
+    @scene 'home', userName: userName, focusMushiId: mushiId
 
   register: ->
-    @replaceScene 'register'
+    @scene 'register'
 
   login: ->
-    @replaceScene 'login'
+    @scene 'login'
 
   root: ->
     viewer = Fmushi.viewer
