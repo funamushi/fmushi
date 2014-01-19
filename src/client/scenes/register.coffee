@@ -7,7 +7,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     mushi.anchor.x = 0.5
     mushi.anchor.y = 0.5
     mushi.position.x = center.x
-    mushi.position.y = center.y * 0.5
+    mushi.position.y = center.y * 0.7
     mushi.animationSpeed = 0.6
     mushi.visible = false
     mushi.gotoAndPlay 0
@@ -55,5 +55,9 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     dash.chain(back).start()
     
   showUsername: ->
-    $('.username').addClass('in')
+    $('#username-dialog').popover('show')
+
+    setTimeout ( =>
+      $('.username').addClass('in')
+      ), 1000
     
