@@ -1,9 +1,12 @@
-class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
+class Fmushi.Views.LoginForm extends Fmushi.Views.Base
   events:
-    'click #username-ok': 'usernameOk'
+    'submit': 'submit'
+
+  initialize: (options={}) ->
+    @isRegister = options.isRegister
 
   render: ->
-    @setElement JST['register-form']()
+    @setElement JST['login-form']()
     @
 
   submit: (e) ->
@@ -13,7 +16,7 @@ class Fmushi.Views.RegisterForm extends Fmushi.Views.Base
     .ajax
       dataType: 'json'
       type: 'POST'
-      url: '/register'
+      url: '/login'
       data: @$('form').serialize()
     .done (data) ->
       viewer = Fmushi.viewer
