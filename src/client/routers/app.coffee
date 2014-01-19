@@ -40,4 +40,4 @@ class Fmushi.Routers.App extends Backbone.Router
     if viewer.loggedIn
       Backbone.history.navigate viewer.url(), trigger: true
     else
-      Backbone.history.navigate '/login', trigger: true
+      Backbone.history.navigate '/register', trigger: true

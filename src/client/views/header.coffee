@@ -18,12 +18,9 @@ class Fmushi.Views.Header extends Fmushi.Views.Base
       @render()
 
   render: ->
-    loginShown = !Backbone.history.fragment.match(/register|login/)
-
     @$el.html JST['header']
       viewer: @model.toJSON()
       loggedIn: @model.loggedIn
-      loginShown: loginShown
     @
 
   login: ->

@@ -28,12 +28,11 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
 
     @world.addChild iwa
 
-    setTimeout ( => @trigger 'ready'), 20
+    @render()
+    setTimeout ( => @trigger 'ready'), 0
 
-  showForm: ->
-    form = new Fmushi.Views.RegisterForm isRegister: true
-    @$el.append form.render().el
-    @subview 'form', form
+  render: ->
+    @$el.html JST['register-form']()
 
   startMushi: ->
     mushi = @mushi
@@ -51,8 +50,10 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       .onUpdate ->
         mushi.position.x = @x
       .onComplete =>
-        @showForm()
+        @showUsername()
 
     dash.chain(back).start()
     
+  showUsername: ->
+    $('.username').addClass('in')
     

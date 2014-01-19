@@ -22,13 +22,13 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
 
   transitionIn: ->
     defer = $.Deferred()
-    @$el.addClass('is-visible').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+    @$el.addClass('in').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
       defer.resolve()
     defer.promise()
 
   transitionOut: ->
     defer = $.Deferred()
-    @$el.removeClass('is-visible').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+    @$el.removeClass('in').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
       defer.resolve()
     defer.promise()
 
