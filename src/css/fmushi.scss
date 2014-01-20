@@ -78,7 +78,15 @@
   left: 50%;
 }
 
-#register {
+#register-form {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+#login-form {
   position: absolute;
   top: 46%;
   left: 0;
@@ -89,9 +97,9 @@
 .scene {
   position: absolute;
   top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
+  right: 0;
 }
 
 .slide {

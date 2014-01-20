@@ -18,7 +18,6 @@ class Fmushi.Routers.App extends Backbone.Router
 
       Fmushi.scene = nextScene = new Fmushi.Scenes[sceneClassName](options)
       @listenTo nextScene, 'ready', =>
-        nextScene.$el.addClass @currentSceneName
         nextScene.transitionIn()
 
       @currentSceneName = name
