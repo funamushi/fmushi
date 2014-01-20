@@ -2,7 +2,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   events: ->
     'click #username-ok': 'showPassword'
     'click #password-cancel': 'showUsername'
-    'click #password-ok': ''
+    'click #password-ok': 'submit'
 
   initialize: (options) ->
     center = Fmushi.screenCenter()
@@ -92,3 +92,18 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       @$('.password').addClass('in')
       Backbone.history.navigate '/register/password'
       ), 350
+
+  submit: (e) ->
+    e.preventDefault()
+
+    Backbone
+    .ajax
+      dataType: 'json'
+      type: 'POST'
+      url: '/register'
+      data: @$('form').serialize()
+    .done (data) ->
+      viewer = Fmushi.viewer
+      viewer.login data
+      Backbone.history.navigate viewer.url(), trigger: true
+    
