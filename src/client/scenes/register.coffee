@@ -72,7 +72,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     @$('#username-dialog').popover('hide')
     @$('#password-dialog').popover('show')
 
-    setTimeout ( =>)
+    setTimeout ( =>
       @$('.username').removeClass('in')
       @$('.password').addClass('in')
       ), 350
