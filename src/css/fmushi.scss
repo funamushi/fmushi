@@ -78,9 +78,21 @@
   left: 50%;
 }
 
-#register, #login {
+#register-form {
   position: absolute;
-  top: 16%;
+  top: 46%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
+  section {
+    position: absolute;
+  }
+}
+
+#login-form {
+  position: absolute;
+  top: 26%;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -89,25 +101,24 @@
 .scene {
   position: absolute;
   top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
+  right: 0;
+}
+
+.slide {
   transition-property: -webkit-transform;
   transition-property: transform;
   transition-duration: 0.5s;
   transition-timing-function: ease;
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(1000px, 0, 0);
+  transform: translate3d(1000px, 0, 0);
 }
 
-.scene.is-visible {
+.slide.in {
   -webkit-transform: translate3d(0,0,0);
   -moz-transform: translate3d(0,0,0);
   -ms-transform: translate3d(0,0,0);
   -o-transform: translate3d(0,0,0);
   transform: translate3d(0, 0, 0);
-}
-
-.scene.login, .scene.register {
-  z-index: 1000;
 }

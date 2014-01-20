@@ -4,9 +4,11 @@ class Fmushi.Routers.App extends Backbone.Router
     @route ':userName/mushies/:mushiId', 'mushi'
     @route 'login', 'login'
     @route 'register', 'register'
+    @route 'register/username', 'registerUsername'
+    @route 'register/password', 'registerPassword'
     @route '', 'root'
 
-  replaceScene: (name, options={}) ->
+  scene: (name, options={}) ->
     sceneClassName = name.replace /(?:^|[-_])(\w)/g, (_, c) ->
       if c? then c.toUpperCase() else ''
 
@@ -18,26 +20,31 @@ class Fmushi.Routers.App extends Backbone.Router
 
       Fmushi.scene = nextScene = new Fmushi.Scenes[sceneClassName](options)
       @listenTo nextScene, 'ready', =>
-        nextScene.$el.addClass @currentSceneName
         nextScene.transitionIn()
 
       @currentSceneName = name
 
   home: (userName) ->
-    @replaceScene 'home', userName: userName
+    @scene 'home', userName: userName
     
   mushi: (userName, mushiId) ->
-    @replaceScene 'home', userName: userName, focusMushiId: mushiId
+    @scene 'home', userName: userName, focusMushiId: mushiId
 
   register: ->
-    @replaceScene 'register'
+    @scene 'register'
+
+  registerUsername: ->
+    @scene 'register', step: 'username'
+
+  registerPassword: ->
+    @scene 'register', step: 'password'
 
   login: ->
-    @replaceScene 'login'
+    @scene 'login'
 
   root: ->
     viewer = Fmushi.viewer
     if viewer.loggedIn
       Backbone.history.navigate viewer.url(), trigger: true
     else
-      Backbone.history.navigate '/login', trigger: true
+      Backbone.history.navigate '/register', trigger: true

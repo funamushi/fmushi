@@ -1,29 +1,27 @@
-<div {{#if isRegister}}id="register" action="/register"{{else}}id="login" action="/login"{{/if}} class="col-md-4 col-xs-10">
-<form>
-  <div class="form-group">
-    <input class="form-control input-lg" type="text" name="username" placeholder="ユーザ名">
-  </div>
-  <div class="form-group">
-    <input class="form-control input-lg" type="password" name="password" placeholder="パスワード">
-  </div>
-  <div class="form-group">
-    {{#if isRegister}}
-      <button type="submit" class="btn btn-default">登録する</button>
-    {{else}}
-      <button type="submit" class="btn btn-default">ログイン</button>
-    {{/if}}
-  </div>
-  <div class="form-group">
-    {{#if isRegister}}
-      <a class="navigate" href="/login">ユーザ名でログイン</a>
-    {{else}}
-      <a class="navigate" href="/register">登録する</a>
-    {{/if}}
-  </div>
-  <div class="form-group">
-    または、こういうアカウントを持っていると使えるよ。
-    <br>
-    Github・Twitter・Tumblr・Facebook
-  </div>
+<div id="username-dialog" class="control" style="left:50%; top:25%;"
+     data-content="「てめえ、何者だ」"
+     data-placement="top"></div>
+<div id="password-dialog" class="control" style="left:50%; top:25%;"
+     data-content="「合言葉はなんだっけ」"
+     data-placement="top"></div>
+
+<form id="register-form" action="/register" class="control col-md-4 col-xs-10">
+  <section class="username slide">
+    <div class="form-group">
+      <input class="form-control input-lg" type="text" name="username" placeholder="ユーザ名">
+    </div>
+    <div class="form-group">
+      <button id="username-ok" type="button" class="btn btn-default">俺さ</button>
+    </div>
+  </section>
+  <section class="password slide">
+    <div class="form-group">
+      <input class="form-control input-lg" type="password" name="password" placeholder="合言葉">
+    </div>
+    <div class="form-group">
+      <button id="password-ok" type="button" class="btn btn-default">OK</button>
+      <br>
+      <a id="password-cancel" href="#">&laquo;やっぱ名前違う</a>
+    </div>
+  </section>
 </form>
-</div>
