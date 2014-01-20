@@ -1,4 +1,9 @@
 class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
+  events: ->
+    'click #username-ok': 'showPassword'
+    'click #password-cancel': 'showUsername'
+    'click #password-ok': ''
+
   initialize: ->
     center = Fmushi.screenCenter()
 
@@ -55,9 +60,19 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     dash.chain(back).start()
     
   showUsername: ->
-    $('#username-dialog').popover('show')
+    @$('#username-dialog').popover('show')
+    @$('#password-dialog').popover('hide')
 
     setTimeout ( =>
-      $('.username').addClass('in')
-      ), 1000
+      @$('.username').addClass('in')
+      @$('.password').removeClass('in')
+      ), 350
     
+  showPassword: ->
+    @$('#username-dialog').popover('hide')
+    @$('#password-dialog').popover('show')
+
+    setTimeout ( =>)
+      @$('.username').removeClass('in')
+      @$('.password').addClass('in')
+      ), 350

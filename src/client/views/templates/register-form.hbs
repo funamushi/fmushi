@@ -1,6 +1,9 @@
 <div id="username-dialog" class="control" style="left:50%; top:25%;"
      data-content="「てめえ、何者だ」"
      data-placement="top"></div>
+<div id="password-dialog" class="control" style="left:50%; top:25%;"
+     data-content="「合言葉はなんだっけ」"
+     data-placement="top"></div>
 
 <form id="register-form" action="/register" class="control col-md-4 col-xs-10">
   <section class="username slide">
@@ -8,7 +11,16 @@
       <input class="form-control input-lg" type="text" name="username" placeholder="ユーザ名">
     </div>
     <div class="form-group">
-      <button id="username-ok" type="button" class="btn btn-default">だよ</button>
+      <button id="username-ok" type="button" class="btn btn-default">俺さ</button>
+    </div>
+  </section>
+  <section class="password slide">
+    <div class="form-group">
+      <input class="form-control input-lg" type="password" name="password" placeholder="合言葉">
+    </div>
+    <div class="form-group">
+      <button id="password-cancel" type="button" class="btn btn-default">&laquo;名前を言い直す</button>
+      <button id="password-ok" type="button" class="btn btn-default">これさ</button>
     </div>
   </section>
 </form>
