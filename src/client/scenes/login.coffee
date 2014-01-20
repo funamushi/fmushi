@@ -7,8 +7,20 @@ class Fmushi.Scenes.Login extends Fmushi.Scenes.Base
     setTimeout ( => @trigger 'ready'), 0
 
   render: ->
-    @$el.addClass('slide').html JST['login-form']()
+    @$el.html JST['login-form']()
     @
+
+  transitionIn: ->
+    defer = $.Deferred()
+    @$('#login-form').addClass('in').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+      defer.resolve()
+    defer.promise()
+
+  transitionOut: ->
+    defer = $.Deferred()
+    @$('#login-form').removeClass('in').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+      defer.resolve()
+    defer.promise()
 
   submit: (e) ->
     e.preventDefault()
