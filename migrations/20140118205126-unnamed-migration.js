@@ -19,6 +19,12 @@ module.exports = {
             email: {
               type: DataTypes.STRING,
               allowNUll: true
+            },
+            createdAt: {
+              type: DataTypes.DATE
+            }
+            updatedAt: {
+              type: DataTypes.DATE
             }
           },
           "authentications",
@@ -33,6 +39,33 @@ module.exports = {
             },
             uid: {
               type: DataTypes.STRING
+            },
+            createdAt: {
+              type: DataTypes.DATE
+            }
+            updatedAt: {
+              type: DataTypes.DATE
+            }
+
+          },
+          "equipments",
+          {
+            id: {
+              type: DataTypes.INTEGER,
+              autoIncrement: true,
+              primartyKey: true
+            },
+            fmushiId: {
+              type: DataTypes.INTEGER
+            },
+            itemId: {
+              type: DataTypes.INTEGER
+            },
+            createdAt: {
+              type: DataTypes.DATE
+            }
+            updatedAt: {
+              type: DataTypes.DATE
             }
           }
       )
@@ -43,7 +76,7 @@ module.exports = {
           indexName: 'userIdIndex',  // default = _ らしい
           indicesType: 'UNIQUE'
         }
-    )
+    ),
     done()
   },
   down: function(migration, DataTypes, done) {
