@@ -22,13 +22,21 @@ class Fmushi.Models.User extends Backbone.Model
   validate: (attrs) ->
     errors = []
 
-    if _.isEmpty(attrs.name)
+    if _.isEmpty attrs.name
       errors.push attr: 'name', message: '名前がありません。'
+
+    unless attrs.name.match /^[0-9A-Za-z]+$/
+      errors.push attr: 'name', message: '半角英数字で入力して下さい。'
+
+    if _.isEmpty attrs.password
+      errors.push attr: 'name', message: '合言葉がありません。'
 
     if attrs.fp < 0
       errors.push attr: 'fp', message: '0以下にできません。'
 
-    return errors if errors.length
+    if errors.length > 0
+      @trigger 'invalid', @, errors
+      return errors
 
   fetchViewer: (options={}) ->
     options.url = '/viewer'
