@@ -29,7 +29,7 @@ class Fmushi.Models.User extends Backbone.Model
       errors.push attr: 'name', message: '半角英数字で入力して下さい。'
 
     if _.isEmpty attrs.password
-      errors.push attr: 'name', message: '合言葉がありません。'
+      errors.push attr: 'password', message: '合言葉がありません。'
 
     if attrs.fp < 0
       errors.push attr: 'fp', message: '0以下にできません。'

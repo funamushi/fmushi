@@ -54,19 +54,44 @@ describe Fmushi.Models.Mushi, ->
         @server.respond()
         expect(@user.get 'name').to.be.empty
 
-  describe '#isValid', ->
+  describe '#validate', ->
     beforeEach ->
-      @user = new Fmushi.Models.User name: 'hoge', fp: 100
+      @user = new Fmushi.Models.User name: 'hoge', password: 'hoge', fp: 100
 
-    it 'nameは空にできない', ->
-      @user.set 'name', ''
-      expect(@user.isValid()).to.not.be.ok
-      expect(@user.validationError[0].attr).to.equal('name')
+    describe 'name', ->
+      it '空にできない', (done) ->
+        @user.on 'invalid', (user, errors) ->
+          expect(errors[0].attr).to.equal('name')
+          done()
 
-    it 'fpは0未満にできない', ->
-      @user.set 'fp', -1
-      expect(@user.isValid()).to.not.be.ok
-      expect(@user.validationError[0].attr).to.equal('fp')
+        @user.set 'name', ''
+        expect(@user.isValid()).to.not.be.ok
+
+      it '全角文字は使えない', (done) ->
+        @user.on 'invalid', (user, errors) ->
+          expect(errors[0].attr).to.equal('name')
+          done()
+
+        @user.set 'name', 'あいえうお'
+        expect(@user.isValid()).to.not.be.ok
+
+    describe 'password', ->
+      it '空にできない', (done) ->
+        @user.on 'invalid', (user, errors) ->
+          expect(errors[0].attr).to.equal('password')
+          done()
+
+        @user.set 'password', ''
+        expect(@user.isValid()).to.not.be.ok
+
+    describe 'fp', ->
+      it '0未満にできない', (done) ->
+        @user.on 'invalid', (user, errors) ->
+          expect(errors[0].attr).to.equal('fp')
+          done()
+
+        @user.set 'fp', -1
+        expect(@user.isValid()).to.not.be.ok
 
   describe '#addFp', ->
     beforeEach ->
