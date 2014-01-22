@@ -1,10 +1,19 @@
 class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   events: ->
-    'click #username-ok': 'showPassword'
-    'click #password-cancel': 'showUsername'
-    'click #password-ok': 'submit'
+    'click #username-ok':       'showPassword'
+    'click #password-cancel':   'showUsername'
+    'click #password-ok':       'submit'
+    'propertychange #name':     'input'
+    'input #name':              'input'
+    'change #name':             'input'
+    'propertychange #password': 'input'
+    'input #password':          'input'
+    'change #password':         'input'
 
   initialize: (options) ->
+    @user = new Fmushi.Models.User
+      password: 'めちゃめちゃがんばって生きているっちゅうねん'
+
     center = Fmushi.screenCenter()
 
     mushiTextures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
@@ -43,6 +52,8 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
 
   render: ->
     @$el.html JST['register-form']()
+    @$('#password').val @user.get('password')
+    @
 
   startMushi: (callback) ->
     @iwa.visible = false
@@ -77,12 +88,11 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       @$('.username').addClass('in')
       @$('.password').removeClass('in')
       @$('#username-dialog').popover('show')
-
-      Backbone.history.navigate '/register/username'
       ), 350
     
   showPassword: (e) ->
     e?.preventDefault()
+    return unless @user.isValid()
 
     @$('#username-dialog').popover('hide')
 
@@ -90,9 +100,21 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       @$('.username').removeClass('in')
       @$('.password').addClass('in')
       @$('#password-dialog').popover('show')
-  
-      Backbone.history.navigate '/register/password'
       ), 350
+
+  input: (e) ->
+    e.preventDefault()
+
+    $input = $(e.target)
+    val  = $input.val()
+    attr = $input.prop 'id'
+    @user.set attr, val, validate: true
+  
+    errors = @user.validationError
+    if _.any(errors, (error) -> error.attr is attr)
+      $input.removeClass('valid').addClass('invalid')
+    else
+      $input.removeClass('invalid').addClass('valid')
 
   submit: (e) ->
     e.preventDefault()

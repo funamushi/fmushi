@@ -4,8 +4,6 @@ class Fmushi.Routers.App extends Backbone.Router
     @route ':userName/mushies/:mushiId', 'mushi'
     @route 'login', 'login'
     @route 'register', 'register'
-    @route 'register/username', 'registerUsername'
-    @route 'register/password', 'registerPassword'
     @route '', 'root'
 
   scene: (name, options={}) ->
