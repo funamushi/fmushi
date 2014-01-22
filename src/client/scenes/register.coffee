@@ -1,14 +1,14 @@
 class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
-  events: ->
-    'click #user-name-ok':     'showPassword'
-    'click #user-password-cancel': 'showUsername'
-    'propertychange #user-name':     'input'
-    'input #user-name':              'input'
-    'change #user-name':             'input'
+  events:
+    'click          #user-name-ok': 'showPassword'
+    'click          #user-password-cancel': 'showUsername'
+    'click          #user-password-ok': 'register'
+    'propertychange #user-name': 'input'
+    'input          #user-name': 'input'
+    'change         #user-name': 'input'
     'propertychange #user-password': 'input'
-    'input #user-password':          'input'
-    'change #user-password':         'input'
-    'click #user-password-ok': 'register'
+    'input          #user-password': 'input'
+    'change         #user-password': 'input'
 
   initialize: (options) ->
     @user = new Fmushi.Models.User
@@ -124,3 +124,12 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     if confirm("この内容で登録します。よろしいですか？\n\nユーザ名:「#{@user.get 'name'}」\n好きな言葉:「#{@user.get 'password'}」")
       @user.register().done (data) ->
         Backbone.history.navigate '/', trigger: true
+
+
+
+
+
+
+
+
+
