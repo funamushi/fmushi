@@ -1,14 +1,14 @@
 class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   events: ->
-    'click #username-ok':       'showPassword'
-    'click #password-cancel':   'showUsername'
-    'click #password-ok':       'submit'
+    'click #username-ok':     'showPassword'
+    'click #password-cancel': 'showUsername'
     'propertychange #name':     'input'
     'input #name':              'input'
     'change #name':             'input'
     'propertychange #password': 'input'
     'input #password':          'input'
     'change #password':         'input'
+    'submit': 'submit'
 
   initialize: (options) ->
     @user = new Fmushi.Models.User
@@ -119,14 +119,10 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   submit: (e) ->
     e.preventDefault()
 
-    Backbone
-    .ajax
-      dataType: 'json'
-      type: 'POST'
-      url: '/register'
-      data: @$('form').serialize()
-    .done (data) ->
-      viewer = Fmushi.viewer
-      viewer.login data
-      Backbone.history.navigate viewer.url(), trigger: true
-    
+    return unless @user.isValid()
+
+    if confirm("この内容で登録します。よろしいですか？\n\nユーザ名:「#{@user.get 'name'}」\n好きな言葉:「#{@user.get 'password'}」")
+      1
+      # @user.register().done (data) ->
+      #   console.log arguments
+      #   Backbone.history.navigate '/', trigger: true

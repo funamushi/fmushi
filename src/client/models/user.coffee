@@ -29,7 +29,7 @@ class Fmushi.Models.User extends Backbone.Model
       errors.push attr: 'name', message: '半角英数字で入力して下さい。'
 
     if _.isEmpty attrs.password
-      errors.push attr: 'password', message: '合言葉がありません。'
+      errors.push attr: 'password', message: '好きな言葉がありません。'
 
     if attrs.fp < 0
       errors.push attr: 'fp', message: '0以下にできません。'
@@ -47,6 +47,16 @@ class Fmushi.Models.User extends Backbone.Model
       if res.status is 401
         defer = $.Deferred()
         defer.resolve this, 'unauthorized', defer
+
+  register: (options={}) ->
+    options.url    = '/register'
+    options.silent = true
+
+    @save({
+      name: @get('name'),
+      password: @get('password')
+    }, options).then (data) =>
+      @login data
 
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp
