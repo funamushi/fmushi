@@ -71,12 +71,12 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   showUsername: (e) ->
     e?.preventDefault()
 
-    @$('#username-dialog').popover('show')
     @$('#password-dialog').popover('hide')
 
     setTimeout ( =>
       @$('.username').addClass('in')
       @$('.password').removeClass('in')
+      @$('#username-dialog').popover('show')
 
       Backbone.history.navigate '/register/username'
       ), 350
@@ -85,11 +85,12 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     e?.preventDefault()
 
     @$('#username-dialog').popover('hide')
-    @$('#password-dialog').popover('show')
 
     setTimeout ( =>
       @$('.username').removeClass('in')
       @$('.password').addClass('in')
+      @$('#password-dialog').popover('show')
+  
       Backbone.history.navigate '/register/password'
       ), 350
 
