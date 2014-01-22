@@ -49,13 +49,14 @@ class Fmushi.Models.User extends Backbone.Model
         defer.resolve this, 'unauthorized', defer
 
   register: (options={}) ->
-    options.url    = '/register'
+    options.url    = '/register.json'
     options.silent = true
 
     @save({
       name: @get('name'),
       password: @get('password')
     }, options).then (data) =>
+      console.log arguments
       @login data
 
   addFp: (fp) ->

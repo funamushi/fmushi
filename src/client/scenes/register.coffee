@@ -122,14 +122,6 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     return unless @user.isValid()
 
     if confirm("この内容で登録します。よろしいですか？\n\nユーザ名:「#{@user.get 'name'}」\n好きな言葉:「#{@user.get 'password'}」")
-      @user.register().done (data) ->
+      Fmushi.viewer = @user
+      Fmushi.viewer.register().then (data) ->
         Backbone.history.navigate '/', trigger: true
-
-
-
-
-
-
-
-
-
