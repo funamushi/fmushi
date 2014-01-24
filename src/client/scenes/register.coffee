@@ -2,13 +2,13 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   events:
     'click          #user-name-ok': 'showPassword'
     'click          #user-password-cancel': 'showUsername'
-    'click          #user-password-ok': 'register'
-    'propertychange #user-name': 'input'
-    'input          #user-name': 'input'
-    'change         #user-name': 'input'
-    'propertychange #user-password': 'input'
-    'input          #user-password': 'input'
-    'change         #user-password': 'input'
+    'click          #user-password-ok': 'onSubmit'
+    'propertychange #user-name': 'onInput'
+    'input          #user-name': 'onInput'
+    'change         #user-name': 'onInput'
+    'propertychange #user-password': 'OnInput'
+    'input          #user-password': 'OnInput'
+    'change         #user-password': 'OnInput'
 
   initialize: (options) ->
     @user = new Fmushi.Models.User
@@ -34,10 +34,29 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     iwa.anchor.y = 0.5
     iwa.position.x = mushi.position.x
     iwa.position.y = mushi.position.y
+    iwa.pivot.x = 0.9
+    iwa.pivot.y = 0
     iwa.interactive = true
     iwa.buttonMode = true
+
+    iwaUp = new TWEEN.Tween(rotation: iwa.rotation)
+    .to({ rotation: 0.2 }, 100)
+    .onUpdate ->
+      iwa.rotation = @rotation
+
+    iwaDown = new TWEEN.Tween(rotation: iwa.rotation)
+    .to({ rotation: 0 })
+    .onUpdate ->
+      iwa.rotation = @rotation
+
+    iwaUp.chain(iwaDown).delay(1000).repeat(10).start()
+
     iwa.click = iwa.tap = (e) =>
+      iwaUp.stop()
       @startMushi()
+
+    @world.addChild iwa
+
 
     @world.addChild iwa
 
@@ -102,7 +121,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       @$('#password-dialog').popover('show')
       ), 350
 
-  input: (e) ->
+  onInput: (e) ->
     e.preventDefault()
 
     $input = $(e.target)
@@ -116,7 +135,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     else
       $input.removeClass('invalid').addClass('valid')
 
-  register: (e) ->
+  onSubmit: (e) ->
     e.preventDefault()
 
     return unless @user.isValid()
