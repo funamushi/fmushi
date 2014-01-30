@@ -31,12 +31,6 @@ class Fmushi.Routers.App extends Backbone.Router
   register: ->
     @scene 'register'
 
-  registerUsername: ->
-    @scene 'register', step: 'username'
-
-  registerPassword: ->
-    @scene 'register', step: 'password'
-
   login: ->
     @scene 'login'
 

@@ -116,7 +116,7 @@ class Fmushi.Vector extends Two.Vector
     { x: @x, y: @y }
 
 Fmushi.vec2 = (x, y) ->
-   new Fmushi.Vector(x, y)
+  new Fmushi.Vector(x, y)
 
 $ ->
   Fmushi.initialize()
