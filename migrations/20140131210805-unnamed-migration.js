@@ -1,30 +1,32 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
     // add altering commands here, calling 'done' when finished
-      migration.createTable(
-        'users',
+    migration.createTable(
+        'authentications',
         {
           id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primartyKey: true
           },
-          name: DataTypes.STRING,
-          fp: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0
-          },
-          email: {
-            type: DataTypes.STRING,
-            allowNUll: true
-          },
+          userId: DataTypes.INTEGER,
+          uid: DataTypes.STRING(125),
           createdAt: DataTypes.DATE,
           updatedAt: DataTypes.DATE
         }
-      ).complete(done)
+    ).complete(function(){
+       migration.addIndex(
+         'authentications',
+         ['userId'],
+         {
+           indexName: 'userIdIndex',
+           indicesType: 'UNIQUE'
+         }
+       ).complete(done)
+    })
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("users").complete(done)
     // add reverting commands here, calling 'done' when finished
+    migration.dropTable("authentications").complete(done)
   }
 }

@@ -1,8 +1,8 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
     // add altering commands here, calling 'done' when finished
-      migration.createTable(
-        'users',
+    migration.createTable(
+        'mushies',
         {
           id: {
             type: DataTypes.INTEGER,
@@ -10,21 +10,24 @@ module.exports = {
             primartyKey: true
           },
           name: DataTypes.STRING,
-          fp: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0
-          },
-          email: {
-            type: DataTypes.STRING,
-            allowNUll: true
-          },
+          userId: DataTypes.INTEGER,
+          rankId: DataTypes.INTEGER,
+          circleId: DataTypes.INTEGER,
           createdAt: DataTypes.DATE,
           updatedAt: DataTypes.DATE
         }
-      ).complete(done)
+      ).complete(function(){
+        migration.addIndex(
+          'mushies',
+          ['userId','rankId','circleId'],
+          {
+            indexName: 'mushiIndex'
+          }
+        )
+      }).complete(done)
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("users").complete(done)
     // add reverting commands here, calling 'done' when finished
+    migration.dropTable('mushies').complete(done)
   }
 }
