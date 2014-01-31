@@ -1,8 +1,7 @@
+require './helper'
+
 models = require '../src/server/models'
 User = models.User
-
-chai = require 'chai'
-expect = chai.expect
 
 describe 'User Modle test', ->
   describe 'expect user', ->
