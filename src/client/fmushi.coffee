@@ -106,7 +106,7 @@ window.Fmushi =
     Fmushi.renderer.resize(w, h)
 
     @screenSize = { w: w, h: h}
-    Fmushi.Events.trigger 'resize', @screenSize
+    Fmushi.Events.trigger 'resize', w, h
 
   screenCenter: ->
     { x: @screenSize.w / 2, y: @screenSize.h / 2 }

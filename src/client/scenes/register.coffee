@@ -14,14 +14,10 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     @user = new Fmushi.Models.User
       password: 'めちゃめちゃがんばって生きているっちゅうねん'
 
-    center = Fmushi.screenCenter()
-
     mushiTextures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @mushi = mushi = new PIXI.MovieClip mushiTextures
     mushi.anchor.x = 0.5
     mushi.anchor.y = 0.5
-    mushi.position.x = center.x
-    mushi.position.y = center.y * 0.7
     mushi.animationSpeed = 0.6
     mushi.visible = false
     mushi.gotoAndPlay 0
@@ -30,23 +26,26 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     iwaTexture = PIXI.Texture.fromFrame('iwa2.png')
     @iwa = iwa = new PIXI.Sprite iwaTexture
 
+    center = Fmushi.screenCenter()
     iwa.anchor.x = 0.5
     iwa.anchor.y = 0.5
-    iwa.position.x = mushi.position.x
-    iwa.position.y = mushi.position.y
+    iwa.position.x = center.x
+    iwa.position.y = center.y * 0.7
     iwa.interactive = true
     iwa.buttonMode = true
     iwa.click = iwa.tap = (e) =>
-      @startMushi()
+      @startMushi(iwa.position.x, iwa.position.y)
 
     @world.addChild iwa
 
-    @render()
+    @listenTo Fmushi.Events, 'resize', (w, h) ->
+      mushi.position.x = w * 0.5
+      mushi.position.y = (h * 0.5) * 0.7
 
-    if options.step is 'username'
-      @startMushi @showUsername
-    else if options.step is 'password'
-      @startMushi @showPassword
+      iwa.position.x = mushi.position.x
+      iwa.position.y = mushi.position.y
+
+    @render()
 
     setTimeout ( => @trigger 'ready'), 0
 
@@ -55,16 +54,16 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
     @$('#password').val @user.get('password')
     @
 
-  startMushi: (callback) ->
+  startMushi: (x, y) ->
     @iwa.visible = false
 
     mushi = @mushi
+    mushi.position.x = x
+    mushi.position.y = y
     mushi.visible = true
 
     fromX = mushi.position.x
     toX   = fromX - 100
-
-    callback ?= @showUsername
 
     dash = new TWEEN.Tween(x: fromX)
       .to({ x: toX })
@@ -75,7 +74,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       .onUpdate ->
         mushi.position.x = @x
       .onComplete =>
-        callback.call @
+        @showUsername()
 
     dash.chain(back).start()
     
@@ -84,11 +83,11 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
 
     @$('#password-dialog').popover('hide')
 
-    setTimeout ( =>
+    setTimeout =>
       @$('.username').addClass('in')
       @$('.password').removeClass('in')
       @$('#username-dialog').popover('show')
-      ), 350
+    , 350
     
   showPassword: (e) ->
     e?.preventDefault()
