@@ -1,29 +1,26 @@
-<div id="username-dialog" class="control" style="left:50%; top:25%;"
-     data-content="「てめえ、何者だ」"
-     data-placement="top"></div>
-<div id="password-dialog" class="control" style="left:50%; top:25%;"
-     data-content="「好きな言葉は?」"
+<div id="dialog" class="control" style="left:50%; top:25%;"
+     data-contents="「てめえ、何者だ」|「好きな言葉は?」"
      data-placement="top"></div>
 
-<form id="register-form" class="control col-md-5 col-sm-5 col-xs-10">
-  <section class="username slide">
+<form id="register-form" class="control col-sm-3 col-xs-10">
+  <section class="slide current">
     <div class="form-group">
       <input class="form-control input-lg alphabet" type="text" id="user-name" placeholder="ユーザ名" data-attr="name" required>
       <span class="help-block">半角英数字が使えます。</span>
     </div>
     <div class="form-group">
-      <button id="user-name-ok" type="button" class="btn btn-default">OK</button>
+      <button type="button" class="next btn btn-default">OK</button>
     </div>
   </section>
-  <section class="password slide">
+  <section class="slide before">
     <div class="form-group">
-      <input class="form-control input-lg valid" type="text" id="user-password" value="めちゃめちゃがんばって生きているっちゅうねん" data-attr="password" style="font-size:small;" required>
+      <input class="form-control input-lg valid" type="text" id="user-password" data-attr="password" style="font-size:small;" required>
       <span class="help-block">ログインするときの合言葉になります。</span>
     </div>
     <div class="form-group">
-      <button id="user-password-ok" type="button" class="btn btn-default">OK</button>
+      <button id="user-password-ok" type="button" class="next btn btn-default">OK</button>
       <br>
-      <a id="user-password-cancel" href="#">戻る</a>
+      <a class="prev" href="#">戻る</a>
     </div>
   </section>
 </form>

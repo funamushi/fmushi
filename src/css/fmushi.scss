@@ -135,21 +135,3 @@
   left: 0;
   right: 0;
 }
-
-.slide {
-  transition-property: -webkit-transform;
-  transition-property: transform;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
-  -webkit-transform: translate3d(1000px, 0, 0);
-  transform: translate3d(1000px, 0, 0);
-}
-
-.slide.in {
-  -webkit-transform: translate3d(0,0,0);
-  -moz-transform: translate3d(0,0,0);
-  -ms-transform: translate3d(0,0,0);
-  -o-transform: translate3d(0,0,0);
-  transform: translate3d(0, 0, 0);
-}
-
