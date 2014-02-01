@@ -4,7 +4,7 @@ class Fmushi.Scenes.Login extends Fmushi.Scenes.Base
 
   initialize: ->
     @render()
-    @$el.css(transformOrigin: '10px 10px', rotateX: '180deg')
+    @$el.css(rotateX: '180deg')
     setTimeout ( => @trigger 'ready'), 0
 
   render: ->
@@ -13,14 +13,18 @@ class Fmushi.Scenes.Login extends Fmushi.Scenes.Base
 
   transitionIn: ->
     defer = $.Deferred()
-    @$el.transition perspective: '1000px', rotateX: '0deg', =>
+    @$el
+    .css(transformOrigin: '10px 10px')
+    .transition perspective: '1000px', rotateX: '0deg', =>
       @$el.attr 'style', ''
       defer.resolve()
     defer.promise()
 
   transitionOut: ->
     defer = $.Deferred()
-    @$el.transition perspective: '1000px', rotateX: '100deg', ->
+    @$el
+    .css(transformOrigin: '10px 10px')
+    .transition perspective: '1000px', rotateX: '100deg', ->
       defer.resolve()
     defer.promise()
 
