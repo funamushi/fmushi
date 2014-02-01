@@ -2,6 +2,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
   events:
     'click          .next': 'onNext'
     'click          .prev': 'onPrev'
+    'click          .register': 'onRegister'
     'propertychange #user-name': 'onInput'
     'input          #user-name': 'onInput'
     'change         #user-name': 'onInput'
@@ -14,6 +15,8 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       password: 'めちゃめちゃがんばって生きているっちゅうねん'
 
     @listenTo @user, 'change', @onUpdate
+    @listenTo @user, 'invalid', ->
+      console.log arguments
 
     @initSprite()
     @render()
@@ -54,6 +57,7 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
 
   render: ->
     @$el.html JST['register-form'] user: @user.toJSON()
+    @$('.slide').css x: '100%'
     @
 
   startMushi: (x, y) ->
@@ -76,15 +80,23 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       .onUpdate ->
         mushi.position.x = @x
       .onComplete =>
-        @showUsername()
+        @onNext()
 
     dash.chain(back).start()
 
-  register: ->
-    if register = @user.register()
-      register.then (data) =>
+  onRegister: ->
+    register = @user.register()
+    console.log register
+    console.log @user.isValid()
+    console.log @user.validationError
+    if register
+      $('#register').button('loading')
+      register
+      .then (data) =>
         Fmushi.viewer = @user
         Backbone.history.navigate '/', trigger: true
+      .always ->
+        $('#register').button('reset')
     
   onInput: (e) ->
     e.preventDefault()
@@ -101,43 +113,44 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       $input = $(input)
       attr = $input.data('attr')
     
-      if _.any(errors, (error) -> error.attr is attr)
+      if _.any(user.validationError, (error) -> error.attr is attr)
         $input.removeClass('valid').addClass('invalid')
       else
         $input.removeClass('invalid').addClass('valid')
 
-  showDialog: ->
+  onNext: (e) ->
+    e?.preventDefault()
+
+    $current = @$('.slide.current')
+    $next =
+      if $current.length
+        $current.next('.slide')
+      else
+        @$('.slide:first')
+
+    $current.removeClass('current').transition x: '-100%'
+    $next.addClass('current').transition x: '0%'
+
+    @dialog()
+
+  onPrev: (e) ->
+    e?.preventDefault()
+
+    $current = @$('.slide.current')
+    $prev =
+      if $current.length
+        $current.prev('.slide')
+      else
+        @$('.slide:first')
+    $current.removeClass('current').transition x: '0%'
+    $prev.addClass('current').transition x: '100%'
+
+    @dialog()
+
+  dialog: ->
     content = @$('.slide.current').data('kotoba')
     if content
       $dialog = $('#dialog')
       $dialog.popover 'destroy'
       $dialog.data 'content', content
       $dialog.popover 'show'
-
-  onNext: (e) ->
-    e.preventDefault()
-
-    $current = @$('.side.current')
-    $next =
-      if $current.length
-        $current.next('.slide')
-      else
-        @$('.slide:first')
-    $current.css x: '-100%'
-    $next.css x: '-100%'
-
-    @showDialog()
-
-  onPrev: (e) ->
-    e.preventDefault()
-
-    $current = @$('.side.current')
-    $prev =
-      if $current.length
-        $current.prev('.slide')
-      else
-        @$('.slide:first')
-    $current.css x: '0%'
-    $prev.css x: '-100%'
-
-    @showDialog()

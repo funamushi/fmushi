@@ -119,5 +119,8 @@ Fmushi.vec2 = (x, y) ->
   new Fmushi.Vector(x, y)
 
 $ ->
+  unless $.support.transition
+    $.fn.transition = $.fn.animate;
+
   Fmushi.initialize()
  
