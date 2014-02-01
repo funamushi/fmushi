@@ -15,6 +15,12 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
 
     @listenTo @user, 'change', @onUpdate
 
+    @initSprite()
+    @render()
+
+    setTimeout ( => @trigger 'ready'), 0
+
+  initSprite: ->
     mushiTextures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
     @mushi = mushi = new PIXI.MovieClip mushiTextures
     mushi.anchor.x = 0.5
@@ -46,13 +52,8 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       iwa.position.x = mushi.position.x
       iwa.position.y = mushi.position.y
 
-    @render()
-
-    setTimeout ( => @trigger 'ready'), 0
-
   render: ->
-    @$el.html JST['register-form']()
-    @$('#password').val @user.get('password')
+    @$el.html JST['register-form'] user: @user.toJSON()
     @
 
   startMushi: (x, y) ->
@@ -78,25 +79,12 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
         @showUsername()
 
     dash.chain(back).start()
-    
 
   register: ->
-    return unless @user.isValid()
-
-    if confirm("この内容で登録します。よろしいですか？\n\nユーザ名:「#{@user.get 'name'}」\n好きな言葉:「#{@user.get 'password'}」")
-      Fmushi.viewer = @user
-      Fmushi.viewer.register().then (data) ->
+    if register = @user.register()
+      register.then (data) =>
+        Fmushi.viewer = @user
         Backbone.history.navigate '/', trigger: true
-
-  dialog: (i=0) ->
-    e?.preventDefault()
-
-    contents = @$('#dialog').data('contents').split(/|/g)
-    content = contents[i]
-
-    setTimeout =>
-      @$('#username-dialog').popover('show')
-    , 350
     
   onInput: (e) ->
     e.preventDefault()
@@ -118,8 +106,38 @@ class Fmushi.Scenes.Register extends Fmushi.Scenes.Base
       else
         $input.removeClass('invalid').addClass('valid')
 
+  showDialog: ->
+    content = @$('.slide.current').data('kotoba')
+    if content
+      $dialog = $('#dialog')
+      $dialog.popover 'destroy'
+      $dialog.data 'content', content
+      $dialog.popover 'show'
+
   onNext: (e) ->
     e.preventDefault()
 
+    $current = @$('.side.current')
+    $next =
+      if $current.length
+        $current.next('.slide')
+      else
+        @$('.slide:first')
+    $current.css x: '-100%'
+    $next.css x: '-100%'
+
+    @showDialog()
+
   onPrev: (e) ->
     e.preventDefault()
+
+    $current = @$('.side.current')
+    $prev =
+      if $current.length
+        $current.prev('.slide')
+      else
+        @$('.slide:first')
+    $current.css x: '0%'
+    $prev.css x: '-100%'
+
+    @showDialog()

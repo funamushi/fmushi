@@ -11,7 +11,8 @@
     "jquery-mousewheel": "~3.1.6",
     "bootstrap": "~3.0.3",
     "hammerjs": "~1.0.6",
-    "modernizr": "~2.7.1"
+    "modernizr": "~2.7.1",
+    "jquery.transit": "~0.9.9"
   },
   "overrides": {
     "lodash": {
@@ -41,6 +42,9 @@
     },
     "modernizr": {
       "main": "modernizr.js"
+    },
+    "jquery.transit": {
+      "main": "jquery.transit.js"
     }
   }
 }
