@@ -12,10 +12,11 @@ module.exports = {
         name: DataTypes.STRING,
         fp: DataTypes.INTEGER,
         effect: DataTypes.STRING,
-        itemType: {
-          type: DataTypes.ENUM,
-          values: ['consumption','head','foot','leftHand','rightHand','arm','ear','body','neck']
-        },
+        itemType: DataTypes.STRING(128),
+//        itemType: {
+//          type: DataTypes.ENUM,
+//          values: ['consumption','head','foot','leftHand','rightHand','arm','ear','body','neck']
+//        },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
       }
