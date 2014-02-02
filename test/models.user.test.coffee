@@ -15,6 +15,5 @@ describe 'User Modle test', ->
       expect(@user.email).to.not.be.ok
 
     it 'fpが0だよね？', ->
-      console.log @user
       expect(@user.fp).to.be.eql(0)
 
