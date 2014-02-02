@@ -2,8 +2,5 @@ Sequelize = require 'sequelize'
 
 sequelize = module.parent.exports
 
-Rank = sequelize.define 'Rank',
-  grade: Sequelize.INTEGER
-  name:  Sequelize.STRING
-,
+module.exports = sequelize.define 'Rank', {},
   tableName: 'ranks'
