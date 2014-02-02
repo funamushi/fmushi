@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "cordell": "~0.1.5",
-    "ansi-color": "0.2.1",
+    "ansi-color": "*",
     "growl": "~1.7.0",
     "async": "~0.2.9",
     "debug": "~0.7.4",
