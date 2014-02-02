@@ -6,7 +6,7 @@ module.exports = {
         id: {
           type: DataTypes.INTEGER,
           autoIncrement: true,
-          primartyKey: true
+          primaryKey: true
         },
         fmushiId: DataTypes.INTEGER,
         itemId: DataTypes.INTEGER,

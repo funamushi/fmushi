@@ -7,7 +7,7 @@ module.exports = {
         id: {
           type: DataTypes.INTEGER,
           autoIncrement: true,
-          primartyKey: true
+          primaryKey: true
         },
         grade: DataTypes.INTEGER,
         name: DataTypes.STRING,
