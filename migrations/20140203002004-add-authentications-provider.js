@@ -1,5 +1,5 @@
 module.exports = {
-  up: function(migration, DataTypes) {
+  up: function(migration, DataTypes, done) {
     migration.addColumn(
       'authentications',
       'provider',
@@ -7,12 +7,12 @@ module.exports = {
         type: DataTypes.ENUM,
         values: ['twitter', 'password', 'github', 'facebook', 'tumblr']
       }
-    );
+    ).complete(done);
   },
-  down: function(migration, DataTypes) {
+  down: function(migration, DataTypes, done) {
     migration.removeColumn(
       'authentications',
       'provider'
-    );
+    ).complete(done);
   }
 }
