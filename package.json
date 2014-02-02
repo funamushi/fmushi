@@ -34,12 +34,10 @@
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
     "pg": "~2.9.0",
-    "config": "~0.4.33",
     "sequelize": "~1.7.0-rc4"
   },
   "devDependencies": {
     "cordell": "~0.1.5",
-    "ansi-color": "0.2.1",
     "growl": "~1.7.0",
     "async": "~0.2.9",
     "debug": "~0.7.4",

@@ -1,7 +1,11 @@
+path = require 'path'
 Sequelize = require "sequelize"
-config = require('config').db
 
-module.exports = exports = sequelize = new Sequelize config.url, config
+configs = require path.resolve('./config/config.json')
+config = configs[process.env.NODE_ENV or 'development']
+
+module.exports = exports = sequelize =
+  new Sequelize(config.database, config.username, config.password, config)
 
 exports.User           = require('./user')
 exports.Authentication = require('./authentication')

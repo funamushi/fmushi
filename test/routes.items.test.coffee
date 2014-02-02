@@ -16,4 +16,3 @@ describe 'GET /items', ->
       json = JSON.parse(res.text)
       expect(json).to.be.instanceof(Array)
       done()
-      

@@ -16,4 +16,3 @@ describe 'GET /ranks', ->
       json = JSON.parse(res.text)
       expect(json).to.be.instanceof(Array)
       done()
-      
