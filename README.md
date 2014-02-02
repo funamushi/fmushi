@@ -3,7 +3,7 @@ F虫
 
 [![Build Status](https://travis-ci.org/funamushi/fmushi.png?branch=master)](https://travis-ci.org/funamushi/fmushi)
 
-## おまえの開発環境
+## 開発環境
 
 ```bash
 $ npm install -g brunch
@@ -19,8 +19,8 @@ $ brunch w -s
 
 ## でーたべ
 ```
-createuser ユーザ名
-createdb -O オーナ名 fmushi_development
+createuser fmushi
+createdb -O fmushi fmushi_development
 ```
 
 ## とすて
