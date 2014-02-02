@@ -20,7 +20,7 @@ module.exports = {
         {
           indexName: 'equipmentsIndex'
         }
-        ).complete(done)
+      ).complete(done)
     })
     // add altering commands here, calling 'done' when finished
   },
