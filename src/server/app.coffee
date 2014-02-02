@@ -5,8 +5,8 @@ express  = require 'express'
 hbs      = require 'hbs'
 passport = require 'passport'
 
-sequelize = require './models'
-routes    = require './routes'
+models = require './models'
+routes = require './routes'
 
 module.exports = exports = app = express()
 
@@ -52,6 +52,5 @@ app.param 'format', routes.acceptOverride
 app.param 'user',   routes.user.findByName
 
 app.startServer = ->
-  sequelize.sync()
   app.listen app.get('port'), ->
     console.log "Fmushi server listening on port:#{app.get('port')}"
