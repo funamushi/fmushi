@@ -4,7 +4,7 @@
     "password": null,
     "database": "fmushi_development",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
     "pool": {
       "maxConnections": 15,
       "maxIdleTime": 30
@@ -15,7 +15,7 @@
     "password": null,
     "database": "fmushi_test",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
     "pool": {
       "maxConnections": 15,
       "maxIdleTime": 30
@@ -26,7 +26,7 @@
     "password": "BOurz0fnE-I2ebb8PZRZ_hG4qO",
     "database": "dckbiftm9h176g",
     "host": "ec2-54-197-237-231.compute-1.amazonaws.com",
-    "dialect": "postgres"
+    "dialect": "postgres",
     "pool": {
       "maxConnections": 15,
       "maxIdleTime": 30

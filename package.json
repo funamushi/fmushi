@@ -34,7 +34,6 @@
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
     "pg": "~2.9.0",
-    "config": "~0.4.33",
     "sequelize": "~1.7.0-rc4"
   },
   "devDependencies": {
