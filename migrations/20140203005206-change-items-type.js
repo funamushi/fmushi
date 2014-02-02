@@ -24,7 +24,7 @@ module.exports = {
   down: function(migration, DataTypes, done) {
     migration.removeColumn('items', 'type');
 
-    migration.changeColumn(
+    migration.addColumn(
       'items',
       'ItemType',
       {
