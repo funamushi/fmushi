@@ -7,7 +7,7 @@ module.exports = {
           id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
-            primartyKey: true
+            primaryKey: true
           },
           name: DataTypes.STRING,
           userId: DataTypes.INTEGER,
