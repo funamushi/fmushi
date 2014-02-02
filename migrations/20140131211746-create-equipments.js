@@ -18,7 +18,7 @@ module.exports = {
         'equipments',
         ['fmushiId','itemId'],
         {
-          indexName: 'equipmentsIndex',
+          indexName: 'equipmentsIndex'
         }
         ).complete(done)
     })

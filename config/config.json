@@ -22,10 +22,10 @@
     }
   },
   "production": {
-    "username": "beiqgaedbnajmb",
-    "password": "BOurz0fnE-I2ebb8PZRZ_hG4qO",
-    "database": "dckbiftm9h176g",
-    "host": "ec2-54-197-237-231.compute-1.amazonaws.com",
+    "username": "kvbxrcogucsjzb",
+    "password": "lDAcXC6aiUsEY2VcN84E8yF2f8",
+    "database": "d1h1nh6q6v2t7t",
+    "host": "ec2-54-225-101-164.compute-1.amazonaws.com",
     "dialect": "postgres",
     "pool": {
       "maxConnections": 15,
