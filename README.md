@@ -19,9 +19,8 @@ $ brunch w -s
 
 ## でーたべ
 ```
-createdb DB名
 createuser ユーザ名
-alter database DB名 owner to ユーザ名
+createdb -O オーナ名 fmushi_development
 ```
 
 ## とすて
