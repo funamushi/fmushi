@@ -28,7 +28,7 @@ module.exports = {
       'items',
       'ItemType',
       {
-        type: DataTypes.String(128)
+        type: DataTypes.STRING(128)
       }
     ).complete(done);
   }
