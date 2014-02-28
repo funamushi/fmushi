@@ -1,4 +1,4 @@
-module.exports = {
+module.exports =
   up: (migration, DataTypes, done)  ->
       migration.createTable(
         'users'
@@ -19,4 +19,3 @@ module.exports = {
   ,
   down: (migration, DataTypes, done) ->
     migration.dropTable("users").complete(done)
-}
