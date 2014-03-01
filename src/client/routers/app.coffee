@@ -17,7 +17,7 @@ class Fmushi.Routers.App extends Backbone.Router
           prev.dispose()
 
       Fmushi.scene = nextScene = new Fmushi.Scenes[sceneClassName](options)
-      @listenTo nextScene, 'ready', =>
+      @listenTo nextScene, 'ready', ->
         nextScene.transitionIn()
 
       @currentSceneName = name
@@ -28,15 +28,9 @@ class Fmushi.Routers.App extends Backbone.Router
   mushi: (userName, mushiId) ->
     @scene 'home', userName: userName, focusMushiId: mushiId
 
-  register: ->
-    @scene 'register'
-
-  login: ->
-    @scene 'login'
-
   root: ->
     viewer = Fmushi.viewer
     if viewer.loggedIn
       Backbone.history.navigate viewer.url(), trigger: true
     else
-      Backbone.history.navigate '/register', trigger: true
+      @scene 'home'

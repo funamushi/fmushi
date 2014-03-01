@@ -24,23 +24,6 @@ exports.mushies =
           { type: 'weapon', itemId: 1 }
         ]
       }
-      {
-        id: 2,
-        name: 'ヘイプー'
-        rankId: 2
-        x: 850
-        y: 200
-      }
-      {
-        id: 3
-        name: 'がちゅん'
-        rankId: 3
-        x: 1000
-        y: 350,
-        equipments: [
-          { type: 'weapon', itemId: 2 }
-        ]
-      }
     ]
 
   show: (req, res) ->
@@ -51,7 +34,7 @@ exports.mushies =
       json: ->
         res.send {}
 
-exports.circles =   
+exports.circles =
   index: (req, res) ->
     res.send [
       {

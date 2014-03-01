@@ -22,7 +22,9 @@ app.configure ->
   app.use express.methodOverride()
   app.use express.static(path.resolve("./public"))
   app.use express.cookieParser()
-  app.use express.session secret: '8d70fc7007c3068bb12217d9d89bb584ae2539e10f0563c0a1612df4e2bf8b6e9416367d0044159b4be9af57292a8e8d6c47930574d8b63cae92a3b69c8281fb'
+  app.use express.session
+    secret: '8d70fc7007c3068bb12217d9d89bb584ae2539e10f0563c0a1612df4e2bf8b6e' +
+            '9416367d0044159b4be9af57292a8e8d6c47930574d8b63cae92a3b69c8281fb'
   app.use passport.initialize()
   app.use passport.session()
   app.use app.router
@@ -34,17 +36,17 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/ranks.:format?', routes.ranks.index
-app.get '/items.:format?', routes.items.index
+app.get '/ranks', routes.ranks.index
+app.get '/items', routes.items.index
 
-app.get  '/viewer.:format?', routes.viewer.authorize, routes.viewer.show
-app.post '/register.:format?', routes.viewer.register
-app.post '/login.:format?', passport.authenticate('local'), routes.viewer.login
+app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
+app.post '/register', routes.viewer.register
+app.post '/login', passport.authenticate('local'), routes.viewer.login
 app.delete '/logout', routes.viewer.logout
 
 app.get '/:user.:format?',         routes.user.show
-app.get '/:user/mushies.:format?', routes.user.mushies.index
-app.get '/:user/circles.:format?', routes.user.circles.index
+app.get '/:user/mushies', routes.user.mushies.index
+app.get '/:user/circles', routes.user.circles.index
 
 app.get '/*', routes.root
 

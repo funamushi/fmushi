@@ -2,11 +2,12 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   defaultZoom: 1
 
   initialize: (options) ->
+    viewer = Fmushi.viewer
     @owner = owner =
-      if options.userName is Fmushi.viewer.get('name')
-        Fmushi.viewer
-      else
+      if options.userName? and options.userName isnt viewer.get('name')
         new Fmushi.Models.User name: options.userName
+      else
+        Fmushi.viewer
 
     @mushies = new Fmushi.Collections.Mushies [], user: owner
     @circles = new Fmushi.Collections.Circles [], user: owner

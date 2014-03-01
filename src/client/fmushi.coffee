@@ -12,9 +12,15 @@ window.Fmushi =
     Fmushi.items  = new Fmushi.Collections.Items
     Fmushi.ranks  = new Fmushi.Collections.Ranks
 
-    if _.contains $('title').text(), 'F虫'
-      @startAnimation()
-      @fetch()
+    return unless _.contains $('title').text(), 'F虫'
+    @startAnimation()
+
+    @fetch().then =>
+      @router = new Fmushi.Routers.App
+      Backbone.history.start pushState: true, root: '/'
+
+      @header = header = new Fmushi.Views.Header(model: Fmushi.viewer)
+      header.render()
 
   fetch: ->
     $.when(
@@ -22,12 +28,7 @@ window.Fmushi =
       Fmushi.viewer.fetchViewer()
       Fmushi.items.fetch()
       Fmushi.ranks.fetch()
-    ).done =>
-      @router = new Fmushi.Routers.App
-      Backbone.history.start pushState: true, root: '/'
-
-      @header = header = new Fmushi.Views.Header(model: Fmushi.viewer)
-      header.render()
+    )
 
   fetchAsset: (args) ->
     defer = $.Deferred()
@@ -71,7 +72,7 @@ window.Fmushi =
 
     Events = Fmushi.Events
     elapsed = 0
-    mainLoop = => 
+    mainLoop = ->
       currentTime = getTime()
       delta = currentTime - lastTime
       elapsed += delta
@@ -87,13 +88,13 @@ window.Fmushi =
       lastTime = getTime()
     requestAnimFrame mainLoop
 
-  getTime: -> 
+  getTime: ->
     now = window.performance && (
-      performance.now || 
-      performance.mozNow || 
-      performance.msNow || 
-      performance.oNow || 
-      performance.webkitNow );
+      performance.now ||
+      performance.mozNow ||
+      performance.msNow ||
+      performance.oNow ||
+      performance.webkitNow)
 
     msec = (now && now.call(performance)) || (new Date().getTime())
     msec * 0.001
@@ -120,7 +121,7 @@ Fmushi.vec2 = (x, y) ->
 
 $ ->
   unless $.support.transition
-    $.fn.transition = $.fn.animate;
+    $.fn.transition = $.fn.animate
 
   Fmushi.initialize()
  
