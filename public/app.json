@@ -1,108 +1,60 @@
 {"frames": {
 
-"default.png":
+"fmushi_idle.png":
 {
-	"frame": {"x":170,"y":146,"w":114,"h":15},
+	"frame": {"x":710,"y":2,"w":168,"h":231},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":114,"h":15},
-	"sourceSize": {"w":118,"h":17}
+	"spriteSourceSize": {"x":23,"y":17,"w":168,"h":231},
+	"sourceSize": {"w":200,"h":261}
 },
-"f.png":
+"fmushi_walk-1-0.png":
 {
-	"frame": {"x":483,"y":2,"w":21,"h":24},
+	"frame": {"x":182,"y":2,"w":172,"h":233},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":4,"w":21,"h":24},
-	"sourceSize": {"w":21,"h":34}
+	"spriteSourceSize": {"x":23,"y":16,"w":172,"h":233},
+	"sourceSize": {"w":200,"h":261}
 },
-"funa.png":
+"fmushi_walk-1-1.png":
 {
-	"frame": {"x":422,"y":2,"w":59,"h":28},
+	"frame": {"x":536,"y":2,"w":172,"h":231},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":3,"w":59,"h":28},
-	"sourceSize": {"w":63,"h":34}
+	"spriteSourceSize": {"x":23,"y":18,"w":172,"h":231},
+	"sourceSize": {"w":200,"h":261}
 },
-"iwa.png":
+"fmushi_walk-2-0.png":
 {
-	"frame": {"x":2,"y":234,"w":147,"h":177},
+	"frame": {"x":356,"y":2,"w":178,"h":231},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":147,"h":177},
-	"sourceSize": {"w":151,"h":181}
+	"spriteSourceSize": {"x":22,"y":16,"w":178,"h":231},
+	"sourceSize": {"w":200,"h":261}
 },
-"iwa2.png":
+"fmushi_walk-2-1.png":
 {
-	"frame": {"x":242,"y":2,"w":178,"h":142},
+	"frame": {"x":2,"y":2,"w":178,"h":233},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":1,"w":178,"h":142},
-	"sourceSize": {"w":178,"h":144}
+	"spriteSourceSize": {"x":22,"y":19,"w":178,"h":233},
+	"sourceSize": {"w":200,"h":261}
 },
-"m4.png":
+"machi.png":
 {
-	"frame": {"x":2,"y":2,"w":238,"h":138},
+	"frame": {"x":880,"y":2,"w":94,"h":75},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":12,"y":0,"w":238,"h":138},
-	"sourceSize": {"w":250,"h":154}
-},
-"mushi_walk-1.png":
-{
-	"frame": {"x":2,"y":142,"w":166,"h":90},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":8,"y":8,"w":166,"h":90},
-	"sourceSize": {"w":178,"h":108}
-},
-"mushi_walk-2.png":
-{
-	"frame": {"x":2,"y":413,"w":162,"h":92},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":9,"y":5,"w":162,"h":92},
-	"sourceSize": {"w":178,"h":108}
-},
-"mushi_walk-3.png":
-{
-	"frame": {"x":151,"y":234,"w":162,"h":78},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":8,"y":16,"w":162,"h":78},
-	"sourceSize": {"w":178,"h":108}
-},
-"puya.png":
-{
-	"frame": {"x":422,"y":32,"w":58,"h":30},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":1,"w":58,"h":30},
-	"sourceSize": {"w":64,"h":34}
-},
-"zoom_in.png":
-{
-	"frame": {"x":456,"y":64,"w":32,"h":30},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":30},
-	"sourceSize": {"w":32,"h":30}
-},
-"zoom_out.png":
-{
-	"frame": {"x":422,"y":64,"w":32,"h":30},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":30},
-	"sourceSize": {"w":32,"h":30}
+	"spriteSourceSize": {"x":35,"y":30,"w":94,"h":75},
+	"sourceSize": {"w":200,"h":261}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "app.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":1024,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f743f65fb4ba7677e53d24461aab9005:c7ad6d77b327bdc00ce55656fbd26c0b:23f715f2c0cf00dbda21668e8325e638$"
+	"smartupdate": "$TexturePacker:SmartUpdate:98065554ae41eb737d7b06da6e5faf4c:0a57ec13e3e3cbea54d3be303cc1219d:23f715f2c0cf00dbda21668e8325e638$"
 }
 }

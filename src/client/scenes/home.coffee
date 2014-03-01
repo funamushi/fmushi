@@ -38,8 +38,6 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     @initDrag()
     @fetch().done =>
-      @effects = new Fmushi.EffectsManager
-
       add = _.bind @addEntity, @
       @circles.each add
       @mushies.each add

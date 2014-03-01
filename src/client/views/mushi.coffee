@@ -42,16 +42,12 @@ mushiStates =
   hustle:
     elapsed: 0
 
-    animationSpeed: 0.5
+    animationSpeed: 0.25
   
-    speed: 40
+    speed: 30
   
     onEnter: (view) ->
       view.sprite.animationSpeed = @animationSpeed
-      view.weaponSprite.visible = true
-  
-    onExit: (view) ->
-      view.weaponSprite.visible = false
   
     update: (view, delta) ->
       return if view.gripped
@@ -75,7 +71,7 @@ mushiStates =
           model.set x: x + @speed * delta
 
 class Fmushi.Views.Mushi extends Fmushi.Views.Base
-  initialize: -> 
+  initialize: ->
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
     @listenTo @model, 'point:out',  @onPointOut
@@ -93,11 +89,15 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     Fmushi.scene.shapeWorld.add shape
 
     @initSprite()
-    @initWeapon()
     @initState()
 
   initSprite: ->
-    textures = (PIXI.Texture.fromFrame("mushi_walk-#{i}.png") for i in [1..3])
+    textures = _.map [
+      'fmushi_walk-1-0.png'
+      'fmushi_walk-1-1.png'
+      'fmushi_walk-2-0.png'
+      'fmushi_walk-2-1.png'
+    ], (name) -> PIXI.Texture.fromFrame(name)
     @sprite = sprite = new PIXI.MovieClip(textures)
     sprite.gotoAndPlay 0
 
@@ -112,19 +112,20 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.interactive = true
     sprite.buttonMode = true
   
-    texture = PIXI.Texture.fromFrame('default.png')
+    texture = PIXI.Texture.fromFrame('machi.png')
     text = new PIXI.Sprite texture
     text.anchor.x = 0.5
     text.anchor.y = 0.5
-    text.position.x = 0
-    text.position.y = -20
+    text.position.x = 20
+    text.position.y = 0
     sprite.addChild text
 
     sprite.mousedown = sprite.touchstart = (e) =>
       e.originalEvent.preventDefault()
       @gripped = true
 
-    sprite.mouseup = sprite.mouseupoutside = sprite.touchend = sprite.touchendoutside = (e) =>
+    sprite.mouseup = sprite.mouseupoutside =
+    sprite.touchend = sprite.touchendoutside = (e) =>
       e.originalEvent.preventDefault()
       @gripped = false
 
@@ -137,20 +138,9 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
     Fmushi.scene.world.addChild sprite
 
-  initWeapon: ->
-    texture = PIXI.Texture.fromFrame('m4.png')
-    @weaponSprite = weaponSprite = new PIXI.Sprite texture
-    weaponSprite.anchor.x = 0.5
-    weaponSprite.anchor.y = 0
-    weaponSprite.position.x = 0
-    weaponSprite.position.y = -180
-    weaponSprite.visible = false
-    @sprite.weapon = weaponSprite
-    @sprite.addChild weaponSprite
-
   initState: ->
     @stateMachine = new Fmushi.StateMachene(@)
-    @stateMachine.to 'walking'  
+    @stateMachine.to 'walking'
 
     @listenTo Fmushi.Events, 'update', (delta) =>
       @stateMachine.update delta
