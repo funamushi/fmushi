@@ -93,7 +93,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
     attrs = @model.toJSON()
     sprite.anchor.x = 0.5
-    sprite.anchor.y = 0
+    sprite.anchor.y = 0.5
     sprite.position.x = attrs.x
     sprite.position.y = attrs.y
     sprite.scale.x = 0.5
@@ -114,7 +114,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     texture = PIXI.Texture.fromFrame('machi.png')
     text = new PIXI.Sprite texture
     text.anchor.x = 0.5
-    text.anchor.y = 0
+    text.anchor.y = 0.5
     text.position.x = 0
     text.position.y = 0
     sprite.addChild text
@@ -174,10 +174,15 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     circleId = changed.circleId
     unless _.isUndefined(circleId)
       if circleId?
-        circle = Fmushi.scene.circles.get(circleId)
-        @stateMachine.to circle?.get('state')
-      # else
-      #   @stateMachine.to 'walking'
+        circle = @model.circle
+        if circle?
+          @stateMachine.to circle.get('state')
+          if color = circle.color()
+            filter = new PIXI.ColorMatrixFilter
+            filter.matrix = color.colorMatrix
+            @sprite.filters = [filter]
+        else
+          @sprite.filters = null
 
   onPointIn: (model) ->
     @pointShape.visible = true

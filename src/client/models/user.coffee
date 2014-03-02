@@ -56,7 +56,6 @@ class Fmushi.Models.User extends Backbone.Model
       name: @get('name'),
       password: @get('password')
     }, options).then (data) =>
-      console.log arguments
       @login data
 
   addFp: (fp) ->

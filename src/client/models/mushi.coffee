@@ -1,7 +1,7 @@
 class Fmushi.Models.Mushi extends Backbone.Model
   Object.defineProperties @prototype,
     circle:
-      get: -> @_cirlce
+      get: -> @_circle
       set: (val) ->
         @_circle = val
         @set 'circleId', val?.get('id')
@@ -16,23 +16,15 @@ class Fmushi.Models.Mushi extends Backbone.Model
 
   initialize: ->
     @r = 30 * @get('groth') # body
-    @equipments ?= new Fmushi.Collections.Equipments
+    @equipments = new Fmushi.Collections.Equipments
+    @rank       = new Fmushi.Models.Rank
 
-  set: (key, val, options) ->
-    if typeof key is 'object'
-      attrs = key
-      options = val
-    else
-      (attrs = {})[key] = val
+    @on 'change:rankId', (model, val) =>
+      @rank.set Fmushi.ranks.get(val)?.toJSON()
 
-    @rank = Fmushi.ranks.get(attrs.rankId)
-
-    equipments = attrs.equipments
-    @equipments ?= new Fmushi.Collections.Equipments
-    @equipments.reset attrs.equipments
-    delete attrs.equipments
-
-    super attrs, options
+    @on 'change:equipments', (model, val) =>
+      @equipments.reset val
+      @unset 'equipments'
 
   pos: ->
     new Fmushi.Vector @get('x'), @get('y')

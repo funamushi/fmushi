@@ -4,8 +4,41 @@ class Fmushi.Models.Circle extends Backbone.Model
     y: 0
     r: 400
 
+  colors:
+    hustle:
+      lineColor: '#F4D6E0'
+      fillColor: '#DE7699'
+      colorMatrix: [
+        3,0,0,0
+        0,1,0,0
+        0,0,1,0
+        0,0,0,1
+      ]
+    rest:
+      lineColor: '#D6E9C9'
+      fillColor: '#72C575'
+      colorMatrix: [
+        1,0,0,0
+        0,3,0,0
+        0,0,1,0
+        0,0,0,1
+      ]
+    walking:
+      lineColor: '#CCE9F9'
+      fillColor: '#4CBAEB'
+      colorMatrix: [
+        1,0,0,0
+        0,1,0,0
+        0,0,2,0
+        0,0,0,1
+      ]
+
   initialize: ->
     @entities = {}
+
+  color: ->
+    state = @get 'state'
+    @colors[state]
 
   pos: ->
     new Fmushi.Vector @get('x'), @get('y')
@@ -58,15 +91,14 @@ class Fmushi.Models.Circle extends Backbone.Model
   addEntity: (entity) ->
     return if @haveEntity(entity)
     @entities[entity.cid] = entity
-    entity.set 'circleId', @get('id')
+    entity.circle = @
     @trigger 'circle:add', entity, _.size(@entities)
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
     delete @entities[entity.cid]
-    entity.set 'circleId', null
+    entity.circle = null
     @trigger 'circle:remove', entity, _.size(@entities)
 
   haveEntity: (entity) ->
     @entities[entity.cid]?
-  

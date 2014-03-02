@@ -2,9 +2,10 @@ class Fmushi.Views.Circle extends Fmushi.Views.Base
   initialize: ->
     attrs = @model.toJSON()
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
-    shape.stroke = attrs.lineColor
-    shape.fill   = attrs.fillColor
-    shape.linewidth = 3
+    if color = @model.color()
+      shape.stroke = color.lineColor
+      shape.fill   = color.fillColor
+      shape.linewidth = 3
     Fmushi.scene.shapeWorld.add shape
 
     for v in @shape.vertices

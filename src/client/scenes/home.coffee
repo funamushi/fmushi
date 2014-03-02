@@ -56,12 +56,12 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
           y: center.y
           zoom: @defaultZoom
 
-  fetch: -> 
+  fetch: ->
     promises = [
       @circles.fetch(silent: true)
       @mushies.fetch(silent: true)
     ]
-    promises.push @owner.fetch(silent: true) if @owner.isNew()
+    promises.push @owner.fetch() if @owner.isNew()
     $.when.apply($, promises).done =>
       @trigger 'ready'
 
@@ -258,9 +258,9 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     super()
     defer = $.Deferred()
     @camera.set zoom: 0.01
-    setTimeout ( -> console.log('hge'); defer.resolve() ), 1000
+    setTimeout ( -> defer.resolve() ), 1000
     defer.promise()
 
   reorderZ: ->
     @world.children = _.sortBy @world.children, (sprite) ->
-      sprite.position.ypp
+      sprite.position.y
