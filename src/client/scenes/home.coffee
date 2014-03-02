@@ -1,5 +1,5 @@
 class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
-  defaultZoom: 1
+  defaultZoom: 0.75
 
   initialize: (options) ->
     viewer = Fmushi.viewer

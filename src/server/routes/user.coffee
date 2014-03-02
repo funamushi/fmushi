@@ -24,6 +24,26 @@ exports.mushies =
           { type: 'weapon', itemId: 1 }
         ]
       }
+      {
+        id: 2
+        name: 'プヤプヤプンヤ'
+        rankId: 1
+        x: 700
+        y: 200
+        equipments: [
+          { type: 'weapon', itemId: 1 }
+        ]
+      }
+      {
+        id: 3
+        name: 'プヤプヤプンヤ'
+        rankId: 1
+        x: 700
+        y: 300
+        equipments: [
+          { type: 'weapon', itemId: 1 }
+        ]
+      }
     ]
 
   show: (req, res) ->
@@ -41,7 +61,7 @@ exports.circles =
         id: 1
         x: 0
         y: 50
-        r: 200
+        r: 400
         state: 'hustle'
         lineColor: '#F4D6E0'
         fillColor: '#DE7699'
@@ -50,7 +70,7 @@ exports.circles =
         id: 2
         x: 500
         y: 450
-        r: 150
+        r: 300
         state: 'rest'
         lineColor: '#D6E9C9'
         fillColor: '#72C575'
@@ -59,7 +79,7 @@ exports.circles =
         id: 3
         x: 800
         y: 400
-        r: 100
+        r: 200
         state: 'walking'
         lineColor: '#CCE9F9'
         fillColor: '#4CBAEB'
