@@ -166,7 +166,7 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
       @pointShape.translation.y = y if @pointShape
 
     if d = changed.direction
-      if d == 'left'
+      if d is 'left'
         @sprite.scale.x = 0.5
       else
         @sprite.scale.x = -0.5
@@ -181,8 +181,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
             filter = new PIXI.ColorMatrixFilter
             filter.matrix = color.colorMatrix
             @sprite.filters = [filter]
-        else
-          @sprite.filters = null
+      else
+        @sprite.filters = null
 
   onPointIn: (model) ->
     @pointShape.visible = true
