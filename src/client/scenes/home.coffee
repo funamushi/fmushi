@@ -263,4 +263,4 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
   reorderZ: ->
     @world.children = _.sortBy @world.children, (sprite) ->
-      sprite.position.y
+      sprite.position.ypp
