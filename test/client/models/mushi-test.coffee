@@ -1,4 +1,14 @@
 describe Fmushi.Models.Mushi, ->
+  describe 'set circle', ->
+    beforeEach ->
+      @circle = new Fmushi.Models.Circle(id: 100)
+      @mushi  = new Fmushi.Models.Mushi
+
+    it 'circleId attributeを更新する', ->
+      @mushi.circle = @circle
+      expect(@mushi.get 'circleId').to.equal(@circle.get 'id')
+      
+
   describe '#set', ->
     before ->
       Fmushi.ranks = new Fmushi.Collections.Ranks [
@@ -17,4 +27,4 @@ describe Fmushi.Models.Mushi, ->
 
     it 'equipmentsのattributeをプロパティにセットする', ->
       @mushi.set 'equipments', [{id: 1}]
-      expect(@mushi.equipments.first().get('id')).to.equal 1
+      expect(@mushi.equipments.first().get 'id').to.equal 1

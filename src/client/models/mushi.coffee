@@ -1,4 +1,11 @@
 class Fmushi.Models.Mushi extends Backbone.Model
+  Object.defineProperties @prototype,
+    circle:
+      get: -> @_cirlce
+      set: (val) ->
+        @_circle = val
+        @set 'circleId', val?.get('id')
+
   defaults: ->
     src: "/img/funamushi.png"
     x: 0
@@ -18,15 +25,12 @@ class Fmushi.Models.Mushi extends Backbone.Model
     else
       (attrs = {})[key] = val
 
-    rankId = attrs.rankId
-    unless _.isUndefined(rankId)
-      @rank = Fmushi.ranks.get(rankId)
+    @rank = Fmushi.ranks.get(attrs.rankId)
 
     equipments = attrs.equipments
-    unless _.isUndefined(equipments)
-      @equipments ?= new Fmushi.Collections.Equipments
-      @equipments.reset equipments
-      delete attrs.equipments
+    @equipments ?= new Fmushi.Collections.Equipments
+    @equipments.reset attrs.equipments
+    delete attrs.equipments
 
     super attrs, options
 
