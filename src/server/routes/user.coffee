@@ -66,15 +66,15 @@ exports.circles =
       }
       {
         id: 2
-        x: 500
-        y: 450
+        x: 700
+        y: 650
         r: 300
         state: 'rest'
       }
       {
         id: 3
-        x: 800
-        y: 400
+        x: 1200
+        y: 600
         r: 200
         state: 'walking'
       }
