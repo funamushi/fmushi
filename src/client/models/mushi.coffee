@@ -21,7 +21,7 @@ class Fmushi.Models.Mushi extends Backbone.Model
     @equipments = new Fmushi.Collections.Equipments(@get 'equipments')
 
     @on 'change:rankId', (model, val) =>
-      @rank = Fmushi.ranks.get(val)
+      @rank = (Fmushi.ranks.get(val) or null)
 
   pos: ->
     new Fmushi.Vector @get('x'), @get('y')
