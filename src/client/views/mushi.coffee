@@ -92,8 +92,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     sprite.gotoAndPlay 0
 
     attrs = @model.toJSON()
-    sprite.anchor.x = 0.4
-    sprite.anchor.y = 0.5
+    sprite.anchor.x = 0.5
+    sprite.anchor.y = 0
     sprite.position.x = attrs.x
     sprite.position.y = attrs.y
     sprite.scale.x = 0.5
@@ -114,8 +114,8 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     texture = PIXI.Texture.fromFrame('machi.png')
     text = new PIXI.Sprite texture
     text.anchor.x = 0.5
-    text.anchor.y = 0.5
-    text.position.x = 20
+    text.anchor.y = 0
+    text.position.x = 0
     text.position.y = 0
     sprite.addChild text
 

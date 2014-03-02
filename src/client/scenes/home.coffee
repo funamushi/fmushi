@@ -19,6 +19,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @listenTo @circles, 'add', @addEntity
     @listenTo @mushies, 'add', @addEntity
     @listenTo @mushies, 'change', @collisionDetection
+    @listenTo @mushies, 'change:y', @reorderZ
 
     @listenTo Fmushi.router, 'route:home', (userName) ->
       @focusOut()
@@ -99,7 +100,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
 
-    .on 'dragend', (e) =>
+    .on 'dragend', (e) ->
       e.preventDefault()
       lastDragPoint = null
 
@@ -233,7 +234,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       .onUpdate ->
         scene.cameraFixed @x, @y, @zoom
       .onComplete ->
-        scene.locked = false
+         scene.locked = false
       .start()
 
   onFocusEntityChanged: (entity) ->
@@ -259,3 +260,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @camera.set zoom: 0.01
     setTimeout ( -> console.log('hge'); defer.resolve() ), 1000
     defer.promise()
+
+  reorderZ: ->
+    @world.children = _.sortBy @world.children, (sprite) ->
+      sprite.position.y
