@@ -1,9 +1,9 @@
 mushiStates =
   rest:
-    animationSpeed: 0.1
-
     onEnter: (view) ->
-      view.sprite.animationSpeed = @animationSpeed
+      view.sprite.stop()
+      view.sprite.textures = view.idleTextues
+      view.sprite.gotoAndPlay 0
 
     update: (view, delta) ->
       
@@ -16,7 +16,10 @@ mushiStates =
     speed: 30
   
     onEnter: (view) ->
+      view.sprite.stop()
+      view.sprite.textures = view.walkingTextures
       view.sprite.animationSpeed = @animationSpeed
+      view.sprite.gotoAndPlay 0
   
     update: (view, delta) ->
       return if view.gripped
@@ -47,7 +50,10 @@ mushiStates =
     speed: 30
   
     onEnter: (view) ->
+      view.sprite.stop()
+      view.sprite.textures = view.walkingTextures
       view.sprite.animationSpeed = @animationSpeed
+      view.sprite.gotoAndPlay 0
   
     update: (view, delta) ->
       return if view.gripped
@@ -82,14 +88,15 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @initState()
 
   initSprite: ->
-    textures = _.map [
+    @walkingTextures = _.map [
       'fmushi_walk-1-0.png'
       'fmushi_walk-1-1.png'
       'fmushi_walk-2-0.png'
       'fmushi_walk-2-1.png'
     ], (name) -> PIXI.Texture.fromFrame(name)
-    @sprite = sprite = new PIXI.MovieClip(textures)
-    sprite.gotoAndPlay 0
+
+    @idleTextues = [PIXI.Texture.fromFrame('fmushi_idle.png')]
+    @sprite = sprite = new PIXI.MovieClip(@idleTextues)
 
     attrs = @model.toJSON()
     sprite.anchor.x = 0.5
