@@ -6,13 +6,13 @@
     "tweenjs": "*",
     "backbone": "~1.1.0",
     "jquery": "~2.0.3",
-    "pixi": "1.4.2",
     "two": "~0.3.0",
     "jquery-mousewheel": "~3.1.6",
     "bootstrap": "~3.0.3",
     "hammerjs": "~1.0.6",
     "modernizr": "~2.7.1",
-    "jquery.transit": "~0.9.9"
+    "jquery.transit": "~0.9.9",
+    "pixi.js": "~1.5.1"
   },
   "overrides": {
     "lodash": {
@@ -24,9 +24,6 @@
         "jquery": "*"
       },
       "main": "backbone.js"
-    },
-    "pixi": {
-      "main": "bin/pixi.dev.js"
     },
     "tweenjs": {
       "main": "build/tween.min.js"

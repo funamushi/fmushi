@@ -111,6 +111,15 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
     sprite.interactive = true
     sprite.buttonMode = true
+
+    # f = new PIXI.ColorMatrixFilter
+    # f.matrix = [
+    #   3,0,0,0
+    #   0,1,0,0
+    #   0,0,1,0
+    #   0,0,0,1
+    # ]
+    # sprite.filters = [f]
   
     texture = PIXI.Texture.fromFrame('machi.png')
     text = new PIXI.Sprite texture
