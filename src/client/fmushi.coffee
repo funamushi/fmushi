@@ -8,7 +8,7 @@ window.Fmushi =
   fps: 24
   debug: false
   initialize: ->
-    Fmushi.viewer = new Fmushi.Models.User
+    Fmushi.viewer = new Fmushi.Models.User(name: 'hadashiA')
     Fmushi.items  = new Fmushi.Collections.Items
     Fmushi.ranks  = new Fmushi.Collections.Ranks
 

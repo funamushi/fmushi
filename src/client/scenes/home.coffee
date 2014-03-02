@@ -61,7 +61,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
       @circles.fetch(silent: true)
       @mushies.fetch(silent: true)
     ]
-    promises.push @owner.fetch() if @owner.isNew()
+    promises.push(@owner.fetch()) if @owner isnt Fmushi.viewer
     $.when.apply($, promises).done =>
       @trigger 'ready'
 

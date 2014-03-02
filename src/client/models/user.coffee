@@ -10,7 +10,7 @@ class Fmushi.Models.User extends Backbone.Model
     if name?
       "/#{@get('name')}"
     else
-      ''
+      '/'
 
   login: (attributes, options) ->
     @set attributes, options
