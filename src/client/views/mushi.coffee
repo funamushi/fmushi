@@ -78,16 +78,6 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     @listenTo @model, 'focus:in',   @onFocusIn
     @listenTo @model, 'focus:out',  @onFocusOut
 
-    @pointShape = shape = Fmushi.two.makeRectangle(
-      @model.get('x'), @model.get('y'),
-      @model.r * 2.5, @model.r * 1.5
-    )
-    shape.stroke = '#4CBAEB'
-    shape.fill = '#CCE9F9'
-    shape.opacity = 1
-    shape.visible = false
-    Fmushi.scene.shapeWorld.add shape
-
     @initSprite()
     @initState()
 
@@ -146,6 +136,17 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
         @model.set worldPos
 
     Fmushi.scene.world.addChild sprite
+
+    @pointShape = shape = Fmushi.two.makeRectangle(
+      @model.get('x'), @model.get('y'),
+      @sprite.width * 1.1, sprite.height * 1.1
+    )
+    shape.stroke = '#4CBAEB'
+    shape.fill = '#CCE9F9'
+    shape.opacity = 1
+    shape.visible = false
+    Fmushi.scene.shapeWorld.add shape
+
 
   initState: ->
     @stateMachine = new Fmushi.StateMachene(@)
