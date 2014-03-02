@@ -22,7 +22,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
   render: ->
     mushies = @collection.map (mushi) ->
       attr = mushi.toJSON()
-      attr.rank = mushi.rank.toJSON()
+      attr.rank = mushi.rank?.toJSON()
       attr
 
     @setElement JST['mushies/panel']

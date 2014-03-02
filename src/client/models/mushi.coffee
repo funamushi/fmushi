@@ -16,15 +16,12 @@ class Fmushi.Models.Mushi extends Backbone.Model
 
   initialize: ->
     @r = 30 * @get('groth') # body
-    @equipments = new Fmushi.Collections.Equipments
-    @rank       = new Fmushi.Models.Rank
+
+    @rank       = Fmushi.ranks.get(@get 'rankId')
+    @equipments = new Fmushi.Collections.Equipments(@get 'equipments')
 
     @on 'change:rankId', (model, val) =>
-      @rank.set Fmushi.ranks.get(val)?.toJSON()
-
-    @on 'change:equipments', (model, val) =>
-      @equipments.reset val
-      @unset 'equipments'
+      @rank = Fmushi.ranks.get(val)
 
   pos: ->
     new Fmushi.Vector @get('x'), @get('y')
