@@ -19,9 +19,6 @@ window.Fmushi =
       @router = new Fmushi.Routers.App
       Backbone.history.start pushState: true, root: '/'
 
-      @header = header = new Fmushi.Views.Header(model: Fmushi.viewer)
-      header.render()
-
   fetch: ->
     $.when(
       @fetchAsset ['/app.json']
