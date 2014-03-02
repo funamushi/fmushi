@@ -39,7 +39,7 @@ class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
   focus: (e) ->
     e.preventDefault()
     mushi = @mushiFromEvent(e)
-    Backbone.history.navigate mushi.url(), trigger: true
+    Fmushi.scene.focus mushi
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')

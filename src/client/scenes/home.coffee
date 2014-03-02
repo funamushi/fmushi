@@ -148,7 +148,7 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
   addEntity: (model) ->
-    view = 
+    view =
       if model instanceof Fmushi.Models.Mushi
         new Fmushi.Views.Mushi model: model
       else if model instanceof Fmushi.Models.Circle
@@ -159,8 +159,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
   entity: (model) ->
     @subview model.cid
 
-  focus: (entityOrId) ->
-    entity = @mushies.get(entityOrId)
+  focus: (entity) ->
+    entity = @mushies.get(entity)
     return if @focusEntity is entity
 
     @camera.set
@@ -175,6 +175,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
     @listenTo entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:in', entity
 
+    Backbone.history.navigate entity.url()
+
   focusOut: ->
     return unless @focusEntity
 
@@ -186,6 +188,8 @@ class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
 
     @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:out', entity
+
+    Backbone.history.navigate @owner.url()
 
   cameraFixed: (x, y, zoom) ->
     camera     = @camera

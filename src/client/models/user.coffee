@@ -6,7 +6,11 @@ class Fmushi.Models.User extends Backbone.Model
     @loggedIn = false
 
   url: ->
-    "/#{@get('name')}"
+    name = @get 'name'
+    if name?
+      "/#{@get('name')}"
+    else
+      ''
 
   login: (attributes, options) ->
     @set attributes, options
