@@ -7,7 +7,6 @@ class Fmushi.Models.Mushi extends Backbone.Model
         @set 'circleId', (val?.get('id') or null)
 
   defaults: ->
-    src: "/img/funamushi.png"
     x: 0
     y: 0
     groth: 1
