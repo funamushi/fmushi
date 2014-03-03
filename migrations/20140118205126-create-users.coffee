@@ -16,6 +16,6 @@ module.exports =
           createdAt: DataTypes.DATE
           updatedAt: DataTypes.DATE
       ).complete(done)
-  ,
+  
   down: (migration, DataTypes, done) ->
     migration.dropTable("users").complete(done)
