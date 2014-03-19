@@ -89,13 +89,13 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
   initSprite: ->
     @walkingTextures = _.map [
-      'fmushi_walk-1-0.png'
-      'fmushi_walk-1-1.png'
-      'fmushi_walk-2-0.png'
-      'fmushi_walk-2-1.png'
+      'mushi_walk-1-0.png'
+      'mushi_walk-1-1.png'
+      'mushi_walk-2-0.png'
+      'mushi_walk-2-1.png'
     ], (name) -> PIXI.Texture.fromFrame(name)
 
-    @idleTextues = [PIXI.Texture.fromFrame('fmushi_idle.png')]
+    @idleTextues = [PIXI.Texture.fromFrame('mushi_idle.png')]
     @sprite = sprite = new PIXI.MovieClip(@idleTextues)
 
     attrs = @model.toJSON()
@@ -118,13 +118,13 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
     # ]
     # sprite.filters = [f]
   
-    texture = PIXI.Texture.fromFrame('machi.png')
-    text = new PIXI.Sprite texture
-    text.anchor.x = 0.5
-    text.anchor.y = 0.5
-    text.position.x = 0
-    text.position.y = 0
-    sprite.addChild text
+    # texture = PIXI.Texture.fromFrame('machi.png')
+    # text = new PIXI.Sprite texture
+    # text.anchor.x = 0.5
+    # text.anchor.y = 0.5
+    # text.position.x = 0
+    # text.position.y = 0
+    # sprite.addChild text
 
     sprite.mousedown = sprite.touchstart = (e) =>
       e.originalEvent.preventDefault()

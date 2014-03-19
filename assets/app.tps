@@ -171,12 +171,11 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>fmushi_idle.png</filename>
-            <filename>fmushi_walk-1-0.png</filename>
-            <filename>fmushi_walk-1-1.png</filename>
-            <filename>fmushi_walk-2-0.png</filename>
-            <filename>fmushi_walk-2-1.png</filename>
-            <filename>machi.png</filename>
+            <filename>mushi_idle.png</filename>
+            <filename>mushi_walk-1-0.png</filename>
+            <filename>mushi_walk-1-1.png</filename>
+            <filename>mushi_walk-2-0.png</filename>
+            <filename>mushi_walk-2-1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
