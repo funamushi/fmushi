@@ -4,7 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.2.1</string>
+        <string>3.3.1</string>
+        <key>fileName</key>
+        <string>/Users/hadashi/dev/fmushi/assets/app.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -59,6 +61,8 @@
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
         <uint>0</uint>
+        <key>webpQualityLevel</key>
+        <uint>101</uint>
         <key>textureSubPath</key>
         <string></string>
         <key>textureFormat</key>
@@ -171,11 +175,11 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>mushi_idle.png</filename>
-            <filename>mushi_walk-1-0.png</filename>
-            <filename>mushi_walk-1-1.png</filename>
-            <filename>mushi_walk-2-0.png</filename>
-            <filename>mushi_walk-2-1.png</filename>
+            <filename>frames/fmushi_idle.png</filename>
+            <filename>frames/fmushi_walk-1-0.png</filename>
+            <filename>frames/fmushi_walk-1-1.png</filename>
+            <filename>frames/fmushi_walk-2-1.png</filename>
+            <filename>frames/fmushi_walk-2-0.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
