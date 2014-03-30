@@ -3,10 +3,7 @@ task :rename do
   %w(idle walk-1-0 walk-1-1 walk-2-0 walk-2-1).each_with_index do |name, i|
     to   = "./frames/fmushi_#{name}.png"
     from = "./frames/fmushi_#{'%03d' % (i + 1)}.png"
-
-    unless File.exists? to
-      File.rename from, to
-    end
+    sh "mv #{from} #{to}"
   end
 end
 
@@ -16,7 +13,7 @@ task :gif do
     " -dispose previous" <<
     " -delay 25" <<
     " -loop 0 " <<
-    " ./frames/fmushi_walk_*.png" <<
+    " ./frames/fmushi_walk-*.png" <<
     " ./frames/fmushi_walk.gif"
 end
 
