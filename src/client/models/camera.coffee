@@ -5,7 +5,6 @@ module.exports = class Camera extends Backbone.Model
     zoom: 1
 
   initialize: (options) ->
-    @user = options.user
     @offset = { x: 0, y: 0 }
 
   validate: (attrs) ->

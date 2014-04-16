@@ -1,3 +1,5 @@
+Fmushi = require 'fmushi'
+
 module.exports = class AppRouter extends Backbone.Router
   initialize: ->
     @route ':userName', 'home'
@@ -5,17 +7,15 @@ module.exports = class AppRouter extends Backbone.Router
     @route '', 'root'
 
   scene: (name, options={}) ->
-    sceneClassName = name.replace /(?:^|[-_])(\w)/g, (_, c) ->
-      if c? then c.toUpperCase() else ''
-
     if name isnt @currentSceneName
       prev = Fmushi.scene
       if prev?
         prev.transitionOut().done ->
           prev.dispose()
 
-      Fmushi.scene = nextScene = new Fmushi.Scenes[sceneClassName](options)
-      @listenTo nextScene, 'ready', ->
+      Scene = require("scenes/#{name}")
+      Fmushi.scene = nextScene = new Scene(options)
+      nextScene.once 'ready', ->
         nextScene.transitionIn()
 
       @currentSceneName = name
@@ -29,6 +29,7 @@ module.exports = class AppRouter extends Backbone.Router
   root: ->
     viewer = Fmushi.viewer
     if viewer.loggedIn
-      Backbone.history.navigate viewer.url(), trigger: true
+      @scene 'home', userName: viewer.get('name')
+      Backbone.history.navigate viewer.url()
     else
       @scene 'home'

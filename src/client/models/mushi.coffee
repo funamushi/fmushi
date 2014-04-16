@@ -1,4 +1,8 @@
-class Fmushi.Models.Mushi extends Backbone.Model
+Fmushi     = require 'fmushi'
+Vector     = require 'vector'
+Equipments = require 'collections/equipments'
+
+module.exports = class Mushi extends Backbone.Model
   Object.defineProperties @prototype,
     circle:
       get: -> @_circle
@@ -10,20 +14,21 @@ class Fmushi.Models.Mushi extends Backbone.Model
     x: 0
     y: 0
     groth: 1
-    rankId: 1
     direction: 'left'
+
+  relations: [
+    {
+      type: Backbone.Many
+      key: 'equipments'
+      collectionType: Equipments
+    }
+  ]
 
   initialize: ->
     @r = 30 * @get('groth') # body
 
-    @rank       = Fmushi.ranks.get(@get 'rankId')
-    @equipments = new Fmushi.Collections.Equipments(@get 'equipments')
-
-    @on 'change:rankId', (model, val) =>
-      @rank = (Fmushi.ranks.get(val) or null)
-
   pos: ->
-    new Fmushi.Vector @get('x'), @get('y')
+    new Vector @get('x'), @get('y')
 
   comment: ->
     _.sample [

@@ -12,7 +12,8 @@
     "modernizr": "~2.7.1",
     "jquery.transit": "~0.9.9",
     "pixi.js": "~1.5.1",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "backbone-associations": "~0.6.1"
   },
   "overrides": {
     "lodash": {

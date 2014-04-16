@@ -1,4 +1,7 @@
-class Fmushi.Views.Circle extends Fmushi.Views.Base
+Fmushi   = require 'fmushi'
+BaseView = require 'views/base'
+
+module.exports = class Circle extends BaseView
   initialize: ->
     attrs = @model.toJSON()
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r

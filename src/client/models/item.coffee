@@ -1,1 +1,1 @@
-class Fmushi.Models.Item extends Backbone.Model
+module.exports = class Item extends Backbone.Model

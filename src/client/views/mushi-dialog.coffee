@@ -1,4 +1,6 @@
-class Fmushi.Views.MushiDialog extends Fmushi.Views.Base
+BaseView = require 'views/base'
+
+module.exports = class MushiDialog extends BaseView
   render: ->
     @setElement $(document.createElement('div')).attr
       id: 'mushi-dialog-origin'

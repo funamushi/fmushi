@@ -1,4 +1,4 @@
-class Fmushi.Views.Base extends Backbone.View
+module.exports = class BaseView extends Backbone.View
   constructor: ->
     @subviewsByName = {}
     super
@@ -45,7 +45,7 @@ class Fmushi.Views.Base extends Backbone.View
 
     # Dispose subviews.
     _.forEach @subviewsByName, (subview, name) ->
-      subview.dispose() 
+      subview.dispose()
 
     # Remove all event handlers on this module.
     @off()

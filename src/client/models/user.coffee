@@ -1,6 +1,16 @@
-class Fmushi.Models.User extends Backbone.Model
+Mushies = require 'collections/mushies'
+
+module.exports = class User extends Backbone.Model
   defaults:
     fp: 0
+
+  relations: [
+    {
+      type: Backbone.Many
+      key: 'mushies'
+      collectionType: Mushies
+    }
+  ]
 
   initialize: ->
     @loggedIn = false

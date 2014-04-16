@@ -1,4 +1,6 @@
-class Fmushi.Views.MushiesPanel extends Fmushi.Views.Base
+BaseView = require 'views/base'
+
+module.exports = class MushiesPanel extends BaseView
   events:
     'mouseover a': 'point'
     'mouseout a':  'pointOut'

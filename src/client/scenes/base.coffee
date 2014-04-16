@@ -1,4 +1,6 @@
-class Fmushi.Scenes.Base extends Fmushi.Views.Base
+BaseView = require 'views/base'
+
+module.exports = class BaseScene extends BaseView
   constructor: ->
     @world = world = new PIXI.DisplayObjectContainer
     Fmushi.stage.addChild world
@@ -33,5 +35,5 @@ class Fmushi.Scenes.Base extends Fmushi.Views.Base
     super
 
     Fmushi.stage.removeChild @world
-    Fmushi.two.remove @shapeWorld    
+    Fmushi.two.remove @shapeWorld
 

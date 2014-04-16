@@ -1,8 +1,10 @@
 AppRouter = require 'routers/app'
 
 module.exports = Fmushi =
+  events: _.extend({}, Backbone.Events)
   fps: 24
   debug: false
+
   start: ->
 #     @viewer = new Fmushi.Models.User(name: 'hadashiA')
 #     @items  = new Fmushi.Collections.Items

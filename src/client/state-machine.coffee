@@ -1,4 +1,4 @@
-class Fmushi.StateMachene
+module.exports = class StateMachene
   constructor: (@view) ->
 
   to: (name) ->

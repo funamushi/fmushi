@@ -1,4 +1,6 @@
-class Fmushi.Scenes.Home extends Fmushi.Scenes.Base
+BaseScene = require 'scenes.base'
+
+module.exports = class HomeScene extends BaseScene
   defaultZoom: 0.75
 
   initialize: (options) ->

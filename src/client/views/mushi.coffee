@@ -1,3 +1,7 @@
+Fmushi       = require 'fmushi'
+BaseView     = require 'views/base'
+StateMachine = require 'state-machine'
+
 mushiStates =
   rest:
     onEnter: (view) ->
@@ -76,7 +80,7 @@ mushiStates =
         else
           model.set x: x + @speed * delta
 
-class Fmushi.Views.Mushi extends Fmushi.Views.Base
+module.exports = class Mushi extends BaseView
   initialize: ->
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
@@ -156,10 +160,10 @@ class Fmushi.Views.Mushi extends Fmushi.Views.Base
 
 
   initState: ->
-    @stateMachine = new Fmushi.StateMachene(@)
+    @stateMachine = new StateMachene(@)
     @stateMachine.to 'walking'
 
-    @listenTo Fmushi.Events, 'update', (delta) =>
+    @listenTo Fmushi.events, 'update', (delta) =>
       @stateMachine.update delta
 
   onChanged: ->
