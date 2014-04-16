@@ -1,4 +1,4 @@
-class Fmushi.Models.Equipment extends Backbone.Model
+module.exports = class Equipment extends Backbone.Model
   set: (key, val, options) ->
     if typeof key is 'object'
       attrs = key

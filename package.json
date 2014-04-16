@@ -38,11 +38,7 @@
     "sequelize": "~1.7.0"
   },
   "devDependencies": {
-    "cordell": "~0.1.5",
-    "growl": "~1.7.0",
-    "async": "~0.2.9",
     "debug": "~0.7.4",
-    "date-utils": "~1.2.14",
     "auto-reload-brunch": "~1.7.1",
     "mocha": "~1.16.1",
     "chai": "~1.8.1",

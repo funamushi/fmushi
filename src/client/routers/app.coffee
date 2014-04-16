@@ -1,4 +1,4 @@
-class Fmushi.Routers.App extends Backbone.Router
+module.exports = class AppRouter extends Backbone.Router
   initialize: ->
     @route ':userName', 'home'
     @route ':userName/mushies/:mushiId', 'mushi'

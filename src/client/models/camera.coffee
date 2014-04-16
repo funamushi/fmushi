@@ -1,4 +1,4 @@
-class Fmushi.Models.Camera extends Backbone.Model
+module.exports = class Camera extends Backbone.Model
   defaults:
     x: 0
     y: 0

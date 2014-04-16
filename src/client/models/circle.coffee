@@ -1,4 +1,6 @@
-class Fmushi.Models.Circle extends Backbone.Model
+Vector = require 'vector'
+
+module.exports = class Circle extends Backbone.Model
   defaults: ->
     x: 0
     y: 0
@@ -41,7 +43,7 @@ class Fmushi.Models.Circle extends Backbone.Model
     @colors[state]
 
   pos: ->
-    new Fmushi.Vector @get('x'), @get('y')
+    new Vector(@get('x'), @get('y'))
   
   entityCount: ->
     _.size @entities
@@ -65,7 +67,7 @@ class Fmushi.Models.Circle extends Backbone.Model
       if distance2 > Math.pow(r + entityR * 0.7, 2)
         @removeEntity(entity)
       else
-        diff = new Fmushi.Vector(pos.x - entityPos.x, pos.y - entityPos.y)
+        diff = new Vector(pos.x - entityPos.x, pos.y - entityPos.y)
         collisionPoint = diff
         .normalize()
         .multiplyScalar(-entityR)
@@ -79,7 +81,7 @@ class Fmushi.Models.Circle extends Backbone.Model
       if distance2 < Math.pow(r - (entityR * 0.7), 2)
         @addEntity entity
       else
-        diff = new Fmushi.Vector(pos.x - entityPos.x, pos.y - entityPos.y)
+        diff = new Vector(pos.x - entityPos.x, pos.y - entityPos.y)
         collisionPoint = diff
         .normalize()
         .multiplyScalar(entityR)

@@ -1,5 +1,7 @@
-class Fmushi.Collections.Mushies extends Backbone.Collection
-  model: Fmushi.Models.Mushi
+Mushi = require 'models/mushi'
+
+module.exports = class Fmushi.Collections.Mushies extends Backbone.Collection
+  model: Mushi
 
   initialize: (models, options) ->
     @user = options.user
