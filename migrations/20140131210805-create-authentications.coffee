@@ -13,7 +13,7 @@ module.exports =
     ).complete ->
        migration.addIndex(
          'authentications'
-         ['userId']
+         ['userId'],
            indexName: 'userIdIndex'
            indicesType: 'UNIQUE'
        ).complete(done)
