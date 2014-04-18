@@ -13,7 +13,7 @@ module.exports =
     ).complete ->
       migration.addIndex(
         'equipments'
-        ['fmushiId','itemId']
+        ['fmushiId','itemId'],
           indexName: 'equipmentsIndex'
       ).complete(done)
   

@@ -3,7 +3,7 @@ module.exports =
       migration.createTable(
         'users'
           id:
-            type: DataTypes.INTEGEr
+            type: DataTypes.INTEGER
             autoIncrement: true
             primaryKey: true
           name: DataTypes.STRING

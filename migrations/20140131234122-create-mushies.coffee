@@ -15,7 +15,7 @@ module.exports =
     ).complete ->
       migration.addIndex(
           'mushies'
-          ['userId','rankId','circleId']
+          ['userId','rankId','circleId'],
             indexName: 'mushiIndex'
       ).complete(done)
 
