@@ -20,7 +20,6 @@
     "lodash": "~2.2.0",
     "hbs": "~2.4.0",
     "socket.io": "~0.9.16",
-    "coffee-script": "~1.6.3",
     "bower": "~1.2.8",
     "handlebars-brunch": "git://github.com/f-kubotar/handlebars-brunch.git#namespace",
     "uglify-js-brunch": "~1.7.3",
@@ -35,7 +34,8 @@
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
     "pg": "~2.9.0",
-    "sequelize": "~1.7.0"
+    "sequelize": "~1.7.0",
+    "coffee-script": "~1.7.1"
   },
   "devDependencies": {
     "cordell": "~0.1.5",
