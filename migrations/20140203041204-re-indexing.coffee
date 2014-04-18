@@ -12,10 +12,8 @@ module.exports =
     migration.renameColumn('equipments', 'fmushiId', 'mushiId').complete ->
       migration.addIndex(
         'equipments', ['mushiId', 'itemId'],
-        {
-          indexName: 'equipments_mushiId_itemId',
+          indexName: 'equipments_mushiId_itemId'
           indicesType: 'UNIQUE'
-        }
       )
 
     migration.removeIndex('mushies', 'mushiIndex')
@@ -26,8 +24,8 @@ module.exports =
   down: (migration, DataTypes) ->
     migration.removeIndex('authentications', 'authentications_userId_provider')
     migration.addIndex(
-      'authentications', ['userId'],
-        indexName: 'userIdIndex',
+      'authentications', ['userId']
+        indexName: 'userIdIndex'
         indicesType: 'UNIQUE'
     )
 
@@ -43,7 +41,7 @@ module.exports =
     migration.removeIndex 'mushies', 'rankId'
     migration.removeIndex 'mushies', 'circleId'
     migration.addIndex(
-      'mushies',
+      'mushies'
       ['userId','rankId','circleId']
         indexName: 'mushiIndex'
     )
