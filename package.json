@@ -9,7 +9,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test/*.test.coffee && karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
     "postinstall": "bower install && brunch build --production",
-    "migrate": "sequelize -m"
+    "migrate": "sequelize -m --coffee"
   },
   "repository": {
     "type": "git",
