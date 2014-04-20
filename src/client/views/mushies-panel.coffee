@@ -1,6 +1,7 @@
 BaseView = require 'views/base'
+template = require 'templates/mushies/panel'
 
-module.exports = class MushiesPanel extends BaseView
+module.exports = class MushiesPanelView extends BaseView
   events:
     'mouseover a': 'point'
     'mouseout a':  'pointOut'
@@ -27,7 +28,7 @@ module.exports = class MushiesPanel extends BaseView
       attr.rank = mushi.rank?.toJSON()
       attr
 
-    @setElement JST['mushies/panel']
+    @setElement template
       owner: @owner.toJSON()
       mushies: mushies
     @

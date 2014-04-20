@@ -2,7 +2,6 @@
   "name": "funamushi",
   "version": "0.0.0",
   "dependencies": {
-    "lodash": "~2.2.0",
     "tweenjs": "*",
     "jquery": "~2.0.3",
     "two": "~0.3.0",
@@ -12,8 +11,9 @@
     "modernizr": "~2.7.1",
     "jquery.transit": "~0.9.9",
     "pixi.js": "~1.5.1",
-    "backbone": "~1.1.2",
-    "backbone-associations": "~0.6.1"
+    "backbone-associations": "~0.6.1",
+    "lodash": "~2.4.1",
+    "backbone": "~1.1.2"
   },
   "overrides": {
     "lodash": {

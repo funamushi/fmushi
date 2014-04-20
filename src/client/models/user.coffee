@@ -1,10 +1,18 @@
+Camera  = require 'models/camera'
 Mushies = require 'collections/mushies'
 
 module.exports = class User extends Backbone.Model
-  defaults:
+  defaults: ->
     fp: 0
+    camera:  new Camera
+    mushies: new Mushies
 
   relations: [
+    {
+      type: Backbone.One
+      key: 'camera'
+      relatedModel: Camera
+    }
     {
       type: Backbone.Many
       key: 'mushies'

@@ -1,3 +1,4 @@
+Fmushi   = require 'fmushi'
 BaseView = require 'views/base'
 
 module.exports = class BaseScene extends BaseView

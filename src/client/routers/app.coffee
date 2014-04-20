@@ -1,10 +1,10 @@
 Fmushi = require 'fmushi'
 
 module.exports = class AppRouter extends Backbone.Router
-  initialize: ->
-    @route ':userName', 'home'
-    @route ':userName/mushies/:mushiId', 'mushi'
-    @route '', 'root'
+  routes:
+    ':userName': 'home'
+    ':userName/mushies/:mushiId': 'mushi'
+    '': 'root'
 
   scene: (name, options={}) ->
     if name isnt @currentSceneName

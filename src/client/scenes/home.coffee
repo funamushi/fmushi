@@ -1,4 +1,16 @@
-BaseScene = require 'scenes.base'
+Fmushi    = require 'fmushi'
+
+User    = require 'models/user'
+Camera  = require 'models/camera'
+Mushies = require 'collections/mushies'
+Circles = require 'collections/circles'
+
+MushiView  = require 'views/mushi'
+CircleView = require 'views/circle'
+
+BaseScene        = require 'scenes/base'
+MushiesPanelView = require 'views/mushies-panel'
+MushiDialogView  = require 'views/mushi-dialog'
 
 module.exports = class HomeScene extends BaseScene
   defaultZoom: 0.75
@@ -7,65 +19,47 @@ module.exports = class HomeScene extends BaseScene
     viewer = Fmushi.viewer
     @owner = owner =
       if options.userName? and options.userName isnt viewer.get('name')
-        new Fmushi.Models.User name: options.userName
+        new User name: options.userName
       else
-        Fmushi.viewer
+        viewer
 
-    @mushies = new Fmushi.Collections.Mushies [], user: owner
-    @circles = new Fmushi.Collections.Circles [], user: owner
-    @camera  = new Fmushi.Models.Camera { zoom: 2 }, user: owner
-
+    camera  = owner.get('camera')
+    mushies = owner.get('mushies')
     @locked = false
 
-    @listenTo @camera, 'change', @onCameraChanged
-    @listenTo @circles, 'add', @addEntity
-    @listenTo @mushies, 'add', @addEntity
-    @listenTo @mushies, 'change', @collisionDetection
-    @listenTo @mushies, 'change:y', @reorderZ
-
-    @listenTo Fmushi.router, 'route:home', (userName) ->
-      @focusOut()
-
-    @listenTo Fmushi.router, 'route:mushi', (userName, mushiId) ->
-      @focus mushiId
+    @listenTo viewer, 'change:camera', @onCameraChanged
+    @listenTo owner,  'add:mushies', @addEntity
+    @listenTo owner,  'add:circles', @addEntity
+    @listenTo mushies, 'change',   @collisionDetection
+    @listenTo mushies, 'change:y', @reorderZ
 
     # subviews
     unless Modernizr.touch
-      panelView = new Fmushi.Views.MushiesPanel
+      panelView = new MushiesPanelView
         owner: owner
-        collection: @mushies
+        collection: mushies
       @subview 'panel', panelView
 
-    dialogView = new Fmushi.Views.MushiDialog
+    dialogView = new MushiDialogView
     @subview 'dialog', dialogView
 
     @initDrag()
-    @fetch().done =>
-      add = _.bind @addEntity, @
-      @circles.each add
-      @mushies.each add
-      $body = $('body')
-      if panel = @subview('panel')
-        $body.append panel.render().el
-      $body.append @subview('dialog').render().el
 
-      if options.focusMushiId?
-        @focus options.focusMushiId
-      else
-        center = Fmushi.screenCenter()
-        @camera.set
-          x: center.x
-          y: center.y
-          zoom: @defaultZoom
+    mushies.each (mushi) => @addEntity mushi
 
-  fetch: ->
-    promises = [
-      @circles.fetch(silent: true)
-      @mushies.fetch(silent: true)
-    ]
-    promises.push(@owner.fetch()) if @owner isnt Fmushi.viewer
-    $.when.apply($, promises).done =>
-      @trigger 'ready'
+    $body = $(document.body)
+    if panel = @subview('panel')
+      $body.append panel.render().el
+    $body.append @subview('dialog').render().el
+
+    if options.focusMushiId?
+      @focus options.focusMushiId
+    else
+      center = Fmushi.screenCenter()
+      camera.set
+        x: center.x
+        y: center.y
+        zoom: @defaultZoom
 
   initDrag: ->
     canvas = Fmushi.renderer.view
@@ -129,7 +123,9 @@ module.exports = class HomeScene extends BaseScene
       circle.collisionEntity mushi
 
   worldPosFromCameraPos: (x, y, zoom) ->
-    camera = @camera
+    console.log @owner
+    camera = @owner.get('camera')
+    console.log camera
     x ?= camera.get('x')
     y ?= camera.get('y')
     zoom ?= camera.get('zoom')
@@ -144,17 +140,19 @@ module.exports = class HomeScene extends BaseScene
       y = x.y
       x = x.x
     center  = Fmushi.screenCenter()
-    zoom    = @camera.get('zoom')
-    offsetX = @camera.get('x') - (center.x / zoom)
-    offsetY = @camera.get('y') - (center.y / zoom)
+
+    camera = @owner.get('camera')
+    zoom    = camera.get('zoom')
+    offsetX = camera.get('x') - (center.x / zoom)
+    offsetY = camera.get('y') - (center.y / zoom)
     { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
-  addEntity: (model) ->
+  addMushi: (model) ->
     view =
-      if model instanceof Fmushi.Models.Mushi
-        new Fmushi.Views.Mushi model: model
-      else if model instanceof Fmushi.Models.Circle
-        new Fmushi.Views.Circle model: model
+      if model instanceof Mushi
+        new MushiView(model: model)
+      else if model instanceof Circle
+        new CircleView(model: model)
 
     @subview model.cid, view if view?
 
@@ -235,13 +233,13 @@ module.exports = class HomeScene extends BaseScene
 
     scene = @
     @tween = new TWEEN.Tween(x: xWas, y: yWas, zoom: zoomWas)
-      .to({ x: x, y: y, zoom: zoom }, 500)
-      .easing(TWEEN.Easing.Cubic.InOut)
-      .onUpdate ->
-        scene.cameraFixed @x, @y, @zoom
-      .onComplete ->
-         scene.locked = false
-      .start()
+    .to({ x: x, y: y, zoom: zoom }, 500)
+    .easing(TWEEN.Easing.Cubic.InOut)
+    .onUpdate ->
+      scene.cameraFixed @x, @y, @zoom
+    .onComplete ->
+      scene.locked = false
+    .start()
 
   onFocusEntityChanged: (entity) ->
     return if @locked or @focusEntity != entity
