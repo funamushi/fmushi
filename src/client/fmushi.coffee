@@ -20,7 +20,7 @@ module.exports =
   fetch: ->
     $.when(
       @fetchAsset ['/app.json']
-      # @viewer.fetchViewer()
+      @viewer.fetchViewer()
       @items.fetch()
     )
 

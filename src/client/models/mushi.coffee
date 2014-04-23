@@ -1,15 +1,9 @@
 Fmushi     = require 'fmushi'
 Vector     = require 'vector'
+Circle     = require 'models/circle'
 Equipments = require 'collections/equipments'
 
-module.exports = class Mushi extends Backbone.Model
-  Object.defineProperties @prototype,
-    circle:
-      get: -> @_circle
-      set: (val) ->
-        @_circle = val
-        @set 'circleId', (val?.get('id') or null)
-
+module.exports = class Mushi extends Backbone.AssociatedModel
   defaults: ->
     x: 0
     y: 0
@@ -17,6 +11,11 @@ module.exports = class Mushi extends Backbone.Model
     direction: 'left'
 
   relations: [
+    {
+      type: Backbone.One
+      key: 'circle'
+      relatedModel: Circle
+    }
     {
       type: Backbone.Many
       key: 'equipments'

@@ -1,11 +1,10 @@
 Camera  = require 'models/camera'
 Mushies = require 'collections/mushies'
+Circles = require 'collections/circles'
 
-module.exports = class User extends Backbone.Model
+module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
     fp: 0
-    camera:  new Camera
-    mushies: new Mushies
 
   relations: [
     {
@@ -17,6 +16,11 @@ module.exports = class User extends Backbone.Model
       type: Backbone.Many
       key: 'mushies'
       collectionType: Mushies
+    }
+    {
+      type: Backbone.Many
+      key: 'circles'
+      collectionType: Circles
     }
   ]
 
@@ -30,16 +34,8 @@ module.exports = class User extends Backbone.Model
     else
       '/'
 
-  login: (attributes, options) ->
-    @set attributes, options
-    @loggedIn = true
-    @trigger 'login', @ unless options?.silent?
-
-  logout: (options) ->
-    @clear()
-    @set @defaults
-    @loggedIn = false
-    @trigger 'logout', @ unless options?.silent?
+  optionalUrls:
+    viewer: '/viewer'
 
   validate: (attrs) ->
     errors = []
@@ -61,24 +57,8 @@ module.exports = class User extends Backbone.Model
       return errors
 
   fetchViewer: (options={}) ->
-    options.url = '/viewer'
+    options.url = @optionalUrls.viewer
     @fetch(options)
-    .then (attrs, result, xhr) =>
-      @login attrs
-    , (res, result, data) =>
-      if res.status is 401
-        defer = $.Deferred()
-        defer.resolve this, 'unauthorized', defer
-
-  register: (options={}) ->
-    options.url    = '/register.json'
-    options.silent = true
-
-    @save({
-      name: @get('name'),
-      password: @get('password')
-    }, options).then (data) =>
-      @login data
 
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp

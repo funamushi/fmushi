@@ -3,7 +3,7 @@ module.exports = class StateMachene
 
   to: (name) ->
     return if name is @currentState
-    state = mushiStates[name]
+    state = @states[name]
     return unless state?
 
     @currentState?.onExit? @view

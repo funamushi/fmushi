@@ -2,85 +2,86 @@ Fmushi       = require 'fmushi'
 BaseView     = require 'views/base'
 StateMachine = require 'state-machine'
 
-mushiStates =
-  rest:
-    onEnter: (view) ->
-      view.sprite.stop()
-      view.sprite.textures = view.idleTextues
-      view.sprite.gotoAndPlay 0
+class MushiStateMachine extends StateMachine
+  states:
+    rest:
+      onEnter: (view) ->
+        view.sprite.stop()
+        view.sprite.textures = view.idleTextues
+        view.sprite.gotoAndPlay 0
 
-    update: (view, delta) ->
-      
+      update: (view, delta) ->
+        
 
-  walking:
-    elapsed: 0
+    walking:
+      elapsed: 0
 
-    animationSpeed: 0.25
-  
-    speed: 30
-  
-    onEnter: (view) ->
-      view.sprite.stop()
-      view.sprite.textures = view.walkingTextures
-      view.sprite.animationSpeed = @animationSpeed
-      view.sprite.gotoAndPlay 0
-  
-    update: (view, delta) ->
-      return if view.gripped
+      animationSpeed: 0.25
+    
+      speed: 30
+    
+      onEnter: (view) ->
+        view.sprite.stop()
+        view.sprite.textures = view.walkingTextures
+        view.sprite.animationSpeed = @animationSpeed
+        view.sprite.gotoAndPlay 0
+    
+      update: (view, delta) ->
+        return if view.gripped
 
-      model = view.model
-      @elapsed += delta
-      if @elapsed > 1
-        model.user.addFp 1
-        @elapsed = 0
-  
-      x = model.get('x')
-      if model.get('direction') is 'left'
-        if x < -10
-          model.set direction: 'right'
+        model = view.model
+        @elapsed += delta
+        if @elapsed > 1
+          model.user.addFp 1
+          @elapsed = 0
+    
+        x = model.get('x')
+        if model.get('direction') is 'left'
+          if x < -10
+            model.set direction: 'right'
+          else
+            model.set x: x - @speed * delta
         else
-          model.set x: x - @speed * delta
-      else
-        if x > 1000
-          model.set direction: 'left'
-        else
-          model.set x: x + @speed * delta
-  
-  hustle:
-    elapsed: 0
+          if x > 1000
+            model.set direction: 'left'
+          else
+            model.set x: x + @speed * delta
+    
+    hustle:
+      elapsed: 0
 
-    animationSpeed: 0.25
-  
-    speed: 30
-  
-    onEnter: (view) ->
-      view.sprite.stop()
-      view.sprite.textures = view.walkingTextures
-      view.sprite.animationSpeed = @animationSpeed
-      view.sprite.gotoAndPlay 0
-  
-    update: (view, delta) ->
-      return if view.gripped
-  
-      model = view.model
-      @elapsed += delta
-      if @elapsed > 1
-        model.user.addFp 10
-        @elapsed = 0
+      animationSpeed: 0.25
+    
+      speed: 30
+    
+      onEnter: (view) ->
+        view.sprite.stop()
+        view.sprite.textures = view.walkingTextures
+        view.sprite.animationSpeed = @animationSpeed
+        view.sprite.gotoAndPlay 0
+    
+      update: (view, delta) ->
+        return if view.gripped
+    
+        model = view.model
+        @elapsed += delta
+        if @elapsed > 1
+          model.user.addFp 10
+          @elapsed = 0
 
-      x = model.get('x')
-      if model.get('direction') is 'left'
-        if x < -10
-          model.set direction: 'right'
+        x = model.get('x')
+        if model.get('direction') is 'left'
+          if x < -10
+            model.set direction: 'right'
+          else
+            model.set x: x - @speed * delta
         else
-          model.set x: x - @speed * delta
-      else
-        if x > 1000
-          model.set direction: 'left'
-        else
-          model.set x: x + @speed * delta
+          if x > 1000
+            model.set direction: 'left'
+          else
+            model.set x: x + @speed * delta
 
-module.exports = class Mushi extends BaseView
+module.exports = class MushiView extends BaseView
   initialize: ->
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
@@ -146,9 +147,7 @@ module.exports = class Mushi extends BaseView
         worldPos  = Fmushi.scene.worldPosFromScreenPos screenPos
         @model.set worldPos
 
-    Fmushi.scene.world.addChild sprite
-
-    @pointShape = shape = Fmushi.two.makeRectangle(
+    @shape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'),
       @sprite.width * 1.1, sprite.height * 1.1
     )
@@ -156,11 +155,9 @@ module.exports = class Mushi extends BaseView
     shape.fill = '#CCE9F9'
     shape.opacity = 1
     shape.visible = false
-    Fmushi.scene.shapeWorld.add shape
-
 
   initState: ->
-    @stateMachine = new StateMachene(@)
+    @stateMachine = new MushiStateMachine(@)
     @stateMachine.to 'walking'
 
     @listenTo Fmushi.events, 'update', (delta) =>
@@ -170,11 +167,11 @@ module.exports = class Mushi extends BaseView
     changed = @model.changedAttributes()
     if x = changed.x
       @sprite.position.x = x
-      @pointShape.translation.x = x if @pointShape
+      @shape.translation.x = x if @shape
 
     if y = changed.y
       @sprite.position.y = y
-      @pointShape.translation.y = y if @pointShape
+      @shape.translation.y = y if @shape
 
     if d = changed.direction
       if d is 'left'
@@ -196,7 +193,7 @@ module.exports = class Mushi extends BaseView
         @sprite.filters = null
 
   onPointIn: (model) ->
-    @pointShape.visible = true
+    @shape.visible = true
 
   onPointOut: (model) ->
-    @pointShape.visible = false
+    @shape.visible = false

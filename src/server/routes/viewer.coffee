@@ -2,25 +2,12 @@ passport = require 'passport'
 
 LocalStrategy = require('passport-local').Strategy
 
-dummyUser = { id: 1, name: 'hadashiA' }
-
-passport.use new LocalStrategy (username, password, done) ->
-  if password is 'hoge'
-    done null, dummyUser
-  else
-    done null, false
-
-passport.serializeUser (user, done) ->
-  done null, user.id
-
-passport.deserializeUser (id, done) ->
-  done null, dummyUser
-
 exports.authorize = (req, res, next) ->
-  if req.isAuthenticated()
-    next()
-  else
-    res.status(401).end()
+  # if req.isAuthenticated()
+  #   next()
+  # else
+  #   res.status(401).end()
+  next()
 
 exports.register = (req, res) ->
   req.logout()
@@ -51,9 +38,34 @@ exports.logout = (req, res) ->
       res.redirect '/'
 
 exports.show = (req, res) ->
-  res.format
-    json: ->
-      res.send req.user
-
-    html: ->
-      res.redirect "/#{req.user.name}"
+  res.send {
+    name: 'hadashiA'
+    mushies: [
+      {
+        id: 1
+        name: 'ヘイプー大佐'
+        x: 200
+        y: 200
+      }
+      {
+        id: 2
+        name: 'ミニマム級チャンピオン ワンツーぷや夫'
+        x: 500
+        y: 200
+      }
+      {
+        id: 3
+        name: 'プヤプヤプンヤ代表取締役'
+        x: 700
+        y: 200
+      }
+    ]
+    circles: [
+      {
+        id: 1
+        x: 700
+        y: 650
+        r: 200
+      }
+    ]
+  }

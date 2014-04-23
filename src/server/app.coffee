@@ -36,7 +36,6 @@ app.configure 'development', ->
   app.use express.errorHandler()
   app.use express.logger("dev")
 
-app.get '/ranks', routes.ranks.index
 app.get '/items', routes.items.index
 
 app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
@@ -44,14 +43,14 @@ app.post '/register', routes.viewer.register
 app.post '/login', passport.authenticate('local'), routes.viewer.login
 app.delete '/logout', routes.viewer.logout
 
-app.get '/:user.:format?',         routes.user.show
-app.get '/:user/mushies', routes.user.mushies.index
-app.get '/:user/circles', routes.user.circles.index
+app.get '/:user.:format?', routes.user.show
+app.get '/:user/mushies/:mushiId', routes.user.mushi
+app.put '/:user'
 
 app.get '/*', routes.root
 
 app.param 'format', routes.acceptOverride
-app.param 'user',   routes.user.findByName
+app.param 'user',   routes.user.set
 
 app.startServer = ->
   app.listen app.get('port'), ->

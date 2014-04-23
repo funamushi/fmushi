@@ -2,6 +2,7 @@ Fmushi    = require 'fmushi'
 
 User    = require 'models/user'
 Camera  = require 'models/camera'
+Mushi   = require 'models/mushi'
 Mushies = require 'collections/mushies'
 Circles = require 'collections/circles'
 
@@ -25,13 +26,17 @@ module.exports = class HomeScene extends BaseScene
 
     camera  = owner.get('camera')
     mushies = owner.get('mushies')
+    circles = owner.get('circles')
     @locked = false
 
     @listenTo viewer, 'change:camera', @onCameraChanged
-    @listenTo owner,  'add:mushies', @addEntity
-    @listenTo owner,  'add:circles', @addEntity
-    @listenTo mushies, 'change',   @collisionDetection
+    @listenTo mushies, 'add', @addEntity
+    @listenTo circles, 'add', @addEntity
     @listenTo mushies, 'change:y', @reorderZ
+
+    @listenTo mushies, 'change', (mushi) ->
+      circles.each (circle) ->
+        circle.collisionEntity mushi
 
     # subviews
     unless Modernizr.touch
@@ -45,7 +50,8 @@ module.exports = class HomeScene extends BaseScene
 
     @initDrag()
 
-    mushies.each (mushi) => @addEntity mushi
+    mushies.each (mushi) =>
+      @addEntity mushi
 
     $body = $(document.body)
     if panel = @subview('panel')
@@ -60,6 +66,8 @@ module.exports = class HomeScene extends BaseScene
         x: center.x
         y: center.y
         zoom: @defaultZoom
+
+    @trigger 'ready'
 
   initDrag: ->
     canvas = Fmushi.renderer.view
@@ -118,10 +126,6 @@ module.exports = class HomeScene extends BaseScene
       y = @camera.get('y')
       @camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
-  collisionDetection: (mushi) ->
-    @circles.each (circle) ->
-      circle.collisionEntity mushi
-
   worldPosFromCameraPos: (x, y, zoom) ->
     console.log @owner
     camera = @owner.get('camera')
@@ -147,14 +151,21 @@ module.exports = class HomeScene extends BaseScene
     offsetY = camera.get('y') - (center.y / zoom)
     { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
-  addMushi: (model) ->
-    view =
+  addEntity: (model) ->
+    klass =
       if model instanceof Mushi
-        new MushiView(model: model)
+        MushiView
       else if model instanceof Circle
-        new CircleView(model: model)
+        CircleView
 
-    @subview model.cid, view if view?
+    if klass?
+      view = new klass(model: model)
+
+      if view.sprite?
+        @world.addChild view.sprite
+      if view.shape?
+        @shapeWorld.add view.shape
+      @subview model.cid, view
 
   entity: (model) ->
     @subview model.cid
