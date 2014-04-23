@@ -17,7 +17,14 @@ exports.config =
         'js/app.js': /^src\/client/
       order:
         before: [
-          'bower_components/jquery/jquery.js'
+          "bower_components/zeptojs/src/zepto.js"
+          "bower_components/zeptojs/src/event.js"
+          "bower_components/zeptojs/src/ajax.js"
+          "bower_components/zeptojs/src/deferred.js"
+          "bower_components/zeptojs/src/selector.js"
+          "bower_components/zeptojs/src/touch.js"
+          "bower_components/zeptojs/src/detect.js"
+          "bower_components/zeptojs/src/gesture.js"
           'bower_components/lodash/dist/lodash.js'
           'bower_components/backbone/backbone.js'
         ]
