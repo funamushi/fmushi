@@ -1,4 +1,5 @@
 exports.set = (req, res, next, userName) ->
+  next()
 
 exports.show = (req, res) ->
   res.format
