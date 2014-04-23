@@ -23,6 +23,11 @@ createuser fmushi
 createdb -O fmushi fmushi_development
 ```
 
+## マイグレ
+```
+sequelize -m --coffee
+```
+
 ## とすて
 
 ```bash
