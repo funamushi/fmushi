@@ -9,7 +9,6 @@ module.exports = class Circle extends BaseView
       shape.stroke = color.lineColor
       shape.fill   = color.fillColor
       shape.linewidth = 3
-    Fmushi.scene.shapeWorld.add shape
 
     for v in @shape.vertices
       v.was = v.clone()

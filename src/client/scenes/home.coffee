@@ -3,6 +3,7 @@ Fmushi    = require 'fmushi'
 User    = require 'models/user'
 Camera  = require 'models/camera'
 Mushi   = require 'models/mushi'
+Circle  = require 'models/circle'
 Mushies = require 'collections/mushies'
 Circles = require 'collections/circles'
 
@@ -52,6 +53,8 @@ module.exports = class HomeScene extends BaseScene
 
     mushies.each (mushi) =>
       @addEntity mushi
+    circles.each (circle) =>
+      @addEntity circle
 
     $body = $(document.body)
     if panel = @subview('panel')
@@ -170,11 +173,10 @@ module.exports = class HomeScene extends BaseScene
     entity = @owner.get('mushies').get(entity)
     return if (not entity?) or @focusEntity is entity
 
-    @owner.set
-      camera:
-        x: entity.get('x')
-        y: entity.get('y')
-        zoom: 2.5
+    @owner.get('camera').set
+      x: entity.get('x')
+      y: entity.get('y')
+      zoom: 2.5
     
     dialog = @subview('dialog')
     dialog.open entity
@@ -190,9 +192,8 @@ module.exports = class HomeScene extends BaseScene
 
     entity = @focusEntity
     @focusEntity = null
-    @owner.set
-      camera:
-        zoom: @defaultZoom
+    @owner.get('camera').set
+      zoom: @defaultZoom
 
     @subview('dialog').close()
 
@@ -258,7 +259,7 @@ module.exports = class HomeScene extends BaseScene
     y = entity.get('y')
 
     camera = @owner.get('camera')
-    camera.offset ?= { x: 0, y: 0}
+    camera.offset ?= { x: 0, y: 0 }
 
     if prevX = entity.previous('x')
       camera.offset.x += (x - prevX)
@@ -283,3 +284,7 @@ module.exports = class HomeScene extends BaseScene
   reorderZ: ->
     @world.children = _.sortBy @world.children, (sprite) ->
       sprite.position.y
+
+  dispose: ->
+    super
+    Fmushi.renderer.view.off()
