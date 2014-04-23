@@ -5,6 +5,7 @@ Circles = require 'collections/circles'
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
     fp: 0
+    camera: new Camera
 
   relations: [
     {

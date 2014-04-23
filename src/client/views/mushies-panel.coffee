@@ -1,3 +1,4 @@
+Fmushi   = require 'fmushi'
 BaseView = require 'views/base'
 template = require 'templates/mushies/panel'
 

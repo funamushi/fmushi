@@ -29,7 +29,7 @@ module.exports = class HomeScene extends BaseScene
     circles = owner.get('circles')
     @locked = false
 
-    @listenTo viewer, 'change:camera', @onCameraChanged
+    @listenTo camera, 'change', @onCameraChanged
     @listenTo mushies, 'add', @addEntity
     @listenTo circles, 'add', @addEntity
     @listenTo mushies, 'change:y', @reorderZ
@@ -71,6 +71,7 @@ module.exports = class HomeScene extends BaseScene
 
   initDrag: ->
     canvas = Fmushi.renderer.view
+    camera = @owner.get('camera')
 
     lastDragPoint = null
     Hammer(canvas)
@@ -92,15 +93,12 @@ module.exports = class HomeScene extends BaseScene
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
-        zoom = @camera.get 'zoom'
-        @camera.set(
-          {
-            x: @camera.get('x') + diffX / zoom
-            y: @camera.get('y') + diffY / zoom
-          }, {
-            tween: false
-          }
-        )
+        zoom = camera.get 'zoom'
+        camera.set
+          x: camera.get('x') + diffX / zoom
+          y: camera.get('y') + diffY / zoom
+        ,
+          tween: false
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
 
@@ -108,28 +106,26 @@ module.exports = class HomeScene extends BaseScene
       e.preventDefault()
       lastDragPoint = null
 
-    .on 'pinchin', (e) =>
+    .on 'pinchin', (e) ->
       e.preventDefault()
       
-      zoom = @camera.get('zoom') - (0.03 * e.gesture.scale)
+      zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
       return if zoom < 0.01
-      @camera.set { zoom: zoom }, { tween: false }
+      camera.set { zoom: zoom }, { tween: false }
 
-    .on 'pinchout', (e) =>
+    .on 'pinchout', (e) ->
       e.preventDefault()
-      zoom = @camera.get('zoom') + (0.01 * e.gesture.scale)
+      zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
       return if zoom > 3
-      @camera.set { zoom: zoom }, { tween: false }
+      camera.set { zoom: zoom }, { tween: false }
 
-    $(canvas).on 'mousewheel', (e) =>
-      x = @camera.get('x')
-      y = @camera.get('y')
-      @camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
+    $(canvas).on 'mousewheel', (e) ->
+      x = camera.get('x')
+      y = camera.get('y')
+      camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
   worldPosFromCameraPos: (x, y, zoom) ->
-    console.log @owner
     camera = @owner.get('camera')
-    console.log camera
     x ?= camera.get('x')
     y ?= camera.get('y')
     zoom ?= camera.get('zoom')
@@ -171,13 +167,14 @@ module.exports = class HomeScene extends BaseScene
     @subview model.cid
 
   focus: (entity) ->
-    entity = @mushies.get(entity)
-    return if @focusEntity is entity
+    entity = @owner.get('mushies').get(entity)
+    return if (not entity?) or @focusEntity is entity
 
-    @camera.set
-      x: entity.get('x')
-      y: entity.get('y')
-      zoom: 2.5
+    @owner.set
+      camera:
+        x: entity.get('x')
+        y: entity.get('y')
+        zoom: 2.5
     
     dialog = @subview('dialog')
     dialog.open entity
@@ -186,14 +183,16 @@ module.exports = class HomeScene extends BaseScene
     @listenTo entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:in', entity
 
-    Backbone.history.navigate entity.url()
+    Backbone.history.navigate "#{@owner.url()}/mushies/#{entity.get 'id'}"
 
   focusOut: ->
     return unless @focusEntity
 
     entity = @focusEntity
     @focusEntity = null
-    @camera.set zoom: @defaultZoom
+    @owner.set
+      camera:
+        zoom: @defaultZoom
 
     @subview('dialog').close()
 
@@ -203,7 +202,7 @@ module.exports = class HomeScene extends BaseScene
     Backbone.history.navigate @owner.url()
 
   cameraFixed: (x, y, zoom) ->
-    camera     = @camera
+    camera     = @owner.get('camera')
     world      = @world
     shapeWorld = @shapeWorld
 
@@ -220,7 +219,7 @@ module.exports = class HomeScene extends BaseScene
     shapeWorld.translation.set x, y
     shapeWorld.scale = zoom
 
-  onCameraChanged: (camera = @camera, options = {}) ->
+  onCameraChanged: (camera, options = {}) ->
     return if @locked
 
     x    = camera.get 'x'
@@ -234,7 +233,7 @@ module.exports = class HomeScene extends BaseScene
     worldPosTo   = @worldPosFromCameraPos x, y, zoom
 
     @locked = true
-    @camera.offset.x = @camera.offset.y = 0
+    camera.offset = { x: 0, y: 0}
 
     @tween.stop() if @tween
     if options.tween == false
@@ -258,12 +257,15 @@ module.exports = class HomeScene extends BaseScene
     x = entity.get('x')
     y = entity.get('y')
 
+    camera = @owner.get('camera')
+    camera.offset ?= { x: 0, y: 0}
+
     if prevX = entity.previous('x')
-      @camera.offset.x += (x - prevX)
+      camera.offset.x += (x - prevX)
     if prevY = entity.previous('y')
-      @camera.offset.y += (y - prevY)
+      camera.offset.y += (y - prevY)
     
-    @camera.set { x: x, y: y }, {silent: true}
+    camera.set { x: x, y: y }, {silent: true}
     worldPos = @worldPosFromCameraPos()
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
@@ -272,7 +274,9 @@ module.exports = class HomeScene extends BaseScene
   transitionOut: ->
     super()
     defer = $.Deferred()
-    @camera.set zoom: 0.01
+    @owner.set
+      camera:
+        zoom: 0.01
     setTimeout ( -> defer.resolve() ), 1000
     defer.promise()
 

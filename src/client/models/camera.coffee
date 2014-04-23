@@ -1,4 +1,4 @@
-module.exports = class Camera extends Backbone.Model
+module.exports = class Camera extends Backbone.AssociatedModel
   defaults:
     x: 0
     y: 0

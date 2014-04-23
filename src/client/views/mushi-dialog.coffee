@@ -1,29 +1,32 @@
 BaseView = require 'views/base'
+template = require 'templates/mushies/dialog'
 
 module.exports = class MushiDialog extends BaseView
+  tagName: 'div'
+  className: 'control'
+  attributes:
+    id: 'mushi-dialog-origin'
+
   render: ->
-    @setElement $(document.createElement('div')).attr
-      id: 'mushi-dialog-origin'
-      class: 'control'
     @
 
   open: (mushi) ->
     @close()
-    weapon = mushi.equipments.findWhere(type: 'weapon')
 
     @$el.popover
       html: true
       placement: 'top'
-      title: "#{mushi.get('name')} #{mushi.rank.get('name')}"
+      title: "#{mushi.get('name')}"
       trigger: 'manual'
       container: 'body'
-      content: JST['mushies/dialog']
+      content: template
         mushi: mushi.toJSON()
         comment: mushi.comment()
-        weapon: weapon?.toJSON()
-        weaponItem: weapon?.item.toJSON()
 
     @$el.popover 'show'
 
   close: ->
     @$el.popover 'destroy'
+
+
+

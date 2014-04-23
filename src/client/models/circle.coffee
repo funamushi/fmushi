@@ -1,6 +1,6 @@
 Vector = require 'vector'
 
-module.exports = class Circle extends Backbone.Model
+module.exports = class Circle extends Backbone.AssociatedModel
   defaults: ->
     x: 0
     y: 0

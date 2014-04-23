@@ -14,8 +14,6 @@ class MushiStateMachine extends StateMachine
         
 
     walking:
-      elapsed: 0
-
       animationSpeed: 0.25
     
       speed: 30
@@ -30,11 +28,6 @@ class MushiStateMachine extends StateMachine
         return if view.gripped
 
         model = view.model
-        @elapsed += delta
-        if @elapsed > 1
-          model.user.addFp 1
-          @elapsed = 0
-    
         x = model.get('x')
         if model.get('direction') is 'left'
           if x < -10
@@ -48,8 +41,6 @@ class MushiStateMachine extends StateMachine
             model.set x: x + @speed * delta
     
     hustle:
-      elapsed: 0
-
       animationSpeed: 0.25
     
       speed: 30
@@ -64,11 +55,6 @@ class MushiStateMachine extends StateMachine
         return if view.gripped
     
         model = view.model
-        @elapsed += delta
-        if @elapsed > 1
-          model.user.addFp 10
-          @elapsed = 0
-
         x = model.get('x')
         if model.get('direction') is 'left'
           if x < -10
