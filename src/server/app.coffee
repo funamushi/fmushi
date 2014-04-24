@@ -31,9 +31,9 @@ app.use session
 app.use passport.initialize()
 app.use passport.session()
 
-if process.env.NODE_ENV is 'production'
-  app.use express.errorHandler()
-  app.use express.logger("dev")
+# if process.env.NODE_ENV is 'production'
+#   app.use express.errorHandler()
+#   app.use express.logger("dev")
 
 app.get '/items', routes.items.index
 
