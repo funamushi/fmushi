@@ -20,6 +20,7 @@ exports.config =
           "bower_components/zeptojs/src/zepto.js"
           "bower_components/zeptojs/src/event.js"
           "bower_components/zeptojs/src/ajax.js"
+          "bower_components/zeptojs/src/callbacks.js"
           "bower_components/zeptojs/src/deferred.js"
           "bower_components/zeptojs/src/selector.js"
           "bower_components/zeptojs/src/touch.js"
