@@ -41,8 +41,7 @@
       "dependencies": {
         "backbone": ">=1.0.0",
         "lodash": "*"
-      },
-      "main": "backbone.js"
+      }
     },
     "bootstrap": {
       "dependencies": {
