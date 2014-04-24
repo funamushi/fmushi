@@ -27,15 +27,14 @@
     "javascript-brunch": "~1.7.0",
     "css-brunch": "~1.7.0",
     "node-sass-brunch": "*",
-    "brunch": "~1.7.13",
-    "ansi-color": "http://registry.npmjs.org/ansi-color/-/ansi-color-0.2.1.tgz",
     "node-sass": "~0.7.0",
     "passport": "~0.1.18",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
     "pg": "~2.9.0",
     "sequelize": "~1.7.0",
-    "coffee-script": "~1.7.1"
+    "coffee-script": "~1.7.1",
+    "brunch": "^1.7.13"
   },
   "devDependencies": {
     "debug": "~0.7.4",
