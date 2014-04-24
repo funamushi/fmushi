@@ -5,34 +5,33 @@ express  = require 'express'
 hbs      = require 'hbs'
 passport = require 'passport'
 
+favicon      = require 'static-favicon'
+compress     = require 'compression'
+cookieParser = require 'cookie-parser'
+session      = require 'express-session'
+serveStatic  = require 'serve-static'
+
 models = require './models'
 routes = require './routes'
 
-module.exports = exports = app = express()
+module.exports = app = express()
 
-app.configure ->
-  app.set 'port', process.env.PORT or 3000
-  app.set "view engine", "hbs"
-  app.set 'views', path.join(__dirname, 'views')
-  app.set 'layout', 'layout'
-  app.use express.favicon()
-  app.use express.compress()
-  app.use express.json()
-  app.use express.urlencoded()
-  app.use express.methodOverride()
-  app.use express.static(path.resolve("./public"))
-  app.use express.cookieParser()
-  app.use express.session
-    secret: '8d70fc7007c3068bb12217d9d89bb584ae2539e10f0563c0a1612df4e2bf8b6e' +
-            '9416367d0044159b4be9af57292a8e8d6c47930574d8b63cae92a3b69c8281fb'
-  app.use passport.initialize()
-  app.use passport.session()
-  app.use app.router
+app.set 'port', process.env.PORT or 3000
+app.set "view engine", "hbs"
+app.set 'views', path.join(__dirname, 'views')
+app.set 'layout', 'layout'
 
-app.configure 'production', ->
-  app.use express.logger("dev")
+app.use favicon(path.resolve './public/favicon.ico')
+app.use compress()
+app.use serveStatic(path.resolve "./public")
+app.use cookieParser()
+app.use session
+  secret: '8d70fc7007c3068bb12217d9d89bb584ae2539e10f0563c0a1612df4e2bf8b6e' +
+          '9416367d0044159b4be9af57292a8e8d6c47930574d8b63cae92a3b69c8281fb'
+app.use passport.initialize()
+app.use passport.session()
 
-app.configure 'development', ->
+if process.env.NODE_ENV is 'production'
   app.use express.errorHandler()
   app.use express.logger("dev")
 

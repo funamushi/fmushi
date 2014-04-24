@@ -16,7 +16,6 @@
     "url": "git@github.com:funamushi/fmushi.git"
   },
   "dependencies": {
-    "express": "~3.4.0",
     "lodash": "~2.2.0",
     "hbs": "~2.4.0",
     "socket.io": "~0.9.16",
@@ -34,7 +33,14 @@
     "pg": "~2.9.0",
     "sequelize": "~1.7.0",
     "coffee-script": "~1.7.1",
-    "brunch": "^1.7.13"
+    "brunch": "^1.7.13",
+    "express": "^4.0.0",
+    "accepts": "^1.0.1",
+    "compression": "^1.0.1",
+    "cookie-parser": "^1.0.1",
+    "express-session": "^1.0.3",
+    "serve-static": "^1.1.0",
+    "static-favicon": "^1.0.2"
   },
   "devDependencies": {
     "debug": "~0.7.4",
