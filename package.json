@@ -8,7 +8,6 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha test/*.test.coffee && karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
-    "postinstall": "bower install && brunch build --production",
     "migrate": "sequelize -m --coffee"
   },
   "repository": {
@@ -16,45 +15,7 @@
     "url": "git@github.com:funamushi/fmushi.git"
   },
   "dependencies": {
-    "express": "~3.4.0",
-    "lodash": "~2.2.0",
-    "hbs": "~2.4.0",
-    "socket.io": "~0.9.16",
-    "bower": "~1.2.8",
-    "handlebars-brunch": "git://github.com/f-kubotar/handlebars-brunch.git#namespace",
-    "uglify-js-brunch": "~1.7.3",
-    "coffee-script-brunch": "~1.7.3",
-    "javascript-brunch": "~1.7.0",
-    "css-brunch": "~1.7.0",
-    "node-sass-brunch": "*",
-    "node-sass": "~0.7.0",
-    "passport": "~0.1.18",
-    "passport-local": "~0.1.6",
-    "passport-twitter": "~1.0.2",
-    "pg": "~2.9.0",
-    "sequelize": "~1.7.0",
-    "coffee-script": "~1.7.1",
-    "brunch": "^1.7.13"
   },
   "devDependencies": {
-    "debug": "~0.7.4",
-    "auto-reload-brunch": "~1.7.1",
-    "mocha": "~1.16.1",
-    "chai": "~1.8.1",
-    "supertest": "~0.8.2",
-    "sinon": "~1.7.3",
-    "karma-script-launcher": "~0.1.0",
-    "karma-coffee-preprocessor": "~0.1.1",
-    "karma-chrome-launcher": "~0.1.1",
-    "karma-html2js-preprocessor": "~0.1.0",
-    "karma-firefox-launcher": "~0.1.2",
-    "karma-jasmine": "~0.1.5",
-    "requirejs": "~2.1.9",
-    "karma-requirejs": "~0.2.0",
-    "karma-phantomjs-launcher": "~0.1.1",
-    "karma": "~0.10.8",
-    "karma-mocha": "~0.1.1",
-    "karma-chai": "0.0.2",
-    "karma-sinon-chai": "~0.1.4"
   }
 }
