@@ -25,8 +25,6 @@
     "coffee-script-brunch": "~1.7.3",
     "javascript-brunch": "~1.7.0",
     "css-brunch": "~1.7.0",
-    "node-sass-brunch": "*",
-    "node-sass": "~0.7.0",
     "passport": "~0.1.18",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
@@ -42,7 +40,8 @@
     "static-favicon": "^1.0.2",
     "connect-redis": "^2.0.0",
     "config": "^0.4.35",
-    "sequelize": "^1.7.3"
+    "sequelize": "^1.7.3",
+    "sass-brunch": "^1.8.1"
   },
   "devDependencies": {
     "debug": "~0.7.4",
