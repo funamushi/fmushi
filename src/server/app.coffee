@@ -11,9 +11,7 @@ cookieParser = require 'cookie-parser'
 session      = require 'express-session'
 serveStatic  = require 'serve-static'
 
-models = require './models'
 routes = require './routes'
-
 config = require 'config'
 
 module.exports = app = express()
