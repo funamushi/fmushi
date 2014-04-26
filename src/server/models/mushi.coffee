@@ -1,6 +1,6 @@
-Sequelize = require 'sequelize'
+sequelize = require '../sequelize'
 
-sequelize = module.parent.exports
-
-module.exports = sequelize.define 'Mushi', {},
+module.exports = sequelize.define 'Mushi',
+  {}
+,
   tableName: 'mushies'
