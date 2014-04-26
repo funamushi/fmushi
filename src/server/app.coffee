@@ -14,7 +14,11 @@ serveStatic  = require 'serve-static'
 models = require './models'
 routes = require './routes'
 
+config = require 'config'
+
 module.exports = app = express()
+
+RedisStore = require('connect-redis')(session)
 
 app.set 'port', process.env.PORT or 3000
 app.set "view engine", "hbs"
@@ -26,14 +30,15 @@ app.use compress()
 app.use serveStatic(path.resolve "./public")
 app.use cookieParser()
 app.use session
+  store: new RedisStore(url: config.redis.url)
   secret: '8d70fc7007c3068bb12217d9d89bb584ae2539e10f0563c0a1612df4e2bf8b6e' +
           '9416367d0044159b4be9af57292a8e8d6c47930574d8b63cae92a3b69c8281fb'
 app.use passport.initialize()
 app.use passport.session()
 
-if process.env.NODE_ENV is 'production'
-  app.use express.errorHandler()
-  app.use express.logger("dev")
+# if process.env.NODE_ENV is 'production'
+#   app.use express.errorHandler()
+#   app.use express.logger("dev")
 
 app.get '/items', routes.items.index
 
