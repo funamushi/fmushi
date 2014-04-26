@@ -1,7 +1,7 @@
 exports.config =
   paths:
     public: 'public'
-    watched: ['src/client', 'src/css']
+    watched: ['src/client', 'src/css', 'assets']
 
   modules:
     wrapper: 'commonjs',
@@ -36,6 +36,11 @@ exports.config =
       defaultExtension: 'scss'
       joinTo:
         'css/app.css': /^(bower_components|src\/css)/
+      order:
+        before: [
+          'bower_components/bootstrap/dist/css/bootstrap.css'
+          'bower_components/flat-ui-official/css/flat-ui.css'
+        ]
 
   plugins:
     autoReload:

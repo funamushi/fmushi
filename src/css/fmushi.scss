@@ -36,6 +36,19 @@
   ime-mode: disabled;
 }
 
+#message-header {
+  background: #028760;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 1200 !important;
+  p {
+    padding: 1em 2em;
+  }
+}
+
 #mushies-panel {
   top: 1em;
   right: 1em;
