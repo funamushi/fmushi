@@ -47,6 +47,11 @@
   z-index: 1200 !important;
   width: 100%;
   vertical-align: middle;
+
+  &.error {
+    background: #f00;
+  }
+
   p {
     padding: 1em 2em;
   }

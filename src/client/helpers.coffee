@@ -6,6 +6,11 @@ exports.headerMessage = (message, options={}) ->
     $messageHeader.children().remove()
     return
 
+  if options.error
+    $messageHeader.addClass 'error'
+  else
+    $messageHeader.removeClass 'error'
+
   $p = $(document.createElement 'p').text(message)
 
   close = ->

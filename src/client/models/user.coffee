@@ -61,8 +61,5 @@ module.exports = class User extends Backbone.AssociatedModel
     @fetch(options).done =>
       @loggedIn = @has('name')
 
-  loggedIn: ->
-    @loggedIn
-
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp

@@ -27,6 +27,9 @@ module.exports = class HomeScene extends BaseScene
         @initOwner owner, options
     else
       @initOwner viewer, options
+      console.log viewer.loggedIn
+      unless viewer.loggedIn
+        @tutorial()
     
   initOwner: (owner, options={}) ->
     @owner = owner
@@ -127,6 +130,9 @@ module.exports = class HomeScene extends BaseScene
       x = camera.get('x')
       y = camera.get('y')
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
+
+  tutorial: ->
+    helpers.headerMessage 'tosute', error: true
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
