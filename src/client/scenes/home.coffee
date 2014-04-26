@@ -83,7 +83,6 @@ module.exports = class HomeScene extends BaseScene
       @focusOut() if @focusEntity
 
     .on 'swipe', (e) ->
-      console.log e
       e.preventDefault()
 
       # if _.any(@subviewsByName, (subview, name) -> subview.gripped)
@@ -103,7 +102,6 @@ module.exports = class HomeScene extends BaseScene
       #   lastDragPoint.y = center.pageY
 
     .on 'pinchIn', (e) ->
-      console.log e
       e.preventDefault()
       
       # zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
@@ -111,7 +109,6 @@ module.exports = class HomeScene extends BaseScene
       # camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchOut', (e) ->
-      console.log e
       e.preventDefault()
 
       # zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
