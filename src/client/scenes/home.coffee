@@ -15,7 +15,7 @@ MushiesPanelView = require 'views/mushies-panel'
 MushiDialogView  = require 'views/mushi-dialog'
 
 module.exports = class HomeScene extends BaseScene
-  defaultZoom: 0.75
+  defaultZoom: 1
 
   initialize: (options) ->
     viewer = Fmushi.viewer
@@ -47,6 +47,7 @@ module.exports = class HomeScene extends BaseScene
       @subview 'panel', panelView
 
     dialogView = new MushiDialogView
+    @$el.append dialogView.render().el
     @subview 'dialog', dialogView
 
     @initDrag()
@@ -78,10 +79,10 @@ module.exports = class HomeScene extends BaseScene
 
     lastDragPoint = null
     @$canvas
-    .on 'tap', (e) =>
+    .on 'click tap', (e) =>
       @focusOut() if @focusEntity
 
-    .on 'swipe', (e) =>
+    .on 'swipe', (e) ->
       console.log e
       e.preventDefault()
 

@@ -7,13 +7,11 @@ module.exports = class MushiDialog extends BaseView
   attributes:
     id: 'mushi-dialog-origin'
 
-  render: ->
-    @
-
   open: (mushi) ->
     @close()
 
-    @$el.popover
+    @$popover = $(@$el)
+    .popover
       html: true
       placement: 'top'
       title: "#{mushi.get('name')}"
@@ -22,11 +20,7 @@ module.exports = class MushiDialog extends BaseView
       content: template
         mushi: mushi.toJSON()
         comment: mushi.comment()
-
-    @$el.popover 'show'
+    .popover 'show'
 
   close: ->
-    @$el.popover 'destroy'
-
-
-
+    @$popover?.popover 'destroy'
