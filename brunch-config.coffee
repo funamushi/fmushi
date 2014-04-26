@@ -1,7 +1,7 @@
 exports.config =
   paths:
     public: 'public'
-    watched: ['src/client', 'src/css']
+    watched: ['src/client', 'src/css', 'assets']
 
   modules:
     wrapper: 'commonjs',
