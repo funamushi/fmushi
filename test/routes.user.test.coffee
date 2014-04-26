@@ -22,19 +22,6 @@ describe 'GET /:user', ->
       .expect(/F虫/)
       .expect(200, done)
 
-describe 'GET /:user/mushies', ->
-  describe 'json', ->
-    it 'ユーザが持っている虫のJSONを返す', (done) ->
-      request()
-      .get('/hadashiA/mushies')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end (err, res) ->
-        json = JSON.parse(res.text)
-        expect(json).to.be.instanceof(Array)
-        done()
-
 describe 'GET /:user/mushies/:id', ->
   describe 'html', ->
     it 'マイページを返す', (done) ->
@@ -44,16 +31,3 @@ describe 'GET /:user/mushies/:id', ->
       .expect('Content-Type', /html/)
       .expect(200)
       .expect(/F虫/, done)
-
-describe 'GET /:user/circles', ->
-  describe 'json', ->
-    it 'ユーザが持っている円のJSONを返す', (done) ->
-      request()
-      .get('/hadashiA/circles')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end (err, res) ->
-        json = JSON.parse(res.text)
-        expect(json).to.be.instanceof(Array)
-        done()      

@@ -7,7 +7,7 @@
     "node": "0.10.26"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha test/*.test.coffee && karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
+    "test": "NODE_ENV=test mocha test/*.test.coffee",
     "postinstall": "bower install && brunch build --production",
     "migrate": "sequelize -m --coffee"
   },

@@ -39,4 +39,4 @@ exports.show = (req, res) ->
         ]
 
 exports.mushi = (req, res) ->
-  res.render 'home'
+  res.render 'index'
