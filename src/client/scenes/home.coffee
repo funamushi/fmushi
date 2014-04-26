@@ -14,16 +14,25 @@ BaseScene        = require 'scenes/base'
 MushiesPanelView = require 'views/mushies-panel'
 MushiDialogView  = require 'views/mushi-dialog'
 
+helpers = require 'helpers'
+
 module.exports = class HomeScene extends BaseScene
   defaultZoom: 1
 
   initialize: (options) ->
     viewer = Fmushi.viewer
-    @owner = owner =
-      if options.userName? and options.userName isnt viewer.get('name')
-        new User name: options.userName
-      else
-        viewer
+    if options.userName? and options.userName isnt viewer.get('name')
+      owner = new User name: options.userName
+      owner.fetch().done =>
+        @initOwner owner, options
+    else
+      @initOwner viewer, options
+      console.log viewer.loggedIn
+      unless viewer.loggedIn
+        @tutorial()
+    
+  initOwner: (owner, options={}) ->
+    @owner = owner
 
     camera  = owner.get('camera')
     mushies = owner.get('mushies')
@@ -121,6 +130,9 @@ module.exports = class HomeScene extends BaseScene
       x = camera.get('x')
       y = camera.get('y')
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
+
+  tutorial: ->
+    helpers.headerMessage 'tosute', error: true
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')

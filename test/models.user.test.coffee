@@ -1,19 +1,22 @@
 require './helper'
 
-models = require '../src/server/models'
-User = models.User
+User = require '../src/server/models/user'
 
-describe 'User Modle test', ->
-  describe 'expect user', ->
-    before ->
-      @user = User.build({name: 'ちゃんぽん男'})
+describe User, ->
+  describe 'default value', ->
+    beforeEach ->
+      @user = User.build()
 
-    it 'userオブジェクトがある', ->
-      expect(User).to.be.ok
-    
-    it 'userのemailがnullである', ->
-      expect(@user.email).to.not.be.ok
-
-    it 'fpが0だよね？', ->
+    it 'fpが0', ->
       expect(@user.fp).to.be.eql(0)
 
+  describe 'validation', ->
+    beforeEach ->
+      @user = User.build(name: 'hadashiA')
+
+    it '通る', ->
+      expect(@user.validate()).to.be.null
+
+    it 'nameは空にできない', ->
+      @user.name = ''
+      expect(@user.validate().name).to.be.present

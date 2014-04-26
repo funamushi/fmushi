@@ -37,6 +37,7 @@
 }
 
 #message-header {
+  cursor: pointer;
   background: #028760;
   color: #fff;
   position: absolute;
@@ -44,6 +45,13 @@
   text-align: center;
   top: 0;
   z-index: 1200 !important;
+  width: 100%;
+  vertical-align: middle;
+
+  &.error {
+    background: #f00;
+  }
+
   p {
     padding: 1em 2em;
   }
