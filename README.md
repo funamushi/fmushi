@@ -2,7 +2,7 @@ F虫
 =========
 
 [![Build Status](https://travis-ci.org/funamushi/fmushi.png?branch=master)](https://travis-ci.org/funamushi/fmushi)
-https://circleci.com/gh/funamushi/fmushi.png?circle-token=2fc3b11210cf6ef6b48ceac3af4c178337670b74
+![Build Status](https://circleci.com/gh/funamushi/fmushi.png?circle-token=2fc3b11210cf6ef6b48ceac3af4c178337670b74)
 
 ## 開発環境
 
