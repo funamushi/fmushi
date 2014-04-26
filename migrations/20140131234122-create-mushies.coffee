@@ -10,7 +10,6 @@ module.exports =
         allowNull: false
         references: 'users'
         referencesKey: 'id'
-      circleId: DataTypes.INTEGER
       name:
         type: DataTypes.STRING
         allowNull: false
@@ -25,10 +24,7 @@ module.exports =
     .complete ->
       migration.addIndex 'mushies', ['userId'],
         indexName: 'mushies_userId'
-      .complete ->
-        migration.addIndex 'mushies', ['circleId'],
-          indexName: 'mushies_circleId'
-        .complete(done)
+      .complete done
 
   down: (migration, DataTypes, done) ->
     migration.dropTable('mushies').complete(done)
