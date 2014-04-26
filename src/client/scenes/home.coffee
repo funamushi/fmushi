@@ -21,11 +21,15 @@ module.exports = class HomeScene extends BaseScene
 
   initialize: (options) ->
     viewer = Fmushi.viewer
-    @owner = owner =
-      if options.userName? and options.userName isnt viewer.get('name')
-        new User name: options.userName
-      else
-        viewer
+    if options.userName? and options.userName isnt viewer.get('name')
+      owner = new User name: options.userName
+      owner.fetch().done =>
+        @initOwner owner, options
+    else
+      @initOwner viewer, options
+    
+  initOwner: (owner, options={}) ->
+    @owner = owner
 
     camera  = owner.get('camera')
     mushies = owner.get('mushies')
@@ -74,8 +78,6 @@ module.exports = class HomeScene extends BaseScene
         zoom: @defaultZoom
 
     @trigger 'ready'
-    helpers.headerMessage 'toste'
-    
 
   initDrag: ->
     @$canvas = $(Fmushi.renderer.view)

@@ -5,7 +5,9 @@ Circles = require 'collections/circles'
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
     fp: 0
-    camera: new Camera
+    camera:  new Camera
+    mushies: new Mushies
+    circles: new Circles
 
   relations: [
     {
@@ -24,9 +26,6 @@ module.exports = class User extends Backbone.AssociatedModel
       collectionType: Circles
     }
   ]
-
-  initialize: ->
-    @loggedIn = false
 
   url: ->
     name = @get 'name'
@@ -59,7 +58,11 @@ module.exports = class User extends Backbone.AssociatedModel
 
   fetchViewer: (options={}) ->
     options.url = @optionalUrls.viewer
-    @fetch(options)
+    @fetch(options).done =>
+      @loggedIn = @has('name')
+
+  loggedIn: ->
+    @loggedIn
 
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp

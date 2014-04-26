@@ -1,7 +1,7 @@
 $messageHeader = $('#message-header')
 $indicator     = $('#indicator')
 
-exports.headerMessage = (message, duration) ->
+exports.headerMessage = (message, options={}) ->
   if _.isEmpty message
     $messageHeader.children().remove()
     return
@@ -25,8 +25,8 @@ exports.headerMessage = (message, duration) ->
 
   $messageHeader.html($p).one 'click', close
 
-  if duration?
-    setTimeout close, duration
+  if options.duration?
+    setTimeout close, options.duration
 
 exports.showIndicator = ->
   $indicator.show()

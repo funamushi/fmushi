@@ -38,34 +38,4 @@ exports.logout = (req, res) ->
       res.redirect '/'
 
 exports.show = (req, res) ->
-  res.send {
-    name: 'hadashiA'
-    mushies: [
-      {
-        id: 1
-        name: 'ヘイプー大佐'
-        x: 200
-        y: 200
-      }
-      {
-        id: 2
-        name: 'ミニマム級チャンピオン ワンツーぷや夫'
-        x: 500
-        y: 200
-      }
-      {
-        id: 3
-        name: 'プヤプヤプンヤ代表取締役'
-        x: 700
-        y: 200
-      }
-    ]
-    circles: [
-      {
-        id: 1
-        x: 700
-        y: 650
-        r: 200
-      }
-    ]
-  }
+  res.send {}
