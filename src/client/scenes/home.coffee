@@ -14,6 +14,8 @@ BaseScene        = require 'scenes/base'
 MushiesPanelView = require 'views/mushies-panel'
 MushiDialogView  = require 'views/mushi-dialog'
 
+helpers = require 'helpers'
+
 module.exports = class HomeScene extends BaseScene
   defaultZoom: 1
 
@@ -72,6 +74,8 @@ module.exports = class HomeScene extends BaseScene
         zoom: @defaultZoom
 
     @trigger 'ready'
+    helpers.headerMessage 'toste'
+    
 
   initDrag: ->
     @$canvas = $(Fmushi.renderer.view)
