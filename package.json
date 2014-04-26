@@ -41,11 +41,11 @@
     "connect-redis": "^2.0.0",
     "config": "^0.4.35",
     "sequelize": "^1.7.3",
-    "sass-brunch": "^1.8.1",
-    "auto-reload-brunch": "~1.7.1"
+    "sass-brunch": "^1.8.1"
   },
   "devDependencies": {
     "debug": "~0.7.4",
+    "auto-reload-brunch": "~1.7.1",
     "mocha": "~1.16.1",
     "chai": "~1.8.1",
     "supertest": "~0.8.2",
