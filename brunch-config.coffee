@@ -44,5 +44,3 @@ exports.config =
         js: on
         assets: on
       port: [1234, 2345, 3456]
-    sass:
-      outputStyle: 'compressed'
