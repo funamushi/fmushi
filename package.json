@@ -7,7 +7,7 @@
     "node": "0.10.26"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha test/server/*",
+    "test": "NODE_ENV=test mocha test/server/* && karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
     "postinstall": "bower install && brunch build --production",
     "migrate": "sequelize -m --coffee"
   },
@@ -55,6 +55,7 @@
     "karma-chrome-launcher": "^0.1.3",
     "karma-firefox-launcher": "^0.1.3",
     "karma-phantomjs-launcher": "^0.1.4",
-    "karma-coffee-preprocessor": "^0.2.1"
+    "karma-coffee-preprocessor": "^0.2.1",
+    "supertest": "^0.11.0"
   }
 }
