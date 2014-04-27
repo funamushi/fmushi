@@ -14,8 +14,11 @@ module.exports = (config) ->
     files: [
       'public/js/vendor.js'
       'public/js/app.js'
-      'test/client/**/*.coffee'
+      'test/client/*'
     ]
+
+    preprocessors:
+      '**/*.coffee': ['coffee']
 
     # list of files to exclude
     exclude: [
