@@ -1,6 +1,6 @@
 require './helper'
 
-User = require '../src/server/models/user'
+User = require '../../src/server/models/user'
 
 describe User, ->
   describe 'default value', ->
