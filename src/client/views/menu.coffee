@@ -4,10 +4,11 @@ template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   events:
-    'mouseover a': 'point'
-    'mouseout a':  'pointOut'
-    'click a': 'focus'
-    'touchend a':   'focus'
+    'click #menu-toggle-button': 'onToggleMenu'
+    'mouseover #user-mushies a': 'onPointIn'
+    'mouseout  #user-mushies a': 'onPointOut'
+    'click     #user-mushies a': 'onFocus'
+    'touchend  #user-mushies a': 'onFocus'
 
   initialize: ->
     mushies = @model.get('mushies')
@@ -27,16 +28,21 @@ module.exports = class MenuView extends BaseView
     @setElement template(user: @model.toJSON())
     @
 
-  point: (e) ->
-    mushi = @mushiFromEvent(e)?.point()
+  onPointIn: (e) ->
+    @mushiFromEvent(e)?.point()
 
-  pointOut: (e) ->
+  onPointOut: (e) ->
     @mushiFromEvent(e)?.pointOut()
 
-  focus: (e) ->
+  onFocus: (e) ->
     e.preventDefault()
+
     mushi = @mushiFromEvent(e)
     Fmushi.scene.focus mushi
+
+  onToggleMenu: (e) ->
+    e.preventDefault()
+    $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine'
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
