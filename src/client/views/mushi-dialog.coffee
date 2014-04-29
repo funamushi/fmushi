@@ -1,5 +1,5 @@
 BaseView = require 'views/base'
-template = require 'templates/mushies/dialog'
+template = require 'templates/mushi-dialog'
 
 module.exports = class MushiDialog extends BaseView
   tagName: 'div'

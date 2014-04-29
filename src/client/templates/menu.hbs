@@ -1,0 +1,21 @@
+<div id="menu" class="control">
+  <div>
+    <div id="user-belongings" class="btn-group">
+      <button type="button" class="btn btn-default">unko</button>
+      <button type="button" class="btn btn-default">unko</button>
+      <button type="button" class="btn btn-default">unko</button>
+
+      <h4 id="user-name">
+        <span class="glyphicon glyphicon-plus"></span>
+      </h4>
+    </div>
+  </div>
+
+  <div id="user-mushies" class="control list-group" style="text-align:right">
+    <a href="#" class="list-group-item" data-mushi-id="1">yamero</a>
+    {{#each user.mushies}}
+      <a href="#" class="list-group-item" data-mushi-id="{{id}}">{{name}}</a>
+    {{/each}}
+  </div>
+</div>
+

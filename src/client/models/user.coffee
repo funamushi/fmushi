@@ -1,13 +1,15 @@
-Camera  = require 'models/camera'
-Mushies = require 'collections/mushies'
-Circles = require 'collections/circles'
+Camera     = require 'models/camera'
+Mushies    = require 'collections/mushies'
+Circles    = require 'collections/circles'
+Belongings = require 'collections/belongings'
 
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
     fp: 0
-    camera:  new Camera
-    mushies: new Mushies
-    circles: new Circles
+    camera:     new Camera
+    mushies:    new Mushies
+    circles:    new Circles
+    belongings: new Belongings
 
   relations: [
     {

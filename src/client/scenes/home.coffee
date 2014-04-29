@@ -11,10 +11,10 @@ MushiView  = require 'views/mushi'
 CircleView = require 'views/circle'
 
 BaseScene        = require 'scenes/base'
-MushiesPanelView = require 'views/mushies-panel'
+MenuView         = require 'views/menu'
 MushiDialogView  = require 'views/mushi-dialog'
 
-helpers = require 'helpers'
+dialog = require 'dialog'
 
 module.exports = class HomeScene extends BaseScene
   defaultZoom: 1
@@ -27,7 +27,6 @@ module.exports = class HomeScene extends BaseScene
         @initOwner owner, options
     else
       @initOwner viewer, options
-      console.log viewer.loggedIn
       unless viewer.loggedIn
         @tutorial()
     
@@ -49,14 +48,10 @@ module.exports = class HomeScene extends BaseScene
         circle.collisionEntity mushi
 
     # subviews
-    unless Modernizr.touch
-      panelView = new MushiesPanelView
-        owner: owner
-        collection: mushies
-      @subview 'panel', panelView
+    menuView = new MenuView(model: owner)
+    @subview 'menu', menuView
 
     dialogView = new MushiDialogView
-    @$el.append dialogView.render().el
     @subview 'dialog', dialogView
 
     @initDrag()
@@ -67,8 +62,8 @@ module.exports = class HomeScene extends BaseScene
       @addEntity circle
 
     $body = $(document.body)
-    if panel = @subview('panel')
-      $body.append panel.render().el
+    if menuView = @subview('menu')
+      $body.append menuView.render().el
     $body.append @subview('dialog').render().el
 
     if options.focusMushiId?
@@ -132,7 +127,7 @@ module.exports = class HomeScene extends BaseScene
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
   tutorial: ->
-    helpers.headerMessage 'tosute', error: true
+    dialog.footerMessage '「ヘイプー大佐」が迷い込んできました。'
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
