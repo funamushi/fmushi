@@ -36,6 +36,10 @@ exports.config =
       defaultExtension: 'scss'
       joinTo:
         'css/app.css': /^(bower_components|src\/css)/
+      order:
+        before: [
+          "bower_components/bootstrap/dist/css/bootstrap.css"
+        ]
 
   plugins:
     autoReload:

@@ -26,6 +26,10 @@ module.exports = class MenuView extends BaseView
 
   render: ->
     @setElement template(user: @model.toJSON())
+
+    @$belongings = @$('#user-belongings')
+    @$mushies    = @$('#user-mushies')
+    @open = true
     @
 
   onPointIn: (e) ->
@@ -42,7 +46,16 @@ module.exports = class MenuView extends BaseView
 
   onToggleMenu: (e) ->
     e.preventDefault()
-    $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine'
+
+    if @open
+      $(e.target).transition {rotate: '-90deg'}, 200, 'easeInOutSine', ->
+        @$belongings.hide()
+        @$mushies.hide()
+    else
+      @$belongings.show()
+      @$mushies.show()
+      $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine'
+      
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
