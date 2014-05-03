@@ -10,6 +10,9 @@ module.exports =
     @viewer = new User
     @items  = new Items
 
+    $ ->
+      FastClick.attach document.body
+
     @startAnimation()
 
     @fetch().then =>

@@ -21,6 +21,10 @@ module.exports = class HomeScene extends BaseScene
 
   initialize: (options) ->
     viewer = Fmushi.viewer
+    
+    @wildMushies = new Mushies
+    @listenTo @wildMushies, 'add', @addEntity
+
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
       owner.fetch().done =>
@@ -29,7 +33,7 @@ module.exports = class HomeScene extends BaseScene
       @initOwner viewer, options
       unless viewer.loggedIn
         @tutorial()
-    
+
   initOwner: (owner, options={}) ->
     @owner = owner
 
@@ -48,7 +52,7 @@ module.exports = class HomeScene extends BaseScene
         circle.collisionEntity mushi
 
     # subviews
-    menuView = new MenuView(model: owner)
+    menuView = new MenuView(owner: owner, mushies: @wildMushies)
     @subview 'menu', menuView
 
     dialogView = new MushiDialogView
@@ -127,6 +131,8 @@ module.exports = class HomeScene extends BaseScene
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
   tutorial: ->
+    @wildMushies.add
+      name: '?????', x: 200, y: 300
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
@@ -158,6 +164,7 @@ module.exports = class HomeScene extends BaseScene
       else if model instanceof Circle
         CircleView
 
+    console.log klass
     if klass?
       view = new klass(model: model)
 

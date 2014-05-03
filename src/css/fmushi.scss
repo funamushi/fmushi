@@ -48,22 +48,15 @@ html,body {
   right: 1em;
   width: 100%;
 
-  #menu-toggle-button {
+  .toggle-button {
     text-align: center;
     vertical-align: middle;
   }
 
-  #user-belongings {
+  .belongings {
     .btn {
       margin-right: 5px;
     }
-  }
-
-  #user-mushies {
-    position: relative;
-    float: right;
-    margin-top: 10px;
-    margin-right: 30px;
   }
 }
 

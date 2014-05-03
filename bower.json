@@ -14,7 +14,8 @@
     "pixi.js": "~1.5.3",
     "bootstrap": "~3.1.1",
     "jquery.transit": "~0.9.9",
-    "flat-ui": "*"
+    "flat-ui": "*",
+    "fastclick": "~1.0.1"
   },
   "overrides": {
     "zeptojs": {

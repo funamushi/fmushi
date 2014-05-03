@@ -1,21 +1,24 @@
-<div id="menu" class="control row">
-  <div class="col-md-10">
-    <div id="user-belongings">
-      {{#each user.belongings}}
-        <button type="button" class="btn btn-default pull-right">{{item.name}} x {{quantity}}</button>
+<div class="col-md-10">
+  <div class="belongings">
+    {{#each owner.belongings}}
+      <button type="button" class="btn btn-default pull-right">{{item.name}} x {{quantity}}</button>
+    {{/each}}
+  </div>
+</div>
+<div class="col-md-2">
+  <h4 class="toggle-button">
+    <span class="glyphicon glyphicon-minus"></span>
+  </h4>
+  <div class="mushies">
+    <div class="own list-group">
+      {{#each owner.mushies}}
+        <a href="#" class="list-group-item btn btn-warning" data-mushi-id="{{id}}">{{name}}</a>
       {{/each}}
     </div>
-  </div>
-  <div class="col-md-2">
-    <h4 id="menu-toggle-button">
-      <span class="glyphicon glyphicon-minus"></span>
-    </h4>
-    <div id="user-mushies" class="list-group">
-      <a href="#" class="list-group-item btn btn-primary" data-mushi-id="1">??????</a>
-      {{#each user.mushies}}
+    <div class="wildness list-group">
+      {{#each wildMushies}}
         <a href="#" class="list-group-item btn btn-primary" data-mushi-id="{{id}}">{{name}}</a>
       {{/each}}
     </div>
   </div>
 </div>
-

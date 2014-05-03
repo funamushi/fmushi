@@ -3,33 +3,33 @@ BaseView = require 'views/base'
 template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
+  tagName: 'div'
+  className: 'control row'
+  attributes:
+    id: 'menu'
+
   events:
-    'click #menu-toggle-button': 'onToggleMenu'
-    'mouseover #user-mushies a': 'onPointIn'
-    'mouseout  #user-mushies a': 'onPointOut'
-    'click     #user-mushies a': 'onFocus'
-    'touchend  #user-mushies a': 'onFocus'
+    'click .toggle-button': 'onToggleMenu'
+    'mouseover .mushies a': 'onPointIn'
+    'mouseout  .mushies a': 'onPointOut'
+    'click     .mushies a': 'onFocus'
 
-  initialize: ->
-    mushies = @model.get('mushies')
+  initialize: (options) ->
+    @owner       = options.owner
+    @wildMushies = options.wildMushies
 
-    @listenTo mushies, 'focus:in', (mushi) ->
-      @$('.list-group-item').each ->
-        $this = $(@)
-        if $this.data('mushi-id') is mushi.get('id')
-          $this.addClass 'active'
-        else
-          $this.removeClass 'active'
-
-    @listenTo mushies, 'focus:out', ->
-      @$('.list-group-item').removeClass('active')
+    @listenTo @owner.get('mushies'), 'add', @render
+    @listenTo @owner.get('belongings'), 'add', @render
+    @listenTo @wildMushies, 'add', @render
 
   render: ->
-    @setElement template(user: @model.toJSON())
+    @$el.html template
+      owner: @owner.toJSON()
+      wildMushies: @wildMushies.toJSON()
 
     @$icon       = $(@$('#menu-toggle-button').find('.glyphicon'))
     @$belongings = @$('#user-belongings')
-    @$mushies    = @$('#user-mushies')
+    @$ownerMushies = @$('#user-mushies')
     @open = true
     @
 
@@ -74,4 +74,5 @@ module.exports = class MenuView extends BaseView
       
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
-    @model.get('mushies').findWhere(id: mushiId)
+    @owner.get('mushies').get(mushiId) or
+      @wildMushies.get(mushiId)
