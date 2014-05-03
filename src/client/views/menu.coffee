@@ -47,16 +47,28 @@ module.exports = class MenuView extends BaseView
   onToggleMenu: (e) ->
     e.preventDefault()
 
+    return if @menuLocked
+    @menuLocked = true
+
     if @open
-      $(e.target).transition {rotate: '-90deg'}, 200, 'easeInOutSine', ->
+      $(e.target).transition {rotate: '-90deg'}, 200, 'easeInOutSine', =>
         @$belongings.hide()
         @$mushies.hide()
+        @open = false
+        @menuLocked = false
     else
       @$belongings.show()
       @$mushies.show()
-      $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine'
+      $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine', =>
+        @open = true
+        @menuLocked = false
       
-
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
-    @collection.findWhere(id: mushiId)
+    @model.get('mushies').findWhere(id: mushiId)
+
+
+
+
+
+

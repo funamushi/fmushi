@@ -1,21 +1,21 @@
-<div id="menu" class="control">
-  <div>
-    <div id="user-belongings" class="btn-group">
-      <button type="button" class="btn btn-default">unko</button>
-      <button type="button" class="btn btn-default">unko</button>
-      <button type="button" class="btn btn-default">unko</button>
-
-      <h4 id="menu-toggle-button">
-        <span class="glyphicon glyphicon-plus"></span>
-      </h4>
+<div id="menu" class="control row">
+  <div class="col-md-10">
+    <div id="user-belongings">
+      <button type="button" class="btn btn-default pull-right">item1 x 2</button>
+      <button type="button" class="btn btn-default pull-right">item2 x 1</button>
+      <button type="button" class="btn btn-default pull-right">item3 x 1</button>
     </div>
   </div>
-
-  <div id="user-mushies" class="control list-group" style="text-align:right">
-    <a href="#" class="list-group-item" data-mushi-id="1">yamero</a>
-    {{#each user.mushies}}
-      <a href="#" class="list-group-item" data-mushi-id="{{id}}">{{name}}</a>
-    {{/each}}
+  <div class="col-md-2">
+    <h4 id="menu-toggle-button">
+      <span class="glyphicon glyphicon-plus"></span>
+    </h4>
+    <div id="user-mushies" class="list-group">
+      <a href="#" class="list-group-item" data-mushi-id="1">yamero</a>
+      {{#each user.mushies}}
+        <a href="#" class="list-group-item" data-mushi-id="{{id}}">{{name}}</a>
+      {{/each}}
+    </div>
   </div>
 </div>
 

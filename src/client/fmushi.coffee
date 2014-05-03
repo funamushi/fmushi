@@ -56,7 +56,7 @@ module.exports =
     document.body.appendChild renderer.view
 
     @onResize()
-    $(window).resize _.bind(@onResize, @)
+    $(window).resize _.debounce(_.bind(@onResize, @), 260)
 
     interval = 1 / @fps
 
