@@ -38,7 +38,4 @@ exports.logout = (req, res) ->
       res.redirect '/'
 
 exports.show = (req, res) ->
-  res.send
-    belongings: [
-      { quantity: 1, item: 'red-circle' }
-    ]
+  res.send {}

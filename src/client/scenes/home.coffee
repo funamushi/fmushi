@@ -14,7 +14,7 @@ BaseScene        = require 'scenes/base'
 MenuView         = require 'views/menu'
 MushiDialogView  = require 'views/mushi-dialog'
 
-dialog = require 'dialog'
+helpers = require 'helpers'
 
 module.exports = class HomeScene extends BaseScene
   defaultZoom: 1
@@ -127,7 +127,6 @@ module.exports = class HomeScene extends BaseScene
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
   tutorial: ->
-    dialog.footerMessage '「ヘイプー大佐」が迷い込んできました。'
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
@@ -180,8 +179,8 @@ module.exports = class HomeScene extends BaseScene
       y: entity.get('y')
       zoom: 2.5
     
-    dialog = @subview('dialog')
-    dialog.open entity
+    dialogView = @subview('dialog')
+    dialogView.open entity
 
     @focusEntity = entity
     @listenTo entity, 'change', @onFocusEntityChanged
