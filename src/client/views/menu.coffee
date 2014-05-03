@@ -27,6 +27,7 @@ module.exports = class MenuView extends BaseView
   render: ->
     @setElement template(user: @model.toJSON())
 
+    @$icon       = $(@$('#menu-toggle-button').find('.glyphicon'))
     @$belongings = @$('#user-belongings')
     @$mushies    = @$('#user-mushies')
     @open = true
@@ -51,15 +52,23 @@ module.exports = class MenuView extends BaseView
     @menuLocked = true
 
     if @open
-      $(e.target).transition {rotate: '-90deg'}, 200, 'easeInOutSine', =>
+      @$icon.transition {rotate: '180deg'}, 200, 'easeInOutSine', =>
         @$belongings.hide()
         @$mushies.hide()
+        @$icon
+        .removeClass('glyphicon-minus')
+        .addClass('glyphicon-plus')
+
         @open = false
         @menuLocked = false
     else
-      $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine', =>
+      @$icon.transition {rotate: '0deg'}, 200, 'easeInOutSine', =>
         @$belongings.show()
         @$mushies.show()
+        @$icon
+        .removeClass('glyphicon-plus')
+        .addClass('glyphicon-minus')
+
         @open = true
         @menuLocked = false
       
