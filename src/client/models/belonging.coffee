@@ -1,4 +1,4 @@
-Item = require 'models/item'
+Item   = require 'models/item'
 
 module.exports = class Belonging extends Backbone.AssociatedModel
   defaults:
@@ -9,6 +9,9 @@ module.exports = class Belonging extends Backbone.AssociatedModel
       type: Backbone.One
       key: 'item'
       relatedModel: Item
+      map: (itemSlug) ->
+        Fmushi = require 'fmushi'
+        Fmushi.items.findWhere(slug: itemSlug)
     }
   ]
     

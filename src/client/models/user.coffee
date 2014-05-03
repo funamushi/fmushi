@@ -27,6 +27,11 @@ module.exports = class User extends Backbone.AssociatedModel
       key: 'circles'
       collectionType: Circles
     }
+    {
+      type: Backbone.Many
+      key: 'belongings'
+      collectionType: Belongings
+    }
   ]
 
   url: ->

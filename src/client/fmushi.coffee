@@ -20,9 +20,9 @@ module.exports =
   fetch: ->
     $.when(
       @fetchAsset ['/app.json']
-      @viewer.fetchViewer()
       @items.fetch()
-    )
+    ).then =>
+      @viewer.fetchViewer()
 
   fetchAsset: (args) ->
     defer = $.Deferred()

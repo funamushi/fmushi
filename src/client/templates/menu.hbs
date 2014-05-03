@@ -1,9 +1,9 @@
 <div id="menu" class="control row">
   <div class="col-md-10">
     <div id="user-belongings">
-      <button type="button" class="btn btn-default pull-right">item1 x 2</button>
-      <button type="button" class="btn btn-default pull-right">item2 x 1</button>
-      <button type="button" class="btn btn-default pull-right">item3 x 1</button>
+      {{#each user.belongings}}
+        <button type="button" class="btn btn-default pull-right">{{item.name}} x {{quantity}}</button>
+      {{/each}}
     </div>
   </div>
   <div class="col-md-2">
@@ -11,9 +11,9 @@
       <span class="glyphicon glyphicon-plus"></span>
     </h4>
     <div id="user-mushies" class="list-group">
-      <a href="#" class="list-group-item" data-mushi-id="1">yamero</a>
+      <a href="#" class="list-group-item btn btn-primary" data-mushi-id="1">yamero</a>
       {{#each user.mushies}}
-        <a href="#" class="list-group-item" data-mushi-id="{{id}}">{{name}}</a>
+        <a href="#" class="list-group-item btn btn-primary" data-mushi-id="{{id}}">{{name}}</a>
       {{/each}}
     </div>
   </div>

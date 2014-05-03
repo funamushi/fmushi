@@ -57,18 +57,12 @@ module.exports = class MenuView extends BaseView
         @open = false
         @menuLocked = false
     else
-      @$belongings.show()
-      @$mushies.show()
       $(e.target).transition {rotate: '90deg'}, 200, 'easeInOutSine', =>
+        @$belongings.show()
+        @$mushies.show()
         @open = true
         @menuLocked = false
       
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
     @model.get('mushies').findWhere(id: mushiId)
-
-
-
-
-
-
