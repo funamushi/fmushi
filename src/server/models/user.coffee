@@ -9,7 +9,7 @@ module.exports = User = db.define 'User',
     allowNull: false
     validate:
       notEmpty: true
-      is: ['^[a-z_-]$', 'i']
+      is: ['^[a-z_-]+$', 'i']
   fp:
     type: Sequelize.INTEGER
     defaultValue: 0

@@ -17,6 +17,19 @@ describe User, ->
     it '通る', ->
       expect(@user.validate()).to.be.null
 
-    it 'nameは空にできない', ->
-      @user.name = ''
-      expect(@user.validate().name).to.be.present
+    describe 'name', ->
+      it '空にできない', ->
+        @user.name = ''
+        expect(@user.validate().name).to.be.present
+
+      it 'ハイフンは使える', ->
+        @user.name = 'hoge-hoge'
+        expect(@user.validate()).to.be.null
+
+      it 'アンダースコアも使える', ->
+        @user.name = 'hoge_hoge'
+        expect(@user.validate()).to.be.null
+
+      it 'マルチバイト文字つかえない', ->
+        @user.name = 'あ'
+        expect(@user.validate().name).to.be.present
