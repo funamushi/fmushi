@@ -23,6 +23,7 @@ module.exports = class HomeScene extends BaseScene
     viewer = Fmushi.viewer
     
     @wildMushies = new Mushies
+    @listenTo @wildMushies, 'add', @onAddWildMushi
     @listenTo @wildMushies, 'add', @addEntity
 
     if options.userName? and options.userName isnt viewer.get('name')
@@ -132,7 +133,7 @@ module.exports = class HomeScene extends BaseScene
 
   tutorial: ->
     @wildMushies.add
-      name: '?????', x: 200, y: 300
+      name: 'プヤプヤプンヤ代表取締役', x: 200, y: 300
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
@@ -278,6 +279,9 @@ module.exports = class HomeScene extends BaseScene
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
+
+  onAddWildMushi: (mushi) ->
+    helpers.footerMessage "野生の「#{mushi.get 'name'}」が来ました。"
 
   transitionOut: ->
     super()

@@ -1,11 +1,12 @@
-<div class="col-md-10">
+<div class="row-fluid">
+<div class="col-md-9 col-xs-9">
   <div class="belongings">
     {{#each owner.belongings}}
       <button type="button" class="btn btn-default pull-right">{{item.name}} x {{quantity}}</button>
     {{/each}}
   </div>
 </div>
-<div class="col-md-2">
+<div class="col-md-3 col-xs-3">
   <h4 class="toggle-button">
     <span class="glyphicon glyphicon-minus"></span>
   </h4>
@@ -17,8 +18,9 @@
     </div>
     <div class="wildness list-group">
       {{#each wildMushies}}
-        <a href="#" class="list-group-item btn btn-primary" data-mushi-id="{{id}}">{{name}}</a>
+        <button type="button" class="btn btn-primary" data-mushi-id="{{id}}">{{name}}</button>
       {{/each}}
     </div>
   </div>
+</div>
 </div>
