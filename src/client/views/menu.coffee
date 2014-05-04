@@ -4,15 +4,15 @@ template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   tagName: 'div'
-  className: 'control container-fluid'
+  className: 'control'
   attributes:
     id: 'menu'
 
   events:
     'click .toggle-button': 'onToggleMenu'
-    'mouseover .mushies a': 'onPointIn'
-    'mouseout  .mushies a': 'onPointOut'
-    'click     .mushies a': 'onFocus'
+    'mouseover .mushies .btn': 'onPointIn'
+    'mouseout  .mushies .btn': 'onPointOut'
+    'click     .mushies .btn': 'onFocus'
 
   initialize: (options) ->
     @owner       = options.owner
@@ -23,9 +23,13 @@ module.exports = class MenuView extends BaseView
     @listenTo @wildMushies, 'add', @render
 
   render: ->
+
     @$el.html template
       owner: @owner.toJSON()
-      wildMushies: @wildMushies.toJSON()
+      wildMushies: @wildMushies.map (mushi) ->
+        json = mushi.toJSON()
+        json.cid = mushi.cid
+        json
 
     @$icon       = $(@$('.toggle-button').find('.glyphicon'))
     @$belongings = @$('.belongings')
@@ -74,7 +78,5 @@ module.exports = class MenuView extends BaseView
       
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
-    console.log e.target
-    console.log mushiId
     @owner.get('mushies').get(mushiId) or
       @wildMushies.get(mushiId)

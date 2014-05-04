@@ -39,7 +39,7 @@ module.exports = class User extends Backbone.AssociatedModel
     if name?
       "/#{@get('name')}"
     else
-      '/'
+      '/viewer'
 
   optionalUrls:
     viewer: '/viewer'

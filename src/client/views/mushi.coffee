@@ -4,25 +4,29 @@ StateMachine = require 'state-machine'
 
 class MushiStateMachine extends StateMachine
   states:
-    rest:
+    wild:
+      animationSpeed: 0.25
+      speed: 35
+
       onEnter: (view) ->
         view.sprite.stop()
-        view.sprite.textures = view.idleTextues
-        view.sprite.gotoAndPlay 0
+
+      update: (view, delta) ->
+        return if view.gripped
+
+    rest:
+      onEnter: (view) ->
+        view.animate 'idle'
 
       update: (view, delta) ->
         
 
     walking:
       animationSpeed: 0.25
-    
       speed: 30
     
       onEnter: (view) ->
-        view.sprite.stop()
-        view.sprite.textures = view.walkingTextures
-        view.sprite.animationSpeed = @animationSpeed
-        view.sprite.gotoAndPlay 0
+        view.animate 'walking', speed: @animationSpeed
     
       update: (view, delta) ->
         return if view.gripped
@@ -42,14 +46,10 @@ class MushiStateMachine extends StateMachine
     
     hustle:
       animationSpeed: 0.25
-    
       speed: 30
     
       onEnter: (view) ->
-        view.sprite.stop()
-        view.sprite.textures = view.walkingTextures
-        view.sprite.animationSpeed = @animationSpeed
-        view.sprite.gotoAndPlay 0
+        view.animate 'walking', spped: @animationSpeed
     
       update: (view, delta) ->
         return if view.gripped
@@ -79,15 +79,17 @@ module.exports = class MushiView extends BaseView
     @initState()
 
   initSprite: ->
-    @walkingTextures = _.map [
+    @textures = {}
+
+    @textures.walking = _.map [
       'fmushi_walk-1-0.png'
       'fmushi_walk-1-1.png'
       'fmushi_walk-2-0.png'
       'fmushi_walk-2-1.png'
     ], (name) -> PIXI.Texture.fromFrame(name)
 
-    @idleTextues = [PIXI.Texture.fromFrame('fmushi_idle.png')]
-    @sprite = sprite = new PIXI.MovieClip(@idleTextues)
+    @textures.idle = idleTextures = [PIXI.Texture.fromFrame('fmushi_idle.png')]
+    @sprite = sprite = new PIXI.MovieClip(idleTextures)
 
     attrs = @model.toJSON()
     sprite.anchor.x = 0.5
@@ -148,6 +150,14 @@ module.exports = class MushiView extends BaseView
 
     @listenTo Fmushi.events, 'update', (delta) =>
       @stateMachine.update delta
+
+  animate: (name, options={}) ->
+    @sprite.stop()
+    @sprite.textures = @textures[name]
+
+    if speed = options.speed
+      @sprite.animationSpeed = speed
+    @sprite.gotoAndPlay 0
 
   onChanged: ->
     changed = @model.changedAttributes()

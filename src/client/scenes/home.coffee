@@ -178,7 +178,6 @@ module.exports = class HomeScene extends BaseScene
     @subview model.cid
 
   focus: (entity) ->
-    entity = @owner.get('mushies').get(entity)
     return if (not entity?) or @focusEntity is entity
 
     @owner.get('camera').set
@@ -193,7 +192,8 @@ module.exports = class HomeScene extends BaseScene
     @listenTo entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:in', entity
 
-    Backbone.history.navigate "#{@owner.url()}/mushies/#{entity.get 'id'}"
+    unless @owner.isNew()
+      Backbone.history.navigate "#{@owner.url()}/mushies/#{entity.get 'id'}"
 
   focusOut: ->
     return unless @focusEntity

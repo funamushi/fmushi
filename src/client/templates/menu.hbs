@@ -1,16 +1,15 @@
-<div class="row-fluid">
-<div class="col-md-9 col-xs-9">
-  <div class="belongings">
+<div class="col-md-10 col-xs-7">
+  <div class="belongings pull-right">
     {{#each owner.belongings}}
       <button type="button" class="btn btn-default pull-right">{{item.name}} x {{quantity}}</button>
     {{/each}}
   </div>
 </div>
-<div class="col-md-3 col-xs-3">
+<div class="col-md-2 col-xs-5">
   <h4 class="toggle-button">
     <span class="glyphicon glyphicon-minus"></span>
   </h4>
-  <div class="mushies">
+  <div class="mushies pull-right">
     <div class="own list-group">
       {{#each owner.mushies}}
         <a href="#" class="list-group-item btn btn-warning" data-mushi-id="{{id}}">{{name}}</a>
@@ -18,9 +17,8 @@
     </div>
     <div class="wildness list-group">
       {{#each wildMushies}}
-        <button type="button" class="btn btn-primary" data-mushi-id="{{id}}">{{name}}</button>
+        <button type="button" class="btn btn-primary" data-mushi-id="{{cid}}">{{name}}</button>
       {{/each}}
     </div>
   </div>
-</div>
 </div>

@@ -59,6 +59,10 @@ html,body {
     }
   }
 
+  > div {
+    padding-right: 0;
+  }
+
   button {
     white-space: pre;           /* CSS 2.0 */
     white-space: pre-wrap;      /* CSS 2.1 */

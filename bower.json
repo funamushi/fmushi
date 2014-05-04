@@ -54,7 +54,8 @@
     },
     "flat-ui": {
       "main": [
-        "css/flat-ui.css"
+        "css/flat-ui.css",
+        "js/bootstrap-tooltip.js"
       ]
     },
     "tweenjs": {

@@ -19,6 +19,10 @@ module.exports =
       y:
         type: DataTypes.FLOAT
         defaultValue: 0
+      direction:
+        type: DataTypes.ENUM
+        values: ['left', 'right']
+        allowNull: false
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
     .complete ->
