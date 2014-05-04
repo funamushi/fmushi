@@ -52,7 +52,7 @@ module.exports = class HomeScene extends BaseScene
         circle.collisionEntity mushi
 
     # subviews
-    menuView = new MenuView(owner: owner, mushies: @wildMushies)
+    menuView = new MenuView(owner: owner, wildMushies: @wildMushies)
     @subview 'menu', menuView
 
     dialogView = new MushiDialogView
@@ -164,7 +164,6 @@ module.exports = class HomeScene extends BaseScene
       else if model instanceof Circle
         CircleView
 
-    console.log klass
     if klass?
       view = new klass(model: model)
 

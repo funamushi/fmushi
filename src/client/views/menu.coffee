@@ -27,9 +27,9 @@ module.exports = class MenuView extends BaseView
       owner: @owner.toJSON()
       wildMushies: @wildMushies.toJSON()
 
-    @$icon       = $(@$('#menu-toggle-button').find('.glyphicon'))
-    @$belongings = @$('#user-belongings')
-    @$ownerMushies = @$('#user-mushies')
+    @$icon       = $(@$('.toggle-button').find('.glyphicon'))
+    @$belongings = @$('.belongings')
+    @$mushies    = @$('.mushies')
     @open = true
     @
 
@@ -74,5 +74,7 @@ module.exports = class MenuView extends BaseView
       
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
+    console.log e.target
+    console.log mushiId
     @owner.get('mushies').get(mushiId) or
       @wildMushies.get(mushiId)
