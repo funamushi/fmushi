@@ -13,6 +13,8 @@ module.exports =
       quantity:
         type: DataTypes.INTEGER
         defaultValue: 0
+      createdAt: DataTypes.DATE
+      updatedAt: DataTypes.DATE
     .complete ->
       migration.addIndex 'belongings', ['userId'],
         indexName: 'belongings_userId'

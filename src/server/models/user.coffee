@@ -18,4 +18,4 @@ module.exports = User = db.define 'User',
 ,
   tableName: 'users'
 
-User.hasMany Mushi
+User.hasMany Mushi, as: 'Mushies'

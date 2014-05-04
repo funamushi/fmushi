@@ -1,6 +1,7 @@
-sequelize = require '../db'
+Sequelize = require 'sequelize'
+db        = require '../db'
 
-module.exports = sequelize.define 'Item',
+module.exports = db.define 'Item',
   slug:
     type: Sequelize.STRING
     allowNull: false
@@ -10,3 +11,4 @@ module.exports = sequelize.define 'Item',
       is: ['^[a-z-]+$']
 ,
   tableName: 'items'
+  timestamps: false
