@@ -1,20 +1,16 @@
 Sequelize = require 'Sequelize'
-sequelize = require '../sequelize'
+db        = require '../db'
 
-module.exports = sequelize.define 'Mushi',
-  userId:
-    type: DataTypes.INTEGER
-    allowNull: false
-    references: 'users'
-    referencesKey: 'id'
-  name:
-    type: DataTypes.STRING
-    allowNull: false
+module.exports = Mushi = db.define 'Mushi',
   x:
-    type: DataTypes.FLOAT
+    type: Sequelize.FLOAT
     defaultValue: 0
   y:
-    type: DataTypes.FLOAT
+    type: Sequelize.FLOAT
     defaultValue: 0
+  direction:
+    type: Sequelize.ENUM
+    values: ['left', 'right']
+    allowNull: false
 ,
   tableName: 'mushies'

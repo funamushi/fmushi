@@ -27,6 +27,7 @@
     "database": "d1n7337cf31rv4",
     "host": "ec2-23-21-185-168.compute-1.amazonaws.com",
     "dialect": "postgres",
+    "logging": false,
     "pool": {
       "maxConnections": 15,
       "maxIdleTime": 30
