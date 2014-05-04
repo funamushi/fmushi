@@ -1,5 +1,5 @@
-Q         = require 'q'
-_         = require 'lodash'
+Q = require 'q'
+_ = require 'lodash'
 
 config = require 'config'
 
