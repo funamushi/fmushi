@@ -21,6 +21,7 @@ module.exports = class MenuView extends BaseView
     @listenTo @owner.get('mushies'), 'add', @render
     @listenTo @owner.get('belongings'), 'add', @render
     @listenTo @wildMushies, 'add', @render
+    @listenTo @wildMushies, 'remove', @render
 
   render: ->
 
