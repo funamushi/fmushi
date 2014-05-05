@@ -1,18 +1,18 @@
-User      = require 'models/user'
-Items     = require 'collections/items'
-
 module.exports =
   events: _.extend({}, Backbone.Events)
   fps: 24
   debug: false
 
   start: ->
-    @viewer = new User
-
     $ ->
       FastClick.attach document.body
 
     @startAnimation()
+
+    User  = require 'models/user'
+    Items = require 'collections/items'
+
+    @viewer = new User
 
     @fetch().then =>
       AppRouter = require 'routers/app'
