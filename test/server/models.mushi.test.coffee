@@ -11,13 +11,9 @@ describe Mushi, ->
       .then (user) =>
         @user = user
         Breed.create(slug: 'boxing')
-      .then (breed) ->
-        mushi = Mushi.build()
-        mushi.setUser @user
-        mushi.setBreed breed
-        mushi.save()
-      .then (mushi) =>
-        @mushi = mushi
+      .then (breed) =>
+        @breed = breed
+        Mushi.create userId: @user.id, breedId: @breed.id
 
     afterEach ->
       Mushi.destroy()
@@ -26,10 +22,11 @@ describe Mushi, ->
       .then ->
         User.destroy()
 
-    it '', ->
-      expect(1).to.be.eql(1)
-
-
-
-
-
+    it 'breedを内包するJSONを返す', ->
+      Mushi.find
+        where: ['true']
+        include: [Breed]
+      .then (mushi) =>
+        json = JSON.parse JSON.stringify(mushi)
+        expect(json.breed.id).to.eq(@breed.id)
+        expect(json.breed.slug).to.eq(@breed.slug)
