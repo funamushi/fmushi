@@ -57,6 +57,26 @@ describe User, ->
       it 'mushiesとbelongingsを内包するJSONを返す', ->
         User.find
           where: { id: @user.id }
-          include: [Mushi, Belonging]
+          attributes: ['name', 'fp']
+          include: [
+            { model: Mushi, attributes: ['x', 'y', 'direction'], include: [
+                model: Breed, attributes: ['slug']
+              ] }
+          ]
         .then (user) ->
-          console.log JSON.stringify(user)
+          json = JSON.parse(JSON.stringify(user))
+          expect(json.name).to.eq('hadashiA')
+          expect(json.mushies[0].x).to.eq(0)
+          expect(json.mushies[0].y).to.eq(0)
+          expect(json.mushies[0].breed.slug).to.eq('boxing')
+          expect(json.mushies[0].breed.name).to.present
+
+
+
+
+
+
+
+
+
+
