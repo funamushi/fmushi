@@ -1,13 +1,11 @@
-Sequelize = require 'Sequelize'
-db        = require '../db'
-
-module.exports = db.define 'Belonging',
-  quantity:
-    type: Sequelize.INTEGER
-    defaultValue: 0
-    validate:
-      isInt: true
-      min: 0
-      max: 99
-,
-  tableName: 'belongings'
+module.exports = (sequelize, DataTypes) ->
+  sequelize.define 'Belonging',
+    quantity:
+      type: DataTypes.INTEGER
+      defaultValue: 0
+      validate:
+        isInt: true
+        min: 0
+        max: 99
+  ,
+    tableName: 'belongings'

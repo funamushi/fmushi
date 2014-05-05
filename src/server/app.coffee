@@ -38,8 +38,6 @@ app.use passport.session()
 #   app.use express.errorHandler()
 #   app.use express.logger("dev")
 
-app.get '/items', routes.items.index
-
 app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
 app.post '/register', routes.viewer.register
 app.post '/login', passport.authenticate('local'), routes.viewer.login

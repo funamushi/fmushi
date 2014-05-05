@@ -8,7 +8,6 @@ module.exports =
 
   start: ->
     @viewer = new User
-    @items  = new Items
 
     $ ->
       FastClick.attach document.body
@@ -21,10 +20,8 @@ module.exports =
       Backbone.history.start pushState: true, root: '/'
 
   fetch: ->
-    $.when(
-      @fetchAsset ['/app.json']
-      @items.fetch()
-    ).then =>
+    @fetchAsset(['/app.json'])
+    .then =>
       @viewer.fetchViewer()
 
   fetchAsset: (args) ->

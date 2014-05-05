@@ -33,3 +33,5 @@ describe User, ->
       it 'マルチバイト文字つかえない', ->
         @user.name = 'あ'
         expect(@user.validate().name).to.be.present
+
+  
