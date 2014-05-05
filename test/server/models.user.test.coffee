@@ -1,6 +1,8 @@
 require './helper'
 
-User = require '../../src/server/models/user'
+Q = require 'q'
+
+{User, Mushi, Breed, Item, Belonging} = require '../../src/server/models'
 
 describe User, ->
   describe 'default value', ->
@@ -34,4 +36,27 @@ describe User, ->
         @user.name = 'あ'
         expect(@user.validate().name).to.be.present
 
-  
+    describe 'JSON', ->
+      beforeEach ->
+        User.create name: 'hadashiA'
+        .then (user) =>
+          @user = user
+          Item.create slug: 'red-circle'
+        .then (item) =>
+          Belonging.create userId: @user.id, itemId: item.id
+        .then (belonging) ->
+          Breed.create slug: 'boxing'
+        .then (breed) =>
+          Mushi.create userId: @user.id, breedId: breed.id
+
+      afterEach ->
+        Q.all [Mushi.destroy(), Belonging.destroy()]
+        .then ->
+          Q.all [Breed.destroy(), Item.destroy(), User.destroy()]
+
+      it 'mushiesとbelongingsを内包するJSONを返す', ->
+        User.find
+          where: { id: @user.id }
+          include: [Mushi, Belonging]
+        .then (user) ->
+          console.log JSON.stringify(user)

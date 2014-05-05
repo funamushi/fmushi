@@ -10,6 +10,11 @@ module.exports =
         allowNull: false
         references: 'users'
         referencesKey: 'id'
+      itemId:
+        type: DataTypes.INTEGER
+        allowNull: false
+        references: 'items'
+        referencesKey: 'id'
       quantity:
         type: DataTypes.INTEGER
         defaultValue: 0

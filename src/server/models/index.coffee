@@ -18,7 +18,7 @@ sequelize.Mushi     = Mushi     = sequelize.import('./mushi')
 
 User
 .hasMany Identity
-.hasMany Mushi, as: 'Mushies'
+.hasMany Mushi
 .hasMany Belonging
 
 Mushi

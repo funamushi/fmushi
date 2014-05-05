@@ -5,7 +5,7 @@ require './helper'
 describe Mushi, ->
   describe 'default value', ->
 
-  describe 'eager loading', ->
+  describe 'JSON', ->
     beforeEach ->
       User.create(name: 'hadashiA')
       .then (user) =>
