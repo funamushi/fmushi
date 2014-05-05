@@ -43,6 +43,8 @@ app.post '/register', routes.viewer.register
 app.post '/login', passport.authenticate('local'), routes.viewer.login
 app.delete '/logout', routes.viewer.logout
 
+app.get '/mushies/wild', routes.mushi.wild
+
 app.get '/:user/mushies/:mushiId', routes.user.mushi
 app.get '/:user.:format?', routes.user.show
 app.put '/:user'

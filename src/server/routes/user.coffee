@@ -1,5 +1,25 @@
+{User, Identity, Mushi, Breed, Belonging, Item} = require '../models'
+
 exports.set = (req, res, next, userName) ->
-  next()
+  User.find
+    where: { name: userName }
+    attributes: ['name', 'fp']
+    include: [
+      model: Identity, attributes: ['provider', 'nickname', 'url']
+    ,
+      model: Mushi, attributes: ['x', 'y', 'direction'], include: [
+        model: Breed, attributes: ['slug']
+      ]
+    ,
+      model: Belonging, attributes: ['quantity'], include: [
+        model: Item, attributes: ['slug']
+      ]
+    ]
+  .then (user) ->
+    req.user = user
+    next()
+  .catch (err) ->
+    next err
 
 exports.show = (req, res) ->
   res.format
@@ -7,36 +27,7 @@ exports.show = (req, res) ->
       res.render 'index'
 
     json: ->
-      res.send
-        name: 'hadashiA'
-        mushies: [
-          {
-            id: 1
-            name: 'ヘイプー大佐'
-            x: 200
-            y: 200
-          }
-          {
-            id: 2
-            name: 'ミニマム級チャンピオン ワンツーぷや夫'
-            x: 500
-            y: 200
-          }
-          {
-            id: 3
-            name: 'プヤプヤプンヤ代表取締役'
-            x: 700
-            y: 200
-          }
-        ]
-        circles: [
-          {
-            id: 1
-            x: 700
-            y: 650
-            r: 200
-          }
-        ]
+      res.send JSON.stringify(req.user)
 
 exports.mushi = (req, res) ->
   res.render 'index'

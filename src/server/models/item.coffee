@@ -1,3 +1,5 @@
+config = require('config').items
+
 module.exports = (sequelize, DataTypes) ->
   sequelize.define 'Item',
     slug:
@@ -10,3 +12,7 @@ module.exports = (sequelize, DataTypes) ->
   ,
     tableName: 'items'
     timestamps: false
+    getterMethods:
+      name: ->
+        config[@slug]?.name
+        

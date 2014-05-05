@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) ->
   sequelize.define 'Belonging',
     quantity:
       type: DataTypes.INTEGER
-      defaultValue: 0
+      defaultValue: 1
       validate:
         isInt: true
         min: 0

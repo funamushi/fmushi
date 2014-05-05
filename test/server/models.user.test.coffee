@@ -50,9 +50,8 @@ describe User, ->
           Mushi.create userId: @user.id, breedId: breed.id
 
       afterEach ->
-        Q.all [Mushi.destroy(), Belonging.destroy()]
-        .then ->
-          Q.all [Breed.destroy(), Item.destroy(), User.destroy()]
+        clean(Mushi, Belonging).then ->
+          clean(Breed, Item, User)
 
       it 'mushiesとbelongingsを内包するJSONを返す', ->
         User.find
@@ -70,13 +69,3 @@ describe User, ->
           expect(json.mushies[0].y).to.eq(0)
           expect(json.mushies[0].breed.slug).to.eq('boxing')
           expect(json.mushies[0].breed.name).to.present
-
-
-
-
-
-
-
-
-
-
