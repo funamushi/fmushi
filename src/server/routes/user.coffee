@@ -16,8 +16,15 @@ exports.set = (req, res, next, userName) ->
       ]
     ]
   .then (user) ->
-    req.user = user
-    next()
+    if user?
+      req.user = user
+      next()
+    else
+      res.format
+        html: ->
+          res.status(404).send("#{userName} not exists.")
+        json: ->
+          res.status(404).send("#{userName} not exists.")
   .catch (err) ->
     next err
 
