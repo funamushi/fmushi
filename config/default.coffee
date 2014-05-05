@@ -1,7 +1,7 @@
 module.exports =
   items:
     'red-circle':
-      name: '遠赤外線さみしくないエリア'
+      name: '遠赤外線さみしくない装置'
 
   breeds:
     'building':
