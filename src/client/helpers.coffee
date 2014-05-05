@@ -15,7 +15,8 @@ exports.footerMessage = (message, options={}) ->
   $p = $(document.createElement 'p').text(message)
 
   close = ->
-    $message.transition(height: 0)
+    $message.transition {rotateX: '90deg'}, ->
+      $p.remove()
 
   $message.html($p).one 'click', close
   height = $message.height()
