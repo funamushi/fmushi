@@ -1,7 +1,7 @@
 module.exports =
   viewer: require './viewer'
   user:   require './user'
-  mushi:  require './mushi'
+  breed:  require './breed'
 
   acceptOverride: (req, res, next, format) ->
     if format is 'json'

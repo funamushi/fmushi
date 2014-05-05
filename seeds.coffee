@@ -3,11 +3,9 @@ _ = require 'lodash'
 
 config = require 'config'
 
-db    = require './src/server/db'
-Item  = require './src/server/models/item'
-Breed = require './src/server/models/breed'
+{sequelize, Item, Breed}  = require './src/server/models'
 
-db.transaction (t) ->
+sequelize.transaction (t) ->
   promises = []
 
   _.each config.items, (properties, slug) ->
