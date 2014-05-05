@@ -1,3 +1,12 @@
 language: node_js
 node_js:
   - "0.10"
+services:
+  - redis-server
+  - postgresql
+addons:
+  postgresql: "9.3"
+before_script:
+  - mv config/config.travis.json config/config.json
+  - psql -c 'create database fmushi_test;' -U postgres
+  - node_modules/.bin/sequelize -m -e test --coffee
