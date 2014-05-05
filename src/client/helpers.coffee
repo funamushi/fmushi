@@ -17,6 +17,7 @@ exports.footerMessage = (message, options={}) ->
   close = ->
     $message.transition {y: $message.height()}, 500, 'easeOutCubic', ->
       $p.remove()
+      $message.attr 'style', ''
 
   $message.html($p).one 'click', close
   height = $message.height()

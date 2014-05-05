@@ -9,10 +9,16 @@ class MushiStateMachine extends StateMachine
       speed: 35
 
       onEnter: (view) ->
-        view.sprite.stop()
+        view.animate 'walking', speed: @animationSpeed
 
       update: (view, delta) ->
         return if view.gripped
+        model = view.model
+        x = model.get('x')
+        newX = (x - @speed * delta)
+        model.set 'x', newX
+        if newX <= 0
+          model.collection.remove model
 
     rest:
       onEnter: (view) ->
@@ -189,3 +195,4 @@ module.exports = class MushiView extends BaseView
 
   onPointOut: (model) ->
     @shape.visible = false
+    

@@ -24,6 +24,7 @@ module.exports = class HomeScene extends BaseScene
     
     @wildMushies = new Mushies
     @listenTo @wildMushies, 'add', @onAddWildMushi
+    @listenTo @wildMushies, 'remove', @onRemoveWildMushi
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -173,6 +174,15 @@ module.exports = class HomeScene extends BaseScene
         @shapeWorld.add view.shape
       @subview model.cid, view
 
+  removeEntity: (model) ->
+    view = @subview(model.cid)
+    if view?
+      if view.sprite?
+        @world.removeChild view.sprite
+      if view.shape?
+        @shapeWorld.remove view.shape
+      @removeSubview model.cid
+
   entity: (model) ->
     @subview model.cid
 
@@ -280,8 +290,13 @@ module.exports = class HomeScene extends BaseScene
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAddWildMushi: (mushi) ->
-    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 2000
+    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
     @addEntity mushi, state: 'wild'
+
+  onRemoveWildMushi: (mushi) ->
+    @removeEntity mushi
+    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
+      duration: 5000
 
   transitionOut: ->
     super()
