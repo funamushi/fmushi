@@ -68,7 +68,7 @@ class MushiStateMachine extends StateMachine
             model.set x: x + @speed * delta
 
 module.exports = class MushiView extends BaseView
-  initialize: ->
+  initialize: (options) ->
     @listenTo @model, 'change',     @onChanged
     @listenTo @model, 'point:in',   @onPointIn
     @listenTo @model, 'point:out',  @onPointOut
@@ -76,7 +76,10 @@ module.exports = class MushiView extends BaseView
     @listenTo @model, 'focus:out',  @onFocusOut
 
     @initSprite()
-    @initState()
+
+    @stateMachine = new MushiStateMachine(@, (options.state or 'walking'))
+    @listenTo Fmushi.events, 'update', (delta) =>
+      @stateMachine.update delta
 
   initSprite: ->
     @textures = {}
@@ -143,13 +146,6 @@ module.exports = class MushiView extends BaseView
     shape.fill = '#CCE9F9'
     shape.opacity = 1
     shape.visible = false
-
-  initState: ->
-    @stateMachine = new MushiStateMachine(@)
-    @stateMachine.to 'walking'
-
-    @listenTo Fmushi.events, 'update', (delta) =>
-      @stateMachine.update delta
 
   animate: (name, options={}) ->
     @sprite.stop()

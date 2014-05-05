@@ -24,7 +24,6 @@ module.exports = class HomeScene extends BaseScene
     
     @wildMushies = new Mushies
     @listenTo @wildMushies, 'add', @onAddWildMushi
-    @listenTo @wildMushies, 'add', @addEntity
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -157,7 +156,7 @@ module.exports = class HomeScene extends BaseScene
     offsetY = camera.get('y') - (center.y / zoom)
     { x: (x / zoom) + offsetX, y: (y / zoom) + offsetY }
 
-  addEntity: (model) ->
+  addEntity: (model, options={}) ->
     klass =
       if model instanceof Mushi
         MushiView
@@ -165,7 +164,8 @@ module.exports = class HomeScene extends BaseScene
         CircleView
 
     if klass?
-      view = new klass(model: model)
+      options.model = model
+      view = new klass(options)
 
       if view.sprite?
         @world.addChild view.sprite
@@ -281,6 +281,7 @@ module.exports = class HomeScene extends BaseScene
 
   onAddWildMushi: (mushi) ->
     helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。"
+    @addEntity mushi, state: 'wild'
 
   transitionOut: ->
     super()

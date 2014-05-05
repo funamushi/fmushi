@@ -1,5 +1,6 @@
 module.exports = class StateMachene
-  constructor: (@view) ->
+  constructor: (@view, state) ->
+    @to state
 
   to: (name) ->
     return if name is @currentState
