@@ -10,4 +10,5 @@ exports.sample = (req, res, next) ->
     where: { slug: slug }
   .then (breed) ->
     res.send JSON.stringify(breed)
-  
+  .catch (err) ->
+    next err

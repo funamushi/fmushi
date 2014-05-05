@@ -8,5 +8,9 @@ module.exports =
       name: 'プヤプヤプンヤ代表取締役'
     'boxing':
       name: 'ミニマム級チャンピオン ワンツーぷや夫'
-    'weapon':
+    'umbrella':
       name: 'ヘイプー大佐'
+
+  defaultItems: [
+    'red-circle'
+  ]

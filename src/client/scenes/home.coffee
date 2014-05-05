@@ -132,8 +132,7 @@ module.exports = class HomeScene extends BaseScene
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
   tutorial: ->
-    @wildMushies.add
-      name: 'プヤプヤプンヤ代表取締役', x: 200, y: 300
+    @wildMushies.addFromFetchSample()
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
@@ -281,7 +280,7 @@ module.exports = class HomeScene extends BaseScene
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAddWildMushi: (mushi) ->
-    helpers.footerMessage "野生の「#{mushi.get 'name'}」が来ました。"
+    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。"
 
   transitionOut: ->
     super()

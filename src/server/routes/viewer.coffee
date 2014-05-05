@@ -1,6 +1,11 @@
+_        = require 'lodash'
 passport = require 'passport'
 
 LocalStrategy = require('passport-local').Strategy
+
+{User, Item} = require '../models'
+
+config = require 'config'
 
 exports.authorize = (req, res, next) ->
   # if req.isAuthenticated()
@@ -38,6 +43,9 @@ exports.logout = (req, res) ->
       res.redirect '/'
 
 exports.show = (req, res) ->
-  res.send
-    belongings:
-      { item: 'red-circle', quantity: 1 }
+  Item.findAll
+    where: { slug: config.defaultItems }
+  .then (items) ->
+    res.send
+      belongings:
+        _.map(items, (item) -> { item: item, quantity: 1 })

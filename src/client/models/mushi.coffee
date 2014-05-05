@@ -1,30 +1,20 @@
-Fmushi     = require 'fmushi'
-Vector     = require 'vector'
-Circle     = require 'models/circle'
-Equipments = require 'collections/equipments'
+Fmushi = require 'fmushi'
+Vector = require 'vector'
+Breed  = require 'models/breed'
 
 module.exports = class Mushi extends Backbone.AssociatedModel
   defaults: ->
     x: 0
     y: 0
-    groth: 1
     direction: 'left'
 
   relations: [
     {
       type: Backbone.One
-      key: 'circle'
-      relatedModel: Circle
-    }
-    {
-      type: Backbone.Many
-      key: 'equipments'
-      collectionType: Equipments
+      key: 'breed'
+      relatedModel: Breed
     }
   ]
-
-  initialize: ->
-    @r = 30 * @get('groth') # body
 
   pos: ->
     new Vector @get('x'), @get('y')

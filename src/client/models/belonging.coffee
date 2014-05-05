@@ -1,4 +1,4 @@
-Item   = require 'models/item'
+Item = require 'models/item'
 
 module.exports = class Belonging extends Backbone.AssociatedModel
   defaults:
