@@ -1,7 +1,8 @@
 F虫
 =========
 
-[![Build Status](https://drone.io/github.com/funamushi/fmushi/status.png)](https://drone.io/github.com/funamushi/fmushi/latest)
+
+[![Build Status](https://travis-ci.org/funamushi/fmushi.png?branch=master)](https://travis-ci.org/funamushi/fmushi)
 ## 開発環境
 
 ```bash
