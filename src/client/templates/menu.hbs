@@ -1,7 +1,12 @@
-<div class="col-md-10 col-xs-9">
+<div class="col-md-1 col-xs-1">
+  <div class="command form-group" style="padding-left: 0.5em">
+    <button type="button" class="save btn btn-primary"><span class="glyphicon glyphicon-book"></span></button>
+  </div>
+</div>
+<div class="col-md-9 col-xs-8">
   <div class="belongings pull-right">
     {{#each owner.belongings}}
-      <button type="button" class="btn btn-default pull-right">{{item.name}} x {{quantity}}</button>
+      <button type="button" class="btn btn-inverse pull-right">{{item.name}} x {{quantity}}</button>
     {{/each}}
   </div>
 </div>
@@ -12,12 +17,12 @@
   <div class="mushies pull-right">
     <div class="own list-group">
       {{#each owner.mushies}}
-        <a href="#" class="list-group-item btn btn-warning" data-mushi-id="{{id}}">{{breed.name}}</a>
+        <a href="#" class="list-group-item btn btn-info" data-mushi-id="{{id}}">{{breed.name}}</a>
       {{/each}}
     </div>
     <div class="wildness list-group">
       {{#each wildMushies}}
-        <button type="button" class="btn btn-primary" data-mushi-id="{{cid}}">野生の{{breed.name}}</button>
+        <button type="button" class="btn btn-warning" data-mushi-id="{{cid}}">野生の{{breed.name}}</button>
       {{/each}}
     </div>
   </div>
