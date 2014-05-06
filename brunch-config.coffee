@@ -23,9 +23,7 @@ exports.config =
           "bower_components/zeptojs/src/callbacks.js"
           "bower_components/zeptojs/src/deferred.js"
           "bower_components/zeptojs/src/selector.js"
-          "bower_components/zeptojs/src/touch.js"
           "bower_components/zeptojs/src/detect.js"
-          "bower_components/zeptojs/src/gesture.js"
           'bower_components/lodash/dist/lodash.js'
           'bower_components/backbone/backbone.js'
         ]

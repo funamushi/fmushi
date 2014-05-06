@@ -87,46 +87,52 @@ module.exports = class HomeScene extends BaseScene
     camera = @owner.get('camera')
 
     lastDragPoint = null
-    @$canvas
-    .on 'click tap', (e) =>
+    Hammer(@$canvas[0])
+    .on 'click', (e) =>
       @focusOut() if @focusEntity
 
-    .on 'swipe', (e) ->
+    .on 'dragstart', (e) =>
       e.preventDefault()
+      if _.any(@subviewsByName, (subview, name) -> subview.gripped)
+        return
 
-      # if _.any(@subviewsByName, (subview, name) -> subview.gripped)
-      #   return
+      lastDragPoint =
+        x: e.gesture.center.pageX
+        y: e.gesture.center.pageY
 
-      # if !@focusEntity and lastDragPoint
-      #   center = e.gesture.center
-      #   diffX = lastDragPoint.x - center.pageX
-      #   diffY = lastDragPoint.y - center.pageY
-      #   zoom = camera.get 'zoom'
-      #   camera.set
-      #     x: camera.get('x') + diffX / zoom
-      #     y: camera.get('y') + diffY / zoom
-      #   ,
-      #     tween: false
-      #   lastDragPoint.x = center.pageX
-      #   lastDragPoint.y = center.pageY
+    .on 'drag', (e) =>
+      e.preventDefault()
+      if !@focusEntity and lastDragPoint
+        center = e.gesture.center
+        diffX = lastDragPoint.x - center.pageX
+        diffY = lastDragPoint.y - center.pageY
+        zoom = camera.get 'zoom'
+        camera.set
+          x: camera.get('x') + diffX / zoom
+          y: camera.get('y') + diffY / zoom
+        ,
+          tween: false
+        lastDragPoint.x = center.pageX
+        lastDragPoint.y = center.pageY
 
-    .on 'pinchIn', (e) ->
+    .on 'dragend', (e) ->
+      e.preventDefault()
+      lastDragPoint = null
+
+    .on 'pinchin', (e) ->
       e.preventDefault()
       
-      # zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
-      # return if zoom < 0.01
-      # camera.set { zoom: zoom }, { tween: false }
+      zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
+      return if zoom < 0.01
+      camera.set { zoom: zoom }, { tween: false }
 
-    .on 'pinchOut', (e) ->
+    .on 'pinchout', (e) ->
       e.preventDefault()
+      zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
+      return if zoom > 3
+      camera.set { zoom: zoom }, { tween: false }
 
-      # zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
-      # return if zoom > 3
-      # camera.set { zoom: zoom }, { tween: false }
-
-    .on 'mousewheel', (e) ->
-      e.preventDefault()
-
+    @$canvas.on 'mousewheel', (e) ->
       x = camera.get('x')
       y = camera.get('y')
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
@@ -314,3 +320,4 @@ module.exports = class HomeScene extends BaseScene
   dispose: ->
     super
     @$canvas.off()
+    Hammer(@$canvas[0]).off()
