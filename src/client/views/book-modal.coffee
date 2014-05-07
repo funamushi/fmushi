@@ -2,7 +2,7 @@ BaseView = require 'views/base'
 template = require 'templates/book'
 
 module.exports = class BookModalView extends BaseView
-  className: 'modal'
+  className: 'modal fade'
   attributes:
     id: 'book-modal'
     roll: 'dialog'

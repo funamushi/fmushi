@@ -1,6 +1,7 @@
-Fmushi   = require 'fmushi'
-BaseView = require 'views/base'
-template = require 'templates/menu'
+Fmushi        = require 'fmushi'
+BaseView      = require 'views/base'
+BookModalView = require 'views/book-modal'
+template      = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   tagName: 'div'
@@ -13,10 +14,14 @@ module.exports = class MenuView extends BaseView
     'mouseover .mushies .btn': 'onPointIn'
     'mouseout  .mushies .btn': 'onPointOut'
     'click     .mushies .btn': 'onFocus'
+    'click .book-button': 'onOpenBook'
 
   initialize: (options) ->
     @owner       = options.owner
     @wildMushies = options.wildMushies
+
+    bookModalView = new BookModalView
+    @subview 'book', bookModalView
 
     @listenTo @owner.get('mushies'), 'add', @render
     @listenTo @owner.get('belongings'), 'add', @render
@@ -24,7 +29,6 @@ module.exports = class MenuView extends BaseView
     @listenTo @wildMushies, 'remove', @render
 
   render: ->
-
     @$el.html template
       owner: @owner.toJSON()
       wildMushies: @wildMushies.map (mushi) ->
@@ -77,6 +81,11 @@ module.exports = class MenuView extends BaseView
         @open = true
         @menuLocked = false
       
+  onOpenBook: (e) ->
+    e.preventDefault()
+    bookModalView = @subview 'book'
+    bookModalView.show()
+
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')
     @owner.get('mushies').get(mushiId) or
