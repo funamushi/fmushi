@@ -7,8 +7,9 @@ Circle  = require 'models/circle'
 Mushies = require 'collections/mushies'
 Circles = require 'collections/circles'
 
-MushiView  = require 'views/mushi'
-CircleView = require 'views/circle'
+MushiView     = require 'views/mushi'
+CircleView    = require 'views/circle'
+BookModalView = require 'views/book-modal'
 
 BaseScene        = require 'scenes/base'
 MenuView         = require 'views/menu'
@@ -58,6 +59,10 @@ module.exports = class HomeScene extends BaseScene
 
     dialogView = new MushiDialogView
     @subview 'dialog', dialogView
+
+    bookModalView = new BookModalView
+    @subview 'book', bookModalView
+    bookModalView.show()
 
     @initDrag()
 
