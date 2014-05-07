@@ -35,7 +35,7 @@ $ ./node_modules/.bin/sequelize -m --coffee
 ### マスタデータ
 
 ```bash
-$ coffee
+$ coffee seeds.coffee
 ```
 
 ## とすて
