@@ -31,10 +31,10 @@ exports.set = (req, res, next, userName) ->
 exports.show = (req, res) ->
   res.format
     html: ->
-      res.render 'index'
+      res.render 'home'
 
     json: ->
       res.send JSON.stringify(req.user)
 
 exports.mushi = (req, res) ->
-  res.render 'index'
+  res.render 'home'

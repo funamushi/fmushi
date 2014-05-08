@@ -21,6 +21,9 @@ User
 .hasMany Mushi
 .hasMany Belonging
 
+Identity
+.belongsTo User
+
 Mushi
 .belongsTo User
 .belongsTo Breed

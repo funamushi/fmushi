@@ -8,6 +8,8 @@ module.exports =
       name:
         type: DataTypes.STRING
         allowNull: false
+      displayName:
+        type: DataTypes.STRING
       fp:
         type: DataTypes.INTEGER
         defaultValue: 0

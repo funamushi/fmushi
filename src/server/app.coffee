@@ -39,8 +39,10 @@ if process.env.NODE_ENV is 'development'
   app.use express.logger("dev")
 
 app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
-app.post '/register', routes.viewer.register
-app.post '/login', passport.authenticate('local'), routes.viewer.login
+app.get '/auth/twitter', passport.authenticate('twitter')
+app.get '/auth/twitter/callback',
+  passport.authenticate('twitter', failureRedirect: '/register')
+app.get '/register', routes.viewer.register
 app.delete '/logout', routes.viewer.logout
 
 app.get '/breeds/sample', routes.breed.sample

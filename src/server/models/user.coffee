@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) ->
       validate:
         notEmpty: true
         is: ['^[a-z_-]+$', 'i']
+    displayName:
+      type: DataTypes.STRING
     fp:
       type: DataTypes.INTEGER
       defaultValue: 0

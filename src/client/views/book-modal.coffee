@@ -9,6 +9,9 @@ module.exports = class BookModalView extends BaseView
     ariaLabelledby: 'book-modal-title'
     ariaHidden: 'true'
 
+  events:
+    'click .save': 'onSave'
+
   initialize: ->
     @$el = $(@$el).modal(show: false)
 
@@ -18,3 +21,7 @@ module.exports = class BookModalView extends BaseView
   show: ->
     @render()
     @$el.modal 'show'
+
+  onSave: (e) ->
+    e.preventDefault()
+    

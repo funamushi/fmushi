@@ -1,3 +1,5 @@
+require './auth'
+
 module.exports =
   viewer: require './viewer'
   user:   require './user'
@@ -9,4 +11,4 @@ module.exports =
     next()
 
   root: (req, res) ->
-    res.render 'index'
+    res.render 'home'
