@@ -31,3 +31,21 @@ Mushi
 Belonging
 .belongsTo User
 .belongsTo Item
+
+User.findWithAssociations = (where) ->
+  options =
+    attributes: ['name', 'fp']
+    include: [
+      model: Identity, attributes: ['provider', 'nickname', 'url']
+    ,
+      model: Mushi, attributes: ['x', 'y', 'direction'], include: [
+        model: Breed, attributes: ['slug']
+      ]
+    ,
+      model: Belonging, attributes: ['quantity'], include: [
+        model: Item, attributes: ['slug']
+      ]
+    ]
+  options.where = where
+  @find options
+  

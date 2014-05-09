@@ -2,6 +2,7 @@ Fmushi = require 'fmushi'
 
 module.exports = class AppRouter extends Backbone.Router
   routes:
+    'signup': 'signup'
     ':userName': 'home'
     ':userName/mushies/:mushiId': 'mushi'
     '': 'root'
@@ -25,6 +26,9 @@ module.exports = class AppRouter extends Backbone.Router
     
   mushi: (userName, mushiId) ->
     @scene 'home', userName: userName, focusMushiId: mushiId
+
+  signup: ->
+    
 
   root: ->
     viewer = Fmushi.viewer

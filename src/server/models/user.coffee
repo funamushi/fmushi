@@ -1,4 +1,6 @@
 module.exports = (sequelize, DataTypes) ->
+  {Item, Breed, Identity, Mushi, Belonging} = sequelize
+
   sequelize.define 'User',
     name:
       type: DataTypes.STRING

@@ -36,7 +36,7 @@ describe User, ->
         @user.name = 'あ'
         expect(@user.validate().name).to.be.present
 
-    describe 'JSON', ->
+    describe '.findWithAssociations', ->
       beforeEach ->
         User.create name: 'hadashiA'
         .then (user) =>
@@ -53,19 +53,15 @@ describe User, ->
         clean(Mushi, Belonging).then ->
           clean(Breed, Item, User)
 
-      it 'mushiesとbelongingsを内包するJSONを返す', ->
-        User.find
-          where: { id: @user.id }
-          attributes: ['name', 'fp']
-          include: [
-            { model: Mushi, attributes: ['x', 'y', 'direction'], include: [
-                model: Breed, attributes: ['slug']
-              ] }
-          ]
+      it 'mushiesとbelongingsを読み込む', ->
+        User.findWithAssociations(id: @user.id)
         .then (user) ->
-          json = JSON.parse(JSON.stringify(user))
-          expect(json.name).to.eq('hadashiA')
-          expect(json.mushies[0].x).to.eq(0)
-          expect(json.mushies[0].y).to.eq(0)
-          expect(json.mushies[0].breed.slug).to.eq('boxing')
-          expect(json.mushies[0].breed.name).to.present
+          expect(user.mushies).to.have.length(1)
+          expect(user.mushies[0].x).to.eq(0)
+          expect(user.mushies[0].y).to.eq(0)
+          expect(user.mushies[0].breed.slug).to.eq('boxing')
+          expect(user.mushies[0].breed.name).to.present
+
+          expect(user.mushies).to.have.length(1)
+          expect(user.belongings[0].quantity).to.eq(1)
+          expect(user.belongings[0].item.slug).to.eq('red-circle')

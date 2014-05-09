@@ -16,23 +16,22 @@ passport.deserializeUser (id, done) ->
   .catch (err) ->
     done err
 
-passport.use new TwitterStrategy(
+passport.use new TwitterStrategy
   consumerKey:    config.consumerKey
   consumerSecret: config.consumerSecret
   callbackURL:    config.callbackURL
-,
-  (token, tokenSecret, profile, done) ->
-    Identity
-    .find(
-      where: { uid: profile.id, provider: 'twitter' }
-      include: [User]
-    )
-    .then (identity) ->
-      if identity?
-        done null, identity.user
-      else
-        passport.session.profile = profile
-        done null, false
-    .catch (err) ->
-      done err
-)
+  passReqToCallback: true
+, (req, token, tokenSecret, profile, done) ->
+  Identity
+  .find(
+    where: { uid: profile.id, provider: 'twitter' }
+    include: [User]
+  )
+  .then (identity) ->
+    if identity?
+      done null, identity.user
+    else
+      req.session.profile = profile
+      done null, false
+  .catch (err) ->
+    done err

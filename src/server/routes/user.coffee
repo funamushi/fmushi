@@ -1,20 +1,7 @@
 {User, Identity, Mushi, Breed, Belonging, Item} = require '../models'
 
 exports.set = (req, res, next, userName) ->
-  User.find
-    where: { name: userName }
-    attributes: ['name', 'fp']
-    include: [
-      model: Identity, attributes: ['provider', 'nickname', 'url']
-    ,
-      model: Mushi, attributes: ['x', 'y', 'direction'], include: [
-        model: Breed, attributes: ['slug']
-      ]
-    ,
-      model: Belonging, attributes: ['quantity'], include: [
-        model: Item, attributes: ['slug']
-      ]
-    ]
+  User.findWithAssociations(name: userName)
   .then (user) ->
     if user?
       req.user = user
@@ -28,13 +15,16 @@ exports.set = (req, res, next, userName) ->
   .catch (err) ->
     next err
 
+exports.new = (req, res) ->
+  res.render 'signup', profile: req.session.profile
+
 exports.show = (req, res) ->
   res.format
     html: ->
-      res.render 'home'
+      res.render 'index'
 
     json: ->
       res.send JSON.stringify(req.user)
 
 exports.mushi = (req, res) ->
-  res.render 'home'
+  res.render 'index'

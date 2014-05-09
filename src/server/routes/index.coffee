@@ -11,4 +11,4 @@ module.exports =
     next()
 
   root: (req, res) ->
-    res.render 'home'
+    res.render 'index'

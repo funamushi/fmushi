@@ -4,10 +4,11 @@ _ = require 'lodash'
 
 config = require 'config'
 
-exports.register = (req, res) ->
-  req.logout()
-  req.login dummyUser, (err) ->
-    res.render 'register'
+exports.authorize = (req, res, next) ->
+  next()
+
+exports.logout = (req, res, next) ->
+  next()
 
 exports.show = (req, res) ->
   Item.findAll

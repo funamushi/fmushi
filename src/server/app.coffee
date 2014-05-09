@@ -10,6 +10,8 @@ compress     = require 'compression'
 cookieParser = require 'cookie-parser'
 session      = require 'express-session'
 serveStatic  = require 'serve-static'
+morgan       = require 'morgan'
+errorhandler = require 'errorhandler'
 
 routes = require './routes'
 config = require 'config'
@@ -34,15 +36,20 @@ app.use session
 app.use passport.initialize()
 app.use passport.session()
 
-if process.env.NODE_ENV is 'development'
-  app.use express.errorHandler()
-  app.use express.logger("dev")
+env = process.env.NODE_ENV
+if env is 'development' or !env?
+  app.use errorhandler()
+  app.use morgan("dev")
 
 app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
 app.get '/auth/twitter', passport.authenticate('twitter')
 app.get '/auth/twitter/callback',
-  passport.authenticate('twitter', failureRedirect: '/register')
-app.get '/register', routes.viewer.register
+  passport.authenticate('twitter', failureRedirect: '/signup')
+
+app.get '/signup', routes.user.new
+# app.post '/signup', routes.user.create
+
+# app.get    '/login',  routes.viewer.login
 app.delete '/logout', routes.viewer.logout
 
 app.get '/breeds/sample', routes.breed.sample
