@@ -16,7 +16,16 @@ exports.set = (req, res, next, userName) ->
     next err
 
 exports.new = (req, res) ->
-  res.render 'signup', profile: req.session.profile
+  profile = req.session.profile
+  console.log req.session.profile
+  icon_url = profile.photos[0].value.replace(/(_normal)(\..+?)$/, '_bigger$2')
+
+  res.render 'signup',
+    name:     profile.username
+    icon_url: icon_url
+
+exports.create = (req, res) ->
+  
 
 exports.show = (req, res) ->
   res.format
