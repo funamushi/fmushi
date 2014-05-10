@@ -8,6 +8,8 @@ F虫
 ```bash
 $ npm install -g brunch
 $ npm install -g bower
+$ npm install -g supervisor
+$ npm install -g coffee-script
 ```
 
 ```bash
@@ -18,14 +20,22 @@ $ brunch w -s
 ```
 
 ## でーたべ
-```
-createuser fmushi
-createdb -O fmushi fmushi_development
+
+```bash
+$ createuser fmushi
+$ createdb -O fmushi fmushi_development
 ```
 
-## マイグレ
+### マイグレ
+
+```bash
+$ ./node_modules/.bin/sequelize -m --coffee
 ```
-sequelize -m --coffee
+
+### マスタデータ
+
+```bash
+$ coffee seeds.coffee
 ```
 
 ## とすて
@@ -36,8 +46,16 @@ $ npm test
 
 or
 
+### サーバサイド
+
 ```bash
-$ mocha path/to/file
+$ mocha test/server/path/to/file
+```
+
+### クライアントサイド
+
+```bash
+$ karma start karma.coffee
 ```
 
 ## へろく
@@ -47,4 +65,5 @@ $ git push heroku master
 ```
 
 ### issueとか
+
 https://bitbucket.org/funamushi/fmushi
