@@ -1,29 +1,26 @@
-<div class="col-md-1 col-xs-1">
-  <div class="command form-group" style="padding-left: 0.5em">
-    <button type="button" class="book-button btn btn-primary"><span class="glyphicon glyphicon-book"></span></button>
-  </div>
+<div class="book-button control">
+  <span class="glyphicon glyphicon-book"></span>
+</div>  
+
+<div class="belongings control">
+  {{#each owner.belongings}}
+    <button type="button" class="btn btn-inverse">{{item.name}} x {{quantity}}</button>
+  {{/each}}
 </div>
-<div class="col-md-9 col-xs-8">
-  <div class="belongings pull-right">
-    {{#each owner.belongings}}
-      <button type="button" class="btn btn-inverse pull-right">{{item.name}} x {{quantity}}</button>
+
+<h4 class="toggle-button control">
+  <span class="glyphicon glyphicon-minus"></span>
+</h4>
+
+<div class="mushies control">
+  <div class="own list-group">
+    {{#each owner.mushies}}
+      <a href="#" class="list-group-item btn btn-info" data-mushi-id="{{id}}">{{breed.name}}</a>
     {{/each}}
   </div>
-</div>
-<div class="col-md-2 col-xs-3">
-  <h4 class="toggle-button">
-    <span class="glyphicon glyphicon-minus"></span>
-  </h4>
-  <div class="mushies pull-right">
-    <div class="own list-group">
-      {{#each owner.mushies}}
-        <a href="#" class="list-group-item btn btn-info" data-mushi-id="{{id}}">{{breed.name}}</a>
-      {{/each}}
-    </div>
-    <div class="wildness list-group">
-      {{#each wildMushies}}
-        <button type="button" class="save btn btn-warning" data-mushi-id="{{cid}}">野生の{{breed.name}}</button>
-      {{/each}}
-    </div>
+  <div class="wildness list-group">
+    {{#each wildMushies}}
+      <button type="button" class="btn btn-warning" data-mushi-id="{{cid}}">野生の{{breed.name}}</button>
+    {{/each}}
   </div>
 </div>
