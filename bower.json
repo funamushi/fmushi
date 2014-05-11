@@ -16,7 +16,8 @@
     "jquery.transit": "~0.9.9",
     "flat-ui": "*",
     "fastclick": "~1.0.1",
-    "hammerjs": "~1.1.2"
+    "hammerjs": "~1.1.2",
+    "ladda": "~0.9.3"
   },
   "overrides": {
     "zeptojs": {

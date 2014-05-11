@@ -47,9 +47,9 @@ app.get '/auth/twitter/callback',
   passport.authenticate('twitter', failureRedirect: '/signup')
 
 app.get '/signup', routes.user.new
-# app.post '/signup', routes.user.create
+app.post '/signup', routes.user.create
 
-# app.get    '/login',  routes.viewer.login
+app.get    '/login',  routes.viewer.login
 app.delete '/logout', routes.viewer.logout
 
 app.get '/breeds/sample', routes.breed.sample

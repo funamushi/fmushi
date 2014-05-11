@@ -35,14 +35,11 @@ module.exports = class User extends Backbone.AssociatedModel
   ]
 
   url: ->
-    name = @get 'name'
-    if name?
-      "/#{@get('name')}"
-    else
-      '/viewer'
+    "/#{@get 'name'}"
 
   optionalUrls:
     viewer: '/viewer'
+    signup: '/signup'
 
   validate: (attrs) ->
     errors = []
@@ -52,9 +49,6 @@ module.exports = class User extends Backbone.AssociatedModel
 
     unless attrs.name.match /^[0-9A-Za-z]+$/
       errors.push attr: 'name', message: '半角英数字で入力して下さい。'
-
-    if _.isEmpty attrs.password
-      errors.push attr: 'password', message: '好きな言葉がありません。'
 
     if attrs.fp < 0
       errors.push attr: 'fp', message: '0以下にできません。'
@@ -67,6 +61,21 @@ module.exports = class User extends Backbone.AssociatedModel
     options.url = @optionalUrls.viewer
     @fetch(options).done =>
       @loggedIn = @has('name')
+
+  save: (key, val, options) ->
+    if key == null or typeof key is 'object'
+      attrs = key
+      options = val
+    else
+      (attrs = {})[key] = val
+
+    options ?= {}
+    options.url ?= @optionalUrls.viewer
+    super attrs, options
+
+  signup: (options={}) ->
+    options.url = @optionalUrls.signup
+    @save null, options
 
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp

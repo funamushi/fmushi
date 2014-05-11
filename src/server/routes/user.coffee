@@ -16,16 +16,10 @@ exports.set = (req, res, next, userName) ->
     next err
 
 exports.new = (req, res) ->
-  profile = req.session.profile
-  console.log req.session.profile
-  icon_url = profile.photos[0].value.replace(/(_normal)(\..+?)$/, '_bigger$2')
-
-  res.render 'signup',
-    name:     profile.username
-    icon_url: icon_url
+  res.render 'index'
 
 exports.create = (req, res) ->
-  
+  console.log req.body
 
 exports.show = (req, res) ->
   res.format
@@ -33,7 +27,7 @@ exports.show = (req, res) ->
       res.render 'index'
 
     json: ->
-      res.send JSON.stringify(req.user)
+      res.json JSON.stringify(req.user)
 
 exports.mushi = (req, res) ->
   res.render 'index'
