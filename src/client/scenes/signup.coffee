@@ -22,14 +22,21 @@ module.exports = class SignupScene extends BaseScene
     @$userName = @$('#user-name')
     @$userNameContainer = @$userName.closest('.form-group')
 
-    @ladda = Ladda.create @$('.signup-button')[0]
+    @$button = @$('.signup-button')
+    @ladda = Ladda.create @$button[0]
     @
 
   showValidate: ->
     if Fmushi.viewer.isValid()
-      @$userNameContainer.removeClass('has-error').addClass('has-success')
+      @$userNameContainer
+      .removeClass('has-error').addClass('has-success')
+      .find('.input-icon').show()
+      @$button.removeAttr 'disabled'
     else
-      @$userNameContainer.removeClass('has-success').addClass('has-error')
+      @$userNameContainer
+      .removeClass('has-success').addClass('has-error')
+      .find('.input-icon').hide
+      @$button.attr 'disabled', 'disabled'
 
   onChangeName: (e) ->
     Fmushi.viewer.set 'name', e.target.value
@@ -42,8 +49,10 @@ module.exports = class SignupScene extends BaseScene
 
     if save = Fmushi.viewer.signup()
       save
-      .then ->
-        console.log arguments
+      .then (viewer) ->
+        Fmushi.viewer.set(viewer)
+        Fmushi.scene 'home', userName: Fmushi.viewer.get('name')
+        Backbone.history.navigate Fmushi.viewer.url()
       .fail =>
         @showValidate()
         ladda.stop()

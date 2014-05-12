@@ -8,6 +8,7 @@ passport = require 'passport'
 favicon      = require 'static-favicon'
 compress     = require 'compression'
 cookieParser = require 'cookie-parser'
+bodyParser   = require 'body-parser'
 session      = require 'express-session'
 serveStatic  = require 'serve-static'
 morgan       = require 'morgan'
@@ -35,6 +36,7 @@ app.use session
           '9416367d0044159b4be9af57292a8e8d6c47930574d8b63cae92a3b69c8281fb'
 app.use passport.initialize()
 app.use passport.session()
+app.use bodyParser()
 
 env = process.env.NODE_ENV
 if env is 'development' or !env?

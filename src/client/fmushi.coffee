@@ -19,6 +19,20 @@ module.exports =
       @router = new AppRouter
       Backbone.history.start pushState: true, root: '/'
 
+  scene: (name, options={}) ->
+    if name isnt @currentSceneName
+      prev = @currentScene
+      if prev?
+        prev.transitionOut().done ->
+          prev.dispose()
+
+      Scene = require("scenes/#{name}")
+      @currentScene = nextScene = new Scene(options)
+      nextScene.once 'ready', ->
+        nextScene.transitionIn()
+
+      @currentSceneName = name
+
   fetch: ->
     @fetchAsset(['/app.json'])
     .then =>

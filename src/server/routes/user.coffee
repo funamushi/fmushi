@@ -19,7 +19,15 @@ exports.new = (req, res) ->
   res.render 'index'
 
 exports.create = (req, res) ->
-  console.log req.body
+  User.create(name: req.body.name)
+  .then (user) ->
+    req.logIn user, ->
+      req.session.profile = null
+      res.json JSON.stringify(req.user)
+  .catch (err) ->
+    # TODO err logging
+    console.log err
+    res.status 422
 
 exports.show = (req, res) ->
   res.format
