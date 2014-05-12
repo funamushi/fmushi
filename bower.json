@@ -14,10 +14,10 @@
     "pixi.js": "~1.5.3",
     "bootstrap": "~3.1.1",
     "jquery.transit": "~0.9.9",
-    "flat-ui": "*",
     "fastclick": "~1.0.1",
     "hammerjs": "~1.1.2",
-    "ladda": "~0.9.3"
+    "ladda": "~0.9.3",
+    "flat-ui-official": "~2.1.3"
   },
   "overrides": {
     "zeptojs": {
@@ -52,10 +52,9 @@
         "zeptojs": "*"
       }
     },
-    "flat-ui": {
+    "flat-ui-official": {
       "main": [
-        "css/flat-ui.css",
-        "js/bootstrap-tooltip.js"
+        "css/flat-ui.css"
       ]
     },
     "tweenjs": {
