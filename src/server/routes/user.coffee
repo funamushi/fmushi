@@ -26,7 +26,6 @@ exports.create = (req, res) ->
       res.json JSON.stringify(req.user)
   .catch (err) ->
     # TODO err logging
-    console.log err
     res.status 422
 
 exports.show = (req, res) ->

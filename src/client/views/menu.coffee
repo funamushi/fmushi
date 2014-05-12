@@ -52,7 +52,7 @@ module.exports = class MenuView extends BaseView
     e.preventDefault()
 
     mushi = @mushiFromEvent(e)
-    Fmushi.scene.focus mushi
+    Fmushi.currentScene.focus mushi
 
   onToggleMenu: (e) ->
     e.preventDefault()

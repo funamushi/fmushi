@@ -38,6 +38,14 @@ module.exports = class SignupScene extends BaseScene
       .find('.input-icon').hide
       @$button.attr 'disabled', 'disabled'
 
+  transitionOut: ->
+    defer = $.Deferred()
+    $(@el).transition
+      perspective: '100px'
+      rotateY: '180deg'
+    , -> defer.resolve()
+    defer.promise()
+
   onChangeName: (e) ->
     Fmushi.viewer.set 'name', e.target.value
 

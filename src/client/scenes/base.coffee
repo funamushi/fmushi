@@ -23,8 +23,10 @@ module.exports = class BaseScene extends BaseView
     $.Deferred().resolve().promise()
 
   dispose: ->
-    super
+    @$el.empty()
 
     Fmushi.stage.removeChild @world
     Fmushi.two.remove @shapeWorld
+
+    super
 

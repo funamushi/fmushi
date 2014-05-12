@@ -111,39 +111,6 @@ module.exports = class MushiView extends BaseView
     sprite.interactive = true
     sprite.buttonMode = true
 
-    # f = new PIXI.ColorMatrixFilter
-    # f.matrix = [
-    #   3,0,0,0
-    #   0,1,0,0
-    #   0,0,1,0
-    #   0,0,0,1
-    # ]
-    # sprite.filters = [f]
-  
-    # texture = PIXI.Texture.fromFrame('machi.png')
-    # text = new PIXI.Sprite texture
-    # text.anchor.x = 0.5
-    # text.anchor.y = 0.5
-    # text.position.x = 0
-    # text.position.y = 0
-    # sprite.addChild text
-
-    sprite.mousedown = sprite.touchstart = (e) =>
-      e.originalEvent.preventDefault()
-      @gripped = true
-
-    sprite.mouseup = sprite.mouseupoutside =
-    sprite.touchend = sprite.touchendoutside = (e) =>
-      e.originalEvent.preventDefault()
-      @gripped = false
-
-    sprite.mousemove = sprite.touchmove = (e) =>
-      e.originalEvent.preventDefault()
-      if @gripped
-        screenPos = e.global
-        worldPos  = Fmushi.scene.worldPosFromScreenPos screenPos
-        @model.set worldPos
-
     @shape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'),
       @sprite.width * 1.1, sprite.height * 1.1
