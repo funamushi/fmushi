@@ -33,7 +33,8 @@ module.exports =
     .then ->
       migration.addIndex 'mushies', ['breedId'],
         indexName: 'mushies_breedId'
-      .complete done
+    .then ->
+      done()
 
   down: (migration, DataTypes, done) ->
     migration.dropTable('mushies').complete(done)

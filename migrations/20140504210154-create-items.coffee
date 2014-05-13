@@ -12,7 +12,8 @@ module.exports =
       migration.addIndex 'items', ['slug'],
         indexName: 'items_slug'
         indicesType: 'UNIQUE'
-      .complete done
+    .then ->
+      done()
 
   down: (migration, DataTypes, done) ->
     migration.dropTable('items').complete done

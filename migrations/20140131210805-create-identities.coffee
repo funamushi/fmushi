@@ -35,7 +35,8 @@ module.exports =
       migration.addIndex 'identities', ['uid', 'provider'],
         indexName: 'identities_uid_provider'
         indicesType: 'UNIQUE'
-      .complete done
+    .then ->
+      done()
 
   down: (migration, DataTypes, done) ->
     migration.dropTable("authentications").complete(done)
