@@ -80,3 +80,12 @@ describe 'GET /:user/mushies/:id', ->
       .expect('Content-Type', /html/)
       .expect(200)
       .expect(/F虫/, done)
+
+describe 'POST /signup', ->
+  describe 'セッションにOAuth情報がない場合', ->
+    it 'status 422', (done) ->
+      request()
+      .post('/signup')
+      .expect(422, done)
+    
+    
