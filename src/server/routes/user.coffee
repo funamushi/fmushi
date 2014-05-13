@@ -31,12 +31,7 @@ exports.create = (req, res) ->
       User.create({name: req.body.name}, transaction: t)
       .then (u) ->
         user = u
-        identity = Identity.build
-          provider: profile.provider
-          uid:      profile.id
-          nickname: profile.username
-          token:    profile.token
-          secret:   profile.secret
+        identity = Identity.buildFromProfile(profile)
         user.addIdentity(identity, transaction: t)
       .then ->
         t.commit()

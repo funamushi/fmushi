@@ -28,5 +28,13 @@ module.exports = (sequelize, DataTypes) ->
       type: DataTypes.STRING(125)
   ,
     tableName: 'identities'
-
+    classMethods:
+      buildFromProfile: (profile) ->
+        @build
+          provider: profile.provider
+          uid:      profile.id
+          nickname: profile.username
+          token:    profile.token
+          secret:   profile.secret
+        
 
