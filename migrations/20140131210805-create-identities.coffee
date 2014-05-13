@@ -27,15 +27,15 @@ module.exports =
         type: DataTypes.STRING(125)
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
-    .complete ->
+    .then ->
       migration.addIndex 'identities', ['userId', 'provider'],
         indexName: 'identities_userId_provider'
         indicesType: 'UNIQUE'
-      .complete ->
-        migration.addIndex 'identities', ['uid', 'provider'],
-          indexName: 'identities_uid_provider'
-          indicesType: 'UNIQUE'
-        .complete done
+    .then ->
+      migration.addIndex 'identities', ['uid', 'provider'],
+        indexName: 'identities_uid_provider'
+        indicesType: 'UNIQUE'
+      .complete done
 
   down: (migration, DataTypes, done) ->
     migration.dropTable("authentications").complete(done)

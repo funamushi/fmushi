@@ -20,7 +20,7 @@ module.exports =
         defaultValue: 0
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
-    .complete ->
+    .then ->
       migration.addIndex 'belongings', ['userId'],
         indexName: 'belongings_userId'
       .complete done

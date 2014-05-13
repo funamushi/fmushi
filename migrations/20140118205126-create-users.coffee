@@ -15,7 +15,7 @@ module.exports =
         defaultValue: 0
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
-    .complete ->
+    .then ->
       migration.addIndex 'users', ['name'],
         indexName:   'users_name'
         indicesType: 'UNIQUE'

@@ -27,13 +27,13 @@ module.exports =
         allowNull: false
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
-    .complete ->
+    .then ->
       migration.addIndex 'mushies', ['userId'],
         indexName: 'mushies_userId'
-      .complete ->
-        migration.addIndex 'mushies', ['breedId'],
-          indexName: 'mushies_breedId'
-        .complete done
+    .then ->
+      migration.addIndex 'mushies', ['breedId'],
+        indexName: 'mushies_breedId'
+      .complete done
 
   down: (migration, DataTypes, done) ->
     migration.dropTable('mushies').complete(done)

@@ -8,7 +8,7 @@ module.exports =
       slug:
         type: DataTypes.STRING
         allowNull: false
-    .complete ->
+    .then ->
       migration.addIndex 'breeds', ['slug'],
         indexName: 'breeds_slug'
         indicesType: 'UNIQUE'
