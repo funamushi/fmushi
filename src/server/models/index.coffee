@@ -34,7 +34,6 @@ Belonging
 
 User.findWithAssociations = (where) ->
   options =
-    attributes: ['name', 'fp']
     include: [
       model: Identity, attributes: ['provider', 'nickname', 'url']
     ,

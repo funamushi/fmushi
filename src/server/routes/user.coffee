@@ -23,7 +23,7 @@ exports.create = (req, res) ->
   .then (user) ->
     req.logIn user, ->
       req.session.profile = null
-      res.json JSON.stringify(req.user)
+      res.send JSON.stringify(req.user)
   .catch (err) ->
     # TODO err logging
     res.status 422
@@ -34,7 +34,7 @@ exports.show = (req, res) ->
       res.render 'index'
 
     json: ->
-      res.json JSON.stringify(req.user)
+      res.send JSON.stringify(req.user)
 
 exports.mushi = (req, res) ->
   res.render 'index'
