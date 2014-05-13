@@ -1,4 +1,5 @@
-{User, Identity, Mushi, Breed, Belonging, Item} = require '../models'
+sequelize = require '../models'
+{User, Identity, Mushi, Breed, Belonging, Item} = sequelize
 
 exports.set = (req, res, next, userName) ->
   User.findWithAssociations(name: userName)
@@ -19,14 +20,35 @@ exports.new = (req, res) ->
   res.render 'index'
 
 exports.create = (req, res) ->
-  User.create(name: req.body.name)
-  .then (user) ->
-    req.logIn user, ->
-      req.session.profile = null
-      res.send JSON.stringify(req.user)
-  .catch (err) ->
-    # TODO err logging
+  profile = req.session.profile
+  if not profile?
+    # TODO error logging and response
     res.status 422
+    res.end()
+  else
+    sequelize.transaction (t) ->
+      user = null
+      User.create({name: req.body.name}, transaction: t)
+      .then (u) ->
+        user = u
+        identity = Identity.build
+          provider: profile.provider
+          uid:      profile.id
+          nickname: profile.username
+          token:    profile.token
+          secret:   profile.secret
+        user.addIdentity(identity, transaction: t)
+      .then ->
+        t.commit()
+      .then ->
+        req.logIn user, ->
+          req.session.profile = null
+          res.send JSON.stringify(req.user)
+      .catch (err) ->
+        # TODO err logging
+        console.log err
+        res.status 422
+        res.end()
 
 exports.show = (req, res) ->
   res.format
