@@ -46,7 +46,8 @@ if env is 'development' or !env?
 app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
 app.get '/auth/twitter', passport.authenticate('twitter')
 app.get '/auth/twitter/callback',
-  passport.authenticate('twitter', failureRedirect: '/signup')
+  passport.authenticate('twitter',
+    successRedirect:'/', failureRedirect: '/signup')
 
 app.get '/signup', routes.user.new
 app.post '/signup', routes.user.create

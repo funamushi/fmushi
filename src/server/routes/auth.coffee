@@ -32,6 +32,8 @@ passport.use new TwitterStrategy
       done null, identity.user
     else
       req.session.profile = profile
+      req.session.profile.token  = token
+      req.session.profile.secret = tokenSecret
       done null, false
   .catch (err) ->
     done err
