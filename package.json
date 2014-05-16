@@ -40,7 +40,7 @@
     "pg": "~2.9.0",
     "q": "^1.0.1",
     "sass-brunch": "^1.8.1",
-    "sequelize": "^1.7.3",
+    "sequelize": "^1.7.5",
     "serve-static": "^1.1.0",
     "socket.io": "~0.9.16",
     "static-favicon": "^1.0.2",

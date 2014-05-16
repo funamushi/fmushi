@@ -3,7 +3,8 @@ _ = require 'lodash'
 
 config = require 'config'
 
-{sequelize, Item, Breed}  = require './src/server/models'
+sequelize  = require './src/server/models'
+{Item, Breed} = sequelize
 
 sequelize.transaction (t) ->
   promises = []
