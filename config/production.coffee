@@ -2,6 +2,6 @@ module.exports =
   redis:
     url: process.env.NODE_ENV.REDISCLOUD_URL
   twitter:
-    consumerKey: 'zeWaLbcPQzMGA4MHJ3MNqX9nL'
-    consumerSecret: 'sjmbwYWWI72W0DbNGdRw8MzXX8FqivqhwAFMFYicmAEpSvbaSQ'
+    consumerKey: 'HoVTBKecxL5s1FZSM61atg'
+    consumerSecret: 'kbm4FJ8zIp5qUYMVpYyNkFRBqhLLseY6uffamGOU840'
     callbackURL: 'http://fmushi.com/auth/twitter/callback'
