@@ -4,7 +4,7 @@
 
 <div class="belongings control">
   {{#each owner.belongings}}
-    <button type="button" class="btn btn-inverse">{{item.name}} x {{quantity}}</button>
+    <button type="button" class="btn btn-inverse" data-item-slug="{{item.slug}}">{{item.name}} x <span class="quantity">{{quantity}}</span></button>
   {{/each}}
 </div>
 

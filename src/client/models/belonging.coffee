@@ -1,4 +1,5 @@
-Item = require 'models/item'
+Item   = require 'models/item'
+Circle = require 'models/circle'
 
 module.exports = class Belonging extends Backbone.AssociatedModel
   defaults:
@@ -11,4 +12,7 @@ module.exports = class Belonging extends Backbone.AssociatedModel
       relatedModel: Item
     }
   ]
-    
+
+  use: ->
+    item = @get('item')
+    new Circle(color: 'red')

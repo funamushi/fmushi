@@ -21,8 +21,9 @@ module.exports =
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
     .then ->
-      migration.addIndex 'belongings', ['userId'],
+      migration.addIndex 'belongings', ['userId', 'itemId'],
         indexName: 'belongings_userId'
+        indicesType: 'UNIQUE'
     .then ->
       done()
 

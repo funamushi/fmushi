@@ -66,17 +66,17 @@ module.exports = class Circle extends BaseView
       y: v.was.y - (v.y - v.was.y) * 1.0
 
     backTween = new TWEEN.Tween(x: v.x, y: v.y)
-      .to({ x: backPoint.x, y: backPoint.y}, 125)
-      .onUpdate ->
-        v.set @x, @y
-      .easing(TWEEN.Easing.Bounce.InOut)
+    .to({ x: backPoint.x, y: backPoint.y}, 125)
+    .onUpdate ->
+      v.set @x, @y
+    .easing(TWEEN.Easing.Bounce.InOut)
 
     boundTween = new TWEEN.Tween(x: backPoint.x, y: backPoint.y)
-      .to({ x: v.was.x, y: v.was.y }, 550)
-      .easing(TWEEN.Easing.Bounce.Out)
-      .onUpdate ->
-        v.set @x, @y
-      .onComplete ->
-        v.tween = null
+    .to({ x: v.was.x, y: v.was.y }, 550)
+    .easing(TWEEN.Easing.Bounce.Out)
+    .onUpdate ->
+      v.set @x, @y
+    .onComplete ->
+      v.tween = null
 
     v.tween = backTween.chain(boundTween).start()

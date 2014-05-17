@@ -14,6 +14,7 @@ module.exports = class MenuView extends BaseView
     'mouseover .mushies .btn': 'onPointIn'
     'mouseout  .mushies .btn': 'onPointOut'
     'click     .mushies .btn': 'onFocus'
+    'click .belongings .btn': 'onClickBelonging'
     'click .book-button': 'onOpenBook'
 
   initialize: (options) ->
@@ -85,6 +86,15 @@ module.exports = class MenuView extends BaseView
     e.preventDefault()
     bookModalView = @subview 'book'
     bookModalView.show()
+
+  onClickBelonging: (e) ->
+    e.preventDefault()
+    slug = $(e.target).data('item-slug')
+    belonging = @owner.get('belongings').find (belonging) ->
+      belonging.get('item.slug') is slug
+
+    circle = belonging.use()
+    @owner.get('circles').add(circle)
 
   mushiFromEvent: (e) ->
     mushiId = $(e.target).data('mushi-id')

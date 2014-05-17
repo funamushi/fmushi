@@ -7,7 +7,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     r: 400
 
   colors:
-    hustle:
+    red:
       lineColor: '#F4D6E0'
       fillColor: '#DE7699'
       colorMatrix: [
@@ -16,16 +16,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
         0,0,1,0
         0,0,0,1
       ]
-    rest:
-      lineColor: '#D6E9C9'
-      fillColor: '#72C575'
-      colorMatrix: [
-        1,0,0,0
-        0,3,0,0
-        0,0,1,0
-        0,0,0,1
-      ]
-    walking:
+    blue:
       lineColor: '#CCE9F9'
       fillColor: '#4CBAEB'
       colorMatrix: [
@@ -34,13 +25,22 @@ module.exports = class Circle extends Backbone.AssociatedModel
         0,0,2,0
         0,0,0,1
       ]
+    green:
+      lineColor: '#D6E9C9'
+      fillColor: '#72C575'
+      colorMatrix: [
+        1,0,0,0
+        0,3,0,0
+        0,0,1,0
+        0,0,0,1
+      ]
 
   initialize: ->
     @entities = {}
 
   color: ->
-    state = @get 'state'
-    @colors[state]
+    name = @get 'color'
+    @colors[name]
 
   pos: ->
     new Vector(@get('x'), @get('y'))
