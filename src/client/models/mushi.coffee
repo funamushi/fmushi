@@ -7,6 +7,7 @@ module.exports = class Mushi extends Backbone.AssociatedModel
     x: 0
     y: 0
     direction: 'left'
+    growth: 1
 
   relations: [
     {
@@ -15,6 +16,9 @@ module.exports = class Mushi extends Backbone.AssociatedModel
       relatedModel: Breed
     }
   ]
+
+  radius: ->
+    50
 
   pos: ->
     new Vector @get('x'), @get('y')

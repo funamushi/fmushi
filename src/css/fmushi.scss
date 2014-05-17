@@ -64,9 +64,13 @@ html,body {
     cursor: pointer;
   }
 
+  h4 {
+    font-size: 20px;
+  }
+
   .toggle-button {
     right: 0;
-    width: 7em;
+    width: 10em;
     text-align: center;
     vertical-align: middle;
     word-wrap: break-word;

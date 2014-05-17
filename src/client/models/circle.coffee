@@ -55,7 +55,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
     r  = @get('r')
     # TODO: 複数ボディに対応する
-    entityR = entity.r
+    entityR = entity.radius()
 
     distance2 = Math.abs pos.distanceToSquared(entityPos)
 

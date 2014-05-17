@@ -48,7 +48,7 @@ module.exports = class HomeScene extends BaseScene
     @listenTo circles, 'add', @addEntity
     @listenTo mushies, 'change:y', @reorderZ
 
-    @listenTo mushies, 'change', (mushi) ->
+    @listenTo @wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
 
