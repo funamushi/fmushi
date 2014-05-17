@@ -18,7 +18,7 @@ module.exports = class Mushi extends Backbone.AssociatedModel
   ]
 
   radius: ->
-    50
+    @growth * 50
 
   pos: ->
     new Vector @get('x'), @get('y')
