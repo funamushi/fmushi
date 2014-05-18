@@ -8,6 +8,10 @@ module.exports =
       slug:
         type: DataTypes.STRING
         allowNull: false
+      element:
+        type: DataTypes.ENUM
+        values: ['red', 'blue', 'green', 'yellow']
+        allowNull: false
     .then ->
       migration.addIndex 'items', ['slug'],
         indexName: 'items_slug'

@@ -9,18 +9,26 @@ sequelize  = require './src/server/models'
 sequelize.transaction (t) ->
   promises = []
 
-  _.each config.items, (properties, slug) ->
-    attrs = {}
+  _.each config.items, (props, slug) ->
     promises.push(
-      Item.findOrCreate({ slug: slug }, attrs, { transaction: t })
+      Item.findOrBuild({ slug: slug }, {}, { transaction: t })
+      .then (item) ->
+        item.element = props.element
+        item.save(transaction: t)
     )
 
-  _.each config.breeds, (properties, slug) ->
-    attrs = {}
+  _.each config.breeds, (props, slug) ->
     promises.push(
-      Breed.findOrCreate({ slug: slug }, attrs, { transaction: t})
+      Breed.findOrBuild({ slug: slug }, {}, { transaction: t})
+      .then (breed) ->
+        breed.element = props.element
+        breed.save(transaction: t)
     )
       
-  Q.all(promises).then ->
-    t.commit().then ->
-      process.exit()
+  Q.all(promises)
+  .then ->
+    t.commit()
+  .catch (err) ->
+    console.log err
+  .fin ->
+    process.exit()

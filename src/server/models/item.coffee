@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) ->
         notNull: true
         notEmpty: true
         is: ['^[a-z-]+$']
+    element:
+      type: DataTypes.ENUM
+      values: ['red', 'blue', 'green', 'yellow']
   ,
     tableName: 'items'
     timestamps: false
