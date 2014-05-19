@@ -1,7 +1,10 @@
-Fmushi        = require 'fmushi'
-BaseView      = require 'views/base'
-BookModalView = require 'views/book-modal'
-template      = require 'templates/menu'
+BaseView            = require 'views/base'
+BookModalView       = require 'views/book-modal'
+MenuOwnMushiButtonView = require 'views/menu-own-mushi-button'
+MenuWildMushiButtonView = require 'views/menu-wild-mushi-button'
+MenuItemButtonView  = require 'views/menu-item-button'
+
+template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   tagName: 'div'
@@ -11,49 +14,72 @@ module.exports = class MenuView extends BaseView
 
   events:
     'click .toggle-button': 'onToggleMenu'
-    'mouseover .mushies .btn': 'onPointIn'
-    'mouseout  .mushies .btn': 'onPointOut'
     'click     .mushies .btn': 'onFocus'
     'click .belongings .btn': 'onClickBelonging'
     'click .book-button': 'onOpenBook'
 
   initialize: (options) ->
-    @owner       = options.owner
-    @wildMushies = options.wildMushies
+    @owner       = owner       = options.owner
+    @wildMushies = wildMushies = options.wildMushies
 
     bookModalView = new BookModalView
     @subview 'book', bookModalView
 
-    @listenTo @owner.get('mushies'), 'add', @render
-    @listenTo @owner.get('belongings'), 'add', @render
-    @listenTo @wildMushies, 'add', @render
-    @listenTo @wildMushies, 'remove', @render
+    mushies    = owner.get('mushies')
+    belongings = owner.get('belongings')
+
+    @listenTo belongings, 'add', @addItem
+    @listenTo mushies, 'add', @addOwnMushi
+    @listenTo mushies, 'remove', @removeOwnMushi
+    @listenTo wildMushies, 'add', @addWildMushi
+    @listenTo wildMushies, 'remove', @removeWildMushi
 
   render: ->
-    @$el.html template
-      owner: @owner.toJSON()
-      wildMushies: @wildMushies.map (mushi) ->
-        json = mushi.toJSON()
-        json.cid = mushi.cid
-        json
+    @$el.html template(owner: @owner.toJSON())
 
     @$icon       = $(@$('.toggle-button').find('.glyphicon'))
     @$belongings = @$('.belongings')
     @$mushies    = @$('.mushies')
+    @$ownMushies  = @$mushies.children('.own')
+    @$wildMushies = @$mushies.children('.wildness')
+
     @open = true
+
+    owner = @owner
+    owner.get('belongings').each (belonging) =>
+      @addItem belonging
+
+    owner.get('mushies').each (mushi) =>
+      @addOwnMushi mushi
+
+    @wildMushies.each (mushi) =>
+      @addWildMushi mushi
     @
 
-  onPointIn: (e) ->
-    @mushiFromEvent(e)?.point()
+  addOwnMushi: (mushi) ->
+    mushiButtonView = new MenuOwnMushiButtonView(model: mushi)
+    @$ownMushies.append mushiButtonView.render().el
+    @subview "own-mushi-#{mushi.cid}", mushiButtonView
 
-  onPointOut: (e) ->
-    @mushiFromEvent(e)?.pointOut()
+  removeOwnMushi: (mushi) ->
+    mushiButtonView = new MenuOwnMushiButtonView(model: mushi)
+    @$ownMushies.append mushiButtonView.render().el
+    @subview "own-mushi-#{mushi.cid}", mushiButtonView
 
-  onFocus: (e) ->
-    e.preventDefault()
+  addWildMushi: (mushi) ->
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    @subview "wild-mushi-#{mushi.cid}", mushiButtonView
 
-    mushi = @mushiFromEvent(e)
-    Fmushi.currentScene.focus mushi
+  removeWildMushi: (mushi) ->
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    @subview "wild-mushi-#{mushi.cid}", mushiButtonView
+
+  addItem: (belonging) ->
+    itemButtonView = new MenuItemButtonView(model: belonging)
+    @$belongings.append itemButtonView.render().el
+    @subview "item-#{belonging.get 'item.slug'}", itemButtonView
 
   onToggleMenu: (e) ->
     e.preventDefault()
@@ -86,17 +112,3 @@ module.exports = class MenuView extends BaseView
     e.preventDefault()
     bookModalView = @subview 'book'
     bookModalView.show()
-
-  onClickBelonging: (e) ->
-    e.preventDefault()
-    slug = $(e.target).data('item-slug')
-    belonging = @owner.get('belongings').find (belonging) ->
-      belonging.get('item.slug') is slug
-
-    circle = belonging.use()
-    @owner.get('circles').add(circle)
-
-  mushiFromEvent: (e) ->
-    mushiId = $(e.target).data('mushi-id')
-    @owner.get('mushies').get(mushiId) or
-      @wildMushies.get(mushiId)

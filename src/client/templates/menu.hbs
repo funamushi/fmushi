@@ -2,11 +2,7 @@
   <span class="glyphicon glyphicon-book"></span>
 </div>  
 
-<div class="belongings control">
-  {{#each owner.belongings}}
-    <button type="button" class="btn btn-inverse" data-item-slug="{{item.slug}}">{{item.name}} x <span class="quantity">{{quantity}}</span></button>
-  {{/each}}
-</div>
+<div class="belongings control"></div>
 
 <h4 class="toggle-button control">
   <span class="glyphicon glyphicon-minus"></span>
@@ -15,13 +11,7 @@
 
 <div class="mushies control">
   <div class="own list-group">
-    {{#each owner.mushies}}
-      <a href="#" class="list-group-item btn btn-info" data-mushi-id="{{id}}">{{breed.name}}</a>
-    {{/each}}
   </div>
   <div class="wildness list-group">
-    {{#each wildMushies}}
-      <button type="button" class="btn btn-warning" data-mushi-id="{{cid}}">野生の{{breed.name}}</button>
-    {{/each}}
   </div>
 </div>
