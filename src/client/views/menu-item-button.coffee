@@ -1,5 +1,7 @@
 BaseView = require 'views/base'
 
+template = require 'templates/item-popover'
+
 module.exports = class MenuItemButtonView extends BaseView
   tagName: 'button'
   className: 'btn btn-inverse'
@@ -7,6 +9,9 @@ module.exports = class MenuItemButtonView extends BaseView
     type: 'button'
 
   render: ->
+    console.log @model.toJSON()
+
+
     @$quantity = $(document.createElement 'span')
     .addClass('quantity')
     .text @model.get('quantity')
@@ -18,7 +23,7 @@ module.exports = class MenuItemButtonView extends BaseView
       html:      true
       placement: 'bottom'
       trigger:   'click'
-      content:   'unko'
+      content:   template(belonging: @model.toJSON())
       container: @$el
     @
 
