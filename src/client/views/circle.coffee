@@ -2,10 +2,39 @@ Fmushi   = require 'fmushi'
 BaseView = require 'views/base'
 
 module.exports = class CircleView extends BaseView
+  colors:
+    red:
+      lineColor: '#F4D6E0'
+      fillColor: '#DE7699'
+      colorMatrix: [
+        3,0,0,0
+        0,1,0,0
+        0,0,1,0
+        0,0,0,1
+      ]
+    blue:
+      lineColor: '#CCE9F9'
+      fillColor: '#4CBAEB'
+      colorMatrix: [
+        1,0,0,0
+        0,1,0,0
+        0,0,2,0
+        0,0,0,1
+      ]
+    green:
+      lineColor: '#D6E9C9'
+      fillColor: '#72C575'
+      colorMatrix: [
+        1,0,0,0
+        0,3,0,0
+        0,0,1,0
+        0,0,0,1
+      ]
+
   initialize: ->
     attrs = @model.toJSON()
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
-    if color = @model.color()
+    if color = @colors[@model.get('item.element')]
       shape.stroke = color.lineColor
       shape.fill   = color.fillColor
       shape.linewidth = 3
