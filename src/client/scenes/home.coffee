@@ -223,7 +223,8 @@ module.exports = class HomeScene extends BaseScene
     @stopListening entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:out', entity
 
-    Backbone.history.navigate @owner.url()
+    unless @owner.isNew()
+      Backbone.history.navigate @owner.url()
 
   cameraFixed: (x, y, zoom) ->
     camera     = @owner.get('camera')
