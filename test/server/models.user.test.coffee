@@ -41,11 +41,11 @@ describe User, ->
         User.create name: 'hadashiA'
         .then (user) =>
           @user = user
-          Item.create slug: 'red-circle'
+          Item.create slug: 'red-circle', element: 'red'
         .then (item) =>
           Belonging.create userId: @user.id, itemId: item.id
         .then (belonging) ->
-          Breed.create slug: 'boxing'
+          Breed.create slug: 'boxing', element: 'red'
         .then (breed) =>
           Mushi.create userId: @user.id, breedId: breed.id
 

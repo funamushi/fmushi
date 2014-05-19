@@ -1,3 +1,4 @@
+Item   = require 'models/item'
 Vector = require 'vector'
 
 module.exports = class Circle extends Backbone.AssociatedModel
@@ -5,6 +6,14 @@ module.exports = class Circle extends Backbone.AssociatedModel
     x: 0
     y: 0
     r: 400
+
+  relations: [
+    {
+      type: Backbone.One
+      key:  'item'
+      relatedModel: Item
+    }
+  ]
 
   colors:
     red:
@@ -39,7 +48,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     @entities = {}
 
   color: ->
-    name = @get 'color'
+    element = @get 'item.element'
     @colors[name]
 
   pos: ->

@@ -14,5 +14,4 @@ module.exports = class Belonging extends Backbone.AssociatedModel
   ]
 
   use: ->
-    item = @get('item')
-    new Circle(color: 'red')
+    new Circle(item: @get('item'))
