@@ -14,7 +14,7 @@ module.exports = class MenuItemButtonView extends BaseView
     $(@$el)
     .html("#{@model.get 'item.name'}" +
           "x<span class=\"quantity\"> #{@model.get 'quantity'} </span>")
-    .popover
+    .clickover
       html:      true
       placement: 'bottom'
       trigger:   'click'
