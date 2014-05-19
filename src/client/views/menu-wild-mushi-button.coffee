@@ -13,9 +13,7 @@ module.exports = class MenuWildMushiButtonView extends BaseView
     'click': 'onFocus'
 
   render: ->
-    @$el
-    .text("野生の#{@model.get 'breed.name'}")
-    .data('mushi-id', @model.get('id') or @model.cid)
+    @$el.text("野生の#{@model.get 'breed.name'}")
     @
 
   onPointIn: (e) ->

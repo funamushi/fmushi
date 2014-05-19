@@ -11,10 +11,15 @@ module.exports = class MenuItemButtonView extends BaseView
     .addClass('quantity')
     .text @model.get('quantity')
 
-    @$el
-    .text("#{@model.get 'item.name'} ")
-    .data('mushi-id', @model.get('id') or @model.cid)
-    # .append @$quantity
+    $(@$el)
+    .html("#{@model.get 'item.name'}" +
+          "x<span class=\"quantity\"> #{@model.get 'quantity'} </span>")
+    .popover
+      html:      true
+      placement: 'bottom'
+      trigger:   'click'
+      content:   'unko'
+      container: @$el
     @
 
   

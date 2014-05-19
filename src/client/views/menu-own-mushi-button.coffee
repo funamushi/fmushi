@@ -13,9 +13,7 @@ module.exports = class MenuOwnMushiButtonView extends BaseView
     'click': 'onFocus'
 
   render: ->
-    @$el
-    .text(@model.get 'breed.name')
-    .data('mushi-id', @model.get('id') or @model.cid)
+    @$el.text(@model.get 'breed.name')
     @
 
   onPointIn: (e) ->
