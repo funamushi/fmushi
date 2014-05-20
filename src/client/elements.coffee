@@ -19,7 +19,8 @@ module.exports = elements =
 
 Handlebars.registerHelper 'elementName', (element) ->
   name = elements.name(element)
-  new Handlebars.SafeString "<span class=\"element-#{element}\">#{name}</span>"
+  html = "<span class=\"element-#{element} circle\">#{name}</span>"
+  new Handlebars.SafeString html
 
 Handlebars.registerHelper 'elementNextName', (element) ->
   nextElement = elements.next(element)
@@ -31,7 +32,8 @@ Handlebars.registerHelper 'elementPrevName', (element) ->
 
 Handlebars.registerHelper 'elementInverseName', (element) ->
   name = elements.inverseName(element)
-  new Handlebars.SafeString "<span class=\"element-#{element}\">#{name}</span>"
+  html = "<span class=\"element-#{element} circle\">#{name}</span>"
+  new Handlebars.SafeString html
 
 Handlebars.registerHelper 'circle', (element) ->
   html = "<span class=\"element-icon-#{element}\">&#x2B24;</span>"

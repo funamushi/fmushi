@@ -2,21 +2,19 @@ module.exports =
   elements:
     red:
       name: '大嫌い'
-      inverseName: 'さみしくない'
       prev: 'blue'
       next: 'blue'
     blue:
       name: 'さみしい'
-      inverseName: '好き'
       prev: 'red'
       next: 'red'
 
   items:
     'red-circle':
-      name: '遠赤外線さみしくないカプセル'
+      name: '遠赤外線さみしくなんかないカプセル'
       element: 'red'
     'blue-circle':
-      name: '???'
+      name: '本当は一人ぼっち酸素カプセル'
       element: 'blue'
 
   breeds:

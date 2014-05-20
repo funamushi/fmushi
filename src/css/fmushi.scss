@@ -8,10 +8,9 @@ $blue: #4CBAEB;
           border-radius: $radius;
 }
 
-@mixin element-wrapper {
-  color: #fff;
+@mixin element-circle {
   display: inline-block;
-  padding: 0.25em;
+  padding: 0.5em;
 }
 
 .control {
@@ -33,8 +32,13 @@ html,body {
 
 .element-red {
   background-color: $red;
-  @include element-wrapper;
-  @include border-radius(100%)
+  border-color: $red;
+  color: #fff;
+
+  &.circle {
+    @include element-circle;
+    @include border-radius(50%)
+  }
 }
 
 .element-icon-blue {
@@ -43,8 +47,13 @@ html,body {
 
 .element-blue {
   background-color: $blue;
-  @include element-wrapper;
-  @include border-radius(100%)
+  border-color: $blue;
+  color: #fff;
+
+  &.circle {
+    @include element-circle;
+    @include border-radius(50%)
+  }
 }
 
 #indicator {
