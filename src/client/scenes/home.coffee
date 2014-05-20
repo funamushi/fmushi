@@ -1,4 +1,4 @@
-Fmushi    = require 'fmushi'
+Fmushi = require 'fmushi'
 
 User    = require 'models/user'
 Camera  = require 'models/camera'

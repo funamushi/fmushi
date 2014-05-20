@@ -1,3 +1,19 @@
+$red:  #DE7699;
+$blue: #4CBAEB;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin element-wrapper {
+  color: #fff;
+  display: inline-block;
+  padding: 0.25em;
+}
+
 .control {
   z-index: 1000;
   position: absolute;
@@ -11,8 +27,24 @@ html,body {
   height: 100%;
 }
 
+.element-icon-red {
+  color: $red;
+}
+
 .element-red {
-  color: #DE7699;
+  background-color: $red;
+  @include element-wrapper;
+  @include border-radius(100%)
+}
+
+.element-icon-blue {
+  color: $blue;
+}
+
+.element-blue {
+  background-color: $blue;
+  @include element-wrapper;
+  @include border-radius(100%)
 }
 
 #indicator {
@@ -89,17 +121,7 @@ html,body {
     }
 
     .popover {
-      background-color: #34495e;
-      border-color: #34495e;
-
-      &.bottom > .allow:after {
-        border-bottom-color: #34495e;
-      }
-    }
-
-    .popover-content {
-      background-color: #34495e;
-      border-color: #34495e;
+      color: #34495e;
     }
   }
 

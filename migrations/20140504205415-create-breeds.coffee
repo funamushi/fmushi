@@ -10,7 +10,7 @@ module.exports =
         allowNull: false
       element:
         type: DataTypes.ENUM
-        values: ['red', 'blue', 'green', 'yellow']
+        values: ['red', 'blue']
         allowNull: false
     .then ->
       migration.addIndex 'breeds', ['slug'],

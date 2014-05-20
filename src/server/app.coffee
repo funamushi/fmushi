@@ -57,6 +57,8 @@ app.delete '/logout', routes.viewer.logout
 
 app.get '/breeds/sample', routes.breed.sample
 
+app.get '/elements', routes.element.index
+
 app.get '/:user/mushies/:mushiId', routes.user.mushi
 app.get '/:user.:format?', routes.user.show
 app.put '/:user'

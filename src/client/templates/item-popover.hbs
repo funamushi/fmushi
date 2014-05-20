@@ -1,4 +1,10 @@
 <div>
-  <span class="element-{{belonging.item.element}}">&#x2B24;</span>
-  気持ちが「さみしい」のF虫をつかまえることができます。
-</div>  
+  {{#belonging.item}}
+  <p>
+    効果: {{elementInverseName element}}
+  </p>
+  <p>
+    気持ちが「{{elementNextName element}}」のF虫をつかまえることができます。
+  </p>
+  {{/belonging.item}}
+</div>

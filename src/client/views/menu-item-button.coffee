@@ -9,9 +9,6 @@ module.exports = class MenuItemButtonView extends BaseView
     type: 'button'
 
   render: ->
-    console.log @model.toJSON()
-
-
     @$quantity = $(document.createElement 'span')
     .addClass('quantity')
     .text @model.get('quantity')

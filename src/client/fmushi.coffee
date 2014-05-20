@@ -13,7 +13,6 @@ module.exports =
     Items = require 'collections/items'
 
     @viewer = new User
-
     @fetch().then =>
       AppRouter = require 'routers/app'
       @router = new AppRouter
@@ -34,8 +33,12 @@ module.exports =
       @currentSceneName = name
 
   fetch: ->
-    @fetchAsset(['/app.json'])
-    .then =>
+    elements = require 'elements'
+
+    $.when(
+      elements.fetch()
+      @fetchAsset(['/app.json'])
+    ).then =>
       @viewer.fetchViewer()
 
   fetchAsset: (args) ->
