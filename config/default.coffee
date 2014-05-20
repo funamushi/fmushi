@@ -18,9 +18,6 @@ module.exports =
     'blue-circle':
       name: '???'
       element: 'blue'
-    'green-circle':
-      name: '???'
-      element: 'green'
 
   breeds:
     'building':
