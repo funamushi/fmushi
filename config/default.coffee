@@ -28,7 +28,7 @@ module.exports =
       element: 'red'
     'umbrella':
       name: 'ヘイプー大佐'
-      element: 'green'
+      element: 'red'
 
   defaultItems: [
     'red-circle'
