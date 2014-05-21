@@ -1,9 +1,11 @@
 Fmushi   = require 'fmushi'
 BaseView = require 'views/base'
 
+template = require 'templates/item-popover'
+
 module.exports = class MenuWildMushiButtonView extends BaseView
   tagName: 'button'
-  className: 'list-group-item btn btn-info'
+  className: 'mushi wild list-group-item btn btn-info'
   attributes:
     type: 'button'
 
@@ -13,7 +15,9 @@ module.exports = class MenuWildMushiButtonView extends BaseView
     'click': 'onFocus'
 
   render: ->
-    @$el.text("野生の#{@model.get 'breed.name'}")
+    @$el
+    .addClass("element-#{@model.get 'breed.element'}")
+    .html("<strong>野生の</strong>#{@model.get 'breed.name'}")
     @
 
   onPointIn: (e) ->

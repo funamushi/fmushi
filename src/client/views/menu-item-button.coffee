@@ -1,27 +1,26 @@
 BaseView = require 'views/base'
+Circle = require 'models/circle'
 
 template = require 'templates/item-popover'
 
 module.exports = class MenuItemButtonView extends BaseView
   tagName: 'button'
-  className: 'btn btn-inverse'
-  attributes:
-    type: 'button'
+  className: 'item'
+
+  events:
+    'click': 'onStartDrag'
 
   render: ->
-    @$quantity = $(document.createElement 'span')
-    .addClass('quantity')
-    .text @model.get('quantity')
-
+    $icon = $(document.createElement 'span')
+    .addClass("badge element-#{@model.get 'item.element'}")
+    .text(@model.get 'quantity')
+    
     $(@$el)
-    .html("#{@model.get 'item.name'}" +
-          "x<span class=\"quantity\"> #{@model.get 'quantity'} </span>")
-    .clickover
-      html:      true
-      placement: 'bottom'
-      trigger:   'click'
-      content:   template(belonging: @model.toJSON())
-      container: @$el
+    .addClass("element-icon-#{@model.get 'item.element'}")
+    .html("<span class=\"badge element-#{@model.get 'item.element'}\">#{@model.get 'quantity'}</span>#{@model.get 'item.name'}")
     @
 
-  
+  onStartDrag: (e) ->
+    e.preventDefault()
+
+    circle = new Circle(item: @model.get('item'))

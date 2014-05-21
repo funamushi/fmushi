@@ -125,8 +125,12 @@ html,body {
   .belongings {
     right: 12em;
 
-    .btn {
+    button.item {
+      font-size: 0.75em;
       margin-right: 1em;
+      border: 2px solid #1abc9c;
+      border-radius: 6px;
+      background-color: #ffffff;
     }
 
     .popover {
@@ -137,11 +141,19 @@ html,body {
   .mushies {
     top: 2em;
     right: 0;
-    .btn {
+    .mushi {
+      font-size: 0.8em;
       width: 12em;
       word-wrap: break-word;
       text-align: left;
       margin-bottom: 0.5em;
+
+      /* &.wild { */
+      /*   opacity: 0.5; */
+      /*   strong { */
+      /*     opacity: 1.0; */
+      /*   } */
+      /* } */
     }
   }
 
