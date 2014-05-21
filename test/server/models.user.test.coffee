@@ -2,7 +2,7 @@ require './helper'
 
 Q = require 'q'
 
-{User, Mushi, Breed, Item, Belonging} = require '../../src/server/models'
+{User, Mushi, Breed, Item, Stock} = require '../../src/server/models'
 
 describe User, ->
   describe 'default value', ->
@@ -43,7 +43,7 @@ describe User, ->
           @user = user
           Item.create slug: 'red-circle', element: 'red'
         .then (item) =>
-          Belonging.create userId: @user.id, itemId: item.id
+          Stocks.create userId: @user.id, itemId: item.id
         .then (belonging) ->
           Breed.create slug: 'boxing', element: 'red'
         .then (breed) =>
@@ -53,7 +53,7 @@ describe User, ->
         clean(Mushi, Belonging).then ->
           clean(Breed, Item, User)
 
-      it 'mushiesとbelongingsを読み込む', ->
+      it 'mushiesとstocksを読み込む', ->
         User.findWithAssociations(id: @user.id)
         .then (user) ->
           expect(user.mushies).to.have.length(1)
@@ -63,5 +63,5 @@ describe User, ->
           expect(user.mushies[0].breed.name).to.present
 
           expect(user.mushies).to.have.length(1)
-          expect(user.belongings[0].quantity).to.eq(1)
-          expect(user.belongings[0].item.slug).to.eq('red-circle')
+          expect(user.stocks[0].quantity).to.eq(1)
+          expect(user.stocks[0].item.slug).to.eq('red-circle')
