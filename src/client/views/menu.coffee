@@ -78,7 +78,7 @@ module.exports = class MenuView extends BaseView
 
   addItem: (belonging) ->
     itemButtonView = new MenuItemButtonView(model: belonging)
-    @$belongings.append itemButtonView.render().el
+    @$belongings.prepend itemButtonView.render().el
     @subview "item-#{belonging.get 'item.slug'}", itemButtonView
 
   onToggleMenu: (e) ->
