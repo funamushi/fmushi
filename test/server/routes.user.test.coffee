@@ -1,6 +1,6 @@
 require './helper'
 
-{User, Identity, Mushi, Breed, Item, Belonging} =
+{User, Identity, Mushi, Breed, Item, Stock} =
   require '../../src/server/models'
 
 describe 'GET /:user', ->
@@ -10,7 +10,7 @@ describe 'GET /:user', ->
       @user = user
       Item.create slug: 'red-circle', element: 'red'
     .then (item) =>
-      Belonging.create userId: @user.id, itemId: item.id
+      Stock.create userId: @user.id, itemId: item.id
     .then (belonging) ->
       Breed.create slug: 'boxing', element: 'red'
     .then (breed) =>
@@ -19,7 +19,7 @@ describe 'GET /:user', ->
       Identity.create userId: @user.id, provider: 'twitter', uid: 'abcde'
 
   after ->
-    clean(Mushi, Belonging, Identity).then ->
+    clean(Mushi, Stock, Identity).then ->
       clean(Breed, Item, User)
 
   describe '存在するユーザ名', ->
@@ -37,8 +37,8 @@ describe 'GET /:user', ->
           expect(json.identities[0].provider).to.equal('twitter')
           expect(json.mushies[0].direction).to.equal('left')
           expect(json.mushies[0].breed.slug).to.equal('boxing')
-          expect(json.belongings[0].quantity).to.equal(1)
-          expect(json.belongings[0].item.slug).to.equal('red-circle')
+          expect(json.stocks[0].quantity).to.equal(1)
+          expect(json.stocks[0].item.slug).to.equal('red-circle')
           done()
 
     describe 'html', ->
