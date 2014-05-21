@@ -37,9 +37,10 @@ module.exports = class MenuView extends BaseView
   render: ->
     @$el.html template(owner: @owner.toJSON())
 
-    @$icon       = $(@$('.toggle-button').find('.glyphicon'))
-    @$belongings = @$('.belongings')
-    @$mushies    = @$('.mushies')
+    @$bookButton  = @$('.book-button')
+    @$icon        = $(@$('.toggle-button').find('.glyphicon'))
+    @$belongings  = @$('.belongings')
+    @$mushies     = @$('.mushies')
     @$ownMushies  = @$mushies.children('.own')
     @$wildMushies = @$mushies.children('.wildness')
 
@@ -89,6 +90,7 @@ module.exports = class MenuView extends BaseView
 
     if @open
       @$icon.transition {rotate: '180deg'}, 200, 'easeInOutSine', =>
+        @$bookButton.hide()
         @$belongings.hide()
         @$mushies.hide()
         @$icon
@@ -99,6 +101,7 @@ module.exports = class MenuView extends BaseView
         @menuLocked = false
     else
       @$icon.transition {rotate: '0deg'}, 200, 'easeInOutSine', =>
+        @$bookButton.show()
         @$belongings.show()
         @$mushies.show()
         @$icon
