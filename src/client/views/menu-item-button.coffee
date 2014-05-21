@@ -1,7 +1,8 @@
 BaseView = require 'views/base'
 Circle = require 'models/circle'
 
-template = require 'templates/item-popover'
+buttonTemplate  = require 'templates/menu-item-button'
+popoverTemplate = require 'templates/item-popover'
 
 module.exports = class MenuItemButtonView extends BaseView
   tagName: 'button'
@@ -11,13 +12,9 @@ module.exports = class MenuItemButtonView extends BaseView
     'click': 'onStartDrag'
 
   render: ->
-    $icon = $(document.createElement 'span')
-    .addClass("badge element-#{@model.get 'item.element'}")
-    .text(@model.get 'quantity')
-    
     $(@$el)
     .addClass("element-icon-#{@model.get 'item.element'}")
-    .html("<span class=\"badge element-#{@model.get 'item.element'}\">#{@model.get 'quantity'}</span>#{@model.get 'item.name'}")
+    .html(buttonTemplate belonging: @model.toJSON())
     @
 
   onStartDrag: (e) ->
