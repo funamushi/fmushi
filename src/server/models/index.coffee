@@ -12,14 +12,14 @@ module.exports = sequelize = new Sequelize(
 sequelize.User      = User      = sequelize.import('./user')
 sequelize.Identity  = Identity  = sequelize.import('./identity')
 sequelize.Item      = Item      = sequelize.import('./item')
-sequelize.Belonging = Belonging = sequelize.import('./belonging')
+sequelize.Stock     = Stock     = sequelize.import('./stock')
 sequelize.Breed     = Breed     = sequelize.import('./breed')
 sequelize.Mushi     = Mushi     = sequelize.import('./mushi')
 
 User
 .hasMany Identity
 .hasMany Mushi
-.hasMany Belonging
+.hasMany Stock
 
 Identity
 .belongsTo User
@@ -28,7 +28,7 @@ Mushi
 .belongsTo User
 .belongsTo Breed
 
-Belonging
+Stock:
 .belongsTo User
 .belongsTo Item
 
@@ -41,7 +41,7 @@ User.findWithAssociations = (where) ->
         model: Breed, attributes: ['slug']
       ]
     ,
-      model: Belonging, attributes: ['quantity'], include: [
+      model: Stock, attributes: ['quantity'], include: [
         model: Item, attributes: ['slug']
       ]
     ]

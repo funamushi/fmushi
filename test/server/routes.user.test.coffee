@@ -11,7 +11,7 @@ describe 'GET /:user', ->
       Item.create slug: 'red-circle', element: 'red'
     .then (item) =>
       Stock.create userId: @user.id, itemId: item.id
-    .then (belonging) ->
+    .then (stock) ->
       Breed.create slug: 'boxing', element: 'red'
     .then (breed) =>
       Mushi.create userId: @user.id, breedId: breed.id
