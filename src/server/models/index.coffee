@@ -28,7 +28,7 @@ Mushi
 .belongsTo User
 .belongsTo Breed
 
-Stock:
+Stock
 .belongsTo User
 .belongsTo Item
 
