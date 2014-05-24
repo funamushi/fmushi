@@ -43,7 +43,7 @@ describe User, ->
           @user = user
           Item.create slug: 'red-circle', element: 'red'
         .then (item) =>
-          Stocks.create userId: @user.id, itemId: item.id
+          Stock.create userId: @user.id, itemId: item.id
         .then (belonging) ->
           Breed.create slug: 'boxing', element: 'red'
         .then (breed) =>
