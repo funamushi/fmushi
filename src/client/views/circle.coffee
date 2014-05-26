@@ -38,6 +38,8 @@ module.exports = class CircleView extends BaseView
       shape.stroke = color.lineColor
       shape.fill   = color.fillColor
       shape.linewidth = 3
+      if attrs.state is 'assumed'
+        shape.opacity = 0.25
 
     for v in @shape.vertices
       v.was = v.clone()

@@ -6,6 +6,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     x: 0
     y: 0
     r: 400
+    state: 'assumed'
 
   relations: [
     {
@@ -80,3 +81,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
   haveEntity: (entity) ->
     @entities[entity.cid]?
+
+  fix: ->
+    @set state: 'fixed'
+    #TODO saveする
