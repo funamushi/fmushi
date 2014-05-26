@@ -20,7 +20,7 @@ module.exports = class MenuItemButtonView extends BaseView
       html:      true
       placement: 'bottom'
       trigger:   'click'
-      content:   template(belonging: @model.toJSON())
+      content:   template(stock: @model.toJSON())
       container: @$el
     @
 

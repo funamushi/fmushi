@@ -15,7 +15,7 @@ module.exports = class MenuView extends BaseView
   events:
     'click .toggle-button': 'onToggleMenu'
     'click     .mushies .btn': 'onFocus'
-    'click .belongings .btn': 'onClickBelonging'
+    'click .stocks .btn': 'onClickStock'
     'click .book-button': 'onOpenBook'
 
   initialize: (options) ->
@@ -26,9 +26,9 @@ module.exports = class MenuView extends BaseView
     @subview 'book', bookModalView
 
     mushies    = owner.get('mushies')
-    belongings = owner.get('belongings')
+    stocks = owner.get('stocks')
 
-    @listenTo belongings, 'add', @addItem
+    @listenTo stocks, 'add', @addItem
     @listenTo mushies, 'add', @addOwnMushi
     @listenTo mushies, 'remove', @removeOwnMushi
     @listenTo wildMushies, 'add', @addWildMushi
@@ -38,7 +38,7 @@ module.exports = class MenuView extends BaseView
     @$el.html template(owner: @owner.toJSON())
 
     @$icon       = $(@$('.toggle-button').find('.glyphicon'))
-    @$belongings = @$('.belongings')
+    @$stocks = @$('.stocks')
     @$mushies    = @$('.mushies')
     @$ownMushies  = @$mushies.children('.own')
     @$wildMushies = @$mushies.children('.wildness')
@@ -46,8 +46,8 @@ module.exports = class MenuView extends BaseView
     @open = true
 
     owner = @owner
-    owner.get('belongings').each (belonging) =>
-      @addItem belonging
+    owner.get('stocks').each (stock) =>
+      @addItem stock
 
     owner.get('mushies').each (mushi) =>
       @addOwnMushi mushi
@@ -76,10 +76,10 @@ module.exports = class MenuView extends BaseView
     @$wildMushies.append mushiButtonView.render().el
     @subview "wild-mushi-#{mushi.cid}", mushiButtonView
 
-  addItem: (belonging) ->
-    itemButtonView = new MenuItemButtonView(model: belonging)
-    @$belongings.append itemButtonView.render().el
-    @subview "item-#{belonging.get 'item.slug'}", itemButtonView
+  addItem: (stock) ->
+    itemButtonView = new MenuItemButtonView(model: stock)
+    @$stocks.append itemButtonView.render().el
+    @subview "item-#{stock.get 'item.slug'}", itemButtonView
 
   onToggleMenu: (e) ->
     e.preventDefault()
@@ -89,7 +89,7 @@ module.exports = class MenuView extends BaseView
 
     if @open
       @$icon.transition {rotate: '180deg'}, 200, 'easeInOutSine', =>
-        @$belongings.hide()
+        @$stocks.hide()
         @$mushies.hide()
         @$icon
         .removeClass('glyphicon-minus')
@@ -99,7 +99,7 @@ module.exports = class MenuView extends BaseView
         @menuLocked = false
     else
       @$icon.transition {rotate: '0deg'}, 200, 'easeInOutSine', =>
-        @$belongings.show()
+        @$stocks.show()
         @$mushies.show()
         @$icon
         .removeClass('glyphicon-plus')

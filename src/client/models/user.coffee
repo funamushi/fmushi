@@ -1,7 +1,7 @@
 Camera     = require 'models/camera'
 Mushies    = require 'collections/mushies'
 Circles    = require 'collections/circles'
-Belongings = require 'collections/belongings'
+Stocks = require 'collections/stocks'
 
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
@@ -9,7 +9,7 @@ module.exports = class User extends Backbone.AssociatedModel
     camera:     new Camera
     mushies:    new Mushies
     circles:    new Circles
-    belongings: new Belongings
+    stocks: new Stocks
 
   relations: [
     {
@@ -29,8 +29,8 @@ module.exports = class User extends Backbone.AssociatedModel
     }
     {
       type: Backbone.Many
-      key: 'belongings'
-      collectionType: Belongings
+      key: 'stocks'
+      collectionType: Stocks
     }
   ]
 
