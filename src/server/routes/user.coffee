@@ -1,5 +1,5 @@
 sequelize = require '../models'
-{User, Identity, Mushi, Breed, Belonging, Item} = sequelize
+{User, Identity, Mushi, Breed, Stock, Item} = sequelize
 
 exports.set = (req, res, next, userName) ->
   User.findWithAssociations(name: userName)

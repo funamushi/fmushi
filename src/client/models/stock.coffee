@@ -1,7 +1,7 @@
 Item   = require 'models/item'
 Circle = require 'models/circle'
 
-module.exports = class Belonging extends Backbone.AssociatedModel
+module.exports = class Stock extends Backbone.AssociatedModel
   defaults:
     quantity: 1
 

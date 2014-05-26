@@ -1,6 +1,6 @@
 module.exports =
   up: (migration, DataTypes, done) ->
-    migration.createTable 'belongings',
+    migration.createTable 'stocks',
       id:
         type: DataTypes.INTEGER
         autoIncrement: true
@@ -21,11 +21,11 @@ module.exports =
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
     .then ->
-      migration.addIndex 'belongings', ['userId', 'itemId'],
-        indexName: 'belongings_userId'
+      migration.addIndex 'stocks', ['userId', 'itemId'],
+        indexName: 'stocks_userId'
         indicesType: 'UNIQUE'
     .then ->
       done()
 
   down: (migration, DataTypes, done) ->
-    migration.dropTable('belongings').complete(done)
+    migration.dropTable('stocks').complete(done)

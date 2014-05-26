@@ -27,5 +27,5 @@ exports.show = (req, res) ->
       where: { slug: config.defaultItems }
     .then (items) ->
       res.send
-        belongings:
+        stocks:
           _.map(items, (item) -> { item: item, quantity: 1 })

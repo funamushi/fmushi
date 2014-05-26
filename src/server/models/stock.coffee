@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) ->
-  sequelize.define 'Belonging',
+  sequelize.define 'Stock',
     quantity:
       type: DataTypes.INTEGER
       defaultValue: 1
@@ -8,4 +8,4 @@ module.exports = (sequelize, DataTypes) ->
         min: 0
         max: 99
   ,
-    tableName: 'belongings'
+    tableName: 'stocks'

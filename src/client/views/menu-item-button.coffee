@@ -14,7 +14,7 @@ module.exports = class MenuItemButtonView extends BaseView
   render: ->
     $(@$el)
     .addClass("element-icon-#{@model.get 'item.element'}")
-    .html(buttonTemplate belonging: @model.toJSON())
+    .html(buttonTemplate stock: @model.toJSON())
     @
 
   onStartDrag: (e) ->
