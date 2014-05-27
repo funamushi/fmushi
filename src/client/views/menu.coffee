@@ -28,7 +28,7 @@ module.exports = class MenuView extends BaseView
     mushies    = owner.get('mushies')
     stocks = owner.get('stocks')
 
-    @listenTo stocks, 'add', @addItem
+    @listenTo stocks, 'add', @addStock
     @listenTo mushies, 'add', @addOwnMushi
     @listenTo mushies, 'remove', @removeOwnMushi
     @listenTo wildMushies, 'add', @addWildMushi
@@ -39,7 +39,7 @@ module.exports = class MenuView extends BaseView
 
     @$bookButton  = @$('.book-button')
     @$icon        = $(@$('.toggle-button').find('.glyphicon'))
-    @$stocks  = @$('.stocks')
+    @$stocks      = @$('.stocks')
     @$mushies     = @$('.mushies')
     @$ownMushies  = @$mushies.children('.own')
     @$wildMushies = @$mushies.children('.wildness')
@@ -48,7 +48,7 @@ module.exports = class MenuView extends BaseView
 
     owner = @owner
     owner.get('stocks').each (stock) =>
-      @addItem stock
+      @addStock stock
 
     owner.get('mushies').each (mushi) =>
       @addOwnMushi mushi
@@ -77,7 +77,7 @@ module.exports = class MenuView extends BaseView
     @$wildMushies.append mushiButtonView.render().el
     @subview "wild-mushi-#{mushi.cid}", mushiButtonView
 
-  addItem: (stock) ->
+  addStock: (stock) ->
     itemButtonView = new MenuItemButtonView(model: stock)
     @$stocks.prepend itemButtonView.render().el
     @subview "item-#{stock.get 'item.slug'}", itemButtonView

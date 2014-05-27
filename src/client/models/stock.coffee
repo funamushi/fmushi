@@ -1,5 +1,4 @@
 Item   = require 'models/item'
-Circle = require 'models/circle'
 
 module.exports = class Stock extends Backbone.AssociatedModel
   defaults:
@@ -13,5 +12,5 @@ module.exports = class Stock extends Backbone.AssociatedModel
     }
   ]
 
-  use: ->
-    new Circle(item: @get('item'))
+  open: ->
+    @trigger 'open', @

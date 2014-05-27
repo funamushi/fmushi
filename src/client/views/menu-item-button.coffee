@@ -21,6 +21,4 @@ module.exports = class MenuItemButtonView extends BaseView
 
   onStartDrag: (e) ->
     e.preventDefault()
-
-    circle = new Circle(item: @model.get('item'))
-    Fmushi.currentScene.addEntity(circle)
+    @model.open()

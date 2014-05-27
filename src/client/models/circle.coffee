@@ -1,4 +1,4 @@
-Item   = require 'models/item'
+Stock  = require 'models/stock'
 Vector = require 'vector'
 
 module.exports = class Circle extends Backbone.AssociatedModel
@@ -6,13 +6,13 @@ module.exports = class Circle extends Backbone.AssociatedModel
     x: 0
     y: 0
     r: 400
-    state: 'assumed'
+    state: 'closed'
 
   relations: [
     {
       type: Backbone.One
-      key:  'item'
-      relatedModel: Item
+      key:  'stock'
+      relatedModel: Stock
     }
   ]
 
@@ -26,11 +26,14 @@ module.exports = class Circle extends Backbone.AssociatedModel
     _.size @entities
 
   collisionEntity: (entity) ->
+    attrs = @attributes
+    return unless attrs.state is 'fixed'
+
     collisionPoint = null
     pos  = @pos()
     entityPos = { x: entity.get('x'), y: entity.get('y') }
 
-    r  = @get('r')
+    r  = attrs.r
     # TODO: 複数ボディに対応する
     entityR = entity.radius()
 
@@ -81,7 +84,3 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
   haveEntity: (entity) ->
     @entities[entity.cid]?
-
-  fix: ->
-    @set state: 'fixed'
-    #TODO saveする

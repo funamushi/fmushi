@@ -22,9 +22,13 @@ module.exports = class HomeScene extends BaseScene
   initialize: (options) ->
     viewer = Fmushi.viewer
     
-    @wildMushies = new Mushies
-    @listenTo @wildMushies, 'add', @onAddWildMushi
+    @wildMushies  = new Mushies
+    @activeCircle = new Circle
+
+    @listenTo @wildMushies, 'add',    @onAddWildMushi
     @listenTo @wildMushies, 'remove', @onRemoveWildMushi
+
+    @listenTo @activeCircle, 'change:state', @onChangeActiveCircleState
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -41,19 +45,22 @@ module.exports = class HomeScene extends BaseScene
     camera  = owner.get('camera')
     mushies = owner.get('mushies')
     circles = owner.get('circles')
+    stocks  = owner.get('stocks')
     @locked = false
 
-    @listenTo camera, 'change', @onCameraChanged
-    @listenTo mushies, 'add', @addEntity
-    @listenTo circles, 'add', @addEntity
+    @listenTo camera, 'change',    @onCameraChanged
+    @listenTo mushies, 'add',      @addEntity
     @listenTo mushies, 'change:y', @reorderZ
+    @listenTo stocks,  'open',     @onOpenStock
 
     @listenTo @wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
 
     # subviews
-    menuView = new MenuView(owner: owner, wildMushies: @wildMushies)
+    menuView = new MenuView
+      owner:        owner
+      wildMushies:  @wildMushies
     @subview 'menu', menuView
 
     dialogView = new MushiDialogView
@@ -93,6 +100,10 @@ module.exports = class HomeScene extends BaseScene
 
     .on 'dragstart', (e) =>
       e.preventDefault()
+
+      if @activeCircleState is 'assumed'
+        console.log 'unko'
+
       if _.any(@subviewsByName, (subview, name) -> subview.gripped)
         return
 
@@ -304,6 +315,17 @@ module.exports = class HomeScene extends BaseScene
     @removeEntity mushi
     helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
+
+  onChangeActiveCircleState: (circle, state)->
+    @activeCircleState = state # caching
+
+    if state is 'assumed'
+      @addEntity circle
+    else if state is 'closed'
+      @removeEntity circle
+
+  onOpenStock: (stock) ->
+    @activeCircle.set stock: stock, state: 'assumed'
 
   transitionOut: ->
     super()

@@ -33,8 +33,9 @@ module.exports = class CircleView extends BaseView
 
   initialize: ->
     attrs = @model.toJSON()
+
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
-    if color = @colors[@model.get('item.element')]
+    if color = @colors[@model.get('stock.item.element')]
       shape.stroke = color.lineColor
       shape.fill   = color.fillColor
       shape.linewidth = 3
