@@ -5,7 +5,7 @@ template = require 'templates/item-popover'
 
 module.exports = class MenuWildMushiButtonView extends BaseView
   tagName: 'button'
-  className: 'mushi wild list-group-item'
+  className: 'mushi wild list-group-item btn btn-default'
   attributes:
     type: 'button'
 
@@ -15,9 +15,7 @@ module.exports = class MenuWildMushiButtonView extends BaseView
     'click': 'onFocus'
 
   render: ->
-    @$el
-    .addClass("element-#{@model.get 'breed.element'}")
-    .html("<strong>野生の</strong>#{@model.get 'breed.name'}")
+    @$el.html("<strong>野生の</strong>#{@model.get 'breed.name'}")
     @
 
   onPointIn: (e) ->

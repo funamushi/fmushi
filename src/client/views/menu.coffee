@@ -8,7 +8,6 @@ template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   tagName: 'div'
-  className: 'control'
   attributes:
     id: 'menu'
 
@@ -68,6 +67,22 @@ module.exports = class MenuView extends BaseView
     @subview "own-mushi-#{mushi.cid}", mushiButtonView
 
   addWildMushi: (mushi) ->
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
+    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
+    @$wildMushies.append mushiButtonView.render().el
     mushiButtonView = new MenuWildMushiButtonView(model: mushi)
     @$wildMushies.append mushiButtonView.render().el
     @subview "wild-mushi-#{mushi.cid}", mushiButtonView

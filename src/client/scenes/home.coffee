@@ -308,12 +308,12 @@ module.exports = class HomeScene extends BaseScene
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAddWildMushi: (mushi) ->
-    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
+    helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
     @addEntity mushi, state: 'wild'
 
   onRemoveWildMushi: (mushi) ->
     @removeEntity mushi
-    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
+    helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
 
   onChangeActiveCircleState: (circle, state)->

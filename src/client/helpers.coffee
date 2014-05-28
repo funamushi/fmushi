@@ -2,7 +2,7 @@ $content   = $('#content')
 $message   = $('#message-footer')
 $indicator = $('#indicator')
 
-exports.footerMessage = (message, options={}) ->
+exports.headerMessage = (message, options={}) ->
   if _.isEmpty message
     $message.children().remove()
     return
