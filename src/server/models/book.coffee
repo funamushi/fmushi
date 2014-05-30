@@ -7,6 +7,8 @@ module.export = (sequelize,DataTypes) ->
     unread:
       type: DataTypes.BOOLEAN
       defaultValue: true
+      validate:
+        notNull: true,
   ,
     tableName: 'books'
 
