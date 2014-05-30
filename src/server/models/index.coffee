@@ -15,11 +15,13 @@ sequelize.Item      = Item      = sequelize.import('./item')
 sequelize.Stock     = Stock     = sequelize.import('./stock')
 sequelize.Breed     = Breed     = sequelize.import('./breed')
 sequelize.Mushi     = Mushi     = sequelize.import('./mushi')
+sequelize.Book      = Book      = sequelize.import('./book')
 
 User
 .hasMany Identity
 .hasMany Mushi
 .hasMany Stock
+.hasMany Book
 
 Identity
 .belongsTo User
@@ -32,6 +34,10 @@ Stock
 .belongsTo User
 .belongsTo Item
 
+Book
+.belongsTo User
+.belongsTo Breed
+
 User.findWithAssociations = (where) ->
   options =
     include: [
@@ -43,6 +49,10 @@ User.findWithAssociations = (where) ->
     ,
       model: Stock, attributes: ['quantity'], include: [
         model: Item, attributes: ['slug']
+      ]
+    ,
+      model: Book, attributes: ['unread'], include: [
+        model: Breed, attributes: ['slug']
       ]
     ]
   options.where = where
