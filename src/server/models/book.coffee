@@ -1,4 +1,5 @@
-module.export = (sequelize,DataTypes) ->
+module.exports = (sequelize,DataTypes) ->
+
   sequelize.define 'Book',
     userId:
       type: DataTypes.INTEGER
