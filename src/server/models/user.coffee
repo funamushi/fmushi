@@ -1,5 +1,4 @@
 module.exports = (sequelize, DataTypes) ->
-  {Item, Breed, Identity, Mushi, Stock} = sequelize
 
   sequelize.define 'User',
     name:
