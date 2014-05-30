@@ -1,4 +1,3 @@
-Stock  = require 'models/stock'
 Vector = require 'vector'
 
 module.exports = class Circle extends Backbone.AssociatedModel
@@ -6,15 +5,6 @@ module.exports = class Circle extends Backbone.AssociatedModel
     x: 0
     y: 0
     r: 400
-    state: 'closed'
-
-  relations: [
-    {
-      type: Backbone.One
-      key:  'stock'
-      relatedModel: Stock
-    }
-  ]
 
   initialize: ->
     @entities = {}

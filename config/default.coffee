@@ -30,5 +30,4 @@ module.exports =
 
   defaultItems: [
     'red-circle'
-    'blue-circle'
   ]

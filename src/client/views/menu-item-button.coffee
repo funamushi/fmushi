@@ -11,14 +11,24 @@ module.exports = class MenuItemButtonView extends BaseView
   className: 'item'
 
   events:
-    'click': 'onStartDrag'
+    'mousedown': 'onDragStart'
+    'mouseup':   'onDragCancel'
 
   render: ->
     $(@$el)
     .addClass("element-icon-#{@model.get 'item.element'}")
     .html(buttonTemplate stock: @model.toJSON())
+    .tooltip
+      html: true
+      placement: 'top'
+      title: popoverTemplate(stock: @model.toJSON())
     @
 
-  onStartDrag: (e) ->
-    e.preventDefault()
-    @model.open()
+  onDragStart: (e) ->
+    @model.open(e.x, e.y)
+
+  onDragCancel: (e) ->
+    @model.close()
+
+  onMouseOut: (e) ->
+    

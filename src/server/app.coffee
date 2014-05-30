@@ -43,7 +43,7 @@ if env is 'development' or !env?
   app.use errorhandler()
   app.use morgan("dev")
 
-app.get  '/viewer', routes.viewer.authorize, routes.viewer.show
+app.get '/viewer', routes.viewer.authorize, routes.viewer.show
 app.get '/auth/twitter', passport.authenticate('twitter')
 app.get '/auth/twitter/callback',
   passport.authenticate('twitter',

@@ -23,12 +23,9 @@ module.exports = class HomeScene extends BaseScene
     viewer = Fmushi.viewer
     
     @wildMushies  = new Mushies
-    @activeCircle = new Circle
 
     @listenTo @wildMushies, 'add',    @onAddWildMushi
     @listenTo @wildMushies, 'remove', @onRemoveWildMushi
-
-    @listenTo @activeCircle, 'change:state', @onChangeActiveCircleState
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -48,10 +45,11 @@ module.exports = class HomeScene extends BaseScene
     stocks  = owner.get('stocks')
     @locked = false
 
-    @listenTo camera, 'change',    @onCameraChanged
+    @listenTo camera,  'change',   @onCameraChanged
     @listenTo mushies, 'add',      @addEntity
     @listenTo mushies, 'change:y', @reorderZ
-    @listenTo stocks,  'open',     @onOpenStock
+    @listenTo stocks,  'open',     @onStockOpen
+    @listenTo stocks,  'close',    @onStockClose
 
     @listenTo @wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
@@ -94,15 +92,13 @@ module.exports = class HomeScene extends BaseScene
     camera = @owner.get('camera')
 
     lastDragPoint = null
-    Hammer(@$canvas[0])
+    Hammer(document.body)
     .on 'click', (e) =>
       @focusOut() if @focusEntity
 
     .on 'dragstart', (e) =>
-      e.preventDefault()
-
-      if @activeCircleState is 'assumed'
-        console.log 'unko'
+      if @grippedCircle?
+        return
 
       if _.any(@subviewsByName, (subview, name) -> subview.gripped)
         return
@@ -112,8 +108,12 @@ module.exports = class HomeScene extends BaseScene
         y: e.gesture.center.pageY
 
     .on 'drag', (e) =>
-      e.preventDefault()
-      if !@focusEntity and lastDragPoint
+      console.log @grippedCircle
+      if @grippedCircle?
+        console.log e
+        return
+
+      if !@focusEntity? and lastDragPoint
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
@@ -316,16 +316,13 @@ module.exports = class HomeScene extends BaseScene
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
 
-  onChangeActiveCircleState: (circle, state)->
-    @activeCircleState = state # caching
+  onStockOpen: (stock, circle) ->
+    @grippedCircle = circle
+    @addEntity circle
 
-    if state is 'assumed'
-      @addEntity circle
-    else if state is 'closed'
-      @removeEntity circle
-
-  onOpenStock: (stock) ->
-    @activeCircle.set stock: stock, state: 'assumed'
+  onStockClose: (stock, circle) ->
+    @grippedCircle = null
+    @removeEntity circle
 
   transitionOut: ->
     super()
@@ -343,4 +340,14 @@ module.exports = class HomeScene extends BaseScene
   dispose: ->
     super
     @$canvas.off()
-    Hammer(@$canvas[0]).off()
+    Hammer(document.body).off()
+
+
+
+
+
+
+
+
+
+
