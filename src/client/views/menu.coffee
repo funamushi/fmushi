@@ -69,22 +69,6 @@ module.exports = class MenuView extends BaseView
   addWildMushi: (mushi) ->
     mushiButtonView = new MenuWildMushiButtonView(model: mushi)
     @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
     @subview "wild-mushi-#{mushi.cid}", mushiButtonView
 
   removeWildMushi: (mushi) ->
