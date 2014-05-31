@@ -10,10 +10,6 @@ module.exports = class MenuItemButtonView extends BaseView
   tagName: 'button'
   className: 'item'
 
-  events:
-    'mousedown': 'onDragStart'
-    'mouseup':   'onDragCancel'
-
   render: ->
     $(@$el)
     .addClass("element-icon-#{@model.get 'item.element'}")
@@ -22,13 +18,17 @@ module.exports = class MenuItemButtonView extends BaseView
       html: true
       placement: 'top'
       title: popoverTemplate(stock: @model.toJSON())
+
+    Hammer(@$el[0])
+    .on 'dragstart', (e) =>
+      @model.open e.gesture.deltaX, e.gesture.deltaY
+
+    .on 'drag', (e) =>
+      if circle = @model.get('circle')
+        x = circle.get('x') + e.gesture.deltaX
+        y = circle.get('y') + e.gesture.deltaY
+        circle.set x: x, y: y
     @
 
-  onDragStart: (e) ->
-    @model.open(e.x, e.y)
-
-  onDragCancel: (e) ->
-    @model.close()
-
-  onMouseOut: (e) ->
-    
+  dispose: ->
+    Hammer(@$el[0]).off()

@@ -92,7 +92,7 @@ module.exports = class HomeScene extends BaseScene
     camera = @owner.get('camera')
 
     lastDragPoint = null
-    Hammer(document.body)
+    Hammer(@$canvas[0])
     .on 'click', (e) =>
       @focusOut() if @focusEntity
 
@@ -108,9 +108,10 @@ module.exports = class HomeScene extends BaseScene
         y: e.gesture.center.pageY
 
     .on 'drag', (e) =>
-      console.log @grippedCircle
-      if @grippedCircle?
-        console.log e
+      if grippedCircle = @grippedCircle
+        x = grippedCircle.get('x') + e.gesture.deltaX
+        y = grippedCircle.get('y') + e.gesture.deltaY
+        grippedCircle.set x: x, y: y
         return
 
       if !@focusEntity? and lastDragPoint
@@ -340,14 +341,4 @@ module.exports = class HomeScene extends BaseScene
   dispose: ->
     super
     @$canvas.off()
-    Hammer(document.body).off()
-
-
-
-
-
-
-
-
-
-
+    Hammer(@$canvas[0]).off()
