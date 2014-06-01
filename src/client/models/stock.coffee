@@ -25,6 +25,5 @@ module.exports = class Stock extends Backbone.AssociatedModel
 
   close: ->
     if circle = @get('circle')
-      console.log circle
       @set circle: null
       @trigger 'close', @, circle

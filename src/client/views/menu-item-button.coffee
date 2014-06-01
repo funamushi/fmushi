@@ -28,12 +28,13 @@ module.exports = class MenuItemButtonView extends BaseView
       if circle = @model.get('circle')
         {pageX, pageY} = e.gesture.center
         circle.set x: pageX, y: pageY
+
+    .on 'dragend', (e) =>
+      mouseOn = e.gesture.target
+      button  = @$el[0]
+      if button is mouseOn or $.contains(button, mouseOn)
+        @model.close()
     @
 
   dispose: ->
     Hammer(@$el[0]).off()
-
-
-
-
-
