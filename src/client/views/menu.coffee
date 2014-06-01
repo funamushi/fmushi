@@ -25,15 +25,15 @@ module.exports = class MenuView extends BaseView
     bookModalView = new BookModalView
     @subview 'book', bookModalView
 
-    mushies    = owner.get('mushies')
-    stocks = owner.get('stocks')
+    mushies = owner.get('mushies')
+    stocks  = owner.get('stocks')
 
     @listenTo stocks,      'add',    @addStock
     @listenTo stocks,      'remove', @removeStock
     @listenTo mushies,     'add',    @addOwnMushi
     @listenTo wildMushies, 'add',    @addWildMushi
     @listenTo mushies,     'remove', @removeMushi
-    @listenTo wildMushies, 'remove', @removedMushi
+    @listenTo wildMushies, 'remove', @removeMushi
 
   render: ->
     @$el.html template(owner: @owner.toJSON())
@@ -69,6 +69,7 @@ module.exports = class MenuView extends BaseView
     @subview "mushies/#{mushi.cid}", mushiButtonView
 
   removeMushi: (mushi) ->
+    console.log @subview("mushies/#{mushi.cid}")
     @removeSubview "mushies/#{mushi.cid}"
 
   addStock: (stock) ->
