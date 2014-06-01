@@ -32,24 +32,35 @@ module.exports = class CircleView extends BaseView
       ]
 
   initialize: ->
-    attrs = @model.toJSON()
+    model = @model
+    attrs = model.toJSON()
+
+    @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
 
     @defaultRadius = attrs.r
-    @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
-    if color = @colors[@model.get('element')]
+
+    if attrs.assumed
+      shape.opacity = 0.25
+    else
+      new TWEEN.Tween(r: 10)
+      .to(r: @defaultRadius, 200)
+      .onUpdate ->
+        model.set r: @r
+      .easing(TWEEN.Easing.Bounce.Out)
+      .start()
+
+    if color = @colors[attrs.element]
       shape.stroke = color.lineColor
       shape.fill   = color.fillColor
       shape.linewidth = 3
-      if attrs.assumed
-        shape.opacity = 0.25
 
     for v in @shape.vertices
       v.was = v.clone()
 
-    @listenTo @model, 'change',  @onChanged
-    @listenTo @model, 'circle:collide', @onCollision
-    @listenTo @model, 'circle:add',     @onAdded
-    @listenTo @model, 'circle:remove',  @onRemoved
+    @listenTo model, 'change',  @onChanged
+    @listenTo model, 'circle:collide', @onCollision
+    @listenTo model, 'circle:add',     @onAdded
+    @listenTo model, 'circle:remove',  @onRemoved
 
     @lazyReset = _.debounce ( =>
       @reset()

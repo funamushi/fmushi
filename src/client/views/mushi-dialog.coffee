@@ -14,7 +14,7 @@ module.exports = class MushiDialog extends BaseView
     .popover
       html: true
       placement: 'top'
-      title: "#{mushi.get('name')}"
+      title: "#{mushi.get 'breed.name'}"
       trigger: 'manual'
       container: 'body'
       content: template
