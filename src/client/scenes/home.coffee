@@ -50,6 +50,8 @@ module.exports = class HomeScene extends BaseScene
     @listenTo mushies, 'change:y', @reorderZ
     @listenTo stocks,  'open',     @onStockOpen
     @listenTo stocks,  'close',    @onStockClose
+    @listenTo stocks,  'use',      @onStockUse
+    @listenTo circles, 'add',      @addEntity
 
     @listenTo @wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
@@ -320,6 +322,15 @@ module.exports = class HomeScene extends BaseScene
   onStockClose: (stock, circle) ->
     @grippedCircle = null
     @removeEntity circle
+
+  onStockUse: (stock, circle) ->
+    return unless circle?
+    @grippedCircle = null
+    @removeEntity circle
+
+    attrs = circle.toJSON()
+    attrs.assumed = false
+    @owner.get('circles').add attrs
 
   transitionOut: ->
     super()

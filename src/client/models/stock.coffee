@@ -27,3 +27,18 @@ module.exports = class Stock extends Backbone.AssociatedModel
     if circle = @get('circle')
       @set circle: null
       @trigger 'close', @, circle
+
+  use: ->
+    circle = @get('circle')
+    return unless circle?
+
+    quantity = @get('quantity')
+    return if quantity <= 0
+
+    quantity -= 1
+    if quantity <= 0
+      # @destroy() if quantity <= 0
+    else
+      @set quantity: quantity
+      # TODO: saveする
+    @trigger 'use', @, circle

@@ -5,6 +5,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     x: 0
     y: 0
     r: 400
+    assumed: true
 
   initialize: ->
     @entities = {}
@@ -17,7 +18,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
   collisionEntity: (entity) ->
     attrs = @attributes
-    return unless attrs.state is 'fixed'
+    return if attrs.assumed
 
     collisionPoint = null
     pos  = @pos()

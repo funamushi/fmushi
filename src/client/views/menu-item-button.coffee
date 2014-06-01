@@ -34,6 +34,8 @@ module.exports = class MenuItemButtonView extends BaseView
       button  = @$el[0]
       if button is mouseOn or $.contains(button, mouseOn)
         @model.close()
+      else
+        @model.use()
     @
 
   dispose: ->
