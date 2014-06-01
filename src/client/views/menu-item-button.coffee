@@ -47,4 +47,14 @@ module.exports = class MenuItemButtonView extends BaseView
     @$quantity.text quantity
 
   dispose: ->
+    super
     @hammer?.dispose()
+
+
+
+
+
+
+
+
+
