@@ -8,6 +8,7 @@ template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   tagName: 'div'
+  className: 'control'
   attributes:
     id: 'menu'
 

@@ -99,14 +99,13 @@ html,body {
 }
 
 #menu {
-  bottom: 3em;
+  top: 1em;
   right: 1em;
   width: 100%;
 
   .toggle-button {
     right: 0;
-    width: 3em;
-    bottom: 0.5em;
+    width: 10em;
     text-align: center;
     vertical-align: middle;
     word-wrap: break-word;
@@ -114,8 +113,7 @@ html,body {
   }
 
   .command {
-    right: 2em;
-    bottom: 0.5em;
+    right: 12em;
 
     button.item {
       font-size: 0.75em;
@@ -131,7 +129,7 @@ html,body {
   }
 
   .mushies {
-    top: 1em;
+    top: 2em;
     right: 0;
     .mushi {
       font-size: 0.8em;
