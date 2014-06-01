@@ -34,17 +34,19 @@ module.exports = class CircleView extends BaseView
   initialize: ->
     attrs = @model.toJSON()
 
+    @defaultRadius = attrs.r
     @shape = shape = Fmushi.two.makeCircle attrs.x, attrs.y, attrs.r
-    if color = @colors[@model.get('stock.item.element')]
+    if color = @colors[@model.get('element')]
       shape.stroke = color.lineColor
       shape.fill   = color.fillColor
       shape.linewidth = 3
-      if attrs.state is 'assumed'
+      if attrs.assumed
         shape.opacity = 0.25
 
     for v in @shape.vertices
       v.was = v.clone()
 
+    @listenTo @model, 'change',  @onChanged
     @listenTo @model, 'circle:collide', @onCollision
     @listenTo @model, 'circle:add',     @onAdded
     @listenTo @model, 'circle:remove',  @onRemoved
@@ -52,6 +54,12 @@ module.exports = class CircleView extends BaseView
     @lazyReset = _.debounce ( =>
       @reset()
     ), 500
+
+  onChanged: (circle) ->
+    @shape.translation.set circle.get('x'), circle.get('y')
+    if circle.hasChanged('r')
+      r = circle.get('r')
+      @shape.scale = (r / @defaultRadius)
 
   onCollision: (entity, collisionPointWorld) ->
     r  = @model.get('r')

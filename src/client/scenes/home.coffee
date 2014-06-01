@@ -23,12 +23,9 @@ module.exports = class HomeScene extends BaseScene
     viewer = Fmushi.viewer
     
     @wildMushies  = new Mushies
-    @activeCircle = new Circle
 
     @listenTo @wildMushies, 'add',    @onAddWildMushi
     @listenTo @wildMushies, 'remove', @onRemoveWildMushi
-
-    @listenTo @activeCircle, 'change:state', @onChangeActiveCircleState
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -48,10 +45,13 @@ module.exports = class HomeScene extends BaseScene
     stocks  = owner.get('stocks')
     @locked = false
 
-    @listenTo camera, 'change',    @onCameraChanged
+    @listenTo camera,  'change',   @onCameraChanged
     @listenTo mushies, 'add',      @addEntity
     @listenTo mushies, 'change:y', @reorderZ
-    @listenTo stocks,  'open',     @onOpenStock
+    @listenTo stocks,  'open',     @onStockOpen
+    @listenTo stocks,  'close',    @onStockClose
+    @listenTo stocks,  'use',      @onStockUse
+    @listenTo circles, 'add',      @addEntity
 
     @listenTo @wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
@@ -99,10 +99,8 @@ module.exports = class HomeScene extends BaseScene
       @focusOut() if @focusEntity
 
     .on 'dragstart', (e) =>
-      e.preventDefault()
-
-      if @activeCircleState is 'assumed'
-        console.log 'unko'
+      if @grippedCircle?
+        return
 
       if _.any(@subviewsByName, (subview, name) -> subview.gripped)
         return
@@ -112,8 +110,9 @@ module.exports = class HomeScene extends BaseScene
         y: e.gesture.center.pageY
 
     .on 'drag', (e) =>
-      e.preventDefault()
-      if !@focusEntity and lastDragPoint
+      return if @grippedCircle?
+
+      if !@focusEntity? and lastDragPoint
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
@@ -308,24 +307,30 @@ module.exports = class HomeScene extends BaseScene
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onAddWildMushi: (mushi) ->
-    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
+    helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
     @addEntity mushi, state: 'wild'
 
   onRemoveWildMushi: (mushi) ->
     @removeEntity mushi
-    helpers.footerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
+    helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
 
-  onChangeActiveCircleState: (circle, state)->
-    @activeCircleState = state # caching
+  onStockOpen: (stock, circle) ->
+    @grippedCircle = circle
+    @addEntity circle
 
-    if state is 'assumed'
-      @addEntity circle
-    else if state is 'closed'
-      @removeEntity circle
+  onStockClose: (stock, circle) ->
+    @grippedCircle = null
+    @removeEntity circle
 
-  onOpenStock: (stock) ->
-    @activeCircle.set stock: stock, state: 'assumed'
+  onStockUse: (stock, circle) ->
+    return unless circle?
+    @grippedCircle = null
+    @removeEntity circle
+
+    attrs = circle.toJSON()
+    attrs.assumed = false
+    @owner.get('circles').add attrs
 
   transitionOut: ->
     super()
