@@ -325,12 +325,10 @@ module.exports = class HomeScene extends BaseScene
 
   onStockUse: (stock, circle) ->
     return unless circle?
+    @removeEntity @grippedCircle
     @grippedCircle = null
-    @removeEntity circle
 
-    attrs = circle.toJSON()
-    attrs.assumed = false
-    @owner.get('circles').add attrs
+    @owner.get('circles').add circle
 
   transitionOut: ->
     super()

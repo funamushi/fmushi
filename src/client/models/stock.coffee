@@ -29,11 +29,18 @@ module.exports = class Stock extends Backbone.AssociatedModel
       @trigger 'close', @, circle
 
   use: ->
-    circle = @get('circle')
-    return unless circle?
+    assumedCircle = @get('circle')
+    return unless assumedCircle?
 
     quantity = @get('quantity')
     return if quantity <= 0
+
+    circleAttrs = assumedCircle.toJSON()
+    if ttl = @get('item.ttl')
+      timestamp = (new Date).valueOf()
+      circleAttrs.expiresAt = new Date(timestamp + (ttl * 1000))
+
+    circle = new Circle(circleAttrs)
 
     quantity -= 1
     @trigger 'use', @, circle, quantity

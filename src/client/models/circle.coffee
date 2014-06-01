@@ -5,7 +5,6 @@ module.exports = class Circle extends Backbone.AssociatedModel
     x: 0
     y: 0
     r: 400
-    assumed: true
 
   initialize: ->
     @entities = {}
