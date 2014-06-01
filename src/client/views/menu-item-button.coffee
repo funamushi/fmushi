@@ -21,14 +21,19 @@ module.exports = class MenuItemButtonView extends BaseView
 
     Hammer(@$el[0])
     .on 'dragstart', (e) =>
-      @model.open e.gesture.deltaX, e.gesture.deltaY
+      {pageX, pageY} = e.gesture.srcEvent
+      @model.open pageX, pageY
 
     .on 'drag', (e) =>
       if circle = @model.get('circle')
-        x = circle.get('x') + e.gesture.deltaX
-        y = circle.get('y') + e.gesture.deltaY
-        circle.set x: x, y: y
+        {pageX, pageY} = e.gesture.center
+        circle.set x: pageX, y: pageY
     @
 
   dispose: ->
     Hammer(@$el[0]).off()
+
+
+
+
+

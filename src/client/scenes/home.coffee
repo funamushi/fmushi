@@ -108,11 +108,7 @@ module.exports = class HomeScene extends BaseScene
         y: e.gesture.center.pageY
 
     .on 'drag', (e) =>
-      if grippedCircle = @grippedCircle
-        x = grippedCircle.get('x') + e.gesture.deltaX
-        y = grippedCircle.get('y') + e.gesture.deltaY
-        grippedCircle.set x: x, y: y
-        return
+      return if @grippedCircle?
 
       if !@focusEntity? and lastDragPoint
         center = e.gesture.center
