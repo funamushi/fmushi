@@ -13,7 +13,7 @@ sequelize.transaction (t) ->
     promises.push(
       Item.findOrBuild({ slug: slug }, {}, { transaction: t })
       .then (item) ->
-        item.element = props.element
+        item[k] = v for k, v of props
         item.save(transaction: t)
     )
 
@@ -21,7 +21,7 @@ sequelize.transaction (t) ->
     promises.push(
       Breed.findOrBuild({ slug: slug }, {}, { transaction: t})
       .then (breed) ->
-        breed.element = props.element
+        breed[k] = v for k, v of props
         breed.save(transaction: t)
     )
       

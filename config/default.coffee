@@ -11,11 +11,13 @@ module.exports =
 
   items:
     'red-circle':
-      name: '赤いカプセル'
+      name:    '赤いカプセル'
       element: 'red'
+      ttl:     10
     'blue-circle':
-      name: '青いカプセル'
+      name:    '青いカプセル'
       element: 'blue'
+      ttl:     10
 
   breeds:
     'building':

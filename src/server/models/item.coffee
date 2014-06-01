@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) ->
     element:
       type: DataTypes.ENUM
       values: ['red', 'blue', 'green', 'yellow']
+    ttl:
+      type: DataTypes.INTEGER
   ,
     tableName: 'items'
     timestamps: false

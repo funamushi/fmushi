@@ -16,6 +16,9 @@ module.exports =
       y:
         type: DataTypes.FLOAT
         defaultValue: 0
+      createdAt: DataTypes.DATE
+      updatedAt: DataTypes.DATE
+
     .then ->
       migration.addIndex 'circles', ['itemId'],
         indexName: 'circles_itemId'

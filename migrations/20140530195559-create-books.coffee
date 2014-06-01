@@ -1,4 +1,4 @@
-module.exports = 
+module.exports =
   up: (migration, DataTypes, done) ->
     migration.createTable 'books',
       id:
