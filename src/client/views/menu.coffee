@@ -28,11 +28,12 @@ module.exports = class MenuView extends BaseView
     mushies    = owner.get('mushies')
     stocks = owner.get('stocks')
 
-    @listenTo stocks, 'add', @addStock
-    @listenTo mushies, 'add', @addOwnMushi
-    @listenTo mushies, 'remove', @removeOwnMushi
-    @listenTo wildMushies, 'add', @addWildMushi
-    @listenTo wildMushies, 'remove', @removeWildMushi
+    @listenTo stocks,      'add',    @addStock
+    @listenTo stocks,      'remove', @removeStock
+    @listenTo mushies,     'add',    @addOwnMushi
+    @listenTo wildMushies, 'add',    @addWildMushi
+    @listenTo mushies,     'remove', @removeMushi
+    @listenTo wildMushies, 'remove', @removedMushi
 
   render: ->
     @$el.html template(owner: @owner.toJSON())
@@ -60,27 +61,23 @@ module.exports = class MenuView extends BaseView
   addOwnMushi: (mushi) ->
     mushiButtonView = new MenuOwnMushiButtonView(model: mushi)
     @$ownMushies.append mushiButtonView.render().el
-    @subview "own-mushi-#{mushi.cid}", mushiButtonView
-
-  removeOwnMushi: (mushi) ->
-    mushiButtonView = new MenuOwnMushiButtonView(model: mushi)
-    @$ownMushies.append mushiButtonView.render().el
-    @subview "own-mushi-#{mushi.cid}", mushiButtonView
+    @subview "mushies/#{mushi.cid}", mushiButtonView
 
   addWildMushi: (mushi) ->
     mushiButtonView = new MenuWildMushiButtonView(model: mushi)
     @$wildMushies.append mushiButtonView.render().el
-    @subview "wild-mushi-#{mushi.cid}", mushiButtonView
+    @subview "mushies/#{mushi.cid}", mushiButtonView
 
-  removeWildMushi: (mushi) ->
-    mushiButtonView = new MenuWildMushiButtonView(model: mushi)
-    @$wildMushies.append mushiButtonView.render().el
-    @subview "wild-mushi-#{mushi.cid}", mushiButtonView
+  removeMushi: (mushi) ->
+    @removeSubview "mushies/#{mushi.cid}"
 
   addStock: (stock) ->
     itemButtonView = new MenuItemButtonView(model: stock)
     @$stocks.prepend itemButtonView.render().el
-    @subview "item-#{stock.get 'item.slug'}", itemButtonView
+    @subview "items/#{stock.get 'item.slug'}", itemButtonView
+
+  removeStock: (stock) ->
+    @removeSubview "items/#{stock.get 'item.slug'}"
 
   onToggleMenu: (e) ->
     e.preventDefault()

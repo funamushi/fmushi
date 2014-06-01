@@ -10,16 +10,21 @@ module.exports = class MenuItemButtonView extends BaseView
   tagName: 'button'
   className: 'item'
 
+  initialize: ->
+    @listenTo @model, 'change:quantity', @onChangeQuantity
+
   render: ->
     $(@$el)
     .addClass("element-icon-#{@model.get 'item.element'}")
     .html(buttonTemplate stock: @model.toJSON())
     .tooltip
       html: true
-      placement: 'top'
+      placement: 'bottom'
       title: popoverTemplate(stock: @model.toJSON())
 
-    Hammer(@$el[0])
+    @$quantity = @$('.quantity')
+
+    @hammer = Hammer(@el)
     .on 'dragstart', (e) =>
       {pageX, pageY} = e.gesture.srcEvent
       @model.open pageX, pageY
@@ -38,5 +43,8 @@ module.exports = class MenuItemButtonView extends BaseView
         @model.use()
     @
 
+  onChangeQuantity: (stock, quantity) ->
+    @$quantity.text quantity
+
   dispose: ->
-    Hammer(@$el[0]).off()
+    @hammer?.dispose()

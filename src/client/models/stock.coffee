@@ -36,9 +36,9 @@ module.exports = class Stock extends Backbone.AssociatedModel
     return if quantity <= 0
 
     quantity -= 1
+    @trigger 'use', @, circle, quantity
+    # TODO: saveする
     if quantity <= 0
-      # @destroy() if quantity <= 0
+      @destroy()
     else
       @set quantity: quantity
-      # TODO: saveする
-    @trigger 'use', @, circle

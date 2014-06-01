@@ -94,7 +94,7 @@ module.exports = class HomeScene extends BaseScene
     camera = @owner.get('camera')
 
     lastDragPoint = null
-    Hammer(@$canvas[0])
+    @hammer = Hammer(@$canvas[0])
     .on 'click', (e) =>
       @focusOut() if @focusEntity
 
@@ -348,4 +348,4 @@ module.exports = class HomeScene extends BaseScene
   dispose: ->
     super
     @$canvas.off()
-    Hammer(@$canvas[0]).off()
+    @hammer.dispose()
