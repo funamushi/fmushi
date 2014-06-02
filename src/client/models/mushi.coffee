@@ -1,5 +1,4 @@
 Fmushi = require 'fmushi'
-Vector = require 'vector'
 Breed  = require 'models/breed'
 
 module.exports = class Mushi extends Backbone.AssociatedModel
@@ -19,9 +18,6 @@ module.exports = class Mushi extends Backbone.AssociatedModel
 
   radius: ->
     @get('growth') * 50
-
-  pos: ->
-    new Vector @get('x'), @get('y')
 
   comment: ->
     _.sample [

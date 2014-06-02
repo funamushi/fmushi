@@ -1,3 +1,4 @@
+Fmushi = require 'fmushi'
 Vector = require 'vector'
 
 module.exports = class Circle extends Backbone.AssociatedModel
@@ -8,19 +9,22 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
   initialize: ->
     @entities = {}
+    attrs = @toJSON()
 
-  pos: ->
-    new Vector(@get('x'), @get('y'))
-  
+    if expiresAt = attrs.expiresAt
+      @listenTo Fmushi.events, 'update', (delta) =>
+        if (new Date) > expiresAt
+          @destroy()
+
   entityCount: ->
     _.size @entities
 
   collisionEntity: (entity) ->
     attrs = @attributes
-    return if attrs.assumed
+    return unless attrs.expiresat?
 
     collisionPoint = null
-    pos  = @pos()
+    pos  = new Vector(attrs.x, attrs.y)
     entityPos = { x: entity.get('x'), y: entity.get('y') }
 
     r  = attrs.r

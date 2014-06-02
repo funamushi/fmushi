@@ -2,6 +2,9 @@ Fmushi   = require 'fmushi'
 BaseView = require 'views/base'
 
 module.exports = class CircleView extends BaseView
+  tagName: 'div'
+  className: 'control'
+
   colors:
     red:
       lineColor: '#F4D6E0'
@@ -42,10 +45,15 @@ module.exports = class CircleView extends BaseView
     expiresAt = attrs.expiresAt
     if expiresAt?
       new TWEEN.Tween(r: 10)
-      .to(r: @defaultRadius, 1000)
+      .to(r: @defaultRadius, 1600)
       .onUpdate ->
         model.set r: @r
-      .easing(TWEEN.Easing.Elastic.In)
+      # .easing(TWEEN.Easing.Bounce.Out)
+      .onComplete =>
+        @$el
+        .css(left: attrs.x, top: attrs.y)
+        .text(parseInt (expiresAt - (new Date)) / 1000)
+        .appendTo(document.body)
       .start()
     else
       shape.opacity = 0.25

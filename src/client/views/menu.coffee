@@ -69,7 +69,6 @@ module.exports = class MenuView extends BaseView
     @subview "mushies/#{mushi.cid}", mushiButtonView
 
   removeMushi: (mushi) ->
-    console.log @subview("mushies/#{mushi.cid}")
     @removeSubview "mushies/#{mushi.cid}"
 
   addStock: (stock) ->
