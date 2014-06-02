@@ -42,15 +42,15 @@ module.exports = class CircleView extends BaseView
     expiresAt = attrs.expiresAt
     if expiresAt?
       new TWEEN.Tween(r: 10)
-      .to(r: @defaultRadius, 200)
+      .to(r: @defaultRadius, 1000)
       .onUpdate ->
         model.set r: @r
-      .easing(TWEEN.Easing.Bounce.Out)
+      .easing(TWEEN.Easing.Elastic.In)
       .start()
     else
       shape.opacity = 0.25
       # @listenTo Fmushi.events, 'update', (delta) =>
-      #   expiresAt > 
+      #   expiresAt >
 
     if color = @colors[attrs.element]
       shape.stroke = color.lineColor
