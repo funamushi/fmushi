@@ -5,23 +5,32 @@ module.exports = class Circle extends Backbone.AssociatedModel
   defaults: ->
     x: 0
     y: 0
-    r: 400
+    r: 300
 
-  initialize: ->
+  initialize: (attrs, @ttl) ->
     @entities = {}
-    attrs = @toJSON()
 
-    if expiresAt = attrs.expiresAt
-      @listenTo Fmushi.events, 'update', (delta) =>
-        if (new Date) > expiresAt
+    if @ttl?
+      @listenTo Fmushi.events, 'countdown', (now) =>
+        expiresAt = @get('expiresAt')
+        if expiresAt? and expiresAt <= now
+          @stopListening(Fmushi.events)
           @destroy()
 
   entityCount: ->
     _.size @entities
 
+  updateExpiresAt: ->
+    expiresAt =
+      if @ttl?
+        timestamp = (new Date).valueOf()
+        expiresAt = new Date(timestamp + (@ttl * 1000))
+    @set expiresAt: expiresAt
+    expiresAt
+
   collisionEntity: (entity) ->
     attrs = @attributes
-    return unless attrs.expiresat?
+    return unless @ttl?
 
     collisionPoint = null
     pos  = new Vector(attrs.x, attrs.y)

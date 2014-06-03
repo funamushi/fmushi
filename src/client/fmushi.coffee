@@ -8,6 +8,7 @@ module.exports =
       FastClick.attach document.body
 
     @startAnimation()
+    @startClock()
 
     User  = require 'models/user'
     Items = require 'collections/items'
@@ -97,6 +98,11 @@ module.exports =
 
       lastTime = getTime()
     requestAnimFrame mainLoop
+
+  startClock: ->
+    setInterval =>
+      @events.trigger 'countdown', (new Date)
+    , 1000
 
   getTime: ->
     now = window.performance && (

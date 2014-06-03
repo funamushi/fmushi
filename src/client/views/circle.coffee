@@ -34,7 +34,7 @@ module.exports = class CircleView extends BaseView
         0,0,0,1
       ]
 
-  initialize: ->
+  initialize: (options) ->
     model = @model
     attrs = model.toJSON()
 
@@ -42,23 +42,23 @@ module.exports = class CircleView extends BaseView
 
     @defaultRadius = attrs.r
 
-    expiresAt = attrs.expiresAt
-    if expiresAt?
+    if @model.ttl?
       new TWEEN.Tween(r: 10)
       .to(r: @defaultRadius, 1600)
       .onUpdate ->
         model.set r: @r
-      # .easing(TWEEN.Easing.Bounce.Out)
+      .easing(TWEEN.Easing.Exponential.InOut)
       .onComplete =>
-        @$el
-        .css(left: attrs.x, top: attrs.y)
-        .text(parseInt (expiresAt - (new Date)) / 1000)
-        .appendTo(document.body)
+        expiresAt = @model.updateExpiresAt()
+
+        @$el.css(left: attrs.x, top: attrs.y).appendTo(document.body)
+        @listenTo Fmushi.events, 'countdown', (now) =>
+          seconds = parseInt((expiresAt - now) / 1000)
+          return if seconds < 0
+          @$el?.text(seconds)
       .start()
     else
       shape.opacity = 0.25
-      # @listenTo Fmushi.events, 'update', (delta) =>
-      #   expiresAt >
 
     if color = @colors[attrs.element]
       shape.stroke = color.lineColor
@@ -73,9 +73,9 @@ module.exports = class CircleView extends BaseView
     @listenTo model, 'circle:add',     @onAdded
     @listenTo model, 'circle:remove',  @onRemoved
 
-    @lazyReset = _.debounce ( =>
+    @lazyReset = _.debounce =>
       @reset()
-    ), 500
+    , 500
 
   onChanged: (circle) ->
     @shape.translation.set circle.get('x'), circle.get('y')

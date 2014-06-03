@@ -22,7 +22,8 @@ module.exports = class HomeScene extends BaseScene
   initialize: (options) ->
     viewer = Fmushi.viewer
     
-    @wildMushies  = new Mushies
+    @wildMushies   = new Mushies
+    @grippedCircle = null
 
     @listenTo @wildMushies, 'add',    @onAddWildMushi
     @listenTo @wildMushies, 'remove', @onRemoveWildMushi
@@ -52,6 +53,7 @@ module.exports = class HomeScene extends BaseScene
     @listenTo stocks,  'close',    @onStockClose
     @listenTo stocks,  'use',      @onStockUse
     @listenTo circles, 'add',      @addEntity
+    @listenTo circles, 'remove',   @removeEntity
 
     @listenTo @wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
@@ -99,11 +101,8 @@ module.exports = class HomeScene extends BaseScene
       @focusOut() if @focusEntity
 
     .on 'dragstart', (e) =>
-      if @grippedCircle?
-        return
-
-      if _.any(@subviewsByName, (subview, name) -> subview.gripped)
-        return
+      return if @grippedCircle?
+      return if _.any(@subviewsByName, (subview, name) -> subview.gripped)
 
       lastDragPoint =
         x: e.gesture.center.pageX
@@ -325,9 +324,9 @@ module.exports = class HomeScene extends BaseScene
 
   onStockUse: (stock, circle) ->
     return unless circle?
+
     @removeEntity @grippedCircle
     @grippedCircle = null
-
     @owner.get('circles').add circle
 
   transitionOut: ->

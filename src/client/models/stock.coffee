@@ -35,12 +35,7 @@ module.exports = class Stock extends Backbone.AssociatedModel
     quantity = @get('quantity')
     return if quantity <= 0
 
-    circleAttrs = assumedCircle.toJSON()
-    if ttl = @get('item.ttl')
-      timestamp = (new Date).valueOf()
-      circleAttrs.expiresAt = new Date(timestamp + (ttl * 1000))
-
-    circle = new Circle(circleAttrs)
+    circle = new Circle(assumedCircle.toJSON(), @get('item.ttl'))
 
     quantity -= 1
     @trigger 'use', @, circle, quantity
