@@ -68,10 +68,10 @@ module.exports = class CircleView extends BaseView
     for v in @shape.vertices
       v.was = v.clone()
 
-    @listenTo model, 'change',  @onChanged
-    @listenTo model, 'collide', @onCollision
-    @listenTo model, 'enter',     @onAdded
-    @listenTo model, 'exit',  @onRemoved
+    @listenTo model, 'change',     @onChanged
+    @listenTo model, 'collide',    @onCollision
+    @listenTo model, 'circle:in',  @onAdded
+    @listenTo model, 'circle:out', @onRemoved
 
     @lazyReset = _.debounce =>
       @reset()

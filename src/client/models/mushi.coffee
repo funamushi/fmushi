@@ -36,3 +36,6 @@ module.exports = class Mushi extends Backbone.AssociatedModel
 
   exit: ->
     @trigger 'destroy'
+
+  capture: ->
+    @trigger 'capture'
