@@ -25,8 +25,10 @@ module.exports = class HomeScene extends BaseScene
     @wildMushies   = new Mushies
     @grippedCircle = null
 
-    @listenTo @wildMushies, 'add',    @onAddWildMushi
-    @listenTo @wildMushies, 'remove', @onRemoveWildMushi
+    @listenTo @wildMushies, 'add',      @addEntity
+    @listenTo @wildMushies, 'remove',   @removeEntity
+    @listenTo @wildMushies, 'enter',    @onWildMushiEnter
+    @listenTo @wildMushies, 'capture',  @onWildMushiCapture
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -147,7 +149,7 @@ module.exports = class HomeScene extends BaseScene
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
 
   tutorial: ->
-    @wildMushies.addFromFetchSample()
+    @wildMushies.enter()
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
@@ -305,14 +307,20 @@ module.exports = class HomeScene extends BaseScene
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
-  onAddWildMushi: (mushi) ->
+  onWildMushiEnter: (mushi) ->
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
-    @addEntity mushi, state: 'wild'
 
-  onRemoveWildMushi: (mushi) ->
-    @removeEntity mushi
+  onWildMushiExit: (mushi) ->
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
+
+  onWildMushiAdd: (mushi) ->
+    @addEntity mushi, state: 'wild'
+
+  onWildMushiCapture: (mushi) ->
+    @wildMushies.remove mushi
+    @removeEntity mushi
+    @owner.get('mushies').add mushi.toJSON()
 
   onStockOpen: (stock, circle) ->
     @grippedCircle = circle

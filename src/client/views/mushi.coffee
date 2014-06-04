@@ -17,8 +17,7 @@ class MushiStateMachine extends StateMachine
         x = model.get('x')
         newX = (x - @speed * delta)
         model.set 'x', newX
-        if newX <= 0
-          model.collection.remove model
+        model.destroy() if newX <= 0
 
     rest:
       onEnter: (view) ->

@@ -77,6 +77,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     return if @haveEntity(entity)
     @entities[entity.cid] = entity
     @trigger 'circle:in', entity, _.size(@entities)
+    entity.capture()
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
