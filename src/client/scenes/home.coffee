@@ -318,7 +318,11 @@ module.exports = class HomeScene extends BaseScene
   onWildMushiCapture: (mushi) ->
     @wildMushies.remove mushi
     @removeEntity mushi
-    @owner.get('mushies').add mushi.toJSON()
+
+    attrs = mushi.toJSON()
+    attrs.state = 'rest'
+    @owner.get('mushies').add attrs
+    helpers.headerMessage "「#{mushi.get 'breed.name'}」をGETしました。",
 
   onStockOpen: (stock, circle) ->
     @grippedCircle = circle
