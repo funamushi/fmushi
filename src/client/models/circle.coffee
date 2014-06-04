@@ -71,19 +71,17 @@ module.exports = class Circle extends Backbone.AssociatedModel
         .addSelf(entityPos)
   
     if collisionPoint?
-      @trigger 'circle:collide', entity, collisionPoint
+      @trigger 'collide', entity, collisionPoint
 
   addEntity: (entity) ->
     return if @haveEntity(entity)
     @entities[entity.cid] = entity
-    entity.circle = @
-    @trigger 'circle:add', entity, _.size(@entities)
+    @trigger 'enter', entity, _.size(@entities)
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
     delete @entities[entity.cid]
-    entity.circle = null
-    @trigger 'circle:remove', entity, _.size(@entities)
+    @trigger 'exit', entity, _.size(@entities)
 
   haveEntity: (entity) ->
     @entities[entity.cid]?
