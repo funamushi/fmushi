@@ -48,7 +48,7 @@ describe User, ->
           Breed.create slug: 'boxing', element: 'red'
         .then (breed) =>
           Mushi.create userId: @user.id, breedId: breed.id
-          Book.create userId: @user.id, breedId: breed.id, unread: true
+          Book.create userId: @user.id, breedId: breed.id
 
       afterEach ->
         clean(Mushi, Stock, Book).then ->
