@@ -74,15 +74,16 @@ class MushiStateMachine extends StateMachine
 
 module.exports = class MushiView extends BaseView
   initialize: (options) ->
-    @listenTo @model, 'change',     @onChanged
-    @listenTo @model, 'point:in',   @onPointIn
-    @listenTo @model, 'point:out',  @onPointOut
-    @listenTo @model, 'focus:in',   @onFocusIn
-    @listenTo @model, 'focus:out',  @onFocusOut
+    model = @model
+    @listenTo model, 'change',     @onChanged
+    @listenTo model, 'point:in',   @onPointIn
+    @listenTo model, 'point:out',  @onPointOut
+    @listenTo model, 'focus:in',   @onFocusIn
+    @listenTo model, 'focus:out',  @onFocusOut
 
     @initSprite()
 
-    @stateMachine = new MushiStateMachine(@, (options.state or 'walking'))
+    @stateMachine = new MushiStateMachine(@, model.get('state'))
     @listenTo Fmushi.events, 'update', (delta) =>
       @stateMachine.update delta
 

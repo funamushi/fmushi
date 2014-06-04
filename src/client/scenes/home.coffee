@@ -28,6 +28,7 @@ module.exports = class HomeScene extends BaseScene
     @listenTo @wildMushies, 'add',      @addEntity
     @listenTo @wildMushies, 'remove',   @removeEntity
     @listenTo @wildMushies, 'enter',    @onWildMushiEnter
+    @listenTo @wildMushies, 'destroy',  @onWildMushiExit
     @listenTo @wildMushies, 'capture',  @onWildMushiCapture
 
     if options.userName? and options.userName isnt viewer.get('name')
@@ -313,9 +314,6 @@ module.exports = class HomeScene extends BaseScene
   onWildMushiExit: (mushi) ->
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
-
-  onWildMushiAdd: (mushi) ->
-    @addEntity mushi, state: 'wild'
 
   onWildMushiCapture: (mushi) ->
     @wildMushies.remove mushi

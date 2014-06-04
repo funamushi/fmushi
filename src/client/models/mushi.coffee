@@ -7,6 +7,7 @@ module.exports = class Mushi extends Backbone.AssociatedModel
     y: 0
     direction: 'left'
     growth: 1
+    state: 'walking'
 
   relations: [
     {
