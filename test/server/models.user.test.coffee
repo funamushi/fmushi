@@ -66,5 +66,5 @@ describe User, ->
           expect(user.mushies).to.have.length(1)
           expect(user.stocks[0].quantity).to.eq(1)
           expect(user.stocks[0].item.slug).to.eq('red-circle')
-          expect(user.book[0].unread).to.be.true
-          expect(user.book[0].breed.slug).to.eq('red-circle')
+          expect(user.books[0].unread).to.be.true
+          expect(user.books[0].breed.slug).to.eq('red-circle')
