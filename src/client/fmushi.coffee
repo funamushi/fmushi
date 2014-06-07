@@ -7,7 +7,7 @@ module.exports =
     $ ->
       FastClick.attach document.body
 
-    vex.defaultOptions.className = 'vex-theme-wireframe'
+    vex.defaultOptions.className = 'vex-theme-fmushi-wireframe'
 
     @startAnimation()
     @startClock()

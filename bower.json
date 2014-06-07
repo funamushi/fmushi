@@ -83,8 +83,7 @@
     "vex": {
       "main": [
         "js/vex.combined.min.js",
-        "css/vex.css",
-        "css/vex-theme-wireframe.css"
+        "css/vex.css"
       ]
     }
   }

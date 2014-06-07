@@ -322,7 +322,7 @@ module.exports = class HomeScene extends BaseScene
     attrs = mushi.toJSON()
     attrs.state = 'rest'
     @owner.get('mushies').add attrs
-    helpers.headerMessage "「#{mushi.get 'breed.name'}」をGETしました。",
+    vex.dialog.alert "「#{mushi.get 'breed.name'}」をGETしました。",
 
   onStockOpen: (stock, circle) ->
     @grippedCircle = circle
