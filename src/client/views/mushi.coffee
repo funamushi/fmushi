@@ -1,84 +1,23 @@
-Fmushi       = require 'fmushi'
-BaseView     = require 'views/base'
-StateMachine = require 'state-machine'
-
-class MushiStateMachine extends StateMachine
-  states:
-    wild:
-      animationSpeed: 0.25
-      speed: 35
-
-      onEnter: (view) ->
-        view.animate 'walking', speed: @animationSpeed
-
-      update: (view, delta) ->
-        return if view.gripped
-        model = view.model
-        x = model.get('x')
-        newX = (x - @speed * delta)
-        model.set 'x', newX
-        model.destroy() if newX <= 0
-
-    rest:
-      onEnter: (view) ->
-        view.animate 'idle'
-
-      update: (view, delta) ->
-        
-
-    walking:
-      animationSpeed: 0.25
-      speed: 30
-    
-      onEnter: (view) ->
-        view.animate 'walking', speed: @animationSpeed
-    
-      update: (view, delta) ->
-        return if view.gripped
-
-        model = view.model
-        x = model.get('x')
-        if model.get('direction') is 'left'
-          if x < -10
-            model.set direction: 'right'
-          else
-            model.set x: x - @speed * delta
-        else
-          if x > 1000
-            model.set direction: 'left'
-          else
-            model.set x: x + @speed * delta
-    
-    hustle:
-      animationSpeed: 0.25
-      speed: 30
-    
-      onEnter: (view) ->
-        view.animate 'walking', spped: @animationSpeed
-    
-      update: (view, delta) ->
-        return if view.gripped
-    
-        model = view.model
-        x = model.get('x')
-        if model.get('direction') is 'left'
-          if x < -10
-            model.set direction: 'right'
-          else
-            model.set x: x - @speed * delta
-        else
-          if x > 1000
-            model.set direction: 'left'
-          else
-            model.set x: x + @speed * delta
+Fmushi   = require 'fmushi'
+BaseView = require 'views/base'
+MushiStateMachine = require 'models/mushi-state-machine'
 
 module.exports = class MushiView extends BaseView
+  animationSpeed:
+    wild:    0.25
+    walking: 0.25
+    hustle:  0.25
+
   initialize: (options) ->
     @initSprite()
 
     model  = @model
     sprite = @sprite
     shape  = @shape
+
+    @stateMachine = stateMachine = new MushiStateMachine(model)
+    @listenTo Fmushi.events, 'update', (delta) ->
+      stateMachine.update delta
 
     @listenTo model, 'change:x', (m, x)->
       sprite.position.x = x
@@ -88,20 +27,19 @@ module.exports = class MushiView extends BaseView
       sprite.position.y = y
       shape.translation.y = y if shape?
 
-    @listenTo model, 'change:direction', (v, direction) ->
+    @listenTo model, 'change:direction', (m, direction) ->
       if direction is 'left'
         sprite.scale.x = 0.5
       else
         sprite.scale.x = -0.5
 
-    @listenTo model, 'point:in',   @onPointIn
-    @listenTo model, 'point:out',  @onPointOut
-    @listenTo model, 'focus:in',   @onFocusIn
-    @listenTo model, 'focus:out',  @onFocusOut
+    @listenTo model, 'change:state', @onStateChanged
+    @listenTo model, 'point:in',     @onPointIn
+    @listenTo model, 'point:out',    @onPointOut
+    @listenTo model, 'focus:in',     @onFocusIn
+    @listenTo model, 'focus:out',    @onFocusOut
 
-    @stateMachine = new MushiStateMachine(@, model.get('state'))
-    @listenTo Fmushi.events, 'update', (delta) =>
-      @stateMachine.update delta
+    @onStateChanged model, model.get('state')
 
   initSprite: ->
     @textures = {}
@@ -143,6 +81,11 @@ module.exports = class MushiView extends BaseView
     if speed = options.speed
       @sprite.animationSpeed = speed
     @sprite.gotoAndPlay 0
+
+  onStateChanged: (model, state) ->
+    console.log arguments
+    @stateMachine.to state
+    @animate state, spped: @animationSpeed[state]
 
   onPointIn: (model) ->
     @shape.visible = true

@@ -1,6 +1,7 @@
 module.exports = class StateMachene
-  constructor: (@view, state) ->
-    @to state
+  constructor: (model) ->
+    @model = model
+    @to model.get('state')
 
   to: (name) ->
     return if name is @currentState
@@ -12,4 +13,4 @@ module.exports = class StateMachene
     state.onEnter? @view
     
   update: (delta) ->
-    @currentState?.update @view, delta
+    @currentState?.update @model, delta
