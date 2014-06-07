@@ -7,6 +7,8 @@ module.exports =
     $ ->
       FastClick.attach document.body
 
+    vex.defaultOptions.className = 'vex-theme-wireframe'
+
     @startAnimation()
     @startClock()
 
