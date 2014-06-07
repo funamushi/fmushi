@@ -74,14 +74,30 @@ class MushiStateMachine extends StateMachine
 
 module.exports = class MushiView extends BaseView
   initialize: (options) ->
-    model = @model
-    @listenTo model, 'change',     @onChanged
+    @initSprite()
+
+    model  = @model
+    sprite = @sprite
+    shape  = @shape
+
+    @listenTo model, 'change:x', (m, x)->
+      sprite.position.x = x
+      shape.translation.x = x if shape?
+
+    @listenTo model, 'change:y', (m, y) ->
+      sprite.position.y = y
+      shape.translation.y = y if shape?
+
+    @listenTo model, 'change:direction', (v, direction) ->
+      if direction is 'left'
+        sprite.scale.x = 0.5
+      else
+        sprite.scale.x = -0.5
+
     @listenTo model, 'point:in',   @onPointIn
     @listenTo model, 'point:out',  @onPointOut
     @listenTo model, 'focus:in',   @onFocusIn
     @listenTo model, 'focus:out',  @onFocusOut
-
-    @initSprite()
 
     @stateMachine = new MushiStateMachine(@, model.get('state'))
     @listenTo Fmushi.events, 'update', (delta) =>
@@ -127,35 +143,6 @@ module.exports = class MushiView extends BaseView
     if speed = options.speed
       @sprite.animationSpeed = speed
     @sprite.gotoAndPlay 0
-
-  onChanged: ->
-    changed = @model.changedAttributes()
-    if x = changed.x
-      @sprite.position.x = x
-      @shape.translation.x = x if @shape
-
-    if y = changed.y
-      @sprite.position.y = y
-      @shape.translation.y = y if @shape
-
-    if d = changed.direction
-      if d is 'left'
-        @sprite.scale.x = 0.5
-      else
-        @sprite.scale.x = -0.5
-
-    circleId = changed.circleId
-    unless _.isUndefined(circleId)
-      if circleId?
-        circle = @model.circle
-        if circle?
-          @stateMachine.to circle.get('state')
-          if color = circle.color()
-            filter = new PIXI.ColorMatrixFilter
-            filter.matrix = color.colorMatrix
-            @sprite.filters = [filter]
-      else
-        @sprite.filters = null
 
   onPointIn: (model) ->
     @shape.visible = true
