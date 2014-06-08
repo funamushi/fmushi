@@ -312,6 +312,7 @@ module.exports = class HomeScene extends BaseScene
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
 
   onWildMushiExit: (mushi) ->
+    @focusOut()
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
 

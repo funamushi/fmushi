@@ -1,3 +1,4 @@
+Fmushi = require 'fmushi'
 BaseView = require 'views/base'
 template = require 'templates/mushi-dialog'
 
@@ -6,6 +7,9 @@ module.exports = class MushiDialog extends BaseView
   className: 'control'
   attributes:
     id: 'mushi-dialog-origin'
+
+  events:
+    'click .focus-out': 'onFocusOut'
 
   open: (mushi) ->
     @close()
@@ -16,7 +20,7 @@ module.exports = class MushiDialog extends BaseView
       placement: 'top'
       title: "#{mushi.get 'breed.name'}"
       trigger: 'manual'
-      container: 'body'
+      container: @$el
       content: template
         mushi: mushi.toJSON()
         comment: mushi.comment()
@@ -24,3 +28,7 @@ module.exports = class MushiDialog extends BaseView
 
   close: ->
     @$popover?.popover 'destroy'
+
+  onFocusOut: ->
+    console.log 'onfocusout'
+    Fmushi.currentScene.focusOut()

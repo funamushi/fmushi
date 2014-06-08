@@ -80,11 +80,12 @@ module.exports = class Circle extends Backbone.AssociatedModel
     @entities[entity.cid] = entity
     @trigger 'circle:in', entity, _.size(@entities)
 
-    circleElement = @get('element')
-    mushiElement  = entity.get('breed.element')
-    if elements.next(circleElement) is mushiElement
-      @captures.push entity
-      entity.capture()
+    if entity.get('state') is 'wild'
+      circleElement = @get('element')
+      mushiElement  = entity.get('breed.element')
+      if elements.next(circleElement) is mushiElement
+        @captures.push entity
+        entity.capture()
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
