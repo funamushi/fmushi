@@ -30,6 +30,8 @@ module.exports =
       name: 'ヘイプー大佐'
       element: 'red'
 
-  defaultItems: [
-    'red-circle'
-  ]
+  defaultItems:
+    'red-circle':
+      quantity: 2
+    'blue-circle':
+      quantity: 2

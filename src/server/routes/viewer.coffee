@@ -23,9 +23,11 @@ exports.show = (req, res) ->
       iconUrl:      iconUrl
       iconUrlLarge: iconUrlLarge
   else
-    Item.findAll
-      where: { slug: config.defaultItems }
+    slugs = _.keys(config.defaultItems)
+    Item.findAll(where: { slug: slugs })
     .then (items) ->
       res.send
         stocks:
-          _.map(items, (item) -> { item: item, quantity: 1 })
+          _.map(items, (item) ->
+            _.extend({item: item}, config.defaultItems[item.slug])
+            )
