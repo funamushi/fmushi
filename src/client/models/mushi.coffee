@@ -39,4 +39,5 @@ module.exports = class Mushi extends Backbone.AssociatedModel
     @trigger 'enter', @
 
   capture: ->
+    @set state: 'idle'
     @trigger 'capture', @

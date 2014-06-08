@@ -78,14 +78,15 @@ module.exports = class MushiView extends BaseView
     @sprite.stop()
     @sprite.textures = @textures[name]
 
-    if speed = options.speed
+    if speed = @animationSpeed[name]
       @sprite.animationSpeed = speed
     @sprite.gotoAndPlay 0
 
   onStateChanged: (model, state) ->
-    console.log arguments
     @stateMachine.to state
-    @animate state, spped: @animationSpeed[state]
+
+    animation = (if state is 'wild' then 'walking' else state)
+    @animate animation
 
   onPointIn: (model) ->
     @shape.visible = true

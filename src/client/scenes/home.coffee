@@ -319,9 +319,7 @@ module.exports = class HomeScene extends BaseScene
     @wildMushies.remove mushi
     @removeEntity mushi
 
-    attrs = mushi.toJSON()
-    attrs.state = 'rest'
-    @owner.get('mushies').add attrs
+    @owner.get('mushies').add mushi.toJSON()
     vex.dialog.alert "「#{mushi.get 'breed.name'}」をGETしました。",
 
   onStockOpen: (stock, circle) ->
