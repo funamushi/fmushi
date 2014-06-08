@@ -8,7 +8,6 @@ template = require 'templates/menu'
 
 module.exports = class MenuView extends BaseView
   tagName: 'div'
-  className: 'control'
   attributes:
     id: 'menu'
 
@@ -42,8 +41,8 @@ module.exports = class MenuView extends BaseView
     @$icon        = $(@$('.toggle-button').find('.glyphicon'))
     @$stocks      = @$('.stocks')
     @$mushies     = @$('.mushies')
-    @$ownMushies  = @$mushies.children('.own')
-    @$wildMushies = @$mushies.children('.wildness')
+    @$ownMushies  = @$mushies.children('.own-mushies')
+    @$wildMushies = @$mushies.children('.wild-mushies')
 
     @open = true
 
