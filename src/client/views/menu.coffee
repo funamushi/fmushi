@@ -37,12 +37,14 @@ module.exports = class MenuView extends BaseView
   render: ->
     @$el.html template(owner: @owner.toJSON())
 
-    @$bookButton  = @$('.book-button')
-    @$icon        = $(@$('.toggle-button').find('.glyphicon'))
-    @$stocks      = @$('.stocks')
-    @$mushies     = @$('.mushies')
-    @$ownMushies  = @$mushies.children('.own-mushies')
-    @$wildMushies = @$mushies.children('.wild-mushies')
+    @$toggleButton = $(@$('.toggle-button'))
+    @$toggleIcon         = $(@$toggleButton.find('.glyphicon'))
+    @$command      = $(@$('.command'))
+    @$bookButton   = @$command.children('.book-button')
+    @$stocks       = @$command.children('.stocks')
+    @$mushies      = $(@$('.mushies'))
+    @$ownMushies   = @$mushies.children('.own-mushies')
+    @$wildMushies  = @$mushies.children('.wild-mushies')
 
     @open = true
 
@@ -78,6 +80,38 @@ module.exports = class MenuView extends BaseView
   removeStock: (stock) ->
     @removeSubview "items/#{stock.get 'item.slug'}"
 
+  focusOut: ->
+    @$toggleButton.transition
+      y:        @$toggleButton.height()
+      duration: 200
+      easing:   'snap'
+
+    @$command.transition
+      y:        @$command.height()
+      duration: 200
+      easing:   'snap'
+
+    @$mushies.transition
+      x:        @$mushies.width()
+      duration: 200
+      easing:   'snap'
+
+  focusIn: ->
+    @$toggleButton.transition
+      y:        0
+      duration: 200
+      easing:   'snap'
+
+    @$command.transition
+      y:        0
+      duration: 200
+      easing:   'snap'
+
+    @$mushies.transition
+      x:        0
+      duration: 200
+      easing:   'snap'
+
   onToggleMenu: (e) ->
     e.preventDefault()
 
@@ -85,22 +119,20 @@ module.exports = class MenuView extends BaseView
     @menuLocked = true
 
     if @open
-      @$icon.transition {rotate: '180deg'}, 200, 'easeInOutSine', =>
-        @$bookButton.hide()
-        @$stocks.hide()
+      @$toggleIcon.transition {rotate: '180deg'}, 200, 'easeInOutSine', =>
+        @$command.hide()
         @$mushies.hide()
-        @$icon
+        @$toggleIcon
         .removeClass('glyphicon-minus')
         .addClass('glyphicon-plus')
 
         @open = false
         @menuLocked = false
     else
-      @$icon.transition {rotate: '0deg'}, 200, 'easeInOutSine', =>
-        @$bookButton.show()
-        @$stocks.show()
+      @$toggleIcon.transition {rotate: '0deg'}, 200, 'easeInOutSine', =>
+        @$command.show()
         @$mushies.show()
-        @$icon
+        @$toggleIcon
         .removeClass('glyphicon-plus')
         .addClass('glyphicon-minus')
 

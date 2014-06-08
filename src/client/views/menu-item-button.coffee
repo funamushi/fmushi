@@ -19,7 +19,7 @@ module.exports = class MenuItemButtonView extends BaseView
     .html(buttonTemplate stock: @model.toJSON())
     .tooltip
       html: true
-      placement: 'bottom'
+      placement: 'top'
       title: popoverTemplate(stock: @model.toJSON())
 
     @$quantity = @$('.quantity')
