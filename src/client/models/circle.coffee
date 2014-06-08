@@ -15,6 +15,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
         expiresAt = @get('expiresAt')
         if expiresAt? and expiresAt <= now
           @stopListening(Fmushi.events)
+          @releaseEntities()
           @destroy()
 
   entityCount: ->
@@ -86,3 +87,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
   haveEntity: (entity) ->
     @entities[entity.cid]?
+
+  releaseEntities: ->
+    for cid, entity of @entities
+      entity.release()

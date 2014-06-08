@@ -2,9 +2,6 @@ Fmushi   = require 'fmushi'
 BaseView = require 'views/base'
 
 module.exports = class CircleView extends BaseView
-  tagName: 'div'
-  className: 'control'
-
   colors:
     red:
       lineColor: '#F4D6E0'
@@ -43,6 +40,10 @@ module.exports = class CircleView extends BaseView
     @defaultRadius = attrs.r
 
     if @model.ttl?
+      @sprite = sprite = new PIXI.Text('', fill: 'white')
+      sprite.position.x = attrs.x
+      sprite.position.y = attrs.y
+
       new TWEEN.Tween(r: 10)
       .to(r: @defaultRadius, 1600)
       .onUpdate ->
@@ -51,11 +52,10 @@ module.exports = class CircleView extends BaseView
       .onComplete =>
         expiresAt = @model.updateExpiresAt()
 
-        @$el.css(left: attrs.x, top: attrs.y).appendTo(document.body)
-        @listenTo Fmushi.events, 'countdown', (now) =>
+        @listenTo Fmushi.events, 'countdown', (now) ->
           seconds = parseInt((expiresAt - now) / 1000)
           return if seconds < 0
-          @$el?.text(seconds)
+          sprite.setText seconds
       .start()
     else
       shape.opacity = 0.25
@@ -78,10 +78,10 @@ module.exports = class CircleView extends BaseView
     , 500
 
   onChanged: (circle) ->
-    @shape.translation.set circle.get('x'), circle.get('y')
+    attrs = circle.toJSON()
+    @shape.translation.set attrs.x, attrs.y
     if circle.hasChanged('r')
-      r = circle.get('r')
-      @shape.scale = (r / @defaultRadius)
+      @shape.scale = (attrs.r / @defaultRadius)
 
   onCollision: (entity, collisionPointWorld) ->
     r  = @model.get('r')
