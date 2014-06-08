@@ -1,5 +1,6 @@
-Fmushi = require 'fmushi'
-Vector = require 'vector'
+Fmushi   = require 'fmushi'
+Vector   = require 'vector'
+elements = require 'elements'
 
 module.exports = class Circle extends Backbone.AssociatedModel
   defaults: ->
@@ -78,7 +79,11 @@ module.exports = class Circle extends Backbone.AssociatedModel
     return if @haveEntity(entity)
     @entities[entity.cid] = entity
     @trigger 'circle:in', entity, _.size(@entities)
-    entity.capture()
+
+    circleElement = @get('element')
+    mushiElement  = entity.get('breed.element')
+    if elements.next(circleElement) is mushiElement
+      entity.capture()
 
   removeEntity: (entity) ->
     return unless @haveEntity(entity)
