@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) ->
       values: ['left', 'right']
       allowNull: false
       defaultValue: 'left'
+    state:
+      type: DataTypes.ENUM
+      values: ['idle', 'walking', 'hustle', 'rest']
+      defaultValue: 'idle'
+      validate:
+        notNull: true
   ,
     tableName: 'mushies'
 

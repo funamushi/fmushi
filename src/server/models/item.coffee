@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) ->
         is: ['^[a-z-]+$']
     element:
       type: DataTypes.ENUM
-      values: ['red', 'blue', 'green', 'yellow']
+      values: ['red', 'blue']
     ttl:
       type: DataTypes.INTEGER
   ,

@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) ->
       validate:
         notNull: true
         min: 0
+    element:
+      type: DataTypes.ENUM
+      values: ['red', 'blue']
+      validate:
+        notNull: true
     expiresAt:
       type: DataTypes.DATE
       validate:
