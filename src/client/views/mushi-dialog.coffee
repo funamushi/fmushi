@@ -30,5 +30,4 @@ module.exports = class MushiDialog extends BaseView
     @$popover?.popover 'destroy'
 
   onFocusOut: ->
-    console.log 'onfocusout'
     Fmushi.currentScene.focusOut()
