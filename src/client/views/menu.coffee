@@ -27,12 +27,16 @@ module.exports = class MenuView extends BaseView
     mushies = owner.get('mushies')
     stocks  = owner.get('stocks')
 
-    @listenTo stocks,      'add',    @addStock
-    @listenTo stocks,      'remove', @removeStock
-    @listenTo mushies,     'add',    @addOwnMushi
-    @listenTo wildMushies, 'add',    @addWildMushi
-    @listenTo mushies,     'remove', @removeMushi
-    @listenTo wildMushies, 'remove', @removeMushi
+    @listenTo stocks,      'add',       @addStock
+    @listenTo stocks,      'remove',    @removeStock
+    @listenTo mushies,     'add',       @addOwnMushi
+    @listenTo wildMushies, 'add',       @addWildMushi
+    @listenTo mushies,     'remove',    @removeMushi
+    @listenTo wildMushies, 'remove',    @removeMushi
+    @listenTo mushies,     'focus:in',  @focusOut
+    @listenTo wildMushies, 'focus:in',  @focusOut
+    @listenTo mushies,     'focus:out', @focusIn
+    @listenTo wildMushies, 'focus:out', @focusIn
 
   render: ->
     @$el.html template(owner: @owner.toJSON())
