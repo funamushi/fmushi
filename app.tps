@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.1</string>
         <key>fileName</key>
-        <string>/Users/hadashi/dev/fmushi/assets/app.tps</string>
+        <string>/Users/hadashi/dev/fmushi/app.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>json</string>
         <key>textureFileName</key>
-        <filename>../public/app.png</filename>
+        <filename>assets/app.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -131,7 +131,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../public/app.json</filename>
+                <filename>assets/app.json</filename>
             </struct>
             <key>java</key>
             <struct type="DataFile">
@@ -175,11 +175,23 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>frames/fmushi_idle.png</filename>
-            <filename>frames/fmushi_walk-1-0.png</filename>
-            <filename>frames/fmushi_walk-1-1.png</filename>
-            <filename>frames/fmushi_walk-2-1.png</filename>
-            <filename>frames/fmushi_walk-2-0.png</filename>
+            <filename>src/frames/mushi-boxing_idle.png</filename>
+            <filename>src/frames/mushi-boxing_walk-1-0.png</filename>
+            <filename>src/frames/mushi-boxing_walk-1-1.png</filename>
+            <filename>src/frames/mushi-boxing_walk-2-0.png</filename>
+            <filename>src/frames/mushi-boxing_walk-2-1.png</filename>
+            <filename>src/frames/mushi-building_idle.png</filename>
+            <filename>src/frames/mushi-building_walk-1-0.png</filename>
+            <filename>src/frames/mushi-building_walk-1-1.png</filename>
+            <filename>src/frames/mushi-building_walk-2-0.png</filename>
+            <filename>src/frames/mushi-building_walk-2-1.png</filename>
+            <filename>src/frames/mushi-building_walk.gif</filename>
+            <filename>src/frames/mushi-umbrella_idle.png</filename>
+            <filename>src/frames/mushi-umbrella_walk-1-0.png</filename>
+            <filename>src/frames/mushi-umbrella_walk-1-1.png</filename>
+            <filename>src/frames/mushi-umbrella_walk-2-0.png</filename>
+            <filename>src/frames/mushi-umbrella_walk-2-1.png</filename>
+            <filename>src/frames/tree.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

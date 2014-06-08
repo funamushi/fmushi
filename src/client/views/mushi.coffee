@@ -44,14 +44,17 @@ module.exports = class MushiView extends BaseView
   initSprite: ->
     @textures = {}
 
+    slug = @model.get('breed.slug')
     @textures.walking = _.map [
-      'fmushi_walk-1-0.png'
-      'fmushi_walk-1-1.png'
-      'fmushi_walk-2-0.png'
-      'fmushi_walk-2-1.png'
+      "mushi-#{slug}_walk-1-0.png"
+      "mushi-#{slug}_walk-1-1.png"
+      "mushi-#{slug}_walk-2-0.png"
+      "mushi-#{slug}_walk-2-1.png"
     ], (name) -> PIXI.Texture.fromFrame(name)
 
-    @textures.idle = idleTextures = [PIXI.Texture.fromFrame('fmushi_idle.png')]
+    @textures.idle = idleTextures = [
+      PIXI.Texture.fromFrame("mushi-#{slug}_idle.png")
+      ]
     @sprite = sprite = new PIXI.MovieClip(idleTextures)
 
     attrs = @model.toJSON()

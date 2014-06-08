@@ -1,52 +1,148 @@
 {"frames": {
 
-"fmushi_idle.png":
+"mushi-boxing_idle.png":
 {
-	"frame": {"x":142,"y":2,"w":138,"h":170},
+	"frame": {"x":2,"y":420,"w":142,"h":186},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":42,"y":15,"w":138,"h":170},
+	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
 	"sourceSize": {"w":200,"h":200}
 },
-"fmushi_walk-1-0.png":
+"mushi-boxing_walk-1-0.png":
 {
-	"frame": {"x":2,"y":178,"w":136,"h":172},
+	"frame": {"x":288,"y":420,"w":140,"h":186},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":44,"y":14,"w":136,"h":172},
+	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
 	"sourceSize": {"w":200,"h":200}
 },
-"fmushi_walk-1-1.png":
+"mushi-boxing_walk-1-1.png":
 {
-	"frame": {"x":282,"y":2,"w":132,"h":170},
+	"frame": {"x":140,"y":798,"w":136,"h":184},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":42,"y":15,"w":132,"h":170},
+	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
 	"sourceSize": {"w":200,"h":200}
 },
-"fmushi_walk-2-0.png":
+"mushi-boxing_walk-2-0.png":
 {
-	"frame": {"x":2,"y":2,"w":138,"h":174},
+	"frame": {"x":2,"y":608,"w":138,"h":188},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":35,"y":14,"w":138,"h":174},
+	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
 	"sourceSize": {"w":200,"h":200}
 },
-"fmushi_walk-2-1.png":
+"mushi-boxing_walk-2-1.png":
 {
-	"frame": {"x":140,"y":178,"w":132,"h":172},
+	"frame": {"x":2,"y":798,"w":136,"h":186},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":42,"y":16,"w":132,"h":172},
+	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
 	"sourceSize": {"w":200,"h":200}
+},
+"mushi-building_idle.png":
+{
+	"frame": {"x":2,"y":420,"w":142,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-building_walk-1-0.png":
+{
+	"frame": {"x":288,"y":420,"w":140,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-building_walk-1-1.png":
+{
+	"frame": {"x":140,"y":798,"w":136,"h":184},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-building_walk-2-0.png":
+{
+	"frame": {"x":2,"y":608,"w":138,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-building_walk-2-1.png":
+{
+	"frame": {"x":2,"y":798,"w":136,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-building_walk.gif":
+{
+	"frame": {"x":146,"y":420,"w":140,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-umbrella_idle.png":
+{
+	"frame": {"x":2,"y":420,"w":142,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-umbrella_walk-1-0.png":
+{
+	"frame": {"x":288,"y":420,"w":140,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-umbrella_walk-1-1.png":
+{
+	"frame": {"x":140,"y":798,"w":136,"h":184},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-umbrella_walk-2-0.png":
+{
+	"frame": {"x":2,"y":608,"w":138,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
+	"sourceSize": {"w":200,"h":200}
+},
+"mushi-umbrella_walk-2-1.png":
+{
+	"frame": {"x":2,"y":798,"w":136,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
+	"sourceSize": {"w":200,"h":200}
+},
+"tree.png":
+{
+	"frame": {"x":2,"y":2,"w":442,"h":416},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":9,"w":442,"h":416},
+	"sourceSize": {"w":456,"h":428}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "app.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9336ab2855049ae38b7f0e8e113c356d:6efb8b7f9e1bb2509c4b7ed6bbaa983f:23f715f2c0cf00dbda21668e8325e638$"
+	"smartupdate": "$TexturePacker:SmartUpdate:10f9640f1d12d3c420df49c6a5bce44d:b347ccfa88d1aa10c314e87c0dcfb064:23f715f2c0cf00dbda21668e8325e638$"
 }
 }
