@@ -10,13 +10,13 @@ module.exports = class Circle extends Backbone.AssociatedModel
 
   initialize: (attrs, @ttl) ->
     @entities = {}
+    @captures = []
 
     if @ttl?
       @listenTo Fmushi.events, 'countdown', (now) =>
         expiresAt = @get('expiresAt')
         if expiresAt? and expiresAt <= now
           @stopListening(Fmushi.events)
-          @releaseEntities()
           @destroy()
 
   entityCount: ->
@@ -83,6 +83,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     circleElement = @get('element')
     mushiElement  = entity.get('breed.element')
     if elements.next(circleElement) is mushiElement
+      @captures.push entity
       entity.capture()
 
   removeEntity: (entity) ->
@@ -93,6 +94,10 @@ module.exports = class Circle extends Backbone.AssociatedModel
   haveEntity: (entity) ->
     @entities[entity.cid]?
 
-  releaseEntities: ->
-    for cid, entity of @entities
+  destroy: ->
+    for entity in @captures
       entity.release()
+    delete @captures
+    delete @entities
+
+    super
