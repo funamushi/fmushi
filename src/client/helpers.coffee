@@ -1,5 +1,5 @@
 $content   = $('#content')
-$message   = $('#message-footer')
+$message   = $('#message-header')
 $indicator = $('#indicator')
 
 exports.headerMessage = (message, options={}) ->
@@ -15,7 +15,7 @@ exports.headerMessage = (message, options={}) ->
   $p = $(document.createElement 'p').text(message)
 
   close = ->
-    $message.transition {y: $message.height()}, 500, 'easeOutCubic', ->
+    $message.transition {y: -$message.height()}, 500, 'easeOutCubic', ->
       $p.remove()
       $message.attr 'style', ''
 
