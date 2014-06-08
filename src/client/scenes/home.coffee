@@ -62,6 +62,10 @@ module.exports = class HomeScene extends BaseScene
       circles.each (circle) ->
         circle.collisionEntity mushi
 
+    @listenTo mushies, 'change', (mushi) ->
+      circles.each (circle) ->
+        circle.collisionEntity mushi
+
     # subviews
     menuView = new MenuView
       owner:        owner
