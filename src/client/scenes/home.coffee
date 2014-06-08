@@ -317,9 +317,7 @@ module.exports = class HomeScene extends BaseScene
 
   onWildMushiCapture: (mushi) ->
     @wildMushies.remove mushi
-    @removeEntity mushi
-
-    @owner.get('mushies').add mushi.toJSON()
+    @owner.get('mushies').add mushi
     vex.dialog.alert "「#{mushi.get 'breed.name'}」をGETしました。",
 
   onStockOpen: (stock, circle) ->
