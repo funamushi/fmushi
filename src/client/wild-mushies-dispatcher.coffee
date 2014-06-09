@@ -8,6 +8,11 @@ module.exports = class WildMushiesDispatcher
     @appearance()
 
   nextTimeToAppearance: ->
+    user = @user
+    if not user.loggedIn
+      0
+    else
+      7
 
   dispose: ->
     clearTimeout @timerId

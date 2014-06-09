@@ -3,7 +3,7 @@ Camera  = require 'models/camera'
 Mushies = require 'collections/mushies'
 Circles = require 'collections/circles'
 
-describe User, ->
+describe 'User', ->
   describe 'defaults', ->
     beforeEach ->
       @user = new User
