@@ -13,6 +13,17 @@ $blue: #4CBAEB;
   padding: 0.5em;
 }
 
+@keyframes blink {
+  75% { opacity: 0.0; }
+}
+@-webkit-keyframes blink {
+  75% { opacity: 0.0; }
+}
+.blink {
+  animation: blink 1s step-end infinite;
+  -webkit-animation: blink 1s step-end infinite;
+}
+
 .control {
   z-index: 1000;
   position: absolute;
