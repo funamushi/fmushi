@@ -86,17 +86,17 @@ module.exports = class MenuView extends BaseView
 
   focusOut: ->
     @$toggleButton.transition
-      y:        @$toggleButton.height()
+      y:        @$toggleButton.height() * 1.5
       duration: 200
       easing:   'snap'
 
     @$command.transition
-      y:        @$command.height()
+      y:        @$command.height() * 1.5
       duration: 200
       easing:   'snap'
 
     @$mushies.transition
-      x:        @$mushies.width()
+      x:        @$mushies.width() * 0.9
       duration: 200
       easing:   'snap'
 

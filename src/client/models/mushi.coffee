@@ -35,9 +35,6 @@ module.exports = class Mushi extends Backbone.AssociatedModel
   pointOut: ->
     @trigger 'point:out'
 
-  enter: ->
-    @trigger 'enter', @
-
   capture: ->
     @set state: 'idle'
     @trigger 'capture', @

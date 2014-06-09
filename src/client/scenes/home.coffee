@@ -14,6 +14,8 @@ BaseScene        = require 'scenes/base'
 MenuView         = require 'views/menu'
 MushiDialogView  = require 'views/mushi-dialog'
 
+WildMushiesDispatcher = require 'wild-mushies-dispatcher'
+
 helpers = require 'helpers'
 
 module.exports = class HomeScene extends BaseScene
@@ -25,11 +27,9 @@ module.exports = class HomeScene extends BaseScene
     @wildMushies   = new Mushies
     @grippedCircle = null
 
-    @listenTo @wildMushies, 'add',      @addEntity
-    @listenTo @wildMushies, 'remove',   @removeEntity
-    @listenTo @wildMushies, 'enter',    @onWildMushiEnter
-    @listenTo @wildMushies, 'destroy',  @onWildMushiExit
-    @listenTo @wildMushies, 'capture',  @onWildMushiCapture
+    @listenTo @wildMushies, 'add',     @onWildMushiAppearance
+    @listenTo @wildMushies, 'remove',  @onWildMushiDisappearance
+    @listenTo @wildMushies, 'capture', @onWildMushiCapture
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -37,12 +37,13 @@ module.exports = class HomeScene extends BaseScene
         @initOwner owner, options
     else
       @initOwner viewer, options
-      unless viewer.loggedIn
-        @tutorial()
 
   initOwner: (owner, options={}) ->
     @owner = owner
 
+    wildMushies = @wildMushies
+    @wildMushiesDispatcher = new WildMushiesDispatcher(owner, wildMushies)
+    
     camera  = owner.get('camera')
     mushies = owner.get('mushies')
     circles = owner.get('circles')
@@ -58,7 +59,7 @@ module.exports = class HomeScene extends BaseScene
     @listenTo circles, 'add',      @addEntity
     @listenTo circles, 'remove',   @removeEntity
 
-    @listenTo @wildMushies, 'change', (mushi) ->
+    @listenTo wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
 
@@ -69,7 +70,7 @@ module.exports = class HomeScene extends BaseScene
     # subviews
     menuView = new MenuView
       owner:        owner
-      wildMushies:  @wildMushies
+      wildMushies:  wildMushies
     @subview 'menu', menuView
 
     dialogView = new MushiDialogView
@@ -96,6 +97,7 @@ module.exports = class HomeScene extends BaseScene
         y: center.y
         zoom: @defaultZoom
 
+    @wildMushiesDispatcher.start()
     @trigger 'ready'
 
   initDrag: ->
@@ -152,9 +154,6 @@ module.exports = class HomeScene extends BaseScene
       x = camera.get('x')
       y = camera.get('y')
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
-
-  tutorial: ->
-    @wildMushies.enter()
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')
@@ -312,11 +311,13 @@ module.exports = class HomeScene extends BaseScene
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
-  onWildMushiEnter: (mushi) ->
+  onWildMushiAppearance: (mushi) ->
+    @addEntity mushi
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
 
-  onWildMushiExit: (mushi) ->
+  onWildMushiDisappearance: (mushi) ->
     @focusOut()
+    @removeEntity mushi
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
 
@@ -357,3 +358,4 @@ module.exports = class HomeScene extends BaseScene
     super
     @$canvas.off()
     @hammer.dispose()
+    @wildMushiesDispatcher?.dispose()
