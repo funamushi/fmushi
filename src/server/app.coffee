@@ -46,6 +46,8 @@ if env is 'development' or !env?
 # app.disable 'etag'
 
 app.get '/viewer', routes.viewer.authorize, routes.viewer.show
+app.post '/viewer', routes.viewer.authorize, routes.book.save
+
 app.get '/auth/twitter', passport.authenticate('twitter')
 app.get '/auth/twitter/callback',
   passport.authenticate('twitter',

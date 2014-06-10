@@ -1,7 +1,10 @@
 userSerializer = require '../serializers/user-serializer'
 
 exports.authorize = (req, res, next) ->
-  next()
+  if req.user?
+    next()
+  else
+    next() # 401 をかえすようにする
 
 exports.login = (req, res) ->
 
