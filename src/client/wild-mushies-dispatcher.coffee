@@ -21,9 +21,9 @@ module.exports = class WildMushiesDispatcher
     size = Fmushi.screenSize
     breed = new Breed
     breed.fetchSample().then =>
-      @wildMushies.add
+      mushi = @wildMushies.add
         breed: breed
-        state: 'wild'
         x: size.w
         y: _.random(size.h * 0.1, size.h * 0.9)
+      mushi.appearance()
     

@@ -27,9 +27,11 @@ module.exports = class HomeScene extends BaseScene
     @wildMushies   = new Mushies
     @grippedCircle = null
 
-    @listenTo @wildMushies, 'add',     @onWildMushiAppearance
-    @listenTo @wildMushies, 'remove',  @onWildMushiDisappearance
-    @listenTo @wildMushies, 'capture', @onWildMushiCapture
+    @listenTo @wildMushies, 'add',           @addEntity
+    @listenTo @wildMushies, 'remove',        @removeEntity
+    @listenTo @wildMushies, 'appearance',    @onWildMushiAppearance
+    @listenTo @wildMushies, 'disappearance', @onWildMushiDisappearance
+    @listenTo @wildMushies, 'capture',       @onWildMushiCapture
 
     if options.userName? and options.userName isnt viewer.get('name')
       owner = new User name: options.userName
@@ -313,12 +315,10 @@ module.exports = class HomeScene extends BaseScene
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onWildMushiAppearance: (mushi) ->
-    @addEntity mushi
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
 
   onWildMushiDisappearance: (mushi) ->
     @focusOut()
-    @removeEntity mushi
     helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
       duration: 5000
 

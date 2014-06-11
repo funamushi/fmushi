@@ -8,7 +8,7 @@ module.exports = class MushiStateMachine extends StateMachine
         x = model.get('x')
         newX = (x - @speed * delta)
         model.set 'x', newX
-        model.destroy() if newX <= 0
+        model.disappearance() if newX <= 0
 
     rest:
       update: (model, delta) ->
