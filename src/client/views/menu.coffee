@@ -77,7 +77,8 @@ module.exports = class MenuView extends BaseView
     @removeSubview "mushies/#{mushi.cid}"
 
   addStock: (stock) ->
-    itemButtonView = new MenuItemButtonView(model: stock)
+    camera = @owner.get('camera')
+    itemButtonView = new MenuItemButtonView(model: stock, camera: camera)
     @$stocks.prepend itemButtonView.render().el
     @subview "items/#{stock.get 'item.slug'}", itemButtonView
 

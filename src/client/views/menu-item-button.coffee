@@ -10,7 +10,8 @@ module.exports = class MenuItemButtonView extends BaseView
   tagName: 'button'
   className: 'item'
 
-  initialize: ->
+  initialize: (options) ->
+    @camera = options.camera
     @listenTo @model, 'change:quantity', @onChangeQuantity
 
   render: ->
@@ -26,13 +27,13 @@ module.exports = class MenuItemButtonView extends BaseView
 
     @hammer = Hammer(@el)
     .on 'dragstart', (e) =>
-      {pageX, pageY} = e.gesture.srcEvent
-      @model.open pageX, pageY
+      {x, y} = @gesturePosWithCameraOffset(e)
+      @model.open x, y
 
     .on 'drag', (e) =>
       if circle = @model.get('circle')
-        {pageX, pageY} = e.gesture.center
-        circle.set x: pageX, y: pageY
+        position = @gesturePosWithCameraOffset(e)
+        circle.set position
 
     .on 'dragend', (e) =>
       mouseOn = e.gesture.target
@@ -46,15 +47,13 @@ module.exports = class MenuItemButtonView extends BaseView
   onChangeQuantity: (stock, quantity) ->
     @$quantity.text quantity
 
+  gesturePosWithCameraOffset: (e) ->
+    {pageX, pageY} = e.gesture.srcEvent
+    center = Fmushi.screenCenter()
+    offsetX = @camera.get('x') - center.x
+    offsetY = @camera.get('y') - center.y
+    { x: pageX + offsetX, y: pageY + offsetY }
+
   dispose: ->
     super
     @hammer?.dispose()
-
-
-
-
-
-
-
-
-

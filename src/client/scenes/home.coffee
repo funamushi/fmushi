@@ -50,6 +50,8 @@ module.exports = class HomeScene extends BaseScene
     stocks  = owner.get('stocks')
     @locked = false
 
+    # 2 -> 1 にしてフレームインみたいにする
+    camera.set 'zoom', 2
     @listenTo camera,  'change',   @onCameraChanged
     @listenTo mushies, 'add',      @addEntity
     @listenTo mushies, 'change:y', @reorderZ
@@ -246,9 +248,10 @@ module.exports = class HomeScene extends BaseScene
     world      = @world
     shapeWorld = @shapeWorld
 
-    x ?= camera.get('x')
-    y ?= camera.get('y')
-    zoom ?= camera.get('zoom')
+    attrs = camera.attributes
+    x    ?= attrs.x
+    y    ?= attrs.y
+    zoom ?= attrs.zoom
     worldPos = @worldPosFromCameraPos x, y, zoom
 
     x = worldPos.x
@@ -262,9 +265,7 @@ module.exports = class HomeScene extends BaseScene
   onCameraChanged: (camera, options = {}) ->
     return if @locked
 
-    x    = camera.get 'x'
-    y    = camera.get 'y'
-    zoom = camera.get 'zoom'
+    {x, y, zoom} = camera.attributes
     xWas    = camera.previous('x') or x
     yWas    = camera.previous('y') or y
     zoomWas = camera.previous('zoom') or zoom
