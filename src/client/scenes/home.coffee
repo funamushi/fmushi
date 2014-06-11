@@ -14,7 +14,7 @@ BaseScene        = require 'scenes/base'
 MenuView         = require 'views/menu'
 MushiDialogView  = require 'views/mushi-dialog'
 
-WildMushiesDispatcher = require 'wild-mushies-dispatcher'
+WildMushiesDispatcher = require 'views/wild-mushies-dispatcher'
 
 helpers = require 'helpers'
 
@@ -42,9 +42,6 @@ module.exports = class HomeScene extends BaseScene
 
   initOwner: (owner, options={}) ->
     @owner = owner
-
-    wildMushies = @wildMushies
-    @wildMushiesDispatcher = new WildMushiesDispatcher(owner, wildMushies)
     
     camera  = owner.get('camera')
     mushies = owner.get('mushies')
@@ -63,6 +60,7 @@ module.exports = class HomeScene extends BaseScene
     @listenTo circles, 'add',      @addEntity
     @listenTo circles, 'remove',   @removeEntity
 
+    wildMushies = @wildMushies
     @listenTo wildMushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
@@ -79,6 +77,11 @@ module.exports = class HomeScene extends BaseScene
 
     dialogView = new MushiDialogView
     @subview 'dialog', dialogView
+
+    wildMushiesDispatcher = new WildMushiesDispatcher
+      collection: wildMushies
+      owner:      owner
+    @subview 'wild-mushies-dispatcher', WildMushiesDispatcher
 
     @initDrag()
 
@@ -101,7 +104,6 @@ module.exports = class HomeScene extends BaseScene
         y: center.y
         zoom: @defaultZoom
 
-    @wildMushiesDispatcher.start()
     @trigger 'ready'
 
   initDrag: ->
@@ -359,4 +361,3 @@ module.exports = class HomeScene extends BaseScene
     super
     @$canvas.off()
     @hammer.dispose()
-    @wildMushiesDispatcher?.dispose()
