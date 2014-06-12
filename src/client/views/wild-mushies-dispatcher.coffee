@@ -4,7 +4,7 @@ Mushi    = require 'models/mushi'
 BaseView = require 'views/base'
 
 module.exports = class WildMushiesDispatcher extends BaseView
-  interval: 5
+  minInterval: 5
 
   initialize: (options) ->
     @owner = options.owner
@@ -14,28 +14,25 @@ module.exports = class WildMushiesDispatcher extends BaseView
   resetTimer: ->
     return if @collection.length > 0
 
+    interval = @nextIntervalToAppearance()
+    interval = Math.max(@minInterval, interval) if @timerStarted
+
     clearTimeout @timerId
     @timerId = setTimeout =>
       @appearance()
-    , @nextTimeToAppearance()
+    , (interval * 1000)
 
-  nextTimeToAppearance: ->
+    @timerStarted = true
+
+  nextIntervalToAppearance: ->
     owner = @owner
     count = @collection.length
     
     # 次に出現する時間を来める
-    time =
-      if not owner.loggedIn
-        0
-      else
-        7
-
-    # 前回の出現から最低限置きたい時間を計算する
-    msec = (new Date) - (@lastAppearanceAt or new Date)
-    sec  = msec * 0.001
-    interval = Math.max 0, (@interval - sec)
-
-    Math.max time, interval
+    if not owner.loggedIn
+      0
+    else
+      7
 
   appearance: ->
     size = Fmushi.screenSize
