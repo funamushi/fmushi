@@ -1,3 +1,5 @@
+Fmushi = require 'fmushi'
+
 module.exports = class Camera extends Backbone.AssociatedModel
   defaults:
     x: 0
@@ -22,3 +24,13 @@ module.exports = class Camera extends Backbone.AssociatedModel
 
   clear: ->
     @offset.x = @offset.y = 0
+
+  worldX: (clientX) ->
+    center = Fmushi.screenCenter()
+    offsetX = @get('x') - center.x
+    clientX + offsetX
+
+  worldY: (clientY) ->
+    center = Fmushi.screenCenter()
+    offsetY = @get('y') - center.y
+    clientY + offsetY

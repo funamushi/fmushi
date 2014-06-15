@@ -27,13 +27,15 @@ module.exports = class MenuItemButtonView extends BaseView
 
     @hammer = Hammer(@el)
     .on 'dragstart', (e) =>
-      {x, y} = @gesturePosWithCameraOffset(e)
+      x = @camera.worldX(e.gesture.srcEvent.clientX)
+      y = @camera.worldY(e.gesture.srcEvent.clientY)
       @model.open x, y
 
     .on 'drag', (e) =>
       if circle = @model.get('circle')
-        position = @gesturePosWithCameraOffset(e)
-        circle.set position
+        x = @camera.worldX(e.gesture.srcEvent.clientX)
+        y = @camera.worldY(e.gesture.srcEvent.clientY)
+        circle.set x: x, y: y
 
     .on 'dragend', (e) =>
       mouseOn = e.gesture.target
@@ -48,11 +50,12 @@ module.exports = class MenuItemButtonView extends BaseView
     @$quantity.text quantity
 
   gesturePosWithCameraOffset: (e) ->
-    {pageX, pageY} = e.gesture.srcEvent
+    console.log e.gesture.srcEvent
+    {clientX, clientY} = e.gesture.srcEvent
     center = Fmushi.screenCenter()
     offsetX = @camera.get('x') - center.x
     offsetY = @camera.get('y') - center.y
-    { x: pageX + offsetX, y: pageY + offsetY }
+    { x: clientX + offsetX, y: clientY + offsetY }
 
   dispose: ->
     super
