@@ -44,8 +44,9 @@ module.exports = class WildMushiesDispatcher extends BaseView
     breed.fetchSample().then =>
       mushi = new Mushi
         breed: breed
+        state: 'wild'
         x: right
-        y: _.random(buttom * 0.1, buttom * 0.9)
+        y: _.random(buttom * 0.3, buttom * 0.9)
       @collection.add mushi
       mushi.appearance()
 

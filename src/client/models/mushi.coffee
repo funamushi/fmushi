@@ -44,7 +44,6 @@ module.exports = class Mushi extends Backbone.AssociatedModel
     @trigger 'release', @
 
   appearance: ->
-    @set state: 'wild'
     @trigger 'appearance', @
 
   disappearance: ->

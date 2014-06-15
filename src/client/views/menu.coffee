@@ -13,9 +13,9 @@ module.exports = class MenuView extends BaseView
 
   events:
     'click .toggle-button': 'onToggleMenu'
-    'click     .mushies .btn': 'onFocus'
+    'click .mushies .btn': 'onFocus'
     'click .stocks .btn': 'onClickStock'
-    'click .book-button': 'onOpenBook'
+    'click .book': 'onOpenBook'
 
   initialize: (options) ->
     @owner       = owner       = options.owner

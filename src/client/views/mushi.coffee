@@ -4,7 +4,7 @@ MushiStateMachine = require 'models/mushi-state-machine'
 
 module.exports = class MushiView extends BaseView
   animationSpeed:
-    wild:    0.25
+    wild:    0.55
     walking: 0.25
     hustle:  0.25
 
@@ -51,6 +51,7 @@ module.exports = class MushiView extends BaseView
       "mushi-#{slug}_walk-2-0.png"
       "mushi-#{slug}_walk-2-1.png"
     ], (name) -> PIXI.Texture.fromFrame(name)
+    @textures.wild = @textures.walking
 
     @textures.idle = idleTextures = [
       PIXI.Texture.fromFrame("mushi-#{slug}_idle.png")
@@ -87,9 +88,7 @@ module.exports = class MushiView extends BaseView
 
   onStateChanged: (model, state) ->
     @stateMachine.to state
-
-    animation = (if state is 'wild' then 'walking' else state)
-    @animate animation
+    @animate state
 
   onPointIn: (model) ->
     @shape.visible = true
