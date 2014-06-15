@@ -146,5 +146,7 @@ module.exports = class MenuView extends BaseView
       
   onOpenBook: (e) ->
     e.preventDefault()
-    bookModalView = @subview 'book'
-    bookModalView.show()
+    # bookModalView = @subview 'book'
+    # bookModalView.show()
+    # vex.open
+    #   content: ''

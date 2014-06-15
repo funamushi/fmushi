@@ -83,7 +83,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     if entity.get('state') is 'wild'
       circleElement = @get('element')
       mushiElement  = entity.get('breed.element')
-      if elements.next(circleElement) is mushiElement
+      if circleElement is mushiElement
         @captures.push entity
         entity.capture()
 
