@@ -1,14 +1,24 @@
+Fmushi = require 'fmushi'
 StateMachine = require 'state-machine'
 
 module.exports = class MushiStateMachine extends StateMachine
   states:
     wild:
       speed: 35
+      onEnter: ->
+        @distanceElapsed = 0
+        @distanceLimit = Fmushi.screenSize.w
+
       update: (model, delta) ->
+        distance = @speed * delta
+        @distanceElapsed += distance
+        console.log @distanceElapsed
+        console.log @distanceLimit
+
         x = model.get('x')
-        newX = (x - @speed * delta)
+        newX = (x - distance)
         model.set 'x', newX
-        model.disappearance() if newX <= 0
+        model.disappearance() if @distanceElapsed >= @distanceLimit
 
     rest:
       update: (model, delta) ->

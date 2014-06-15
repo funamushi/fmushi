@@ -35,14 +35,17 @@ module.exports = class WildMushiesDispatcher extends BaseView
       7
 
   appearance: ->
-    size = Fmushi.screenSize
+    size   = Fmushi.screenSize
     camera = @owner.get('camera')
+    right  = camera.worldX(size.w)
+    buttom = camera.worldY(size.h)
+
     breed = new Breed
     breed.fetchSample().then =>
       mushi = new Mushi
         breed: breed
-        x: size.w
-        y: _.random(size.h * 0.1, size.h * 0.9)
+        x: right
+        y: _.random(buttom * 0.1, buttom * 0.9)
       @collection.add mushi
       mushi.appearance()
 
