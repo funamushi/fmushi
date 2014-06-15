@@ -5,8 +5,7 @@ MushiStateMachine = require 'models/mushi-state-machine'
 module.exports = class MushiView extends BaseView
   animationSpeed:
     wild:    0.55
-    walking: 0.25
-    hustle:  0.25
+    walking: 0.20
 
   initialize: (options) ->
     @initSprite()

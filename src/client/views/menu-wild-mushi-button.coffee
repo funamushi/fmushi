@@ -15,7 +15,7 @@ module.exports = class MenuWildMushiButtonView extends BaseView
     'click': 'onFocus'
 
   render: ->
-    @$el.html("<strong>野生の</strong>#{@model.get 'breed.name'}")
+    @$el.html("<span class=\"blink\"><strong>野生の</strong>#{@model.get 'breed.name'}</span>")
     @
 
   onPointIn: (e) ->

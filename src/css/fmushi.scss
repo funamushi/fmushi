@@ -14,14 +14,16 @@ $blue: #4CBAEB;
 }
 
 @keyframes blink {
-  75% { opacity: 0.0; }
+  0% { opacity: 0.2; }
+  100% { opacity: 1.0; }
 }
 @-webkit-keyframes blink {
-  75% { opacity: 0.0; }
+  0% { opacity: 0.2; }
+  100% { opacity: 1.0; }
 }
 .blink {
-  animation: blink 1s step-end infinite;
-  -webkit-animation: blink 1s step-end infinite;
+  animation: blink 1s infinite;
+  -webkit-animation: blink 1s infinite;
 }
 
 .control {
