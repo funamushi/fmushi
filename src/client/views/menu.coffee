@@ -21,7 +21,7 @@ module.exports = class MenuView extends BaseView
     @owner       = owner       = options.owner
     @wildMushies = wildMushies = options.wildMushies
 
-    bookModalView = new BookModalView
+    bookModalView = new BookModalView(model: owner)
     @subview 'book', bookModalView
 
     mushies = owner.get('mushies')
@@ -146,5 +146,5 @@ module.exports = class MenuView extends BaseView
       
   onOpenBook: (e) ->
     e.preventDefault()
-    bookModalView = @subview 'book'
-    bookModalView.open()
+
+    @subview('book').open()
