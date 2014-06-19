@@ -1,5 +1,8 @@
-module.exports = (sequelize, DataTypes) ->
+_ = require 'lodash'
 
+config = require('config')
+
+module.exports = (sequelize, DataTypes) ->
   sequelize.define 'User',
     name:
       type: DataTypes.STRING
@@ -16,3 +19,14 @@ module.exports = (sequelize, DataTypes) ->
         min: 0
   ,
     tableName: 'users'
+
+    # classMethods:
+    #   buildDefault: ->
+    #     Item.findAll(where: { slug: _.kyes(config.defaultItems) })
+    #     .then (items) ->
+    #     @build()
+
+    getterMethods:
+      bookItemsCount: ->
+        _.size(config.breeds)
+      

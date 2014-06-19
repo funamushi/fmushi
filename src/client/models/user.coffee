@@ -6,10 +6,11 @@ Stocks = require 'collections/stocks'
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
     fp: 0
-    camera:     new Camera
-    mushies:    new Mushies
-    circles:    new Circles
-    stocks: new Stocks
+    bookItemsCount: 0
+    camera:  new Camera
+    mushies: new Mushies
+    circles: new Circles
+    stocks:  new Stocks
 
   relations: [
     {

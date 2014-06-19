@@ -1,4 +1,6 @@
-config = require('config').items
+_ = require 'lodash'
+
+config = require('config')
 
 module.exports = (sequelize, DataTypes) ->
   sequelize.define 'Item',
@@ -17,7 +19,13 @@ module.exports = (sequelize, DataTypes) ->
   ,
     tableName: 'items'
     timestamps: false
+
+    classMethods:
+      findDefaults: ->
+        slugs = _.keys(config.defaultItems)
+        @findAll(where: { slug: slugs })
+
     getterMethods:
       name: ->
-        config[@slug]?.name
+        config.items[@slug]?.name
         

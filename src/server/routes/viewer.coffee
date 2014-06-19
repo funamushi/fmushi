@@ -23,10 +23,10 @@ exports.show = (req, res) ->
       iconUrl:      iconUrl
       iconUrlLarge: iconUrlLarge
   else
-    slugs = _.keys(config.defaultItems)
-    Item.findAll(where: { slug: slugs })
-    .then (items) ->
+    defaultUser = User.build()
+    Item.findDefaults().then (items) ->
       res.send
+        bookItemsCount: defaultUser.bookItemsCount
         stocks:
           _.map(items, (item) ->
             _.extend({item: item}, config.defaultItems[item.slug])
