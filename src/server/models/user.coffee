@@ -20,12 +20,6 @@ module.exports = (sequelize, DataTypes) ->
   ,
     tableName: 'users'
 
-    # classMethods:
-    #   buildDefault: ->
-    #     Item.findAll(where: { slug: _.kyes(config.defaultItems) })
-    #     .then (items) ->
-    #     @build()
-
     getterMethods:
       bookItemsCount: ->
         _.size(config.breeds)
