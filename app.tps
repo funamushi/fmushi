@@ -175,23 +175,33 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>src/frames/mushi-boxing_idle.png</filename>
-            <filename>src/frames/mushi-boxing_walk-1-0.png</filename>
-            <filename>src/frames/mushi-boxing_walk-1-1.png</filename>
-            <filename>src/frames/mushi-boxing_walk-2-0.png</filename>
-            <filename>src/frames/mushi-boxing_walk-2-1.png</filename>
-            <filename>src/frames/mushi-building_idle.png</filename>
-            <filename>src/frames/mushi-building_walk-1-0.png</filename>
-            <filename>src/frames/mushi-building_walk-1-1.png</filename>
-            <filename>src/frames/mushi-building_walk-2-0.png</filename>
-            <filename>src/frames/mushi-building_walk-2-1.png</filename>
-            <filename>src/frames/mushi-building_walk.gif</filename>
-            <filename>src/frames/mushi-umbrella_idle.png</filename>
-            <filename>src/frames/mushi-umbrella_walk-1-0.png</filename>
-            <filename>src/frames/mushi-umbrella_walk-1-1.png</filename>
-            <filename>src/frames/mushi-umbrella_walk-2-0.png</filename>
-            <filename>src/frames/mushi-umbrella_walk-2-1.png</filename>
-            <filename>src/frames/tree.png</filename>
+            <filename>frames/mushi-boxing_idle.png</filename>
+            <filename>frames/mushi-boxing_walk-1-0.png</filename>
+            <filename>frames/mushi-boxing_walk-1-1.png</filename>
+            <filename>frames/mushi-boxing_walk-2-0.png</filename>
+            <filename>frames/mushi-boxing_walk-2-1.png</filename>
+            <filename>frames/mushi-building_idle.png</filename>
+            <filename>frames/mushi-building_walk-1-0.png</filename>
+            <filename>frames/mushi-building_walk-1-1.png</filename>
+            <filename>frames/mushi-building_walk-2-0.png</filename>
+            <filename>frames/mushi-building_walk-2-1.png</filename>
+            <filename>frames/mushi-building_walk.gif</filename>
+            <filename>frames/mushi-cloud_idle.png</filename>
+            <filename>frames/mushi-cloud_walk-1-0.png</filename>
+            <filename>frames/mushi-cloud_walk-1-1.png</filename>
+            <filename>frames/mushi-cloud_walk-2-0.png</filename>
+            <filename>frames/mushi-cloud_walk-2-1.png</filename>
+            <filename>frames/mushi-sakura_idle.png</filename>
+            <filename>frames/mushi-sakura_walk-1-0.png</filename>
+            <filename>frames/mushi-sakura_walk-1-1.png</filename>
+            <filename>frames/mushi-sakura_walk-2-0.png</filename>
+            <filename>frames/mushi-sakura_walk-2-1.png</filename>
+            <filename>frames/mushi-tank_idle.png</filename>
+            <filename>frames/mushi-tank_walk-1-0.png</filename>
+            <filename>frames/mushi-tank_walk-1-1.png</filename>
+            <filename>frames/mushi-tank_walk-2-0.png</filename>
+            <filename>frames/mushi-tank_walk-2-1.png</filename>
+            <filename>frames/tree.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

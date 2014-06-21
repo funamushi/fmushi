@@ -21,14 +21,20 @@ module.exports =
 
   breeds:
     'building':
-      name: 'プヤプヤプンヤ代表取締役'
+      name: 'プー山代表取締役'
       element: 'blue'
     'boxing':
       name: 'ミニマム級チャンピオン ワンツーぷや夫'
       element: 'red'
-    'umbrella':
+    'tank':
       name: 'ヘイプー大佐'
       element: 'red'
+    'cloud':
+      name: 'プヤプヤプンヤ一等兵'
+      element: 'blue'
+    'sakura':
+      name: 'ポム家のこせがれ'
+      element: 'blue'
 
   defaultItems:
     'red-circle':
