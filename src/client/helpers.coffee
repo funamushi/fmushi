@@ -58,6 +58,6 @@ Handlebars.registerHelper 'circle', (element) ->
   
 Handlebars.registerHelper 'times', (n, block) ->
   accum = ''
-  for i in [0..n]
+  for i in [0...n]
     accum += block.fn(@)
   accum

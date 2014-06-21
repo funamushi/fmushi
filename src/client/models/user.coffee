@@ -1,7 +1,7 @@
-Camera     = require 'models/camera'
-Mushies    = require 'collections/mushies'
-Circles    = require 'collections/circles'
-Stocks = require 'collections/stocks'
+Camera  = require 'models/camera'
+Mushies = require 'collections/mushies'
+Circles = require 'collections/circles'
+Stocks  = require 'collections/stocks'
 
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->

@@ -3,7 +3,7 @@ Vector   = require 'vector'
 elements = require 'elements'
 
 module.exports = class Circle extends Backbone.AssociatedModel
-  defaults: ->
+  defaults:
     x: 0
     y: 0
     r: 300

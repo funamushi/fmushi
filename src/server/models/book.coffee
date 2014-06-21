@@ -1,5 +1,4 @@
 module.exports = (sequelize,DataTypes) ->
-
   sequelize.define 'Book',
     userId:
       type: DataTypes.INTEGER
