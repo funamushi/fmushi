@@ -5,6 +5,9 @@ module.exports =
         type: DataTypes.INTEGER
         autoIncrement: true
         primaryKey: true
+      number:
+        type: DataTypes.INTEGER
+        allowNull: false
       slug:
         type: DataTypes.STRING
         allowNull: false
@@ -12,6 +15,10 @@ module.exports =
         type: DataTypes.ENUM
         values: ['red', 'blue']
         allowNull: false
+    .then ->
+      migration.addIndex 'breeds', ['number'],
+        indexName: 'breeds_number'
+        indicesType: 'UNIQUE'
     .then ->
       migration.addIndex 'breeds', ['slug'],
         indexName: 'breeds_slug'

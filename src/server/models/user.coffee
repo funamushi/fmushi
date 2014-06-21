@@ -20,7 +20,4 @@ module.exports = (sequelize, DataTypes) ->
   ,
     tableName: 'users'
 
-    getterMethods:
-      bookItemsCount: ->
-        _.size(config.breeds)
-      
+        

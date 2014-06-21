@@ -19,6 +19,3 @@ module.exports = class BookModalView extends BaseView
 
   onMushiAdded: (mushi, mushies) ->
     slug = mushi.get('breed.slug')
-    console.log '----'
-    console.log slug
-    console.log '------'

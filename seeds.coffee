@@ -10,20 +10,18 @@ sequelize.transaction (t) ->
   promises = []
 
   _.each config.items, (props, slug) ->
-    promises.push(
-      Item.findOrBuild({ slug: slug }, {}, { transaction: t })
-      .then (item) ->
-        item[k] = v for k, v of props
-        item.save(transaction: t)
-    )
+    promise = Item.findOrBuild({ slug: slug }, transaction: t)
+    .then (item) ->
+      item[k] = v for k, v of props
+      item.save(transaction: t)
+    promises.push promise
 
   _.each config.breeds, (props, slug) ->
-    promises.push(
-      Breed.findOrBuild({ slug: slug }, {}, { transaction: t})
-      .then (breed) ->
-        breed[k] = v for k, v of props
-        breed.save(transaction: t)
-    )
+    promise = Breed.findOrBuild({ slug: slug, number: props.number }, transaction: t)
+    .then (breed) ->
+      breed[k] = v for k, v of props
+      breed.save(transaction: t)
+    promises.push promise
       
   Q.all(promises)
   .then ->

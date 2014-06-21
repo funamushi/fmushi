@@ -1,5 +1,5 @@
 module.exports = (sequelize,DataTypes) ->
-  sequelize.define 'Book',
+  sequelize.define 'BookPage',
     userId:
       type: DataTypes.INTEGER
       validate:
@@ -8,11 +8,6 @@ module.exports = (sequelize,DataTypes) ->
       type: DataTypes.INTEGER
       validate:
         notNull: true
-    unread:
-      type: DataTypes.BOOLEAN
-      defaultValue: true
-      validate:
-        notNull: true
   ,
-    tableName: 'books'
+    tableName: 'book_pages'
 

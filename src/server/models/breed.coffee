@@ -2,9 +2,14 @@ config = require('config').breeds
 
 module.exports = (sequelize, DataTypes) ->
   sequelize.define 'Breed',
+    number:
+      type: DataTypes.INTEGER
+      validate:
+        notNull: true
+        isInt: true
+        min: 1
     slug:
       type: DataTypes.STRING
-      allowNull: false
       validate:
         notNull: true
         notEmpty: true

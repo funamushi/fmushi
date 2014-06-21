@@ -12,7 +12,7 @@ describe 'GET /:user', ->
     .then (item) =>
       Stock.create userId: @user.id, itemId: item.id
     .then (stock) ->
-      Breed.create slug: 'boxing', element: 'red'
+      Breed.create slug: 'boxing', element: 'red', number: 1
     .then (breed) =>
       Mushi.create userId: @user.id, breedId: breed.id
     .then (mushi) =>

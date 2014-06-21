@@ -1,28 +1,30 @@
-WildMushiesDispatcher = require 'wild-mushies-dispatcher'
+WildMushiesDispatcher = require 'views/wild-mushies-dispatcher'
 User    = require 'models/user'
 Mushies = require 'collections/mushies'
 
 describe 'WildMushiesDispatcher', ->
-  describe '#nextTimeToAppearance', ->
+  describe '#nextIntervalToAppearance', ->
     beforeEach ->
       user        = new User
       wildMushies = new Mushies
-      @dispatcher = new WildMushiesDispatcher(user, wildMushies)
+      @dispatcher = new WildMushiesDispatcher
+        owner: user
+        collection: wildMushies
 
     describe 'ログインしてない場合', ->
       it '0秒', ->
-        expect(@dispatcher.nextTimeToAppearance()).to.equal(0)
+        expect(@dispatcher.nextIntervalToAppearance()).to.equal(0)
 
     describe 'ログインしている場合', ->
       beforeEach ->
-        @dispatcher.user.loggedIn = true
+        @dispatcher.owner.loggedIn = true
 
       describe '虫を1匹GETしている場合', ->
         beforeEach ->
-          @dispatcher.user.get('mushies').reset [
+          @dispatcher.owner.get('mushies').reset [
             { x: 100, y: 100 }
             ]
 
         it '7秒', ->
-          expect(@dispatcher.nextTimeToAppearance()).to.equal(7)
+          expect(@dispatcher.nextIntervalToAppearance()).to.equal(7)
         

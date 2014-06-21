@@ -2,7 +2,7 @@ require './helper'
 
 Q = require 'q'
 
-{User, Mushi, Breed, Item, Stock, Book} = require '../../src/server/models'
+{User, Mushi, Breed, Item, Stock, BookPage} = require '../../src/server/models'
 
 describe User, ->
   describe 'default value', ->
@@ -45,13 +45,13 @@ describe User, ->
         .then (item) =>
           Stock.create userId: @user.id, itemId: item.id
         .then (stock) ->
-          Breed.create slug: 'boxing', element: 'red'
+          Breed.create slug: 'boxing', element: 'red', number: 1
         .then (breed) =>
           Mushi.create userId: @user.id, breedId: breed.id
-          Book.create userId: @user.id, breedId: breed.id
+          BookPage.create userId: @user.id, breedId: breed.id
 
       afterEach ->
-        clean(Mushi, Stock, Book).then ->
+        clean(Mushi, Stock, BookPage).then ->
           clean(Breed, Item, User)
 
       it 'mushiesとstocksを読み込む', ->
@@ -66,4 +66,4 @@ describe User, ->
           expect(user.mushies).to.have.length(1)
           expect(user.stocks[0].quantity).to.eq(1)
           expect(user.stocks[0].item.slug).to.eq('red-circle')
-          expect(user.books[0].unread).to.be.true
+          expect(user.bookPages[0].unread).to.be.true

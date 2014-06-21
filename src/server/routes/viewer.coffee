@@ -1,8 +1,4 @@
-_ = require 'lodash'
-
-{User, Item} = require '../models'
-
-config = require 'config'
+userSerializer = require '../serializers/user-serializer'
 
 exports.authorize = (req, res, next) ->
   next()
@@ -13,7 +9,8 @@ exports.logout = (req, res) ->
 
 exports.show = (req, res) ->
   if req.user?
-    res.send JSON.stringify(req.user)
+    userSerializer.toJSON(req.user).then (json) ->
+      res.send json
   else if req.session.profile?
     profile      = req.session.profile
     iconUrl      = profile.photos[0].value
@@ -23,11 +20,5 @@ exports.show = (req, res) ->
       iconUrl:      iconUrl
       iconUrlLarge: iconUrlLarge
   else
-    defaultUser = User.build()
-    Item.findDefaults().then (items) ->
-      res.send
-        bookItemsCount: defaultUser.bookItemsCount
-        stocks:
-          _.map(items, (item) ->
-            _.extend({item: item}, config.defaultItems[item.slug])
-            )
+    userSerializer.defaultJSON().then (json) ->
+      res.send json

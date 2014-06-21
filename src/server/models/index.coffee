@@ -1,27 +1,31 @@
 path = require 'path'
+_    = require 'lodash'
+Q    = require 'q'
 
 Sequelize = require "sequelize"
 
-config = require(path.resolve './config/config.json')
-config = config[process.env.NODE_ENV or 'development']
+dbConfig = require(path.resolve './config/config.json')
+dbConfig = dbConfig[process.env.NODE_ENV or 'development']
+
+config = require 'config'
 
 module.exports = sequelize = new Sequelize(
-  config.database, config.username, config.password, config
+  dbConfig.database, dbConfig.username, dbConfig.password, dbConfig
 )
 
-sequelize.User      = User      = sequelize.import('./user')
-sequelize.Identity  = Identity  = sequelize.import('./identity')
 sequelize.Item      = Item      = sequelize.import('./item')
-sequelize.Stock     = Stock     = sequelize.import('./stock')
 sequelize.Breed     = Breed     = sequelize.import('./breed')
+sequelize.Stock     = Stock     = sequelize.import('./stock')
 sequelize.Mushi     = Mushi     = sequelize.import('./mushi')
-sequelize.Book      = Book      = sequelize.import('./book')
+sequelize.Identity  = Identity  = sequelize.import('./identity')
+sequelize.BookPage  = BookPage  = sequelize.import('./book-page')
+sequelize.User      = User      = sequelize.import('./user')
 
 User
 .hasMany Identity
 .hasMany Mushi
 .hasMany Stock
-.hasMany Book
+.hasMany BookPage
 
 Identity
 .belongsTo User
@@ -34,7 +38,7 @@ Stock
 .belongsTo User
 .belongsTo Item
 
-Book
+BookPage
 .belongsTo User
 .belongsTo Breed
 
@@ -43,18 +47,16 @@ User.findWithAssociations = (where) ->
     include: [
       model: Identity, attributes: ['provider', 'nickname', 'url']
     ,
-      model: Mushi, attributes: ['x', 'y', 'direction'], include: [
-        model: Breed, attributes: ['slug']
+      model: Mushi, include: [
+        model: Breed
       ]
     ,
-      model: Stock, attributes: ['quantity'], include: [
-        model: Item, attributes: ['slug']
-      ]
-    ,
-      model: Book, attributes: ['unread'], include: [
-        model: Breed, attributes: ['slug']
+      model: Stock, include: [
+        model: Item
       ]
     ]
   options.where = where
   @find options
   
+  
+    
