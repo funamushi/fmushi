@@ -19,9 +19,9 @@ exports.JSONFor = (user) ->
         { number: breed.number }
 
 exports.defaultJSON = ->
-  Breed.findAll(order: 'number', attributes: ['number'])
+  Breed.findAll(order: 'number')
   .then (breeds) ->
-    JSON.stringify breeds
+    _.map breeds, (breed) -> { number: breed.number }
     
   
     

@@ -66,4 +66,3 @@ describe User, ->
           expect(user.mushies).to.have.length(1)
           expect(user.stocks[0].quantity).to.eq(1)
           expect(user.stocks[0].item.slug).to.eq('red-circle')
-          expect(user.bookPages[0].unread).to.be.true

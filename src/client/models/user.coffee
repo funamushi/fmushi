@@ -1,4 +1,5 @@
 Camera  = require 'models/camera'
+Breed   = require 'models/breed'
 Mushies = require 'collections/mushies'
 Circles = require 'collections/circles'
 Stocks  = require 'collections/stocks'
@@ -32,6 +33,11 @@ module.exports = class User extends Backbone.AssociatedModel
       type: Backbone.Many
       key: 'stocks'
       collectionType: Stocks
+    }
+    {
+      type: Backbone.Many
+      key: 'book'
+      relatedModel: Breed
     }
   ]
 
