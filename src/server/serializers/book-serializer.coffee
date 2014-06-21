@@ -23,6 +23,3 @@ exports.defaultJSON = ->
   .then (breeds) ->
     _.map breeds, (breed) -> { number: breed.number }
     
-  
-    
-    
