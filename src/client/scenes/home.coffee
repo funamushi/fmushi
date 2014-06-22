@@ -23,6 +23,7 @@ module.exports = class HomeScene extends BaseScene
 
   initialize: (options) ->
     viewer = Fmushi.viewer
+    @ownerName = options.userName
     
     @wildMushies   = new Mushies
     @grippedCircle = null
@@ -33,12 +34,14 @@ module.exports = class HomeScene extends BaseScene
     @listenTo @wildMushies, 'disappearance', @onWildMushiDisappearance
     @listenTo @wildMushies, 'capture',       @onWildMushiCapture
 
-    if options.userName? and options.userName isnt viewer.get('name')
+    if @isOwn()
+      @initOwner viewer, options
+      @listenTo viewer, 'change', ->
+        console.log arguments
+    else
       owner = new User name: options.userName
       owner.fetch().done =>
         @initOwner owner, options
-    else
-      @initOwner viewer, options
 
   initOwner: (owner, options={}) ->
     @owner = owner
@@ -160,6 +163,9 @@ module.exports = class HomeScene extends BaseScene
       x = camera.get('x')
       y = camera.get('y')
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
+
+  isOwn: ->
+    @ownerName is Fmushi.viewer.get('name')
 
   worldPosFromCameraPos: (x, y, zoom) ->
     camera = @owner.get('camera')

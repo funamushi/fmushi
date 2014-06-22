@@ -43,10 +43,6 @@ module.exports = class User extends Backbone.AssociatedModel
   url: ->
     "/#{@get 'name'}"
 
-  optionalUrls:
-    viewer: '/viewer'
-    signup: '/signup'
-
   validate: (attrs) ->
     errors = []
 
@@ -62,26 +58,6 @@ module.exports = class User extends Backbone.AssociatedModel
     if errors.length > 0
       @trigger 'invalid', @, errors
       return errors
-
-  fetchViewer: (options={}) ->
-    options.url = @optionalUrls.viewer
-    @fetch(options).done =>
-      @loggedIn = @has('name')
-
-  save: (key, val, options) ->
-    if key == null or typeof key is 'object'
-      attrs = key
-      options = val
-    else
-      (attrs = {})[key] = val
-
-    options ?= {}
-    options.url ?= @optionalUrls.viewer
-    super attrs, options
-
-  signup: (options={}) ->
-    options.url = @optionalUrls.signup
-    @save null, options
 
   addFp: (fp) ->
     @set 'fp', @get('fp') + fp

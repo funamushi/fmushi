@@ -12,10 +12,9 @@ module.exports =
     @startAnimation()
     @startClock()
 
-    User  = require 'models/user'
-    Items = require 'collections/items'
+    Viewer = require 'models/viewer'
 
-    @viewer = new User
+    @viewer = new Viewer
     @fetch().then =>
       AppRouter = require 'routers/app'
       @router = new AppRouter
@@ -42,7 +41,7 @@ module.exports =
       elements.fetch()
       @fetchAsset(['/app.json'])
     ).then =>
-      @viewer.fetchViewer()
+      @viewer.fetch()
 
   fetchAsset: (args) ->
     defer = $.Deferred()

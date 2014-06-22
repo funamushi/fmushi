@@ -19,7 +19,8 @@
     "flat-ui-official": "~2.1.3",
     "bootstrapx-clickover-bs3": "~1.0.0",
     "hammerjs": "~1.1.3",
-    "vex": "~2.1.1"
+    "vex": "~2.1.1",
+    "backbone.localstorage": "~1.1.7"
   },
   "overrides": {
     "zeptojs": {

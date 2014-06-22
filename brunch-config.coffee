@@ -26,6 +26,7 @@ exports.config =
           "bower_components/zeptojs/src/detect.js"
           'bower_components/lodash/dist/lodash.js'
           'bower_components/backbone/backbone.js'
+          'bower_components/backbone.localstorage/backbone.localStorage.js'
         ]
     templates:
       defaultExtension: 'hbs'

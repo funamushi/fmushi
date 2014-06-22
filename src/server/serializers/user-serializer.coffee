@@ -4,11 +4,11 @@ Q = require 'q'
 config = require 'config'
 
 {User, Item} = require '../models'
-bookSerializer = require './book-serializer'
+bookPagesSerializer = require './book-pages-serializer'
 
 exports.toJSON = (user) ->
   json = JSON.stringify(user)
-  bookSerializer.JSONFor(user).then (book) ->
+  bookPagesSerializer.JSONFor(user).then (book) ->
     json.book = book
     json
 
@@ -18,10 +18,10 @@ exports.defaultJSON = ->
 
   Q.all([
     Item.findDefaults()
-    bookSerializer.defaultJSON()
+    bookPagesSerializer.defaultJSON()
   ]).then (results) ->
-    items    = results[0]
-    bookJSON = results[1]
+    items     = results[0]
+    bookPages = results[1]
 
     json.stocks = _.map(items, (item) ->
       {
@@ -29,5 +29,5 @@ exports.defaultJSON = ->
         quantity: config.defaultItems[item.slug]
       }
     )
-    json.book = bookJSON
+    json.bookPages = bookPages
     json

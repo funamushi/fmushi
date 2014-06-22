@@ -57,6 +57,3 @@ User.findWithAssociations = (where) ->
     ]
   options.where = where
   @find options
-  
-  
-    
