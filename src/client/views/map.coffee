@@ -37,8 +37,8 @@ module.exports = class MapView extends BaseView
     {x, y, zoom} = camera.attributes
     mapScale = @mapScale()
     windowSize = Fmushi.windowSize
-    cameraWidth  = windowSize.w * mapScale
-    cameraHeight = windowSize.h * mapScale
+    cameraWidth  = windowSize.w * mapScale / zoom
+    cameraHeight = windowSize.h * mapScale / zoom
 
     cameraBox = @cameraBox
     cameraBox.clear()
@@ -58,15 +58,18 @@ module.exports = class MapView extends BaseView
     @drawCameraBox()
 
   onCameraChanged: (camera) ->
-    {x, y, zoom} = camera.attributes
-    mapScale = @mapScale()
-    windowSize = Fmushi.windowSize
-    cameraWidth  = windowSize.w * mapScale
-    cameraHeight = windowSize.h * mapScale
+    if camera.hasChanged('zoom')
+      @drawCameraBox()
+    else
+      {x, y, zoom} = camera.attributes
+      mapScale = @mapScale()
+      windowSize = Fmushi.windowSize
+      cameraWidth  = windowSize.w * mapScale / zoom
+      cameraHeight = windowSize.h * mapScale / zoom
 
-    cameraBox = @cameraBox
-    cameraBox.position.x = x * mapScale - cameraWidth  * 0.5
-    cameraBox.position.y = y * mapScale - cameraHeight * 0.5
+      cameraBox = @cameraBox
+      cameraBox.position.x = x * mapScale - cameraWidth  * 0.5
+      cameraBox.position.y = y * mapScale - cameraHeight * 0.5
 
   displace: ->
     super
