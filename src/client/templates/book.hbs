@@ -1,7 +1,14 @@
 {{#each user.bookPages}}
-<div class="col-md-4">
-  <a class="thumbnail" href="#">
-    <img class="img-rounded" src="/images/hatena.jpg">
-  </a>
-</div>  
+  <div class="col-md-4" data-number={{number}}>
+    No.{{number}}
+    {{#if id}}
+      <a class="thumbnail" href="#">
+        <img class="img-rounded" src="/images/mushi_{{slug}}.png">
+      </a>
+    {{else}}
+      <a class="thumbnail" href="#">
+        <img class="img-rounded" src="/images/hatena.jpg">
+      </a>
+    {{/if}}
+  </div>  
 {{/each}}

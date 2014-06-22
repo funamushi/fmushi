@@ -3,7 +3,7 @@ template = require 'templates/book'
 
 module.exports = class BookModalView extends BaseView
   tagName: 'div'
-  id: 'book-inner'
+  id: 'book'
   className: 'row'
 
   initialize: ->
