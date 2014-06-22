@@ -50,9 +50,8 @@ module.exports = class MenuItemButtonView extends BaseView
     @$quantity.text quantity
 
   gesturePosWithCameraOffset: (e) ->
-    console.log e.gesture.srcEvent
     {clientX, clientY} = e.gesture.srcEvent
-    center = Fmushi.screenCenter()
+    center = Fmushi.screenCenter
     offsetX = @camera.get('x') - center.x
     offsetY = @camera.get('y') - center.y
     { x: clientX + offsetX, y: clientY + offsetY }

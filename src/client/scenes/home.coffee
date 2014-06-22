@@ -36,8 +36,8 @@ module.exports = class HomeScene extends BaseScene
 
     if @isOwn()
       @initOwner viewer, options
-      @listenTo viewer, 'change', ->
-        console.log arguments
+      # @listenTo viewer, 'change', ->
+      #   console.log arguments
     else
       owner = new User name: options.userName
       owner.fetch().done =>
@@ -101,7 +101,7 @@ module.exports = class HomeScene extends BaseScene
     if options.focusMushiId?
       @focus options.focusMushiId
     else
-      center = Fmushi.screenCenter()
+      center = Fmushi.screenCenter
       camera.set
         x: center.x
         y: center.y
@@ -173,7 +173,7 @@ module.exports = class HomeScene extends BaseScene
     y ?= camera.get('y')
     zoom ?= camera.get('zoom')
 
-    center = Fmushi.screenCenter()
+    center = Fmushi.screenCenter
     worldPosX = -(x * zoom - center.x)
     worldPosY = -(y * zoom - center.y)
     { x: worldPosX, y: worldPosY }
@@ -182,7 +182,7 @@ module.exports = class HomeScene extends BaseScene
     if !y? and typeof x is 'object'
       y = x.y
       x = x.x
-    center  = Fmushi.screenCenter()
+    center  = Fmushi.screenCenter
 
     camera = @owner.get('camera')
     zoom    = camera.get('zoom')

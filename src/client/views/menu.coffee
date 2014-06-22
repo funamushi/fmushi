@@ -1,3 +1,4 @@
+Fmushi = require 'fmushi'
 BaseView            = require 'views/base'
 BookModalView       = require 'views/book-modal'
 MenuOwnMushiButtonView = require 'views/menu-own-mushi-button'
@@ -31,8 +32,8 @@ module.exports = class MenuView extends BaseView
     @listenTo stocks,      'remove',    @removeStock
     @listenTo mushies,     'add',       @addOwnMushi
     @listenTo wildMushies, 'add',       @addWildMushi
-    @listenTo mushies,     'remove',    @removeMushi
-    @listenTo wildMushies, 'remove',    @removeMushi
+    @listenTo mushies,     'remove',    @removeOwnMushi
+    @listenTo wildMushies, 'remove',    @removeWildMushi
     @listenTo mushies,     'focus:in',  @focusOut
     @listenTo wildMushies, 'focus:in',  @focusOut
     @listenTo mushies,     'focus:out', @focusIn
@@ -42,7 +43,7 @@ module.exports = class MenuView extends BaseView
     @$el.html template(owner: @owner.toJSON())
 
     @$toggleButton = $(@$('.toggle-button'))
-    @$toggleIcon         = $(@$toggleButton.find('.glyphicon'))
+    @$toggleIcon   = $(@$toggleButton.find('.glyphicon'))
     @$command      = $(@$('.command'))
     @$bookButton   = @$command.children('.book-button')
     @$stocks       = @$command.children('.stocks')
@@ -64,17 +65,38 @@ module.exports = class MenuView extends BaseView
     @
 
   addOwnMushi: (mushi) ->
+    key = "mushies/#{mushi.cid}/own"
     mushiButtonView = new MenuOwnMushiButtonView(model: mushi)
     @$ownMushies.append mushiButtonView.render().el
-    @subview "mushies/#{mushi.cid}", mushiButtonView
+    @subview key, mushiButtonView
 
   addWildMushi: (mushi) ->
+    key = "mushies/#{mushi.cid}/wild"
+
     mushiButtonView = new MenuWildMushiButtonView(model: mushi)
     @$wildMushies.append mushiButtonView.render().el
-    @subview "mushies/#{mushi.cid}", mushiButtonView
 
-  removeMushi: (mushi) ->
-    @removeSubview "mushies/#{mushi.cid}"
+    screenWidth = Fmushi.screenSize.w
+    $(mushiButtonView.$el)
+    .transition(x: -screenWidth, duration: 0)
+    .transition(x: 0, duration: 200, easing: 'easeInOutExpo')
+    @subview key, mushiButtonView
+
+  removeOwnMushi: (mushi) ->
+    key = "mushies/#{mushi.cid}/own"
+
+    screenWidth = Fmushi.screenSize.w
+    view = @subview key
+    $(view.$el).transition x: -screenWidth, easing: 'easeInOutExpo', =>
+      @removeSubview key
+
+  removeWildMushi: (mushi) ->
+    key = "mushies/#{mushi.cid}/wild"
+
+    screenWidth = Fmushi.screenSize.w
+    view = @subview key
+    $(view.$el).transition x: -screenWidth, easing: 'easeInOutExpo', =>
+      @removeSubview key
 
   addStock: (stock) ->
     camera = @owner.get('camera')
