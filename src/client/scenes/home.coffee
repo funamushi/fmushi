@@ -58,9 +58,6 @@ module.exports = class HomeScene extends BaseScene
         wildMushies:  wildMushies
       menuView.render().$el.appendTo document.body
       @subview 'menu', menuView
-
-      @listenTo viewer, 'add:mushies', ->
-        console.log arguments
       @trigger 'ready'
 
     else
@@ -335,7 +332,31 @@ module.exports = class HomeScene extends BaseScene
   onWildMushiCapture: (mushi) ->
     @wildMushies.remove mushi
     @owner.get('mushies').add mushi
-    vex.dialog.alert "「#{mushi.get 'breed.name'}」をGETしました。",
+
+    breed  = mushi.get('breed')
+    number = breed.get('number')
+    page = @owner.get('bookPages').find (bookPage) ->
+      bookPage.get('number') is number
+
+    firstTime = (not page.has('id'))
+    if firstTime
+      page.set breed.toJSON()
+      vex.dialog.open
+        message: "<span class=\"badge\">NEW!!</span><br>「#{mushi.get 'breed.name'}」<br>をGETしました。"
+        buttons: [
+          text: '図鑑を見る'
+          type: 'button'
+          className: 'vex-dialog-button-primary'
+        ,
+          text: '閉じる'
+          type: 'button'
+          className: 'vex-dialog-button-secondary'
+          click: ($vexContent, e) ->
+            $vexContent.data().vex.value = false
+            vex.close $vexContent.data().vex.id
+        ]
+    else
+      vex.dialog.alert "「#{mushi.get 'breed.name'}」<br>をGETしました。"
 
   onStockOpen: (stock, circle) ->
     @grippedCircle = circle
