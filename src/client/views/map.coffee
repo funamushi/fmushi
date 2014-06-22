@@ -13,50 +13,62 @@ module.exports = class MapView extends BaseView
     windowWidth = Fmushi.windowSize.w
 
     @box = box = new PIXI.Graphics
-    boxX = windowWidth - (@boxSize + @margin)
-    boxY = @margin
     box.lineStyle 1, 0xf1c40f
-    box.drawRect(boxX, boxY, @boxSize, @boxSize)
-    Fmushi.stage.addChild box
+    box.drawRect(0, 0, @boxSize, @boxSize)
 
-    @onResize = _.debounce(_.bind(@updateWindow, @), 260)
-    $window = $(window)
-    $window.resize @onResize
+    @onWindowResizeDebounce = _.debounce(_.bind(@onWindowResize, @), 260)
+    $(window).resize @onWindowResizeDebounce
 
-    camera = owner.get('camera')
-    {x, y, zoom} = camera.attributes
-    mapScale = @mapScale()
-    cameraWidth  = $window.width()  * mapScale
-    cameraHeight = $window.height() * mapScale
-    cameraX = x * mapScale - cameraWidth * 0.5
-    cameraY = y * mapScale - cameraHeight * 0.5
     @cameraBox = cameraBox = new PIXI.Graphics
-    cameraBox.lineStyle 1, 0xf39c12
-    cameraBox.drawRect(cameraX + boxX, cameraY + boxY, cameraWidth, cameraHeight)
     box.addChild cameraBox
 
+    @onWindowResize()
+    Fmushi.stage.addChild box
+
+    @listenTo owner, 'change:camera', @onCameraChanged
     # if wildMushies?
     #   @listenTo wildMushies, 'add', @addwildMushi
 
   mapScale: ->
     @boxSize / @worldSize
 
-  updateWindow: ->
-    windowWidth = Fmushi.windowSize.w
-    @box.position.x = windowWidth - (@boxSize + @margin)
-    @box.position.y = @margin
+  drawCameraBox: ->
+    camera = @owner.get('camera')
+    {x, y, zoom} = camera.attributes
+    mapScale = @mapScale()
+    windowSize = Fmushi.windowSize
+    cameraWidth  = windowSize.w * mapScale
+    cameraHeight = windowSize.h * mapScale
 
-  updateCamera: ->
-    
+    cameraBox = @cameraBox
+    cameraBox.clear()
+    cameraBox.lineStyle 1, 0xf39c12
+    cameraBox.drawRect(0, 0, cameraWidth, cameraHeight)
+    cameraBox.position.x = x * mapScale - cameraWidth * 0.5
+    cameraBox.position.y = y * mapScale - cameraHeight * 0.5
 
   addwildMushi: ->
-    circle = Fmushi.two.makeCircle(0, 0, 2)
-    circle.stroke = '#f1c40f'
-    circle.fill = '#f1c40f'
 
-    @shape.add circle
+  onWindowResize: ->
+    windowSize = Fmushi.windowSize
+    
+    @box.position.x = windowSize.w - (@boxSize + @margin)
+    @box.position.y = @margin
+
+    @drawCameraBox()
+
+  onCameraChanged: (camera) ->
+    {x, y, zoom} = camera.attributes
+    mapScale = @mapScale()
+    windowSize = Fmushi.windowSize
+    cameraWidth  = windowSize.w * mapScale
+    cameraHeight = windowSize.h * mapScale
+
+    cameraBox = @cameraBox
+    cameraBox.position.x = x * mapScale - cameraWidth  * 0.5
+    cameraBox.position.y = y * mapScale - cameraHeight * 0.5
 
   displace: ->
     super
     Fmushi.stage.removeChild @box
-    $(window).unbind 'resize', @onResize
+    $(window).unbind 'resize', @onWindowResizeDebounce
