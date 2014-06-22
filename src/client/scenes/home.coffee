@@ -25,23 +25,49 @@ module.exports = class HomeScene extends BaseScene
     viewer = Fmushi.viewer
     @ownerName = options.userName
     
-    @wildMushies   = new Mushies
     @grippedCircle = null
 
-    @listenTo @wildMushies, 'add',           @addEntity
-    @listenTo @wildMushies, 'remove',        @removeEntity
-    @listenTo @wildMushies, 'appearance',    @onWildMushiAppearance
-    @listenTo @wildMushies, 'disappearance', @onWildMushiDisappearance
-    @listenTo @wildMushies, 'capture',       @onWildMushiCapture
+    # subviews
+    dialogView = new MushiDialogView
+    dialogView.render().$el.appendTo document.body
+    @subview 'dialog', dialogView
 
     if @isOwn()
       @initOwner viewer, options
-      # @listenTo viewer, 'change', ->
-      #   console.log arguments
+
+      # wild mushies
+      @wildMushies = wildMushies = new Mushies
+      @listenTo wildMushies, 'add',           @addEntity
+      @listenTo wildMushies, 'remove',        @removeEntity
+      @listenTo wildMushies, 'appearance',    @onWildMushiAppearance
+      @listenTo wildMushies, 'disappearance', @onWildMushiDisappearance
+      @listenTo wildMushies, 'capture',       @onWildMushiCapture
+
+      circles = viewer.get('circles')
+      @listenTo wildMushies, 'change', (mushi) ->
+        circles.each (circle) ->
+          circle.collisionEntity mushi
+
+      wildMushiesDispatcher = new WildMushiesDispatcher
+        collection: wildMushies
+        owner:      viewer
+      @subview 'wild-mushies-dispatcher', WildMushiesDispatcher
+
+      menuView = new MenuView
+        owner:        viewer
+        wildMushies:  wildMushies
+      menuView.render().$el.appendTo document.body
+      @subview 'menu', menuView
+
+      @listenTo viewer, 'add:mushies', ->
+        console.log arguments
+      @trigger 'ready'
+
     else
       owner = new User name: options.userName
       owner.fetch().done =>
         @initOwner owner, options
+        @trigger 'ready'
 
   initOwner: (owner, options={}) ->
     @owner = owner
@@ -64,27 +90,10 @@ module.exports = class HomeScene extends BaseScene
     @listenTo circles, 'remove',   @removeEntity
 
     wildMushies = @wildMushies
-    @listenTo wildMushies, 'change', (mushi) ->
-      circles.each (circle) ->
-        circle.collisionEntity mushi
 
     @listenTo mushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
-
-    # subviews
-    menuView = new MenuView
-      owner:        owner
-      wildMushies:  wildMushies
-    @subview 'menu', menuView
-
-    dialogView = new MushiDialogView
-    @subview 'dialog', dialogView
-
-    wildMushiesDispatcher = new WildMushiesDispatcher
-      collection: wildMushies
-      owner:      owner
-    @subview 'wild-mushies-dispatcher', WildMushiesDispatcher
 
     @initDrag()
 
@@ -92,11 +101,6 @@ module.exports = class HomeScene extends BaseScene
       @addEntity mushi
     circles.each (circle) =>
       @addEntity circle
-
-    $body = $(document.body)
-    if menuView = @subview('menu')
-      $body.append menuView.render().el
-    $body.append @subview('dialog').render().el
 
     if options.focusMushiId?
       @focus options.focusMushiId
@@ -106,8 +110,6 @@ module.exports = class HomeScene extends BaseScene
         x: center.x
         y: center.y
         zoom: @defaultZoom
-
-    @trigger 'ready'
 
   initDrag: ->
     @$canvas = $(Fmushi.renderer.view)
