@@ -26,11 +26,11 @@ module.exports = class Camera extends Backbone.AssociatedModel
     @offset.x = @offset.y = 0
 
   worldX: (clientX) ->
-    center = Fmushi.screenCenter
+    center = Fmushi.windowCenter
     offsetX = @get('x') - center.x
     clientX + offsetX
 
   worldY: (clientY) ->
-    center = Fmushi.screenCenter
+    center = Fmushi.windowCenter
     offsetY = @get('y') - center.y
     clientY + offsetY

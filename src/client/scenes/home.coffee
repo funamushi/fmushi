@@ -9,6 +9,7 @@ Circles = require 'collections/circles'
 
 MushiView  = require 'views/mushi'
 CircleView = require 'views/circle'
+MapView    = require 'views/map'
 
 BaseScene        = require 'scenes/base'
 MenuView         = require 'views/menu'
@@ -58,12 +59,15 @@ module.exports = class HomeScene extends BaseScene
         wildMushies:  wildMushies
       menuView.render().$el.appendTo document.body
       @subview 'menu', menuView
+
+      @initMap()
       @trigger 'ready'
 
     else
       owner = new User name: options.userName
       owner.fetch().done =>
         @initOwner owner, options
+        @initMap()
         @trigger 'ready'
 
   initOwner: (owner, options={}) ->
@@ -86,8 +90,6 @@ module.exports = class HomeScene extends BaseScene
     @listenTo circles, 'add',      @addEntity
     @listenTo circles, 'remove',   @removeEntity
 
-    wildMushies = @wildMushies
-
     @listenTo mushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
@@ -102,11 +104,15 @@ module.exports = class HomeScene extends BaseScene
     if options.focusMushiId?
       @focus options.focusMushiId
     else
-      center = Fmushi.screenCenter
+      center = Fmushi.windowCenter
       camera.set
         x: center.x
         y: center.y
         zoom: @defaultZoom
+
+  initMap: ->
+    mapView = new MapView(owner: @owner, wildMushies: @wildMushies)
+    @subview 'map', mapView
 
   initDrag: ->
     @$canvas = $(Fmushi.renderer.view)
@@ -172,7 +178,7 @@ module.exports = class HomeScene extends BaseScene
     y ?= camera.get('y')
     zoom ?= camera.get('zoom')
 
-    center = Fmushi.screenCenter
+    center = Fmushi.windowCenter
     worldPosX = -(x * zoom - center.x)
     worldPosY = -(y * zoom - center.y)
     { x: worldPosX, y: worldPosY }
@@ -181,7 +187,7 @@ module.exports = class HomeScene extends BaseScene
     if !y? and typeof x is 'object'
       y = x.y
       x = x.x
-    center  = Fmushi.screenCenter
+    center  = Fmushi.windowCenter
 
     camera = @owner.get('camera')
     zoom    = camera.get('zoom')

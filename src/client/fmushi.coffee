@@ -123,7 +123,7 @@ module.exports =
 
     @renderer.resize(w, h)
 
-    @screenSize   = { w: w, h: h}
-    @screenCenter = { x: w * 0.5, y: h * 0.5}
+    @windowSize   = { w: w, h: h}
+    @windowCenter = { x: w * 0.5, y: h * 0.5}
     @events.trigger 'resize', w, h
 

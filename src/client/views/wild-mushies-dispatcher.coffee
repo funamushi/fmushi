@@ -29,13 +29,13 @@ module.exports = class WildMushiesDispatcher extends BaseView
     count = @collection.length
     
     # 次に出現する時間を来める
-    if not owner.loggedIn
-      0
+    if owner.isNew()
+      2
     else
       7
 
   appearance: ->
-    size   = Fmushi.screenSize
+    size   = Fmushi.windowSize
     camera = @owner.get('camera')
     right  = camera.worldX(size.w)
     buttom = camera.worldY(size.h)
