@@ -2,7 +2,8 @@ require './helper'
 
 Q = require 'q'
 
-{User, Mushi, Breed, Item, Stock, BookPage} = require '../../src/server/models'
+{User, Mushi, Breed, Item, Stock, KnownBreed} =
+  require '../../src/server/models'
 
 describe User, ->
   describe 'default value', ->
@@ -48,10 +49,10 @@ describe User, ->
           Breed.create slug: 'boxing', element: 'red', number: 1
         .then (breed) =>
           Mushi.create userId: @user.id, breedId: breed.id
-          BookPage.create userId: @user.id, breedId: breed.id
+          KnownBreed.create userId: @user.id, breedId: breed.id
 
       afterEach ->
-        clean(Mushi, Stock, BookPage).then ->
+        clean(Mushi, Stock, KnownBreed).then ->
           clean(Breed, Item, User)
 
       it 'mushiesとstocksを読み込む', ->

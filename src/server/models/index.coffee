@@ -13,19 +13,19 @@ module.exports = sequelize = new Sequelize(
   dbConfig.database, dbConfig.username, dbConfig.password, dbConfig
 )
 
-sequelize.Item      = Item      = sequelize.import('./item')
-sequelize.Breed     = Breed     = sequelize.import('./breed')
-sequelize.Stock     = Stock     = sequelize.import('./stock')
-sequelize.Mushi     = Mushi     = sequelize.import('./mushi')
-sequelize.Identity  = Identity  = sequelize.import('./identity')
-sequelize.BookPage  = BookPage  = sequelize.import('./book-page')
-sequelize.User      = User      = sequelize.import('./user')
+sequelize.Item       = Item       = sequelize.import('./item')
+sequelize.Breed      = Breed      = sequelize.import('./breed')
+sequelize.Stock      = Stock      = sequelize.import('./stock')
+sequelize.Mushi      = Mushi      = sequelize.import('./mushi')
+sequelize.Identity   = Identity   = sequelize.import('./identity')
+sequelize.KnownBreed = KnownBreed = sequelize.import('./known-breed')
+sequelize.User       = User       = sequelize.import('./user')
 
 User
 .hasMany Identity
 .hasMany Mushi
 .hasMany Stock
-.hasMany BookPage
+.hasMany KnownBreed
 
 Identity
 .belongsTo User
@@ -38,7 +38,7 @@ Stock
 .belongsTo User
 .belongsTo Item
 
-BookPage
+KnownBreed
 .belongsTo User
 .belongsTo Breed
 

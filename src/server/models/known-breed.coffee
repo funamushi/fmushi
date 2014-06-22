@@ -1,5 +1,5 @@
 module.exports = (sequelize,DataTypes) ->
-  sequelize.define 'BookPage',
+  sequelize.define 'KnownBreed',
     userId:
       type: DataTypes.INTEGER
       validate:
@@ -9,5 +9,5 @@ module.exports = (sequelize,DataTypes) ->
       validate:
         notNull: true
   ,
-    tableName: 'book_pages'
+    tableName: 'known_breeds'
 

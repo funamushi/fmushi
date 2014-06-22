@@ -1,6 +1,6 @@
 module.exports =
   up: (migration, DataTypes, done) ->
-    migration.createTable 'book_pages',
+    migration.createTable 'known_breeds',
       id:
         type: DataTypes.INTEGER
         autoIncrement: true
@@ -18,13 +18,13 @@ module.exports =
       createdAt: DataTypes.DATE
       updatedAt: DataTypes.DATE
     .then ->
-      migration.addIndex 'book_pages', ['userId'],
-        indexName: 'book_pages_userId'
+      migration.addIndex 'known_breeds', ['userId'],
+        indexName: 'known_breeds_userId'
     .then ->
-      migration.addIndex 'book_pages', ['breedId'],
-        indexName: 'book_pages_breedId'
+      migration.addIndex 'known_breeds', ['breedId'],
+        indexName: 'known_breeds_breedId'
     .then ->
       done()
 
   down: (migration, DataTypes, done) ->
-    migration.dropTable('book_pages').complete(done)
+    migration.dropTable('known_breeds').complete(done)

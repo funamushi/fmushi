@@ -7,7 +7,6 @@ Stocks  = require 'collections/stocks'
 module.exports = class User extends Backbone.AssociatedModel
   defaults: ->
     fp: 0
-    bookItemsCount: 0
     camera:  new Camera
     mushies: new Mushies
     circles: new Circles
@@ -36,7 +35,7 @@ module.exports = class User extends Backbone.AssociatedModel
     }
     {
       type: Backbone.Many
-      key: 'book'
+      key: 'bookPages'
       relatedModel: Breed
     }
   ]
