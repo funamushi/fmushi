@@ -25,9 +25,13 @@ module.exports = class MapView extends BaseView
     @onWindowResize()
     Fmushi.stage.addChild box
 
+    @points = {}
+
     @listenTo owner, 'change:camera', @onCameraChanged
-    # if wildMushies?
-    #   @listenTo wildMushies, 'add', @addwildMushi
+    if wildMushies?
+      @listenTo wildMushies, 'add',    @onWildMushiAdded
+      @listenTo wildMushies, 'remove', @onWildMushiRemoved
+      @listenTo wildMushies, 'change', @onWildMushiChanged
 
   mapScale: ->
     @boxSize / @worldSize
@@ -46,8 +50,6 @@ module.exports = class MapView extends BaseView
     cameraBox.drawRect(0, 0, cameraWidth, cameraHeight)
     cameraBox.position.x = x * mapScale - cameraWidth * 0.5
     cameraBox.position.y = y * mapScale - cameraHeight * 0.5
-
-  addwildMushi: ->
 
   onWindowResize: ->
     windowSize = Fmushi.windowSize
@@ -71,7 +73,28 @@ module.exports = class MapView extends BaseView
       cameraBox.position.x = x * mapScale - cameraWidth  * 0.5
       cameraBox.position.y = y * mapScale - cameraHeight * 0.5
 
+  onWildMushiAdded: (mushi) ->
+    point = new PIXI.Graphics
+    radius = 2
+    point.beginFill(0xbdc3c7)
+    point.drawCircle 0, 0, radius
+    @box.addChild point
+    @points[mushi.cid] = point
+
+  onWildMushiRemoved: (mushi) ->
+    point = @points[mushi.cid]
+    console.log point
+    @box.removeChild point
+
+  onWildMushiChanged: (mushi) ->
+    point = @points[mushi.cid]
+    {x, y} = mushi.attributes
+    mapScale = @mapScale()
+    point.position.x = x * mapScale
+    point.position.y = y * mapScale
+
   displace: ->
     super
     Fmushi.stage.removeChild @box
     $(window).unbind 'resize', @onWindowResizeDebounce
+    
