@@ -27,11 +27,16 @@ module.exports = class MapView extends BaseView
 
     @points = {}
 
-    @listenTo owner, 'change:camera', @onCameraChanged
+    camera  = owner.get('camera')
+    mushies = owner.get('mushies')
+    @listenTo camera, 'change',  @onCameraChanged
+    @listenTo mushies, 'add',    @onOwnMushiAdded
+    @listenTo mushies, 'remove', @onMushiRemoved
+    @listenTo mushies, 'change', @onMushiChanged
     if wildMushies?
       @listenTo wildMushies, 'add',    @onWildMushiAdded
-      @listenTo wildMushies, 'remove', @onWildMushiRemoved
-      @listenTo wildMushies, 'change', @onWildMushiChanged
+      @listenTo wildMushies, 'remove', @onMushiRemoved
+      @listenTo wildMushies, 'change', @onMushiChanged
 
   mapScale: ->
     @boxSize / @worldSize
@@ -81,12 +86,20 @@ module.exports = class MapView extends BaseView
     @box.addChild point
     @points[mushi.cid] = point
 
-  onWildMushiRemoved: (mushi) ->
+  onOwnMushiAdded: (mushi) ->
+    point = new PIXI.Graphics
+    radius = 2
+    point.beginFill(0x16a085)
+    point.drawCircle 0, 0, radius
+    @box.addChild point
+    @points[mushi.cid] = point
+
+  onMushiRemoved: (mushi) ->
     point = @points[mushi.cid]
     console.log point
     @box.removeChild point
 
-  onWildMushiChanged: (mushi) ->
+  onMushiChanged: (mushi) ->
     point = @points[mushi.cid]
     {x, y} = mushi.attributes
     mapScale = @mapScale()
