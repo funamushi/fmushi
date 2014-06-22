@@ -76,26 +76,26 @@ module.exports = class MenuView extends BaseView
     mushiButtonView = new MenuWildMushiButtonView(model: mushi)
     @$wildMushies.append mushiButtonView.render().el
 
-    screenWidth = Fmushi.screenSize.w
+    windowWidth = Fmushi.windowSize.w
     $(mushiButtonView.$el)
-    .transition(x: -screenWidth, duration: 0)
+    .transition(x: -windowWidth, duration: 0)
     .transition(x: 0, duration: 200, easing: 'easeInOutExpo')
     @subview key, mushiButtonView
 
   removeOwnMushi: (mushi) ->
     key = "mushies/#{mushi.cid}/own"
 
-    screenWidth = Fmushi.screenSize.w
+    windowWidth = Fmushi.windowSize.w
     view = @subview key
-    $(view.$el).transition x: -screenWidth, easing: 'easeInOutExpo', =>
+    $(view.$el).transition x: -windowWidth, easing: 'easeInOutExpo', =>
       @removeSubview key
 
   removeWildMushi: (mushi) ->
     key = "mushies/#{mushi.cid}/wild"
 
-    screenWidth = Fmushi.screenSize.w
+    windowWidth = Fmushi.windowSize.w
     view = @subview key
-    $(view.$el).transition x: -screenWidth, easing: 'easeInOutExpo', =>
+    $(view.$el).transition x: -windowWidth, easing: 'easeInOutExpo', =>
       @removeSubview key
 
   addStock: (stock) ->
