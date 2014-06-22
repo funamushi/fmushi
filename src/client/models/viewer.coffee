@@ -15,13 +15,10 @@ module.exports = class Viewer extends User
     if method is 'read'
       Backbone.ajaxSync.call(@, method, model, options)
       .then =>
-        unless @isPersisted()
+        if @isNew()
           Backbone.localSync.call(@, method, model, options)
     else
       if options.ajax
         Backbone.ajaxSync.call @, method, model, options
       else
         Backbone.localSync.call @, method, model, options
-
-  isPersisted: ->
-    not @isNew()

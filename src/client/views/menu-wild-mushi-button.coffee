@@ -5,7 +5,7 @@ template = require 'templates/item-popover'
 
 module.exports = class MenuWildMushiButtonView extends BaseView
   tagName: 'button'
-  className: 'mushi wild list-group-item btn btn-default'
+  className: 'mushi wild list-group-item btn palette palette-silver'
   attributes:
     type: 'button'
 

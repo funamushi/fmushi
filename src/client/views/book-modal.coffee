@@ -14,7 +14,9 @@ module.exports = class BookModalView extends BaseView
     @
 
   open: ->
-    vex.open
+    if @$vexContent?
+      vex.close @$vexContent.data().vex.id
+    @$vexContent = vex.open
       content: @render().el
 
   onMushiAdded: (mushi, mushies) ->
