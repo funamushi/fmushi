@@ -277,8 +277,8 @@ module.exports = class HomeScene extends BaseScene
     shapeWorld.translation.set x, y
     shapeWorld.scale = zoom
 
-  onCameraChanged: (camera, options = {}) ->
-    return if @locked
+  onCameraChanged: (camera, options={}) ->
+    return if @locked or options.subjectTracking
 
     {x, y, zoom} = camera.attributes
     xWas    = camera.previous('x') or x
@@ -292,7 +292,7 @@ module.exports = class HomeScene extends BaseScene
     camera.offset = { x: 0, y: 0}
 
     @tween.stop() if @tween
-    if options.tween == false
+    if options.tween is false
       @cameraFixed()
       @locked = false
       return
@@ -321,7 +321,7 @@ module.exports = class HomeScene extends BaseScene
     if prevY = entity.previous('y')
       camera.offset.y += (y - prevY)
     
-    camera.set { x: x, y: y }, {silent: true}
+    camera.set { x: x, y: y }, subjectTracking: true
     worldPos = @worldPosFromCameraPos()
     @world.position.x = worldPos.x
     @world.position.y = worldPos.y
