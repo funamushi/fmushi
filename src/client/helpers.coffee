@@ -1,10 +1,10 @@
 elements = require 'elements'
 
 $content   = $('#content')
-$message   = $('#message-header')
+$message   = $('#message-tape')
 $indicator = $('#indicator')
 
-exports.headerMessage = (message, options={}) ->
+exports.messageTape = (message, options={}) ->
   if _.isEmpty message
     $message.children().remove()
     return
@@ -17,7 +17,12 @@ exports.headerMessage = (message, options={}) ->
   $p = $(document.createElement 'p').text(message)
 
   close = ->
-    $message.transition {y: -$message.height()}, 500, 'easeOutCubic', ->
+    $message.transition
+      opacity:  0
+      scale:    1.25
+      duration: 250
+      easing:   'easeOutCubic'
+    , ->
       $p.remove()
       $message.attr 'style', ''
 
@@ -25,8 +30,7 @@ exports.headerMessage = (message, options={}) ->
   height = $message.height()
   $content.css marginBottom: "-#{height}px"
 
-  if options.duration?
-    setTimeout close, options.duration
+  setTimeout close, (options.duration or 2000)
 
 exports.showIndicator = ->
   $indicator.show()

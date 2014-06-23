@@ -89,7 +89,8 @@ html,body {
   color: #ffffff;
 }
 
-#message-header {
+#message-tape {
+  top: 50%;
   cursor: pointer;
   background: #028760;
   color: #fff;
@@ -104,7 +105,7 @@ html,body {
   }
 
   p {
-    padding: 1em 2em;
+    padding: 0.5em 2em;
   }
 }
 

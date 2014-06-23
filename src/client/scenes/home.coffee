@@ -328,12 +328,11 @@ module.exports = class HomeScene extends BaseScene
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
   onWildMushiAppearance: (mushi) ->
-    helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」が来ました。", duration: 5000
+    helpers.messageTape "野生の「#{mushi.get 'breed.name'}」が来ました。"
 
   onWildMushiDisappearance: (mushi) ->
     @focusOut()
-    helpers.headerMessage "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。",
-      duration: 5000
+    helpers.messageTape "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。"
 
   onWildMushiCapture: (mushi) ->
     @wildMushies.remove mushi
