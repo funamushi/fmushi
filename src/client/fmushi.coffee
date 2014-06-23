@@ -1,4 +1,5 @@
 module.exports =
+  worldSize: 1500
   events: _.extend({}, Backbone.Events)
   fps: 24
   debug: false

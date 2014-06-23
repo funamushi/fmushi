@@ -2,7 +2,6 @@ Fmushi = require 'fmushi'
 BaseView = require 'views/base'
 
 module.exports = class MapView extends BaseView
-  worldSize: 1500
   boxSize: 150
   margin:  20
 
@@ -39,7 +38,7 @@ module.exports = class MapView extends BaseView
       @listenTo wildMushies, 'change', @onMushiChanged
 
   mapScale: ->
-    @boxSize / @worldSize
+    @boxSize / Fmushi.worldSize
 
   drawCameraBox: ->
     camera = @owner.get('camera')
