@@ -1,6 +1,6 @@
 {{#each user.bookPages}}
-  <div class="col-md-4" data-number={{number}}>
-    No.{{number}}
+  <div class="entry col-md-4" data-number={{number}}>
+    {{#if new}}<span class="new">NEW</span>{{/if}} No.{{number}}
     {{#if id}}
       <a class="thumbnail" href="#">
         <img class="img-rounded" src="/images/mushi_{{slug}}.png">
