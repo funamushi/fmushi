@@ -345,9 +345,9 @@ module.exports = class HomeScene extends BaseScene
 
     firstTime = (not page.has('id'))
     if firstTime
-      page.set breed.toJSON()
+      page.set _.extend(breed.toJSON(), new: true)
       vex.dialog.open
-        message: "<span class=\"badge\">NEW!!</span><br>" +
+        message: "<span class=\"new\">NEW</span><br>" +
                  "「#{mushi.get 'breed.name'}」<br>をGETしました。"
         buttons: [
           text: '図鑑を見る'
