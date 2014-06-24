@@ -4,7 +4,7 @@
   "description": "F mushi",
   "main": "server.coffee",
   "engines": {
-    "node": "0.10.26"
+    "node": "0.10.29"
   },
   "scripts": {
     "test": "NODE_ENV=test mocha test/server/* && node_modules/karma/bin/karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
