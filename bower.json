@@ -1,4 +1,5 @@
 {
+  "tmp" : ".bower-tmp",
   "name": "funamushi",
   "version": "0.0.0",
   "dependencies": {
