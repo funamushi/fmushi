@@ -22,6 +22,24 @@ module.exports = class Camera extends Backbone.AssociatedModel
 
     return errors if errors.length
 
+  set: (key, val, options) ->
+    if typeof key is 'object'
+      attrs = key
+      options = val
+    else
+      (attrs = {})[key] = val
+
+    if attrs.x?
+      attrs.x = Math.min(Math.max(0, attrs.x), Fmushi.worldSize)
+
+    if attrs.y?
+      attrs.y = Math.min(Math.max(0, attrs.y), Fmushi.worldSize)
+
+    if attrs.zoom?
+      attrs.zoom = Math.min(Math.max(0.25, attrs.zoom), 5)
+
+    super attrs, options
+
   clear: ->
     @offset.x = @offset.y = 0
 

@@ -141,6 +141,10 @@ module.exports = class HomeScene extends BaseScene
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
         zoom = camera.get 'zoom'
+
+        x = camera.get('x') + diffX / zoom
+        y = camera.get('y') + diffY / zoom
+        
         camera.set
           x: camera.get('x') + diffX / zoom
           y: camera.get('y') + diffY / zoom
@@ -158,13 +162,11 @@ module.exports = class HomeScene extends BaseScene
       e.preventDefault()
       
       zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
-      return if zoom < 0.01
       camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchout', (e) ->
       e.preventDefault()
       zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
-      return if zoom > 3
       camera.set { zoom: zoom }, { tween: false }
 
     @$canvas.on 'mousewheel', (e) ->
