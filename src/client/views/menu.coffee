@@ -190,4 +190,4 @@ module.exports = class MenuView extends BaseView
   onOpenBook: (e) ->
     e.preventDefault()
 
-    @subview('book').open()
+    @subview('book').openIndex()

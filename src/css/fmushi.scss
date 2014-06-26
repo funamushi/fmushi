@@ -142,6 +142,9 @@ html,body {
       border-radius: 6px;
       background-color: #ffffff;
       padding: 1em;
+      &.book {
+        border-style: dotted;
+      }
     }
 
     .popover {

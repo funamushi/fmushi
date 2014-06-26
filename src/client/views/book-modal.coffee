@@ -8,17 +8,18 @@ module.exports = class BookModalView extends BaseView
   className: 'row'
 
   events:
-    'click .entry': 'onEntryClicked'
+    'click .open-entry': 'onEntryClicked'
     'click .back':  'onBack'
 
   initialize: ->
     @listenTo @model.get('mushies'), 'add', @onMushiAdded
 
-  open: (html) ->
-    html ?= indexTemplate(user: @model.toJSON())
-    @close()
-    @$vexContent = vex.open
-      content: @$el.html(html)
+  openIndex: ->
+    @open(indexTemplate user: @model.toJSON())
+
+  openPage: (page) ->
+    @open(pageTemplate page: page.toJSON())
+    page.set new: false
 
   close: ->
     vex.close @$vexContent?.data('vex')?.id
@@ -32,8 +33,15 @@ module.exports = class BookModalView extends BaseView
     $wrapper = $(e.target).closest('.entry')
     number = $wrapper.data('number')
     page = @model.get('bookPages').findWhere(number: number)
-    @open(pageTemplate page: page.toJSON())if page?
+    if page?
+      @openPage(page)
 
   onBack: (e) ->
     e.preventDefault()
-    @open()
+    @openIndex()
+
+  open: (html) ->
+    @close()
+    @$vexContent = vex.open
+      content: @$el.html(html)
+    
