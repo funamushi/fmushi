@@ -40,14 +40,11 @@ module.exports = class MenuItemButtonView extends BaseView
     .on 'dragend', (e) =>
       {pageX, pageY} = e.gesture.srcEvent
       buttonPosition = @$el.offset()
-      buttonWidth    = @$el.width()
-      buttonHeight   = @$el.height()
 
-      console.log { pageX: pageX, pageY: pageY, buttonPosition: buttonPosition, buttonWidth: buttonWidth, buttonHeight: buttonHeight }
       if pageX >= buttonPosition.left and
-         pageX <= (buttonPosition.left + buttonWidth) and
-         pageY <= buttonPosition.top and
-         pageY >= (buttonPosition.top + buttonHeight)
+         pageX <= (buttonPosition.left + buttonPosition.width) and
+         pageY >= buttonPosition.top and
+         pageY <= (buttonPosition.top + buttonPosition.height)
         @model.close()
       else
         @model.use()
