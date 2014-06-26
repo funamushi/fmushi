@@ -379,8 +379,7 @@ module.exports = class HomeScene extends BaseScene
       #       vex.close $vexContent.data().vex.id
       #   ]
     else
-      # vex.dialog.alert "「#{mushi.get 'breed.name'}」<br>をGETしました。"
-      helper.messageTape "「#{mushi.get 'breed.name'}」<br>をGETしました。"
+      helpers.messageTape "「#{mushi.get 'breed.name'}」をGETしました。"
 
   onStockOpen: (stock, circle) ->
     @grippedCircle = circle
