@@ -2,18 +2,16 @@ Fmushi = require 'fmushi'
 BaseView = require 'views/base'
 
 module.exports = class MapView extends BaseView
-  boxSize: 150
-  margin:  20
-
   initialize: (options={}) ->
     @owner       = owner = options.owner
     @wildMushies = wildMushies = options.wildMushies
 
     windowWidth = Fmushi.windowSize.w
-
+    boxSize = @boxSize()
+  
     @box = box = new PIXI.Graphics
     box.lineStyle 1, 0xf1c40f
-    box.drawRect(0, 0, @boxSize, @boxSize)
+    box.drawRect(0, 0, boxSize, boxSize)
 
     @onWindowResizeDebounce = _.debounce(_.bind(@onWindowResize, @), 260)
     $(window).resize @onWindowResizeDebounce
@@ -37,8 +35,17 @@ module.exports = class MapView extends BaseView
       @listenTo wildMushies, 'remove', @onMushiRemoved
       @listenTo wildMushies, 'change', @onMushiChanged
 
+  boxSize: ->
+    if Fmushi.windowSize.h > 500
+      150
+    else
+      50
+
+  margin: ->
+    20
+
   mapScale: ->
-    @boxSize / Fmushi.worldSize
+    @boxSize() / Fmushi.worldSize
 
   drawCameraBox: ->
     camera = @owner.get('camera')
@@ -58,8 +65,9 @@ module.exports = class MapView extends BaseView
   onWindowResize: ->
     windowSize = Fmushi.windowSize
     
-    @box.position.x = windowSize.w - (@boxSize + @margin)
-    @box.position.y = @margin
+    margin = @margin()
+    @box.position.x = windowSize.w - (@boxSize() + margin)
+    @box.position.y = margin
 
     @drawCameraBox()
 
