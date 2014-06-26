@@ -27,20 +27,27 @@ module.exports = class MenuItemButtonView extends BaseView
 
     @hammer = Hammer(@el)
     .on 'dragstart', (e) =>
-      x = @camera.worldX(e.gesture.srcEvent.clientX)
-      y = @camera.worldY(e.gesture.srcEvent.clientY)
+      x = @camera.worldX(e.gesture.srcEvent.pageX)
+      y = @camera.worldY(e.gesture.srcEvent.pageY)
       @model.open x, y
 
     .on 'drag', (e) =>
       if circle = @model.get('circle')
-        x = @camera.worldX(e.gesture.srcEvent.clientX)
-        y = @camera.worldY(e.gesture.srcEvent.clientY)
+        x = @camera.worldX(e.gesture.srcEvent.pageX)
+        y = @camera.worldY(e.gesture.srcEvent.pageY)
         circle.set x: x, y: y
 
     .on 'dragend', (e) =>
-      mouseOn = e.gesture.target
-      button  = @$el[0]
-      if button is mouseOn or $.contains(button, mouseOn)
+      {pageX, pageY} = e.gesture.srcEvent
+      buttonPosition = @$el.offset()
+      buttonWidth    = @$el.width()
+      buttonHeight   = @$el.height()
+
+      console.log { pageX: pageX, pageY: pageY, buttonPosition: buttonPosition, buttonWidth: buttonWidth, buttonHeight: buttonHeight }
+      if pageX >= buttonPosition.left and
+         pageX <= (buttonPosition.left + buttonWidth) and
+         pageY <= buttonPosition.top and
+         pageY >= (buttonPosition.top + buttonHeight)
         @model.close()
       else
         @model.use()
