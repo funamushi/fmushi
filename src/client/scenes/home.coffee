@@ -94,8 +94,6 @@ module.exports = class HomeScene extends BaseScene
       circles.each (circle) ->
         circle.collisionEntity mushi
 
-    @initDrag()
-
     mushies.each (mushi) =>
       @addEntity mushi
     circles.each (circle) =>
@@ -120,8 +118,11 @@ module.exports = class HomeScene extends BaseScene
 
     lastDragPoint = null
     @hammer = Hammer(@$canvas[0])
-    .on 'click', (e) =>
-      @focusOut() if @focusEntity
+    .on 'tap', (e) =>
+      if @focusEntity
+        @focusOut()
+      else
+        @subview('menu')?.focusOut()
 
     .on 'dragstart', (e) =>
       return if @grippedCircle?
@@ -153,21 +154,26 @@ module.exports = class HomeScene extends BaseScene
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
 
-    .on 'dragend', (e) =>
+    .on 'dragend', (e) ->
       e.preventDefault()
       lastDragPoint = null
-      @subview('menu')?.focusIn()
 
     .on 'pinchin', (e) ->
       e.preventDefault()
       
+      # menu.focusOut()
       zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
       camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchout', (e) ->
       e.preventDefault()
+
+      # menu.focusOut()
       zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
       camera.set { zoom: zoom }, { tween: false }
+
+    .on 'release', (e) =>
+      @subview('menu')?.focusIn()
 
     @$canvas.on 'mousewheel', (e) ->
       x = camera.get('x')

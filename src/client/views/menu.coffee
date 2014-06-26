@@ -51,7 +51,10 @@ module.exports = class MenuView extends BaseView
     @$ownMushies   = @$mushies.children('.own-mushies')
     @$wildMushies  = @$mushies.children('.wild-mushies')
 
-    @open = true
+    if Modernizr.touch
+      @close duration: 0
+    else
+      @open duration: 0
 
     owner = @owner
     owner.get('stocks').each (stock) =>
@@ -107,15 +110,20 @@ module.exports = class MenuView extends BaseView
   removeStock: (stock) ->
     @removeSubview "items/#{stock.get 'item.slug'}"
 
-  focusOut: ->
-    @$toggleButton.transition
-      y:        @$toggleButton.height() * 1.5
-      duration: 200
-      easing:   'snap'
+  focusOut: (options={}) ->
+    return if @focusOutNow or (not @openNow)
+    @focusOutNow = true
+
+    duration = (options.duration or 200)
+    if options.withOutToggleButton
+      @$toggleButton.transition
+        y:        @$toggleButton.height() * 1.5
+        duration: duration
+        easing:   'snap'
 
     @$command.transition
       y:        @$command.height() * 1.5
-      duration: 200
+      duration: duration
       easing:   'snap'
 
     @$mushies.transition
@@ -123,50 +131,71 @@ module.exports = class MenuView extends BaseView
       duration: 200
       easing:   'snap'
 
-  focusIn: ->
-    @$toggleButton.transition
-      y:        0
-      duration: 200
-      easing:   'snap'
+  focusIn: (options={}) ->
+    @focusOutNow = false
+
+    duration = (options.duration or 200)
+    if options.withOutToggleButton
+      @$toggleButton.transition
+        y:        0
+        duration: duration
+        easing:   'snap'
 
     @$command.transition
       y:        0
-      duration: 200
+      duration: duration
       easing:   'snap'
 
     @$mushies.transition
       x:        0
-      duration: 200
+      duration: duration
       easing:   'snap'
 
-  onToggleMenu: (e) ->
-    e.preventDefault()
-
+  close: (options={}) ->
     return if @menuLocked
+
     @menuLocked = true
+    @$toggleIcon.transition
+      rotate: '180deg'
+      easing: 'easeInOutSine'
+      duration: (options.duration or 200)
+    , =>
+      @focusOut(options)
+      @$toggleIcon
+      .removeClass('glyphicon-minus')
+      .addClass('glyphicon-plus')
 
-    if @open
-      @$toggleIcon.transition {rotate: '180deg'}, 200, 'easeInOutSine', =>
-        @$command.hide()
-        @$mushies.hide()
-        @$toggleIcon
-        .removeClass('glyphicon-minus')
-        .addClass('glyphicon-plus')
+      @openNow = false
+      @menuLocked = false
 
-        @open = false
-        @menuLocked = false
-    else
-      @$toggleIcon.transition {rotate: '0deg'}, 200, 'easeInOutSine', =>
-        @$command.show()
-        @$mushies.show()
-        @$toggleIcon
-        .removeClass('glyphicon-plus')
-        .addClass('glyphicon-minus')
+  open: (options={}) ->
+    return if @menuLocked
 
-        @open = true
-        @menuLocked = false
+    @menuLocked = true
+    @$toggleIcon.transition
+      rotate: '0deg'
+      easing: 'easeInOutSine'
+      duration: (options.duration or 200)
+    , =>
+      @focusIn(options)
+      @$toggleIcon
+      .removeClass('glyphicon-plus')
+      .addClass('glyphicon-minus')
+
+      @openNow = true
+      @menuLocked = false
+
+  onToggleMenu: (e) ->
+    e?.preventDefault()
+
+    if @openNow then @close() else @open()
       
   onOpenBook: (e) ->
     e.preventDefault()
 
     @subview('book').open()
+
+
+
+
+

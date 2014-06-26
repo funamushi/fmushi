@@ -41,6 +41,15 @@ module.exports = class MenuItemButtonView extends BaseView
       {pageX, pageY} = e.gesture.srcEvent
       buttonPosition = @$el.offset()
 
+      console.log e
+      console.log(pageX)
+      console.log(pageY)
+      console.log(buttonPosition)
+      console.log(pageX >= buttonPosition.left)
+      console.log(pageX <= (buttonPosition.left + buttonPosition.width))
+      console.log(pageY >= buttonPosition.top)
+      console.log(pageY <= (buttonPosition.top + buttonPosition.height))
+
       if pageX >= buttonPosition.left and
          pageX <= (buttonPosition.left + buttonPosition.width) and
          pageY >= buttonPosition.top and
