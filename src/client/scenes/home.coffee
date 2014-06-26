@@ -20,7 +20,7 @@ WildMushiesDispatcher = require 'views/wild-mushies-dispatcher'
 helpers = require 'helpers'
 
 module.exports = class HomeScene extends BaseScene
-  defaultZoom: 1
+  defaultZoom: (if Modernizr.touch then 0.75 else 1)
 
   initialize: (options) ->
     viewer = Fmushi.viewer
@@ -104,10 +104,10 @@ module.exports = class HomeScene extends BaseScene
     if options.focusMushiId?
       @focus options.focusMushiId
     else
-      center = Fmushi.windowCenter
+      center = Fmushi.worldSize * 0.5
       camera.set
-        x: center.x
-        y: center.y
+        x: center
+        y: center
         zoom: @defaultZoom
 
   initMap: ->
@@ -131,6 +131,8 @@ module.exports = class HomeScene extends BaseScene
         x: e.gesture.center.pageX
         y: e.gesture.center.pageY
 
+      @subview('menu')?.focusOut()
+
     .on 'drag', (e) =>
       return if @grippedCircle?
 
@@ -139,6 +141,10 @@ module.exports = class HomeScene extends BaseScene
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
         zoom = camera.get 'zoom'
+
+        x = camera.get('x') + diffX / zoom
+        y = camera.get('y') + diffY / zoom
+        
         camera.set
           x: camera.get('x') + diffX / zoom
           y: camera.get('y') + diffY / zoom
@@ -147,21 +153,20 @@ module.exports = class HomeScene extends BaseScene
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
 
-    .on 'dragend', (e) ->
+    .on 'dragend', (e) =>
       e.preventDefault()
       lastDragPoint = null
+      @subview('menu')?.focusIn()
 
     .on 'pinchin', (e) ->
       e.preventDefault()
       
       zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
-      return if zoom < 0.01
       camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchout', (e) ->
       e.preventDefault()
       zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
-      return if zoom > 3
       camera.set { zoom: zoom }, { tween: false }
 
     @$canvas.on 'mousewheel', (e) ->
@@ -345,9 +350,9 @@ module.exports = class HomeScene extends BaseScene
 
     firstTime = (not page.has('id'))
     if firstTime
-      page.set breed.toJSON()
+      page.set _.extend(breed.toJSON(), new: true)
       vex.dialog.open
-        message: "<span class=\"badge\">NEW!!</span><br>" +
+        message: "<span class=\"new\">NEW</span><br>" +
                  "「#{mushi.get 'breed.name'}」<br>をGETしました。"
         buttons: [
           text: '図鑑を見る'

@@ -90,15 +90,16 @@ html,body {
 }
 
 #message-tape {
-  top: 50%;
+  /* top: 50%; */
   cursor: pointer;
-  background: #028760;
+  background: #f1c40f;
   color: #fff;
   text-align: center;
   z-index: 1200 !important;
   vertical-align: middle;
   position: absolute;
   width: 100%;
+  opacity: 0.7;
 
   &.error {
     background: #f00;
@@ -220,4 +221,8 @@ html,body {
     margin: 0 auto;
     float: none;
   }
+}
+
+.new {
+  color: #f1c40f;
 }
