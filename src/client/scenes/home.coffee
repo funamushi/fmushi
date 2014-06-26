@@ -90,6 +90,8 @@ module.exports = class HomeScene extends BaseScene
     @listenTo circles, 'add',      @addEntity
     @listenTo circles, 'remove',   @removeEntity
 
+    @initDrag()
+
     @listenTo mushies, 'change', (mushi) ->
       circles.each (circle) ->
         circle.collisionEntity mushi
@@ -125,6 +127,7 @@ module.exports = class HomeScene extends BaseScene
         @subview('menu')?.focusOut()
 
     .on 'dragstart', (e) =>
+      console.log 'dragstart !!!!!'
       return if @grippedCircle?
       return if _.any(@subviewsByName, (subview, name) -> subview.gripped)
 

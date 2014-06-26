@@ -127,7 +127,7 @@ module.exports = class MenuView extends BaseView
       easing:   'snap'
 
     @$mushies.transition
-      x:        @$mushies.width() * 0.9
+      x:        @$mushies.width() * 1.5
       duration: 200
       easing:   'snap'
 
@@ -194,8 +194,3 @@ module.exports = class MenuView extends BaseView
     e.preventDefault()
 
     @subview('book').open()
-
-
-
-
-
