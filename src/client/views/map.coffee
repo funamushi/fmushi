@@ -95,7 +95,6 @@ module.exports = class MapView extends BaseView
 
   onMushiRemoved: (mushi) ->
     point = @points[mushi.cid]
-    console.log point
     @box.removeChild point
 
   onMushiChanged: (mushi) ->

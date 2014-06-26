@@ -19,7 +19,7 @@ exports.messageTape = (message, options={}) ->
   close = ->
     $message.transition
       opacity:  0
-      scale:    1.25
+      scale:    1.125
       duration: 250
       easing:   'easeOutCubic'
     , ->
