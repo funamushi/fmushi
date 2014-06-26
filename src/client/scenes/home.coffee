@@ -20,7 +20,7 @@ WildMushiesDispatcher = require 'views/wild-mushies-dispatcher'
 helpers = require 'helpers'
 
 module.exports = class HomeScene extends BaseScene
-  defaultZoom: 1
+  defaultZoom: (if Modernizr.touch then 0.75 else 1)
 
   initialize: (options) ->
     viewer = Fmushi.viewer
@@ -104,10 +104,10 @@ module.exports = class HomeScene extends BaseScene
     if options.focusMushiId?
       @focus options.focusMushiId
     else
-      center = Fmushi.windowCenter
+      center = Fmushi.worldSize * 0.5
       camera.set
-        x: center.x
-        y: center.y
+        x: center
+        y: center
         zoom: @defaultZoom
 
   initMap: ->

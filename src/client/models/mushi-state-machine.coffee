@@ -7,7 +7,6 @@ module.exports = class MushiStateMachine extends StateMachine
       speed: 45
       onEnter: ->
         @distanceElapsed = 0
-        @distanceLimit = (Fmushi.worldSize.w * 0.4)
 
       update: (model, delta) ->
         distance = @speed * delta
@@ -16,7 +15,7 @@ module.exports = class MushiStateMachine extends StateMachine
         x = model.get('x')
         newX = (x - distance)
         model.set 'x', newX
-        model.disappearance() if @distanceElapsed >= @distanceLimit
+        model.disappearance() if newX >= Fmushi.worldSize
 
     rest:
       update: (model, delta) ->
