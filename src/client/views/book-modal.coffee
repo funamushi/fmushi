@@ -19,10 +19,6 @@ module.exports = class BookModalView extends BaseView
     @close()
     @$vexContent = vex.open
       content: @$el.html(html)
-    .on 'vexOpen', ->
-      $(document.body).addClass 'vex-open'
-    .on 'vexClose', ->
-      $(document.body).removeClass 'vex-open'
 
   close: ->
     vex.close @$vexContent?.data('vex')?.id
