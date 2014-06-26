@@ -15,17 +15,21 @@ module.exports = class MenuItemButtonView extends BaseView
     @listenTo @model, 'change:quantity', @onChangeQuantity
 
   render: ->
-    $(@$el)
+    $tooltip = $(@$el)
     .addClass("element-icon-#{@model.get 'item.element'}")
     .html(buttonTemplate stock: @model.toJSON())
     .tooltip
       html: true
       placement: 'top'
+      trigger: 'hover focus manual'
       title: popoverTemplate(stock: @model.toJSON())
 
     @$quantity = @$('.quantity')
 
     @hammer = Hammer(@el)
+    # .on 'touch', (e) ->
+    #   tooltip 'show'
+    # .on 'release'
     .on 'dragstart', (e) =>
       x = @camera.worldX(e.gesture.srcEvent.pageX)
       y = @camera.worldY(e.gesture.srcEvent.pageY)

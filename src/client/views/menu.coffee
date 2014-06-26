@@ -13,7 +13,7 @@ module.exports = class MenuView extends BaseView
     id: 'menu'
 
   events:
-    'click .toggle-button': 'onToggleMenu'
+    'click .toggle-button': 'toggle'
     'click .mushies .btn': 'onFocus'
     'click .stocks .btn': 'onClickStock'
     'click .book': 'onOpenBook'
@@ -111,12 +111,15 @@ module.exports = class MenuView extends BaseView
     @removeSubview "items/#{stock.get 'item.slug'}"
 
   focusOut: (options={}) ->
-    return if @focusOutNow or (not @openNow)
+    return if @focusOutNow
     @focusOutNow = true
+
+    promises = []
 
     duration = (options.duration or 200)
     if options.withOutToggleButton
-      @$toggleButton.transition
+      @$toggleButton
+      .transition
         y:        @$toggleButton.height() * 1.5
         duration: duration
         easing:   'snap'
@@ -127,7 +130,7 @@ module.exports = class MenuView extends BaseView
       easing:   'snap'
 
     @$mushies.transition
-      x:        @$mushies.width() * 1.5
+      x:        260
       duration: 200
       easing:   'snap'
 
@@ -152,9 +155,9 @@ module.exports = class MenuView extends BaseView
       easing:   'snap'
 
   close: (options={}) ->
-    return if @menuLocked
+    return if @closed
 
-    @menuLocked = true
+    @closed = true
     @$toggleIcon.transition
       rotate: '180deg'
       easing: 'easeInOutSine'
@@ -165,13 +168,10 @@ module.exports = class MenuView extends BaseView
       .removeClass('glyphicon-minus')
       .addClass('glyphicon-plus')
 
-      @openNow = false
-      @menuLocked = false
-
   open: (options={}) ->
-    return if @menuLocked
+    return unless @closed
 
-    @menuLocked = true
+    @closed = false
     @$toggleIcon.transition
       rotate: '0deg'
       easing: 'easeInOutSine'
@@ -182,13 +182,10 @@ module.exports = class MenuView extends BaseView
       .removeClass('glyphicon-plus')
       .addClass('glyphicon-minus')
 
-      @openNow = true
-      @menuLocked = false
-
-  onToggleMenu: (e) ->
+  toggle: (e) ->
     e?.preventDefault()
 
-    if @openNow then @close() else @open()
+    if @closed then @open() else @close()
       
   onOpenBook: (e) ->
     e.preventDefault()

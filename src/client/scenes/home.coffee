@@ -124,10 +124,9 @@ module.exports = class HomeScene extends BaseScene
       if @focusEntity
         @focusOut()
       else
-        @subview('menu')?.focusOut()
+        @subview('menu')?.toggle()
 
     .on 'dragstart', (e) =>
-      console.log 'dragstart !!!!!'
       return if @grippedCircle?
       return if _.any(@subviewsByName, (subview, name) -> subview.gripped)
 
@@ -157,9 +156,11 @@ module.exports = class HomeScene extends BaseScene
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
 
-    .on 'dragend', (e) ->
+    .on 'dragend', (e) =>
       e.preventDefault()
       lastDragPoint = null
+      if menu = @subview('menu')
+        menu.focusIn() unless menu.closed
 
     .on 'pinchin', (e) ->
       e.preventDefault()
@@ -174,9 +175,6 @@ module.exports = class HomeScene extends BaseScene
       # menu.focusOut()
       zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
       camera.set { zoom: zoom }, { tween: false }
-
-    .on 'release', (e) =>
-      @subview('menu')?.focusIn()
 
     @$canvas.on 'mousewheel', (e) ->
       x = camera.get('x')
