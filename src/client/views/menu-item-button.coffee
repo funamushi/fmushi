@@ -34,24 +34,24 @@ module.exports = class MenuItemButtonView extends BaseView
     .on 'dragstart', (e) =>
       $el.tooltip 'hide'
 
-      x = @camera.worldX(e.gesture.srcEvent.pageX)
-      y = @camera.worldY(e.gesture.srcEvent.pageY)
+      x = @camera.worldX(e.gesture.center.clientX)
+      y = @camera.worldY(e.gesture.center.clientY)
       @model.open x, y
 
     .on 'drag', (e) =>
       if circle = @model.get('circle')
-        x = @camera.worldX(e.gesture.srcEvent.pageX)
-        y = @camera.worldY(e.gesture.srcEvent.pageY)
+        x = @camera.worldX(e.gesture.center.clientX)
+        y = @camera.worldY(e.gesture.center.clientY)
         circle.set x: x, y: y
 
     .on 'dragend', (e) =>
-      {pageX, pageY} = e.gesture.srcEvent
+      {clientX, clientY} = e.gesture.center
       buttonPosition = @$el.offset()
 
-      if pageX >= buttonPosition.left and
-         pageX <= (buttonPosition.left + buttonPosition.width) and
-         pageY >= buttonPosition.top and
-         pageY <= (buttonPosition.top + buttonPosition.height)
+      if clientX >= buttonPosition.left and
+         clientX <= (buttonPosition.left + buttonPosition.width) and
+         clientY >= buttonPosition.top and
+         clientY <= (buttonPosition.top + buttonPosition.height)
         @model.close()
       else
         @model.use()
