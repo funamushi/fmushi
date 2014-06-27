@@ -4,7 +4,7 @@ exports.authorize = (req, res, next) ->
   if req.user?
     next()
   else
-    next() # 401 をかえすようにする
+    res.send 500, 'session data undefined'
 
 exports.login = (req, res) ->
 
