@@ -278,13 +278,17 @@ $line-color: #34495e;
 
 @media (max-width: 568px) {
   /* line 95, ../sass/vex-theme-wireframe.sass */
-  .vex.vex-theme-wireframe .vex-dialog-button:focus {
+  .vex.vex-theme-fmushi-wireframe .vex-dialog-button:focus {
     animation: none;
     -webkit-animation: none;
     -moz-animation: none;
     -ms-animation: none;
     -o-animation: none;
     -webkit-backface-visibility: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100%;
+    width: 100%;
   }
 }
 

@@ -42,6 +42,14 @@ module.exports = class BookModalView extends BaseView
 
   open: (html) ->
     @close()
+    @scroller?.destroy()
+
     @$vexContent = vex.open
       content: @$el.html(html)
+    @scroller = new FTScroller @$vexContent.closest('.vex')[0],
+      scrollbars: false
+      scrollingX: false
+      alwaysScroll: true
+      bouncing: false
+      contentHeight: @$vexContent.height()
     

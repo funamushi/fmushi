@@ -18,7 +18,8 @@
     "flat-ui-official": "~2.1.3",
     "hammerjs": "~1.1.3",
     "vex": "~2.1.1",
-    "backbone.localstorage": "~1.1.7"
+    "backbone.localstorage": "~1.1.7",
+    "ftscroller": "~0.3.5"
   },
   "overrides": {
     "zeptojs": {
