@@ -69,7 +69,7 @@ module.exports = class MushiView extends BaseView
     sprite.buttonMode = true
 
     sprite.click = (e) =>
-      Fmushi.currentScene.focus @model
+      Fmushi.currentScene.focus @model, clickCancel: true
 
     @shape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'),

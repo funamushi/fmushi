@@ -121,11 +121,10 @@ module.exports = class HomeScene extends BaseScene
     lastDragPoint = null
     @hammer = Hammer(@$canvas[0])
     .on 'click', (e) =>
-      if @focusEntity and (not @focusNow)
+      if @focusEntity and (not @clickCancel)
         @focusOut()
 
-      # フォーカスしたときのクリックは無視して次回から手をだすようにする
-      @focusNow = false
+      @clickCancel = false
 
     .on 'dragstart', (e) =>
       return if @grippedCircle?
@@ -237,7 +236,7 @@ module.exports = class HomeScene extends BaseScene
   entity: (model) ->
     @subview model.cid
 
-  focus: (entity) ->
+  focus: (entity, options={}) ->
     return if (not entity?) or @focusEntity is entity
 
     @owner.get('camera').set
@@ -249,7 +248,9 @@ module.exports = class HomeScene extends BaseScene
     dialogView.open entity
 
     @focusEntity = entity
-    @focusNow = true
+
+    # フォーカスしたときのクリック時のイベントを無視
+    @clickCancel = !!options.clickCancel
     @listenTo entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:in', entity
 
