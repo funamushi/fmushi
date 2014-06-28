@@ -16,7 +16,9 @@ module.exports = class MushiStateMachine extends StateMachine
         x = model.get('x')
         newX = (x - distance)
         model.set 'x', newX
-        if @distanceElapsed >= @maxDistance or newX >= Fmushi.worldSize or newX <= 0
+        if @distanceElapsed >= @maxDistance or
+           newX >= Fmushi.worldSize or
+           newX <= 0
           model.disappearance()
 
     rest:

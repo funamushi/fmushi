@@ -30,7 +30,7 @@ module.exports = class WildMushiesDispatcher extends BaseView
     
     # 次に出現する時間を来める
     if owner.isNew()
-      2
+      0
     else
       7
 
@@ -45,7 +45,7 @@ module.exports = class WildMushiesDispatcher extends BaseView
       mushi = new Mushi
         breed: breed
         state: 'wild'
-        x: right
+        x: Math.min(right, size.w)
         y: _.random(buttom * 0.3, buttom * 0.9)
       @collection.add mushi
       mushi.appearance()

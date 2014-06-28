@@ -120,11 +120,12 @@ module.exports = class HomeScene extends BaseScene
 
     lastDragPoint = null
     @hammer = Hammer(@$canvas[0])
-    .on 'tap', (e) =>
-      if @focusEntity
+    .on 'click', (e) =>
+      if @focusEntity and (not @focusNow)
         @focusOut()
-      else
-        @subview('menu')?.toggle()
+
+      # フォーカスしたときのクリックは無視して次回から手をだすようにする
+      @focusNow = false
 
     .on 'dragstart', (e) =>
       return if @grippedCircle?
@@ -248,6 +249,7 @@ module.exports = class HomeScene extends BaseScene
     dialogView.open entity
 
     @focusEntity = entity
+    @focusNow = true
     @listenTo entity, 'change', @onFocusEntityChanged
     entity.trigger 'focus:in', entity
 
