@@ -26,11 +26,11 @@ module.exports = class MushiView extends BaseView
       sprite.position.y = y
       shape.translation.y = y if shape?
 
-    # @listenTo model, 'change:direction', (m, direction) ->
-    #   if direction is 'left'
-    #     sprite.scale.x = 0.5
-    #   else
-    #     sprite.scale.x = -0.5
+    @listenTo model, 'change:direction', (m, direction) ->
+      if direction is 'left'
+        sprite.scale.x = 0.5
+      else
+        sprite.scale.x = -0.5
 
     @listenTo model, 'change:state', @onStateChanged
     @listenTo model, 'point:in',     @onPointIn
