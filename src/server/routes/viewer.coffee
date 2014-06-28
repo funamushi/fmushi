@@ -4,7 +4,7 @@ exports.authorize = (req, res, next) ->
   if req.user?
     next()
   else
-    res.send 500, 'session data undefined'
+    res.send 401, 'Unauthoried'
 
 exports.login = (req, res) ->
 
