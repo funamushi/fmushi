@@ -2,218 +2,218 @@
 
 "mushi-boxing_idle.png":
 {
-	"frame": {"x":152,"y":802,"w":142,"h":186},
+	"frame": {"x":1416,"y":464,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-boxing_walk-1-0.png":
 {
-	"frame": {"x":428,"y":420,"w":140,"h":186},
+	"frame": {"x":1214,"y":695,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-boxing_walk-1-1.png":
 {
-	"frame": {"x":434,"y":798,"w":136,"h":184},
+	"frame": {"x":1214,"y":464,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-boxing_walk-2-0.png":
 {
-	"frame": {"x":288,"y":420,"w":138,"h":188},
+	"frame": {"x":1012,"y":695,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-boxing_walk-2-1.png":
 {
-	"frame": {"x":296,"y":798,"w":136,"h":186},
+	"frame": {"x":1012,"y":464,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-building_idle.png":
 {
-	"frame": {"x":152,"y":802,"w":142,"h":186},
+	"frame": {"x":1416,"y":233,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-building_walk-1-0.png":
 {
-	"frame": {"x":428,"y":420,"w":140,"h":186},
+	"frame": {"x":1214,"y":233,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-building_walk-1-1.png":
 {
-	"frame": {"x":434,"y":798,"w":136,"h":184},
+	"frame": {"x":1012,"y":233,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-building_walk-2-0.png":
 {
-	"frame": {"x":288,"y":420,"w":138,"h":188},
+	"frame": {"x":1268,"y":2,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-building_walk-2-1.png":
 {
-	"frame": {"x":296,"y":798,"w":136,"h":186},
+	"frame": {"x":1066,"y":2,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-building_walk.gif":
 {
-	"frame": {"x":294,"y":610,"w":140,"h":186},
+	"frame": {"x":1416,"y":695,"w":200,"h":200},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
 	"sourceSize": {"w":200,"h":200}
 },
 "mushi-cloud_idle.png":
 {
-	"frame": {"x":152,"y":802,"w":142,"h":186},
+	"frame": {"x":810,"y":695,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-cloud_walk-1-0.png":
 {
-	"frame": {"x":428,"y":420,"w":140,"h":186},
+	"frame": {"x":810,"y":464,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-cloud_walk-1-1.png":
 {
-	"frame": {"x":434,"y":798,"w":136,"h":184},
+	"frame": {"x":864,"y":2,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-cloud_walk-2-0.png":
 {
-	"frame": {"x":288,"y":420,"w":138,"h":188},
+	"frame": {"x":810,"y":233,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-cloud_walk-2-1.png":
 {
-	"frame": {"x":296,"y":798,"w":136,"h":186},
+	"frame": {"x":608,"y":695,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-sakura_idle.png":
 {
-	"frame": {"x":2,"y":806,"w":148,"h":188},
+	"frame": {"x":608,"y":464,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":32,"y":5,"w":148,"h":188},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-sakura_walk-1-0.png":
 {
-	"frame": {"x":2,"y":614,"w":146,"h":190},
+	"frame": {"x":662,"y":2,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":34,"y":4,"w":146,"h":190},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-sakura_walk-1-1.png":
 {
-	"frame": {"x":150,"y":612,"w":142,"h":188},
+	"frame": {"x":608,"y":233,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":32,"y":5,"w":142,"h":188},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-sakura_walk-2-0.png":
 {
-	"frame": {"x":2,"y":420,"w":140,"h":192},
+	"frame": {"x":460,"y":2,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":33,"y":4,"w":140,"h":192},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-sakura_walk-2-1.png":
 {
-	"frame": {"x":144,"y":420,"w":142,"h":190},
+	"frame": {"x":406,"y":663,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":32,"y":6,"w":142,"h":190},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-tank_idle.png":
 {
-	"frame": {"x":152,"y":802,"w":142,"h":186},
+	"frame": {"x":406,"y":432,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":0,"w":142,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-tank_walk-1-0.png":
 {
-	"frame": {"x":428,"y":420,"w":140,"h":186},
+	"frame": {"x":204,"y":663,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":40,"y":0,"w":140,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-tank_walk-1-1.png":
 {
-	"frame": {"x":434,"y":798,"w":136,"h":184},
+	"frame": {"x":204,"y":432,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":1,"w":136,"h":184},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-tank_walk-2-0.png":
 {
-	"frame": {"x":288,"y":420,"w":138,"h":188},
+	"frame": {"x":2,"y":663,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":35,"y":0,"w":138,"h":188},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "mushi-tank_walk-2-1.png":
 {
-	"frame": {"x":296,"y":798,"w":136,"h":186},
+	"frame": {"x":2,"y":432,"w":200,"h":229},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":38,"y":2,"w":136,"h":186},
-	"sourceSize": {"w":200,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":229},
+	"sourceSize": {"w":200,"h":229}
 },
 "tree.png":
 {
-	"frame": {"x":2,"y":2,"w":442,"h":416},
+	"frame": {"x":2,"y":2,"w":456,"h":428},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":8,"y":9,"w":442,"h":416},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":456,"h":428},
 	"sourceSize": {"w":456,"h":428}
 }},
 "meta": {
@@ -221,8 +221,8 @@
 	"version": "1.0",
 	"image": "app.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":1024},
+	"size": {"w":1618,"h":926},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:791d7f5e587b7f56be117a50165ce2ef:35637330353633d7bd12b217b0521560:23f715f2c0cf00dbda21668e8325e638$"
+	"smartupdate": "$TexturePacker:SmartUpdate:152374b1d7bdc2adc8a5eaa06a8a421f:058b3c011dc085b125b32d2a3d16f917:23f715f2c0cf00dbda21668e8325e638$"
 }
 }
