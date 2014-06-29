@@ -13,11 +13,11 @@ module.exports =
 
   items:
     'red-circle':
-      name:    '水冷式 嫌いな気持ち冷まし機'
+      name:    '赤い虫カゴ'
       element: 'red'
       ttl:     10
     'blue-circle':
-      name:    '遠赤外線 さみしくない装置'
+      name:    '青い虫カゴ'
       element: 'blue'
       ttl:     10
 
