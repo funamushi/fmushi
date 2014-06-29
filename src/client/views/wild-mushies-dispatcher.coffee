@@ -45,7 +45,7 @@ module.exports = class WildMushiesDispatcher extends BaseView
       mushi = new Mushi
         breed: breed
         state: 'wild'
-        x: Math.min(right, size.w)
+        x: Math.min(right, Fmushi.worldSize)
         y: _.random(buttom * 0.3, buttom * 0.9)
       @collection.add mushi
       mushi.appearance()
