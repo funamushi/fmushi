@@ -44,5 +44,5 @@ module.exports =
       element: 'red'
 
   defaultItems:
-    'red-circle': 2
-    'blue-circle': 2
+    'red-circle': 4
+    'blue-circle': 4
