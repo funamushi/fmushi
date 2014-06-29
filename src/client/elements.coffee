@@ -8,8 +8,8 @@ module.exports = elements =
   name: (element) ->
     @table[element]?.name
 
-  inverseName: (element) ->
-    @table[element]?.inverseName
+  inverse: (element) ->
+    @table[element]?.inverse
 
   next: (element) ->
     @table[element]?.next

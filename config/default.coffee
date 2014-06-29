@@ -4,18 +4,20 @@ module.exports =
       name: '大嫌い'
       prev: 'blue'
       next: 'blue'
+      inverse: 'blue'
     blue:
       name: 'さみしい'
       prev: 'red'
       next: 'red'
+      inverse: 'red'
 
   items:
     'red-circle':
-      name:    '赤い虫カゴ'
+      name:    '水冷式 嫌いな気持ち冷まし機'
       element: 'red'
       ttl:     10
     'blue-circle':
-      name:    '青い虫カゴ'
+      name:    '遠赤外線 さみしくない装置'
       element: 'blue'
       ttl:     10
 
@@ -39,7 +41,7 @@ module.exports =
     'sakura':
       number: 5
       name: 'ポム家のこせがれ'
-      element: 'blue'
+      element: 'red'
 
   defaultItems:
     'red-circle': 2

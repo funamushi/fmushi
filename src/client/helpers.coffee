@@ -52,9 +52,8 @@ Handlebars.registerHelper 'elementPrevName', (element) ->
   Handlebars.helpers.elementName prevElement
 
 Handlebars.registerHelper 'elementInverseName', (element) ->
-  name = elements.inverseName(element)
-  html = "<span class=\"element-#{element} circle\">#{name}</span>"
-  new Handlebars.SafeString html
+  inverseElement = elements.inverse(element)
+  Handlebars.helpers.elementName inverseElement
 
 Handlebars.registerHelper 'circle', (element) ->
   html = "<span class=\"element-icon-#{element}\">&#x2B24;</span>"
