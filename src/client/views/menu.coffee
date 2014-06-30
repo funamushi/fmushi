@@ -160,8 +160,8 @@ module.exports = class MenuView extends BaseView
     , =>
       @focusOut(options)
       @$toggleIcon
-      .removeClass('glyphicon-minus')
-      .addClass('glyphicon-plus')
+      .removeClass('glyphicon-minus-sign')
+      .addClass('glyphicon-plus-sign')
 
   open: (options={}) ->
     return unless @closed
@@ -174,8 +174,8 @@ module.exports = class MenuView extends BaseView
     , =>
       @focusIn(options)
       @$toggleIcon
-      .removeClass('glyphicon-plus')
-      .addClass('glyphicon-minus')
+      .removeClass('glyphicon-plus-sign')
+      .addClass('glyphicon-minus-sign')
 
   toggle: (e) ->
     e?.preventDefault()
