@@ -233,6 +233,10 @@ html,body {
 
 
 @media (max-width: 568px) {
+  #message-tape {
+    font-size: 0.5em;
+  }
+
   #menu {
     .toggle-button {
       font-size: 0.7em;
