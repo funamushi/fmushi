@@ -17,7 +17,7 @@ describe 'WildMushiesDispatcher', ->
 
     describe 'ログインしている場合', ->
       beforeEach ->
-        @dispatcher.owner.loggedIn = true
+        @dispatcher.owner.set 'id', 1
 
       describe '虫を1匹GETしている場合', ->
         beforeEach ->
