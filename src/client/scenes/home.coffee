@@ -134,7 +134,7 @@ module.exports = class HomeScene extends BaseScene
         x: e.gesture.center.pageX
         y: e.gesture.center.pageY
 
-      @subview('menu')?.focusOut()
+      # @subview('menu')?.focusOut()
 
     .on 'drag', (e) =>
       return if @grippedCircle?
@@ -156,11 +156,11 @@ module.exports = class HomeScene extends BaseScene
         lastDragPoint.x = center.pageX
         lastDragPoint.y = center.pageY
 
-    .on 'dragend', (e) =>
+    .on 'dragend', (e) ->
       e.preventDefault()
       lastDragPoint = null
-      if menu = @subview('menu')
-        menu.focusIn() unless menu.closed
+      # if menu = @subview('menu')
+      #   menu.focusIn() unless menu.closed
 
     .on 'pinchin', (e) ->
       e.preventDefault()

@@ -51,11 +51,6 @@ module.exports = class MenuView extends BaseView
     @$ownMushies   = @$mushies.children('.own-mushies')
     @$wildMushies  = @$mushies.children('.wild-mushies')
 
-    if Modernizr.touch
-      @close duration: 0
-    else
-      @open duration: 0
-
     owner = @owner
     owner.get('stocks').each (stock) =>
       @addStock stock
