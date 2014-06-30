@@ -23,4 +23,6 @@ module.exports = (sequelize, DataTypes) ->
     getterMethods:
       name: ->
         config[@slug]?.name
-  
+
+      description: ->
+        config[@slug]?.description
