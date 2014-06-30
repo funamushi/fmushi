@@ -33,6 +33,8 @@ module.exports = class HomeScene extends BaseScene
     dialogView.render().$el.appendTo document.body
     @subview 'dialog', dialogView
 
+    @listenTo Fmushi.events, 'update', @culling
+
     if @isOwn()
       @initOwner viewer, options
 
@@ -43,6 +45,7 @@ module.exports = class HomeScene extends BaseScene
       @listenTo wildMushies, 'appearance',    @onWildMushiAppearance
       @listenTo wildMushies, 'disappearance', @onWildMushiDisappearance
       @listenTo wildMushies, 'capture',       @onWildMushiCapture
+      @listenTo wildMushies, 'change:y',      @reorderZ
 
       circles = viewer.get('circles')
       @listenTo wildMushies, 'change', (mushi) ->
@@ -414,6 +417,30 @@ module.exports = class HomeScene extends BaseScene
   reorderZ: ->
     @world.children = _.sortBy @world.children, (sprite) ->
       sprite.position.y
+    
+
+  culling: ->
+    camera = @owner.get('camera')
+    cameraX = camera.get('x')
+    cameraY = camera.get('y')
+    windowCenter = Fmushi.windowCenter
+    windowSize   = Fmushi.windowSize
+    
+    left   = cameraX - windowCenter.x
+    right  = left + windowSize.w
+    top    = cameraY - windowCenter.y
+    bottom = top + windowSize.h
+    
+    _.each @world.children, (sprite) ->
+      {x, y} = sprite.position
+      halfWidth  = sprite.width * 0.5
+      halfHeight = sprite.height * 0.5
+      sprite.visible = (
+        x + halfWidth  >= left and
+        x - halfWidth  <= right and
+        y + halfHeight >= top and
+        y - halfHeight <= bottom
+      )
 
   dispose: ->
     super
