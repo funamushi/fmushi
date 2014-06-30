@@ -68,7 +68,7 @@ module.exports = class MushiView extends BaseView
     sprite.interactive = true
     sprite.buttonMode = true
 
-    sprite.click = (e) =>
+    sprite.click = sprite.tap = (e) =>
       Fmushi.currentScene.focus @model, clickCancel: true
 
     @shape = shape = Fmushi.two.makeRectangle(
