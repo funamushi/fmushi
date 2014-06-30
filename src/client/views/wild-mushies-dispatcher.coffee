@@ -30,23 +30,24 @@ module.exports = class WildMushiesDispatcher extends BaseView
     
     # 次に出現する時間を来める
     if owner.isNew()
-      0
+      1
     else
       7
 
   appearance: ->
+    worldSize = Fmushi.worldSize
     size   = Fmushi.windowSize
     camera = @owner.get('camera')
     right  = camera.worldX(size.w)
-    buttom = camera.worldY(size.h)
+    bottom = camera.worldY(size.h)
 
     breed = new Breed
     breed.fetchSample().then =>
       mushi = new Mushi
         breed: breed
         state: 'wild'
-        x: Math.min(right, Fmushi.worldSize)
-        y: _.random(buttom * 0.3, buttom * 0.9)
+        x: _.random(worldSize * 0.5, worldSize)
+        y: _.random(worldSize * 0.1, worldSize)
       @collection.add mushi
       mushi.appearance()
 

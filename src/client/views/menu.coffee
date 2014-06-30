@@ -125,7 +125,7 @@ module.exports = class MenuView extends BaseView
       easing:   'snap'
 
     @$mushies.transition
-      x:        260
+      x:        150
       duration: 200
       easing:   'snap'
 

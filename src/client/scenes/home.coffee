@@ -342,8 +342,11 @@ module.exports = class HomeScene extends BaseScene
     @world.position.y = worldPos.y
     @shapeWorld.translation.set worldPos.x, worldPos.y
 
-  onWildMushiAppearance: (mushi) ->
+  onWildMushiAppearance: (mushi, x, y) ->
     helpers.messageTape "野生の「#{mushi.get 'breed.name'}」が来ました。"
+    @owner.get('camera').set
+      x: x - (Fmushi.windowSize.w * 0.5)
+      y: y
 
   onWildMushiDisappearance: (mushi) ->
     @focusOut()
