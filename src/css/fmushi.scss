@@ -121,6 +121,18 @@ html,body {
   right: 1em;
   width: 100%;
 
+  .nav {
+    top: 0;
+    
+    button {
+      font-size: 0.75em;
+      margin-right: 1em;
+      border-style: none;
+      background: none;
+      padding: 1em;
+    }
+  }
+
   .toggle-button {
     bottom: 1.5em;
     right: 0;
@@ -133,7 +145,7 @@ html,body {
 
   .command {
     bottom: 1.5em;
-    right: 9.5em;
+    right: 12.5em;
 
     button {
       font-size: 0.75em;
@@ -142,9 +154,6 @@ html,body {
       border-top-style: none;
       background: none;
       padding: 1em;
-      &.book {
-        border-style: none;
-      }
     }
 
     .popover {
@@ -252,8 +261,11 @@ html,body {
 
     .command {
       font-size: 0.5em;
+    }
+
+    .nav {
       .book {
-        font-size: 1em;
+        font-size: 0.5em;
       }
     }
   }

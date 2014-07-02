@@ -22,6 +22,7 @@ module.exports = class BookModalView extends BaseView
     page.set new: false
 
   close: ->
+    @scroller?.destroy()
     vex.close @$vexContent?.data('vex')?.id
 
   onMushiAdded: (mushi, mushies) ->
@@ -44,4 +45,13 @@ module.exports = class BookModalView extends BaseView
     @close()
     @$vexContent = vex.open
       content: @$el.html(html)
+    $vex = @$vexContent.closest('.vex')
+    @scroller = new FTScroller $vex[0],
+      scrollbars: false
+      scrollingX: false
+      alwaysScroll: true
+      bouncing: false
     
+  dispose: ->
+    @close()
+    super
