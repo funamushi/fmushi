@@ -33,7 +33,8 @@ module.exports = class HomeScene extends BaseScene
     dialogView.render().$el.appendTo document.body
     @subview 'dialog', dialogView
 
-    @listenTo Fmushi.events, 'update', @culling
+    # @listenTo Fmushi.events, 'update', @culling
+    @initBg()
 
     if @isOwn()
       @initOwner viewer, options
@@ -72,6 +73,15 @@ module.exports = class HomeScene extends BaseScene
         @initOwner owner, options
         @initMap()
         @trigger 'ready'
+
+  initBg: ->
+    texture = new PIXI.Texture.fromImage('/images/bg.jpg')
+    sprite = new PIXI.Sprite(texture)
+    # sprite.position.x = -Fmushi.worldSize * 0.5
+    # sprite.position.y = -Fmushi.worldSize * 0.5
+    sprite.scale.x *= 4
+    sprite.scale.y *= 4
+    @world.addChild sprite
 
   initOwner: (owner, options={}) ->
     @owner = owner

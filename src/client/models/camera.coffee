@@ -29,11 +29,14 @@ module.exports = class Camera extends Backbone.AssociatedModel
     else
       (attrs = {})[key] = val
 
+    {worldSize, windowSize} = Fmushi
     if attrs.x?
-      attrs.x = Math.min(Math.max(0, attrs.x), Fmushi.worldSize)
+      windowHalfWidth = windowSize.w * 0.5
+      attrs.x = Math.min(Math.max(0 + windowHalfWidth, attrs.x), worldSize - windowHalfWidth)
 
     if attrs.y?
-      attrs.y = Math.min(Math.max(0, attrs.y), Fmushi.worldSize)
+      windowHalfHeight = windowSize.h * 0.5
+      attrs.y = Math.min(Math.max(0 + windowHalfHeight, attrs.y), worldSize - windowHalfHeight)
 
     if attrs.zoom?
       attrs.zoom = Math.min(Math.max(0.25, attrs.zoom), 5)
