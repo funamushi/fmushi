@@ -23,14 +23,16 @@ module.exports = class MenuItemButtonView extends BaseView
       placement: 'top'
       trigger: 'hover focus manual'
       title: popoverTemplate(stock: @model.toJSON())
+    .on 'show.bs.tooltip', ->
+      if Modernizr.touch
+        $el.siblings().tooltip 'hide'
 
     @$quantity = @$('.quantity')
 
     @hammer = Hammer(@el)
     .on 'touch', (e) ->
-      $el.tooltip 'show'
-    .on 'release', (e) ->
-      $el.tooltip 'hide'
+      if Modernizr.touch
+        $el.tooltip 'toggle'
     .on 'dragstart', (e) =>
       $el.tooltip 'hide'
 
