@@ -12,8 +12,8 @@ describe 'WildMushiesDispatcher', ->
         collection: wildMushies
 
     describe 'ログインしてない場合', ->
-      it '0秒', ->
-        expect(@dispatcher.nextIntervalToAppearance()).to.equal(0)
+      it '1秒', ->
+        expect(@dispatcher.nextIntervalToAppearance()).to.equal(1)
 
     describe 'ログインしている場合', ->
       beforeEach ->
