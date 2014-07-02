@@ -64,7 +64,6 @@ module.exports =
 
     Two.Resolution = 16
 
-    @two = two = new Two(fullscreen: true).appendTo(document.body)
     @stage = stage = new PIXI.Stage 0x000000, true
     @interactive = true
 
@@ -74,6 +73,7 @@ module.exports =
     renderer.view.style.top  = "0"
     renderer.view.style.left = "0"
     document.body.appendChild renderer.view
+    @two = two = new Two(fullscreen: true).appendTo(document.body)
 
     @onResize()
     $(window).resize _.debounce(_.bind(@onResize, @), 260)

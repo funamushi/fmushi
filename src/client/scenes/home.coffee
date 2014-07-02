@@ -128,7 +128,7 @@ module.exports = class HomeScene extends BaseScene
     @subview 'map', mapView
 
   initDrag: ->
-    @$canvas = $(Fmushi.renderer.view)
+    @$canvas = $(Fmushi.two.renderer.domElement)
     camera = @owner.get('camera')
 
     lastDragPoint = null
@@ -428,7 +428,6 @@ module.exports = class HomeScene extends BaseScene
     @world.children = _.sortBy @world.children, (sprite) ->
       sprite.position.y
     
-
   culling: ->
     camera = @owner.get('camera')
     cameraX = camera.get('x')
