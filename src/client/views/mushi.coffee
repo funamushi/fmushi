@@ -77,7 +77,7 @@ module.exports = class MushiView extends BaseView
     )
     shape.stroke = '#4CBAEB'
     shape.fill = '#CCE9F9'
-    shape.opacity = 1
+    shape.opacity = 0.5
     shape.visible = false
 
   animate: (name, options={}) ->
