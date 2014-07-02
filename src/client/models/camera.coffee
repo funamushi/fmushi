@@ -22,6 +22,7 @@ module.exports = class Camera extends Backbone.AssociatedModel
 
     return errors if errors.length
 
+  # TODO: きたない
   set: (key, val, options) ->
     if typeof key is 'object'
       attrs = key
@@ -31,15 +32,19 @@ module.exports = class Camera extends Backbone.AssociatedModel
 
     {worldSize, windowSize} = Fmushi
     if attrs.x?
-      windowHalfWidth = windowSize.w * 0.5
+      windowHalfWidth = windowSize.w * 0.5 / @attributes.zoom
       attrs.x = Math.min(Math.max(0 + windowHalfWidth, attrs.x), worldSize - windowHalfWidth)
 
     if attrs.y?
-      windowHalfHeight = windowSize.h * 0.5
+      windowHalfHeight = windowSize.h * 0.5 / @attributes.zoom
       attrs.y = Math.min(Math.max(0 + windowHalfHeight, attrs.y), worldSize - windowHalfHeight)
 
     if attrs.zoom?
+      windowHalfWidth = windowSize.w * 0.5 / attrs.zoom
+      windowHalfHeight = windowSize.h * 0.5 / attrs.zoom
       attrs.zoom = Math.min(Math.max(0.25, attrs.zoom), 5)
+      attrs.x = Math.min(Math.max(0 + windowHalfWidth, @attributes.x), worldSize - windowHalfWidth)
+      attrs.y = Math.min(Math.max(0 + windowHalfHeight, @attributes.y), worldSize - windowHalfHeight)
 
     super attrs, options
 
