@@ -32,19 +32,19 @@ module.exports = class Camera extends Backbone.AssociatedModel
 
     {worldSize, windowSize} = Fmushi
     if attrs.x?
-      windowHalfWidth = windowSize.w * 0.5 / @attributes.zoom
+      windowHalfWidth = windowSize.w * 0.5 / (@attributes.zoom or 0)
       attrs.x = Math.min(Math.max(0 + windowHalfWidth, attrs.x), worldSize - windowHalfWidth)
 
     if attrs.y?
-      windowHalfHeight = windowSize.h * 0.5 / @attributes.zoom
+      windowHalfHeight = windowSize.h * 0.5 / (@attributes.zoom or 0)
       attrs.y = Math.min(Math.max(0 + windowHalfHeight, attrs.y), worldSize - windowHalfHeight)
 
     if attrs.zoom?
       windowHalfWidth = windowSize.w * 0.5 / attrs.zoom
       windowHalfHeight = windowSize.h * 0.5 / attrs.zoom
       attrs.zoom = Math.min(Math.max(0.25, attrs.zoom), 5)
-      attrs.x = Math.min(Math.max(0 + windowHalfWidth, @attributes.x), worldSize - windowHalfWidth)
-      attrs.y = Math.min(Math.max(0 + windowHalfHeight, @attributes.y), worldSize - windowHalfHeight)
+      attrs.x = Math.min(Math.max(0 + windowHalfWidth, (@attributes.x or 0)), worldSize - windowHalfWidth)
+      attrs.y = Math.min(Math.max(0 + windowHalfHeight, (@attributes.y or 0)), worldSize - windowHalfHeight)
 
     super attrs, options
 
