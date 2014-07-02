@@ -26,7 +26,7 @@ module.exports = class Circle extends Backbone.AssociatedModel
     expiresAt =
       if @ttl?
         timestamp = (new Date).valueOf()
-        expiresAt = new Date(timestamp + (10000 * 1000))
+        expiresAt = new Date(timestamp + (@ttl * 1000))
     @set expiresAt: expiresAt
     expiresAt
 

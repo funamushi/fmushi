@@ -65,7 +65,6 @@ module.exports =
     Two.Resolution = 16
 
     @stage = stage = new PIXI.Stage 0x000000, true
-    @interactive = true
 
     @renderer = renderer = PIXI.autoDetectRenderer w, h, null, true
     renderer.view.id = 'stage'
@@ -85,6 +84,7 @@ module.exports =
     @frames = 0
 
     elapsed = 0
+    delegated = false
     mainLoop = =>
       currentTime = getTime()
       delta = currentTime - lastTime
@@ -97,6 +97,10 @@ module.exports =
         renderer.render stage
         @events.trigger 'update', elapsed
         elapsed = 0
+
+        unless delegated
+          stage.setInteractionDelegate two.renderer.domElement
+          delegated = true
 
       lastTime = getTime()
     requestAnimFrame mainLoop

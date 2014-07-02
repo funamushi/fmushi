@@ -128,11 +128,11 @@ module.exports = class HomeScene extends BaseScene
     @subview 'map', mapView
 
   initDrag: ->
-    @$canvas = $(Fmushi.two.renderer.domElement)
+    @$svg = $svg = $(Fmushi.two.renderer.domElement)
     camera = @owner.get('camera')
 
     lastDragPoint = null
-    @hammer = Hammer(@$canvas[0])
+    @hammer = Hammer($svg[0])
     .on 'click', (e) =>
       if @focusEntity and (not @clickCancel)
         @focusOut()
@@ -189,7 +189,8 @@ module.exports = class HomeScene extends BaseScene
       zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
       camera.set { zoom: zoom }, { tween: false }
 
-    @$canvas.on 'mousewheel', (e) ->
+    $svg
+    .on 'mousewheel', (e) ->
       x = camera.get('x')
       y = camera.get('y')
       camera.set { x: x + e.deltaX, y: y - e.deltaY }, { tween: false }
