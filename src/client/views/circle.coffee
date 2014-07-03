@@ -41,7 +41,7 @@ module.exports = class CircleView extends BaseView
 
     if ttl = @model.ttl
       new TWEEN.Tween(r: 10)
-      .to(r: @defaultRadius, 1600)
+      .to(r: @defaultRadius, 3200)
       .onUpdate ->
         model.set r: @r
       .easing(TWEEN.Easing.Exponential.InOut)
