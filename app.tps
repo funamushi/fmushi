@@ -204,6 +204,7 @@
             <filename>frames/mushi-tank_walk-2-0.png</filename>
             <filename>frames/mushi-tank_walk-2-1.png</filename>
             <filename>frames/tree.png</filename>
+            <filename>assets/images/bg.jpg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

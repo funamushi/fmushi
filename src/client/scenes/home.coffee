@@ -75,7 +75,7 @@ module.exports = class HomeScene extends BaseScene
         @trigger 'ready'
 
   initBg: ->
-    texture = new PIXI.Texture.fromImage('/images/bg.jpg')
+    texture = PIXI.Texture.fromFrame('bg.jpg')
     sprite = new PIXI.Sprite(texture)
     # sprite.position.x = -Fmushi.worldSize * 0.5
     # sprite.position.y = -Fmushi.worldSize * 0.5
