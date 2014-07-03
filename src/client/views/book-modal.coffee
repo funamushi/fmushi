@@ -51,7 +51,8 @@ module.exports = class BookModalView extends BaseView
       scrollingX: false
       alwaysScroll: true
       bouncing: false
-    
+      enableRequestAnimationFrameSupport: true
+      
   dispose: ->
     @close()
     super

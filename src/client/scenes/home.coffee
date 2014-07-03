@@ -379,25 +379,6 @@ module.exports = class HomeScene extends BaseScene
     if firstTime
       page.set _.extend(breed.toJSON(), new: true)
       @subview('menu').subview('book').openPage page
-      # vex.dialog.open
-      #   message: "<span class=\"new\">NEW</span><br>" +
-      #            "「#{mushi.get 'breed.name'}」<br>をGETしました。"
-      #   buttons: [
-      #     text: '図鑑を見る'
-      #     type: 'button'
-      #     className: 'vex-dialog-button-primary'
-      #     click: ($vexContent, e) =>
-      #       $vexContent.data().vex.value = false
-      #       vex.close $vexContent.data().vex.id
-      #       @subview('menu').subview('book').open()
-      #   ,
-      #     text: '閉じる'
-      #     type: 'button'
-      #     className: 'vex-dialog-button-secondary'
-      #     click: ($vexContent, e) ->
-      #       $vexContent.data().vex.value = false
-      #       vex.close $vexContent.data().vex.id
-      #   ]
     else
       helpers.messageTape "「#{mushi.get 'breed.name'}」をGETしました。"
 
