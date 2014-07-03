@@ -15,11 +15,11 @@ module.exports =
     'red-circle':
       name:    '赤い虫カゴ'
       element: 'red'
-      ttl:     10
+      ttl:     15
     'blue-circle':
       name:    '青い虫カゴ'
       element: 'blue'
-      ttl:     10
+      ttl:     15
 
   breeds:
     'building':

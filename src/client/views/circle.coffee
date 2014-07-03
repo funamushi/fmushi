@@ -40,23 +40,17 @@ module.exports = class CircleView extends BaseView
     @defaultRadius = attrs.r
 
     if ttl = @model.ttl
-      # @sprite = sprite = new PIXI.Text('', fill: 'white')
-      # sprite.position.x = attrs.x
-      # sprite.position.y = attrs.y
-
       new TWEEN.Tween(r: 10)
       .to(r: @defaultRadius, 1600)
       .onUpdate ->
         model.set r: @r
       .easing(TWEEN.Easing.Exponential.InOut)
       .onComplete =>
-        expiresAt = @model.updateExpiresAt()
+        elapsed = 0
 
-        @listenTo Fmushi.events, 'countdown', (now) ->
-          seconds = parseInt((expiresAt - now) / 1000)
-          shape.opacity = (seconds / ttl)
-          # return if seconds < 0
-          # sprite.setText seconds
+        @listenTo Fmushi.events, 'update', (delta) ->
+          elapsed += delta
+          shape.opacity = 1 - elapsed / ttl
       .start()
     else
       shape.opacity = 0.25
