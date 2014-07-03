@@ -46,6 +46,7 @@ module.exports = class CircleView extends BaseView
         model.set r: @r
       .easing(TWEEN.Easing.Exponential.InOut)
       .onComplete =>
+        @model.updateExpiresAt()
         elapsed = 0
 
         @listenTo Fmushi.events, 'update', (delta) ->
