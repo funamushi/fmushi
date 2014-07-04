@@ -1,4 +1,6 @@
 winston = require('winston')
+env = process.env.NODE_ENV || "development"
+logLevel = require('config').logLevel
 
 module.exports = logger = new winston.Logger(
   transports: [
@@ -6,6 +8,7 @@ module.exports = logger = new winston.Logger(
             handleExceptions: true
             timestamp: true
             colorize: true
+            level: logLevel
           )
     ],
   exitOnError: false
