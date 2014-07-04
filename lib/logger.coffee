@@ -1,5 +1,4 @@
 winston = require('winston')
-env = process.env.NODE_ENV || "development"
 logLevel = require('config').logLevel
 
 module.exports = logger = new winston.Logger(
