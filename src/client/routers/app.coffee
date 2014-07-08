@@ -11,7 +11,7 @@ module.exports = class AppRouter extends Backbone.Router
     @scene 'home', userName: userName
     
   mushi: (userName, mushiId) ->
-    @scene 'home', userName: userName, focusMushiId: mushiId
+    @scene 'home', userName: userName, zoomMushiId: mushiId
 
   signup: ->
     @scene 'signup'

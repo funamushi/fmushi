@@ -9,7 +9,7 @@ module.exports = class MushiDialog extends BaseView
     id: 'mushi-dialog-origin'
 
   events:
-    'click .focus-out': 'onFocusOut'
+    'click .zoom-out': 'onFocusOut'
 
   open: (mushi) ->
     @close()
@@ -30,4 +30,4 @@ module.exports = class MushiDialog extends BaseView
     @$popover?.popover 'destroy'
 
   onFocusOut: ->
-    Fmushi.currentScene.focusOut()
+    Fmushi.currentScene.zoomOut()

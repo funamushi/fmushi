@@ -21,7 +21,7 @@ module.exports = class MenuItemButtonView extends BaseView
     .tooltip
       html: true
       placement: 'top'
-      trigger: 'hover focus manual'
+      trigger: 'hover zoom manual'
       title: popoverTemplate(stock: @model.toJSON())
     .on 'show.bs.tooltip', ->
       if Modernizr.touch

@@ -112,8 +112,8 @@ module.exports = class HomeScene extends BaseScene
     circles.each (circle) =>
       @addEntity circle
 
-    if options.focusMushiId?
-      @focus options.focusMushiId
+    if options.zoomMushiId?
+      @zoomIn options.zoomMushiId
     else
       center = Fmushi.worldSize * 0.5
       camera.set
@@ -132,8 +132,8 @@ module.exports = class HomeScene extends BaseScene
     lastDragPoint = null
     @hammer = Hammer($svg[0])
     .on 'click', (e) =>
-      if @focusEntity and (not @clickCancel)
-        @focusOut()
+      if @zoomEntity and (not @clickCancel)
+        @zoomOut()
 
       @clickCancel = false
 
@@ -145,12 +145,12 @@ module.exports = class HomeScene extends BaseScene
         x: e.gesture.center.pageX
         y: e.gesture.center.pageY
 
-      # @subview('menu')?.focusOut()
+      # @subview('menu')?.zoomOut()
 
     .on 'drag', (e) =>
       return if @grippedCircle?
 
-      if !@focusEntity? and lastDragPoint
+      if !@zoomEntity? and lastDragPoint
         center = e.gesture.center
         diffX = lastDragPoint.x - center.pageX
         diffY = lastDragPoint.y - center.pageY
@@ -171,19 +171,19 @@ module.exports = class HomeScene extends BaseScene
       e.preventDefault()
       lastDragPoint = null
       # if menu = @subview('menu')
-      #   menu.focusIn() unless menu.closed
+      #   menu.zoomIn() unless menu.closed
 
     .on 'pinchin', (e) ->
       e.preventDefault()
       
-      # menu.focusOut()
+      # menu.zoomOut()
       zoom = camera.get('zoom') - (0.03 * e.gesture.scale)
       camera.set { zoom: zoom }, { tween: false }
 
     .on 'pinchout', (e) ->
       e.preventDefault()
 
-      # menu.focusOut()
+      # menu.zoomOut()
       zoom = camera.get('zoom') + (0.01 * e.gesture.scale)
       camera.set { zoom: zoom }, { tween: false }
 
@@ -248,8 +248,8 @@ module.exports = class HomeScene extends BaseScene
   entity: (model) ->
     @subview model.cid
 
-  focus: (entity, options={}) ->
-    return if (not entity?) or @focusEntity is entity
+  zoom: (entity, options={}) ->
+    return if (not entity?) or @zoomEntity is entity
 
     @owner.get('camera').set
       x: entity.get('x')
@@ -259,28 +259,28 @@ module.exports = class HomeScene extends BaseScene
     dialogView = @subview('dialog')
     dialogView.open entity
 
-    @focusEntity = entity
+    @zoomEntity = entity
 
     # フォーカスしたときのクリック時のイベントを無視
     @clickCancel = !!options.clickCancel
     @listenTo entity, 'change', @onFocusEntityChanged
-    entity.trigger 'focus:in', entity
+    entity.trigger 'zoom:in', entity
 
     unless @owner.isNew()
       Backbone.history.navigate "#{@owner.url()}/mushies/#{entity.get 'id'}"
 
-  focusOut: ->
-    return unless @focusEntity
+  zoomOut: ->
+    return unless @zoomEntity
 
-    entity = @focusEntity
-    @focusEntity = null
+    entity = @zoomEntity
+    @zoomEntity = null
     @owner.get('camera').set
       zoom: @defaultZoom
 
     @subview('dialog').close()
 
     @stopListening entity, 'change', @onFocusEntityChanged
-    entity.trigger 'focus:out', entity
+    entity.trigger 'zoom:out', entity
 
     unless @owner.isNew()
       Backbone.history.navigate @owner.url()
@@ -335,7 +335,7 @@ module.exports = class HomeScene extends BaseScene
     .start()
 
   onFocusEntityChanged: (entity) ->
-    return if @locked or @focusEntity != entity
+    return if @locked or @zoomEntity != entity
 
     x = entity.get('x')
     y = entity.get('y')
@@ -361,7 +361,7 @@ module.exports = class HomeScene extends BaseScene
       y: y
 
   onWildMushiDisappearance: (mushi) ->
-    @focusOut()
+    @zoomOut()
     helpers.messageTape "野生の「#{mushi.get 'breed.name'}」は行ってしまいました。"
 
   onWildMushiCapture: (mushi) ->

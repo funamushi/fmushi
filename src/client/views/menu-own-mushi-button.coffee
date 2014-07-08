@@ -26,5 +26,5 @@ module.exports = class MenuOwnMushiButtonView extends BaseView
     e.preventDefault()
 
     # FIXME: currentSceneがグローバルなのどうなの
-    Fmushi.currentScene.focus @model
+    Fmushi.currentScene.zoomIn @model
 

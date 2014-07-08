@@ -34,10 +34,10 @@ module.exports = class MenuView extends BaseView
     @listenTo wildMushies, 'add',       @addWildMushi
     @listenTo mushies,     'remove',    @removeOwnMushi
     @listenTo wildMushies, 'remove',    @removeWildMushi
-    @listenTo mushies,     'focus:in',  @focusOut
-    @listenTo wildMushies, 'focus:in',  @focusOut
-    @listenTo mushies,     'focus:out', @focusIn
-    @listenTo wildMushies, 'focus:out', @focusIn
+    @listenTo mushies,     'zoom:in',  @zoomOut
+    @listenTo wildMushies, 'zoom:in',  @zoomOut
+    @listenTo mushies,     'zoom:out', @zoomIn
+    @listenTo wildMushies, 'zoom:out', @zoomIn
 
   render: ->
     @$el.html template(owner: @owner.toJSON())
@@ -105,9 +105,9 @@ module.exports = class MenuView extends BaseView
   removeStock: (stock) ->
     @removeSubview "items/#{stock.get 'item.slug'}"
 
-  focusOut: (options={}) ->
-    return if @focusOutNow
-    @focusOutNow = true
+  zoomOut: (options={}) ->
+    return if @zoomOutNow
+    @zoomOutNow = true
 
     promises = []
 
@@ -129,8 +129,8 @@ module.exports = class MenuView extends BaseView
       duration: 200
       easing:   'snap'
 
-  focusIn: (options={}) ->
-    @focusOutNow = false
+  zoomIn: (options={}) ->
+    @zoomOutNow = false
 
     duration = (options.duration or 200)
     if options.withOutToggleButton
@@ -158,7 +158,7 @@ module.exports = class MenuView extends BaseView
       easing: 'easeInOutSine'
       duration: (options.duration or 200)
     , =>
-      @focusOut(options)
+      @zoomOut(options)
       @$toggleIcon
       .removeClass('glyphicon-minus-sign')
       .addClass('glyphicon-plus-sign')
@@ -172,7 +172,7 @@ module.exports = class MenuView extends BaseView
       easing: 'easeInOutSine'
       duration: (options.duration or 200)
     , =>
-      @focusIn(options)
+      @zoomIn(options)
       @$toggleIcon
       .removeClass('glyphicon-plus-sign')
       .addClass('glyphicon-minus-sign')
