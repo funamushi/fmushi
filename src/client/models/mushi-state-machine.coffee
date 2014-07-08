@@ -26,6 +26,8 @@ module.exports = class MushiStateMachine extends StateMachine
 
     walking:
       speed: 30
+      onEnter: ->
+        @elapsed = 0
       update: (model, delta) ->
         x = model.get('x')
         if model.get('direction') is 'left'
