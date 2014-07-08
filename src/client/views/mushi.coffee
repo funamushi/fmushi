@@ -35,8 +35,6 @@ module.exports = class MushiView extends BaseView
     @listenTo model, 'change:state', @onStateChanged
     @listenTo model, 'point:in',     @onPointIn
     @listenTo model, 'point:out',    @onPointOut
-    @listenTo model, 'zoom:in',     @onFocusIn
-    @listenTo model, 'zoom:out',    @onFocusOut
 
     @onStateChanged model, model.get('state')
 
@@ -69,7 +67,7 @@ module.exports = class MushiView extends BaseView
     sprite.buttonMode = true
 
     sprite.click = sprite.tap = (e) =>
-      Fmushi.currentScene.zoom @model, clickCancel: true
+      Fmushi.currentScene.zoomIn @model, clickCancel: true
 
     @shape = shape = Fmushi.two.makeRectangle(
       @model.get('x'), @model.get('y'),

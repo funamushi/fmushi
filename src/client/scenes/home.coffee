@@ -248,7 +248,7 @@ module.exports = class HomeScene extends BaseScene
   entity: (model) ->
     @subview model.cid
 
-  zoom: (entity, options={}) ->
+  zoomIn: (entity, options={}) ->
     return if (not entity?) or @zoomEntity is entity
 
     @owner.get('camera').set
