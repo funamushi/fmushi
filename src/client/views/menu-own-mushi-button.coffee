@@ -3,7 +3,7 @@ BaseView = require 'views/base'
 
 module.exports = class MenuOwnMushiButtonView extends BaseView
   tagName: 'button'
-  className: 'mushi own list-group-item btn palette palette-turquoise'
+  className: 'mushi own list-group-item btn btn-inverse'
   attributes:
     type: 'button'
 
