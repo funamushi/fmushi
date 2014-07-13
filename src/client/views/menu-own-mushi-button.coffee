@@ -3,7 +3,7 @@ BaseView = require 'views/base'
 
 module.exports = class MenuOwnMushiButtonView extends BaseView
   tagName: 'button'
-  className: 'mushi own list-group-item btn btn-primary'
+  className: 'mushi own list-group-item'
   attributes:
     type: 'button'
 
@@ -25,6 +25,5 @@ module.exports = class MenuOwnMushiButtonView extends BaseView
   onFocus: (e) ->
     e.preventDefault()
 
-    # FIXME: currentSceneがグローバルなのどうなの
     Fmushi.currentScene.zoomIn @model
 

@@ -88,7 +88,7 @@ module.exports = class MapView extends BaseView
   onWildMushiAdded: (mushi) ->
     point = new PIXI.Graphics
     radius = 2
-    point.beginFill(0xf1c40f)
+    point.beginFill(0xbdc3c7)
     point.drawCircle 0, 0, radius
     @box.addChild point
     @points[mushi.cid] = point
