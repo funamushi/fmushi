@@ -40,6 +40,12 @@ html,body {
   height: 100%;
 }
 
+body {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.72222;
+}
+
 .element-icon-red {
   color: $red;
 }
