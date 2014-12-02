@@ -6,8 +6,6 @@ Circles = require 'collections/circles'
 Stocks  = require 'collections/stocks'
 
 module.exports = class Viewer extends User
-  localStorage: new Backbone.LocalStorage('User')
-
   url: ->
     '/viewer'
 
