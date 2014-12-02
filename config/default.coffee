@@ -24,7 +24,7 @@ module.exports =
   breeds:
     'building':
       number: 1
-      name: 'プー山社長'
+      name: 'ヘイプー大佐'
       element: 'blue'
       description: '''
 '''
@@ -36,13 +36,13 @@ module.exports =
 '''
     'tank':
       number: 3
-      name: 'ヘイプー大佐'
+      name: 'プヤプヤプンヤ一等兵'
       element: 'red'
       description: '''
 '''
     'cloud':
       number: 4
-      name: 'プヤプヤプンヤ一等兵'
+      name: 'ぷちゃ夫'
       element: 'blue'
       description: '''
 '''
