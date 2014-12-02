@@ -44,7 +44,7 @@
     },
     "backbone-associations": {
       "dependencies": {
-        "backbone": ">=1.0.0",
+        "backbone": "*",
         "lodash": "*"
       }
     },
