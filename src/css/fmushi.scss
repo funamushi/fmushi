@@ -157,10 +157,14 @@ body {
     button {
       font-size: 0.75em;
       margin-right: 1em;
-      border: 2px solid #1abc9c;
-      border-top-style: none;
+      // border: 2px solid #1abc9c;
+      border-style: none;
       background: none;
       padding: 1em;
+
+      .quantity {
+        font-size: 2em;
+      }
     }
 
     .popover {
