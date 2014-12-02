@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha test/server/* && node_modules/karma/bin/karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
-    "postinstall": "bower install && brunch build --production",
+    "postinstall": "bower cache clean && bower install && brunch build --production",
     "migrate": "sequelize -m --coffee",
     "seed": "./node_modules/.bin/coffee ./seeds.coffee"
   },
