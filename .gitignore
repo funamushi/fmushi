@@ -1,13 +1,1 @@
 .DS_Store
-node_modules
-bower_components
-public/*
-lib/**/*.js
-**/*.js.map
-**/*.css.map
-app.js
-config.js
-.bundle
-vendor
-npm-debug.log
-config/runtime.json

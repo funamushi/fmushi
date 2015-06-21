@@ -1,67 +1,19 @@
 {
   "name": "fmushi",
-  "version": "0.0.0",
-  "description": "F mushi",
-  "main": "server.coffee",
-  "engines": {
-    "node": "0.10.33"
-  },
+  "version": "2.0.0",
+  "description": "http://fmushi.com",
+  "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha test/server/* && node_modules/karma/bin/karma start karma.coffee --reporters dots --browsers PhantomJS --single-run",
-    "postinstall": "bower install -F && brunch build --production",
-    "migrate": "sequelize -m --coffee",
-    "seed": "./node_modules/.bin/coffee ./seeds.coffee"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:funamushi/fmushi.git"
+    "url": "git+https://github.com/funamushi/fmushi.git"
   },
-  "dependencies": {
-    "accepts": "^1.0.1",
-    "body-parser": "^1.2.0",
-    "bower": "^1.3.12",
-    "brunch": "^1.7.13",
-    "coffee-script": "~1.7.1",
-    "coffee-script-brunch": "~1.7.3",
-    "compression": "^1.0.1",
-    "config": "^0.4.35",
-    "connect-redis": "^2.0.0",
-    "cookie-parser": "^1.0.1",
-    "css-brunch": "~1.7.0",
-    "errorhandler": "^1.0.1",
-    "express": "^4.0.0",
-    "express-session": "^1.0.3",
-    "handlebars-brunch": "git://github.com/f-kubotar/handlebars-brunch.git#namespace",
-    "hbs": "~2.4.0",
-    "javascript-brunch": "~1.7.0",
-    "lodash": "~2.2.0",
-    "morgan": "^1.0.1",
-    "passport": "^0.2.0",
-    "passport-twitter": "^1.0.2",
-    "pg": "~2.9.0",
-    "q": "^1.0.1",
-    "sass-brunch": "^1.8.1",
-    "sequelize": "^1.7.5",
-    "serve-static": "^1.1.0",
-    "socket.io": "~0.9.16",
-    "static-favicon": "^1.0.2",
-    "uglify-js-brunch": "~1.7.3",
-    "winston": "~0.7.3"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funamushi/fmushi/issues"
   },
-  "devDependencies": {
-    "auto-reload-brunch": "~1.7.1",
-    "chai": "^1.9.1",
-    "debug": "~0.7.4",
-    "karma": "^0.12.12",
-    "karma-chrome-launcher": "^0.1.3",
-    "karma-coffee-preprocessor": "^0.2.1",
-    "karma-firefox-launcher": "^0.1.3",
-    "karma-mocha": "^0.1.3",
-    "karma-phantomjs-launcher": "^0.1.4",
-    "karma-sinon-chai": "^0.1.5",
-    "mocha": "^1.18.2",
-    "sinon": "^1.9.1",
-    "supertest": "^0.11.0",
-    "underscore": "^1.6.0"
-  }
+  "homepage": "https://github.com/funamushi/fmushi#readme"
 }
