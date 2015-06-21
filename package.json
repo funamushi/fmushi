@@ -2,6 +2,9 @@
   "name": "fmushi",
   "version": "2.0.0",
   "description": "http://fmushi.com",
+  "engines": {
+    "iojs": "2.2.1"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +18,15 @@
   "bugs": {
     "url": "https://github.com/funamushi/fmushi/issues"
   },
-  "homepage": "https://github.com/funamushi/fmushi#readme"
+  "homepage": "https://github.com/funamushi/fmushi#readme",
+  "dependencies": {
+    "browserify": "^10.2.4",
+    "kefir": "^2.6.0",
+    "koa": "^0.21.0",
+    "koa-hbs": "^0.7.0",
+    "koa-static": "^1.4.9"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.2"
+  }
 }
