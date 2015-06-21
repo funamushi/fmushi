@@ -24,9 +24,11 @@
     "kefir": "^2.6.0",
     "koa": "^0.21.0",
     "koa-hbs": "^0.7.0",
-    "koa-static": "^1.4.9"
+    "koa-static": "^1.4.9",
+    "pixi": "^0.3.1"
   },
   "devDependencies": {
-    "babelify": "^6.1.2"
+    "babelify": "^6.1.2",
+    "watchify": "^3.2.2"
   }
 }
