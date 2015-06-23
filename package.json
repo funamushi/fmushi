@@ -21,11 +21,11 @@
   "homepage": "https://github.com/funamushi/fmushi#readme",
   "dependencies": {
     "browserify": "^10.2.4",
-    "kefir": "^2.6.0",
     "koa": "^0.21.0",
     "koa-hbs": "^0.7.0",
     "koa-static": "^1.4.9",
-    "pixi": "^0.3.1"
+    "processing-js": "^1.4.13",
+    "rx": "^2.5.3"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
