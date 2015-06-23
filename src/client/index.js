@@ -1,9 +1,7 @@
 'use strict';
 
 import Rx from 'rx';
-import * as processing from 'processing-js';
-
-console.log(processing);
+import 'processing-js';
 
 (function(callback) {
   if (document.readyState != 'loading'){
@@ -11,11 +9,14 @@ console.log(processing);
   } else {
     document.addEventListener('DOMContentLoaded', callback);
   }
-})(init);
+})(function() {
+  let canvas = document.getElementById('stage');
+  let processing = new Processing(canvas, sketch);
+});
 
-function init() {
+function sketch(processing) {
+  // processing.draw = () => {
+  //   console.log('draw');
+  // };
+  console.log(processing);
 }
-
-function update() {
-}
-
