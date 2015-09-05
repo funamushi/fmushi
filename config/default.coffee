@@ -1,23 +1,23 @@
 module.exports =
   elements:
     red:
-      name: '大嫌い'
+      name: '赤'
       prev: 'blue'
       next: 'blue'
       inverse: 'blue'
     blue:
-      name: 'さみしい'
+      name: '青'
       prev: 'red'
       next: 'red'
       inverse: 'red'
 
   items:
     'red-circle':
-      name:    '大嫌い虫カゴ'
+      name:    '赤い虫カゴ'
       element: 'red'
       ttl:     15
     'blue-circle':
-      name:    'さみしい虫カゴ'
+      name:    '青い虫カゴ'
       element: 'blue'
       ttl:     15
 
